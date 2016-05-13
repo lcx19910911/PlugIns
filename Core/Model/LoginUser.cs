@@ -11,26 +11,25 @@ namespace Core.Code
     /// </summary>
     public class LoginUser
     {
-        public LoginUser(string UNID,string Nickname,string Phone)
+        public LoginUser(string UNID)
         {
             this.UserId = UNID;
-            this.Nickname = Nickname;
-            this.Phone = Phone;
+
         }
         /// <summary>
         /// 用户ID
         /// </summary>
         public string UserId { get; set; }
 
-        /// <summary>
-        /// 用户手机号 
-        /// </summary>
-        public string Phone { get; set; }
+        ///// <summary>
+        ///// 用户手机号 
+        ///// </summary>
+        //public string Phone { get; set; }
 
-        /// <summary>
-        /// 用户昵称
-        /// </summary>
-        public string Nickname { get; set; }
+        ///// <summary>
+        ///// 用户昵称
+        ///// </summary>
+        //public string Nickname { get; set; }
 
 
     }
