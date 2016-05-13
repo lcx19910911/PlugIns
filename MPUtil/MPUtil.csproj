@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3BBC72D2-FB0D-4490-ACFA-C62B31A95AB5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MPUtil</RootNamespace>
+    <AssemblyName>MPUtil</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.2.3\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcceptMsg\AcceptMessage.cs" />
+    <Compile Include="AcceptMsg\AcceptMsgFunction.cs" />
+    <Compile Include="AcceptMsg\Message\AcpEventMsg.cs" />
+    <Compile Include="AcceptMsg\Message\AcpLinkMsg.cs" />
+    <Compile Include="AcceptMsg\Message\AcpLocationMsg.cs" />
+    <Compile Include="AcceptMsg\Message\AcpPicMsg.cs" />
+    <Compile Include="AcceptMsg\Message\AcpShortVideo.cs" />
+    <Compile Include="AcceptMsg\Message\AcpTextMsg.cs" />
+    <Compile Include="AcceptMsg\Message\AcpVideoMsg.cs" />
+    <Compile Include="AcceptMsg\Message\AcpVoiceMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventClickMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventLocationMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventLocationSelectMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventMassSendResultMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventPicPhotoAlbumMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventPicSysPhotoMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventPicWeixinMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventScanCodeMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventScanCodeWaitMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventScanMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventSubscribeMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventUnsubscribeMsg.cs" />
+    <Compile Include="AcceptMsg\Message\EventMsg\AcpEventViewMsg.cs" />
+    <Compile Include="BaseFunctions.cs" />
+    <Compile Include="ErrorCode.cs" />
+    <Compile Include="MassSend.cs" />
+    <Compile Include="MaterialMng.cs" />
+    <Compile Include="Menu\MenuButton.cs" />
+    <Compile Include="Menu\MenuFunction.cs" />
+    <Compile Include="MsgCrypt\Cryptography.cs" />
+    <Compile Include="MsgCrypt\Sample.cs" />
+    <Compile Include="MsgCrypt\WXBizMsgCrypt.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReplyMsg\Message\ReplyMusicMsg.cs" />
+    <Compile Include="ReplyMsg\Message\ReplyNewsMsg.cs" />
+    <Compile Include="ReplyMsg\Message\ReplyPicMsg.cs" />
+    <Compile Include="ReplyMsg\Message\ReplyTextMsg.cs" />
+    <Compile Include="ReplyMsg\Message\ReplyVideoMsg.cs" />
+    <Compile Include="ReplyMsg\Message\ReplyVoiceMsg.cs" />
+    <Compile Include="ReplyMsg\ReplyMessage.cs" />
+    <Compile Include="ServiceMsg\Message\ServiceMusicMsg.cs" />
+    <Compile Include="ServiceMsg\Message\ServiceNewsMsg.cs" />
+    <Compile Include="ServiceMsg\Message\ServicePicMsg.cs" />
+    <Compile Include="ServiceMsg\Message\ServiceTextMsg.cs" />
+    <Compile Include="ServiceMsg\Message\ServiceVideoMsg.cs" />
+    <Compile Include="ServiceMsg\Message\ServiceVoiceMsg.cs" />
+    <Compile Include="ServiceMsg\ServiceMessage.cs" />
+    <Compile Include="UserMng\FansFunction.cs" />
+    <Compile Include="UserMng\GroupFunction.cs" />
+    <Compile Include="UserMng\UserFunction.cs" />
+    <Compile Include="UserMng\WXUser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{54f62fcf-237f-4071-8d89-2b3a4ac8a2af}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
