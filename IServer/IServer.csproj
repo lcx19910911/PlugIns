@@ -67,14 +67,6 @@
       <Project>{c11f259a-56d2-4a64-bd34-e613f43212d8}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Enum\Enum.csproj">
-      <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
-      <Name>Enum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MPUtil\MPUtil.csproj">
-      <Project>{3bbc72d2-fb0d-4490-acfa-c62b31a95ab5}</Project>
-      <Name>MPUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>
       <Name>Repository</Name>

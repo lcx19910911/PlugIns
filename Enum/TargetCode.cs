@@ -16,7 +16,7 @@ namespace Enum
         /// 刮刮卡
         /// </summary>
         [Description("刮刮卡")]
-        Project = 1,
+        ScratchCard = 1,
 
     }
 }

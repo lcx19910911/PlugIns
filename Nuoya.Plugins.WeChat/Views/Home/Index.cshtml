@@ -3,5 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<form action="/home/upload" method="post" enctype="multipart/form-data">
+    <input type="file"  class="file" name="image" />
+    <input type="submit" />
+</form>

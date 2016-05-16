@@ -23,7 +23,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         public JsonResult Submit(string account, string password)
         {
             Client.LoginUser = new Core.Code.LoginUser("111");
-            return JResult(true);
+            return JResult("1");
         }
     }
 }

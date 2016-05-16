@@ -1,0 +1,175 @@
+﻿<form id="form" class="am-form am-form-horizontal">
+    <input type="hidden" name="UNID" />
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">名称<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-10">
+            <input type="text" name="Name" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">开始时间<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-3">
+            <input type="text" name="OngoingTime" readonly datatype="jsondate"  style="width:100px;float:left"/>
+            <input type="number" name="OngoingTimehour" min="0" max="24" style="width:50px;float:left;margin-left:10px"/>
+            <label class="am-form-label"  style="float:left;margin-left:5px;">时</label>
+            <input type="number" name="OngoingTimeMinute" min="0" max="60"  style="width:50px;float:left"/>
+            <label class="am-form-label"  style="float:left;margin-left:5px;">分</label>
+            <input type="number" name="OngoingTimeSecond" min="0" max="60" style="width:50px;float:left"/>
+            <label class="am-form-label"  style="float:left;margin-left:5px;">秒</label>
+        </div>
+        <label class="am-u-sm-4 am-form-label">结束时间<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-3">
+            <input type="text" name="OverTime" readonly datatype="jsondate" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">回复关键字</label>
+        <div class="am-u-sm-3">
+            <input type="text" name="Keyword" />
+        </div>
+        <label class="am-u-sm-4 am-form-label">重复抽奖提示<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-3">
+            <input type="text" name="RepeatNotice" />
+        </div>
+    </div>
+
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">预热标题<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-10">
+            <input type="text" name="PreheatingTitle" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">预热图片<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-2">
+            <input type="file" class="file" name="PreheatingImageFile"/>
+            <input type="hidden" name="PreheatingImage" />
+        </div>
+        <div class="am-u-sm-4" id="div_preheatingImage">
+            <img style="height:200px;width:auto;float:left;"  />
+        </div>
+        <div class="am-u-sm-2 am-u-end" style="color:red;margin-top: 9px;text-align: left;">
+            参考尺寸：700*300
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">预热描述</label>
+        <div class="am-u-sm-10">
+            <textarea name="PreheatingDescribe" rows="4"></textarea>
+        </div>
+    </div>
+
+
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">进行时标题<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-10">
+            <input type="text" name="OngoingTitle" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">进行时图片<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-2">
+            <input type="file" class="file" name="OngoingImageFile" />
+            <input type="hidden" name="OngoingImage" />
+        </div>
+        <div class="am-u-sm-4" id="div_ongoingImage">
+            <img style="height:200px;width:auto;float:left;" />
+        </div>
+        <div class="am-u-sm-2 am-u-end" style="color:red;margin-top: 9px;text-align: left;">
+            参考尺寸：700*300
+        </div>
+    </div>
+
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">进行时描述</label>
+        <div class="am-u-sm-10">
+            <textarea name="OngoingDescribe" rows="4"></textarea>
+        </div>
+    </div>
+
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">结束标题<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-10">
+            <input type="text" name="OverTitle" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">结束图片<strong class="am-text-danger am-text-sm">*</strong></label>
+        <div class="am-u-sm-2">
+            <input type="file" class="file" name="OverImageFile" />
+            <input type="hidden" name="OverImage" />
+        </div>
+        <div class="am-u-sm-4" id="div_overImage">
+            <img style="height:200px;width:auto;float:left;" />
+        </div>
+        <div class="am-u-sm-2 am-u-end" style="color:red;margin-top: 9px;text-align: left;">
+            参考尺寸：700*300
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-2 am-form-label">结束描述</label>
+        <div class="am-u-sm-10">
+            <textarea name="OverDescribe" rows="4"></textarea>
+        </div>
+    </div>
+
+    <fieldset>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">一等奖奖品<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="text" name="OnePrize" />
+            </div>
+            <label class="am-u-sm-4 am-form-label">一等奖奖品数<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="number" name="OnePrizeCount" />
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">二等奖奖品<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="text" name="TwoPrize" />
+            </div>
+            <label class="am-u-sm-4 am-form-label">二等奖奖品数<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="number" name="TwoPrizeCount" />
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">三等奖奖品<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="text" name="ThreePrize" />
+            </div>
+            <label class="am-u-sm-4 am-form-label">三等奖奖品数<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="number" name="ThreePrizeCount" />
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">预计参与人数<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="number" name="ExpectedPeopleCount" />
+            </div>
+            <label class="am-u-sm-4 am-form-label">是否显示奖品数量<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <select name="IsShowCount" data-am-selected="{btnSize: 'sm'}">
+                    <option value="true">显示</option>
+                    <option value="false">不显示</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <label class="am-u-sm-2 am-form-label">每天每人次数<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="number" name="DayLimt" />
+            </div>
+            <label class="am-u-sm-4 am-form-label">总计次数限制<strong class="am-text-danger am-text-sm">*</strong></label>
+            <div class="am-u-sm-3">
+                <input type="number" name="AllCountLimt" />
+            </div>
+        </div>
+
+    </fieldset>
+</form>

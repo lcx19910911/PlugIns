@@ -14,7 +14,8 @@ namespace Nuoya.Plugins.WeChat
                 "~/Styles/css/amazeui.css",
                 "~/Styles/css/amazeui.datetimepicker.css",
                 "~/Scripts/tipso/css/tipso.min.css",
-                "~/Styles/admin.css"));
+                "~/Styles/admin.css",
+                "~/Scripts/uploadify/uploadify.css"));
             #endregion
 
             #region 脚本
@@ -33,6 +34,7 @@ namespace Nuoya.Plugins.WeChat
                "~/Scripts/tipso/js/tipso.js",
                "~/Scripts/amazeui.datetimepicker.min.js",
                "~/Scripts/amazeui.datetimepicker.zh-cn.js",
+               "~/Scripts/uploadify/jquery.uploadify.js",
 
                "~/Scripts/Nuoya/nuoya.core.js",
                "~/Scripts/Nuoya/nuoya.grid.js",

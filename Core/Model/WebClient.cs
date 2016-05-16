@@ -44,6 +44,7 @@ namespace Core.Model
         {
             get
             {
+                
                 return _loginUser != null ? _loginUser : Session["LoginUser"] as LoginUser;
             }
             set

@@ -8,6 +8,7 @@ using Nuoya.Plugins.WeChat.Filters;
 using Core.Model;
 using Core.Code;
 using Core.Extensions;
+using Server;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
@@ -52,6 +53,21 @@ namespace Nuoya.Plugins.WeChat.Controllers
             }
         }
 
+
+
+        private WebService webService = null;
+
+        protected internal WebService WebService
+        {
+            get
+            {
+                if (webService == null)
+                {
+                    webService = new WebService(this.Client);
+                }
+                return webService;
+            }
+        }
 
         #region Json返回
 

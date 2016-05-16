@@ -17,6 +17,8 @@ namespace Repository
         public string UNID { get; set; }
         public string Name { get; set; }
         public string KeyWord { get; set; }
+        public Nullable<System.DateTime> OngoingTime { get; set; }
+        public Nullable<System.DateTime> OverTime { get; set; }
         public string RepeatNotice { get; set; }
         public string PreheatingTitle { get; set; }
         public string PreheatingImage { get; set; }

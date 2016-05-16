@@ -41,16 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Prize\Update.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScratchCard\Update.cs" />
+    <Compile Include="ScratchCard\ScratchCardModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{54f62fcf-237f-4071-8d89-2b3a4ac8a2af}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Enum\Enum.csproj">
-      <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
-      <Name>Enum</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>

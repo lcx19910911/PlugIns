@@ -84,10 +84,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute\DataAutoMapperAttribute.cs" />
+    <Compile Include="Attribute\EnumAutoMapperAttribute.cs" />
     <Compile Include="Code\ErrorCode.cs" />
     <Compile Include="Code\LogCode.cs" />
     <Compile Include="Code\SourceCode.cs" />
     <Compile Include="Code\ValidResultType.cs" />
+    <Compile Include="Config\UploadPathConfig.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\Int32Extensions.cs" />
@@ -98,34 +101,23 @@
     <Compile Include="Extensions\ProtobufExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
+    <Compile Include="Helper\EntityHelper.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\UploadHelper.cs" />
     <Compile Include="Model\LoginUser.cs" />
     <Compile Include="Model\PageList.cs" />
+    <Compile Include="Model\QueryKeyValue.cs" />
     <Compile Include="Model\WebClient.cs" />
     <Compile Include="Model\WebResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\AsyncHelper.cs" />
     <Compile Include="Util\ChineseCalendarHelper.cs" />
-    <Compile Include="Util\ConfigHelper.cs" />
-    <Compile Include="Util\CryptoHelper.cs" />
-    <Compile Include="Util\CustomHelper.cs" />
     <Compile Include="Util\DateTimeHelper.cs" />
-    <Compile Include="Util\DirectoryHelper.cs" />
     <Compile Include="Extensions\EmailExtensions.cs" />
-    <Compile Include="Util\EnumHelper.cs" />
-    <Compile Include="Util\ExcelHelper.cs" />
-    <Compile Include="Util\FileUploaderHelper.cs" />
-    <Compile Include="Util\IDCardHelper.cs" />
-    <Compile Include="Util\ImageCutHelper.cs" />
-    <Compile Include="Util\ImageHelper.cs" />
     <Compile Include="Util\KeyValueHelper.cs" />
-    <Compile Include="Util\LogHelper.cs" />
-    <Compile Include="Util\ModelConvertHelper.cs" />
     <Compile Include="Extensions\OfficeExtensions.cs" />
     <Compile Include="Extensions\PositionExtensions.cs" />
-    <Compile Include="Util\QRCodeHelper.cs" />
-    <Compile Include="Util\SerializeHelper.cs" />
-    <Compile Include="Util\TextHelper.cs" />
-    <Compile Include="Util\XmlHelper.cs" />
+    <Compile Include="Util\LogHelper.cs" />
     <Compile Include="Util\ZipHelper.cs" />
     <Compile Include="Web\CacheHelper.cs" />
     <Compile Include="Web\FTPHelper.cs" />
@@ -135,9 +127,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Attribute\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

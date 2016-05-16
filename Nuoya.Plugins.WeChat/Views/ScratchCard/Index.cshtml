@@ -1,28 +1,22 @@
 ﻿
 @{
-    ViewBag.Title = "新闻管理";
+    ViewBag.Title = "刮刮卡管理";
 }
+
 <div class="am-cf am-padding">
-    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">新闻管理</strong> / <small>News</small></div>
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">刮刮卡管理</strong></div>
 </div>
 <div id="searchDomain">
 
     <div class="am-g">
         <div class="am-u-lg-12">
             <div class="am-input-group am-input-group-sm">
-                <span class="am-input-group-label">状态</span>
-                <select name="Flag" data-am-selected="{btnSize: 'sm'}">
-                    <option value="-1" selected="selected">不限</option>
-                    <option value="0">正常</option>
-                    <!--<option value="1">已删除</option>-->
-                    <option value="2">已禁用</option>
-                </select>
-                <span class="am-input-group-label am-margin-left-sm">标题</span>
-                <input type="text" class="am-form-field" placeholder="按标题搜索" name="title" ;>
-                <span class="am-input-group-label  am-margin-left-sm">发布日期</span>
-                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:100px;">
+                <span class="am-input-group-label">名称</span>
+                <input type="text" class="am-form-field" placeholder="按名称搜索" name="title" ;>
+                <span class="am-input-group-label  am-margin-left-sm">活动日期</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
                 <span class="am-input-group-label"> - </span>
-                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:100px;">
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
                 <span class="am-input-group-btn am-margin-left-sm">
                     <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
                 </span>
@@ -34,10 +28,7 @@
             <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-sm">
                     <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-                    <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-                    <button onclick="batchEnable()" type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span> 启用</button>
-                    <button onclick="batchDisable()" type="button" class="am-btn am-btn-default"><span class="am-icon-close"></span> 禁用</button>
-                    <button onclick="batchUpdateCreatedTime()" type="button" class="am-btn am-btn-default"><span class="am-icon-refresh"></span> 更新发布时间</button>
+                    <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>                
                 </div>
             </div>
         </div>
@@ -49,12 +40,12 @@
         <thead>
             <tr>
                 <th dataname="UNID" type="checkbox"></th>
-                <th dataname="Title">新闻标题</th>
-                <th dataname="NewsType">新闻类型</th>
-                <th dataname="Sort">排序</th>
-                <th dataname="FlagState">状态</th>
-                <th dataname="CreatedTime" datatype="jsondate">发布日期</th>
-                <th dataname="UpdatedTime" datatype="jsondate">编辑日期</th>
+                <th dataname="Name">名称</th>
+                <th dataname="KeyWord">回复关键字</th>
+                <th dataname="OngoingTime" datatype="jsondate">开始时间</th>
+                <th dataname="OverTime" datatype="jsondate">结束时间</th>
+                <th dataname="State">状态</th>
+                <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
             </tr>
         </thead>
@@ -63,8 +54,352 @@
 </div>
 @section scripts
 {
-
     <script type="text/javascript">
+        $('[name=createdTimeStart]').datepicker({ format: 'yyyy-mm-dd' });
+        $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
 
+        function formInit(dataitem) {
+
+            if (dataitem != null) {
+                if (dataitem.PreheatingImage == null) {
+                    $("#div_preheatingImage").hide();
+                }
+                else {
+                    $("#div_preheatingImage").find("img").attr("src", dataitem.PreheatingImage);
+                }
+               
+                if (dataitem.OngoingImage == null) {
+                    $("#div_ongoingImage").hide();
+                }
+                else {
+                    $("#div_ongoingImage").find("img").attr("src", dataitem.OngoingImage);
+                }
+
+                if (dataitem.OverImage == null) {
+                    $("#div_overImage").hide();
+                }
+                else {
+                    $("#div_overImage").find("img").attr("src", dataitem.OverImage);
+                }
+            }
+            else {
+                $("#div_preheatingImage,#div_ongoingImage,#div_overImage").hide();
+            }
+            $('[name=OngoingTime]').datepicker({ format: 'yyyy-mm-dd' });
+            $('[name=OverTime]').datepicker({ format: 'yyyy-mm-dd' });
+
+
+            //添加表单验证
+            $.Nuoya.form("form").validate({
+                rules: {
+                    Name: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    KeyWord: {
+                        maxlength: 50
+                    },
+                    OngoingTime: {
+                        required: true
+                    },
+                    OverTime: {
+                        required: true
+                    },
+                    RepeatNotice: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    PreheatingTitle: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    PreheatingImage: {
+                        required: true
+                    },
+                    PreheatingDescribe: {
+                        maxlength: 2000
+                    },
+                    OngoingTitle: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    OngoingImage: {
+                        required: true
+                    },
+                    OngoingDescribe: {
+                        maxlength: 2000
+                    },
+                    OverTitle: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    OverImage: {
+                        required: true
+                    },
+                    OverDescribe: {
+                        maxlength: 2000
+                    },
+
+                    OnePrize: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    TwoPrize: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    ThreePrize: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    DayLimt: {
+                        required: true,
+                        digits: true,
+                        max: 2147483647,
+                        min: -2147483647
+                    },
+                    AllCountLimt: {
+                        required: true,
+                        digits: true,
+                        max: 2147483647,
+                        min: -2147483647
+                    },
+                    OnePrizeCount: {
+                        required: true,
+                        digits: true,
+                        max: 2147483647,
+                        min: -2147483647
+                    },
+                    TwoPrizeCount: {
+                        required: true,
+                        digits: true,
+                        max: 2147483647,
+                        min: -2147483647
+                    },
+                    ThreePrizeCount: {
+                        required: true,
+                        digits: true,
+                        max: 2147483647,
+                        min: -2147483647
+                    },
+                    ExpectedPeopleCount: {
+                        required: true,
+                        digits: true,
+                        max: 2147483647,
+                        min: -2147483647
+                    }
+                },
+                messages: {
+                    Name: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    KeyWord: {
+                        maxlength: "最多{0}个字符"
+                    },
+                    OngoingTime: {
+                        required: "不允许为空"
+                    },
+                    OverTime: {
+                        required: "不允许为空"
+                    },
+                    RepeatNotice: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    PreheatingTitle: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    PreheatingImage: {
+                        required: "不允许为空"
+                    },
+                    PreheatingDescribe: {
+                        maxlength: "最多{0}个字符"
+                    },
+                    OngoingTitle: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    OngoingImage: {
+                        required: "不允许为空"
+                    },
+                    OngoingDescribe: {
+                        maxlength: "最多{0}个字符"
+                    },
+                    OverTitle: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    OverImage: {
+                        required: "不允许为空"
+                    },
+                    OverDescribe: {
+                        maxlength: "最多{0}个字符"
+                    },
+
+                    OnePrize: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    TwoPrize: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    ThreePrize: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+
+
+                    DayLimt: {
+                        required: "不允许为空",
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    },
+                    AllCountLimt: {
+                        required: "不允许为空",
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    },
+                    OnePrizeCount: {
+                        required: "不允许为空",
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    },
+                    TwoPrizeCount: {
+                        required: "不允许为空",
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    },
+                    ThreePrizeCount: {
+                        required: "不允许为空",
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    },
+                    ExpectedPeopleCount: {
+                        required: "不允许为空",
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    }
+                }
+            });
+        }
+
+
+        //新增
+        function add() {
+            $.Nuoya.ajaxDialog({
+                closeViaDimmer: false,
+                width: ($(window).width() - 100) + "px",
+                height: ($(window).height() - 100) + "px",
+                ajaxUrl: "/HtmlTemplates/ScratchCard/Update.html",
+                title: "添加刮刮卡",
+                callback: function (e) {
+                    formInit();//表单初始化
+                },
+                buttons: [{
+                    label: "保存",
+                    callback: function (e) {
+                        document.forms[0].OverImage.value = document.forms[0].OverImageFile.value;
+                        document.forms[0].OngoingImage.value = document.forms[0].OngoingImageFile.value;
+                        document.forms[0].PreheatingImage.value = document.forms[0].PreheatingImageFile.value;
+
+                        $.Nuoya.form("form").ajaxSubmit({
+                            ajaxUrl: "/ScratchCard/Add",
+                            callback: function (data) {
+                                if (data.Result == "")
+                                {
+                                    e.hide();
+                                    grid.reload();
+                                }
+                                else
+                                    $.Nuoya.alert(data.Result);
+                            }
+                        });
+                    }
+                }]
+            })
+        }
+
+
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/ScratchCard/GetPageList",
+            //数据请求地址
+            pageSize: 10,
+            events: [
+                {
+                    class: "am-text-secondary",
+                    icon: "icon-pencil-square-o",
+                    name: "编辑",
+                    click: function (item) {
+                        $.Nuoya.ajaxDialog({
+                            closeViaDimmer: false,
+                            width: ($(window).width() - 100) + "px",
+                            height: ($(window).height() - 100) + "px",
+                            ajaxUrl: "/HtmlTemplates/ScratchCard/Update.html",
+                            title: "编辑刮刮卡",
+                            callback: function (e) {
+                                $.Nuoya.action("/ScratchCard/Find", { unid: item.UNID }, function (model) {
+                                    //载入数据
+                                    $.Nuoya.form("form").dataLoad({
+                                        data: model
+                                    });
+                                    formInit(model);//表单初始化
+                                });
+                            },
+                            buttons: [{
+                                label: "保存",
+                                callback: function (e) {
+                                    
+                                    var ongoingTime = document.forms[0].OngoingTime.value;
+                                    var hour = document.forms[0].OngoingTimehour.value;
+                                    var minute = document.forms[0].OngoingTimeMinute.value;
+                                    var second = document.forms[0].OngoingTimeSecond.value;
+                                    ongoingTime = ongoingTime + " " + (hour == "" ? 0 : hour) + ":" + (minute == "" ? 0 : minute) + ":" + (second == "" ? 0 : second);
+
+                                    $.Nuoya.form("form").ajaxSubmit({
+                                        ajaxUrl: "/ScratchCard/Update",
+                                        params: {
+                                            UNID: item.UNID
+                                        },
+                                        callback: function () {
+                                            e.hide();
+                                            grid.reload();
+                                        }
+                                    });
+                                }
+                            }]
+                        })
+                    }
+                },
+                {
+                    class: "am-text-danger",
+                    icon: "icon-trash-o",
+                    name: "删除",
+                    click: function (item) {
+                        $.Nuoya.deleteAction("/ScratchCard/Delete", {
+                            unids: item.UNID
+                        },
+                        function () {
+                            grid.reload();
+                        });
+                    }
+                }
+            ]
+        });
     </script>
 }

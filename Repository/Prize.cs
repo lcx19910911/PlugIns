@@ -28,8 +28,5 @@ namespace Repository
         public Nullable<int> DayLimt { get; set; }
         public Nullable<int> AllCountLimt { get; set; }
         public Nullable<bool> IsShowCount { get; set; }
-        public Nullable<long> Flag { get; set; }
-        public Nullable<System.DateTime> CreatedTime { get; set; }
-        public Nullable<System.DateTime> UpdatedTime { get; set; }
     }
 }

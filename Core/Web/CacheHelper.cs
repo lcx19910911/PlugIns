@@ -1,10 +1,4 @@
-/*
- * 修改日期：2009-02-25
- * 修 改 人：朱自立
- * 修改内容：重写CacheHelper类
- * 修改原因：原类缺少弹性过期的缓存设置
- * 
- */
+
 using System;
 using System.Web;
 using System.Web.Caching;

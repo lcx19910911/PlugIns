@@ -15,7 +15,6 @@
     $.Nuoya = {
         //数据请求
         action: function (url, param, callback, errorCallback, async) {
-            debugger
             jQuery.ajax({
                 async: async,
                 url: url + "?_token=" + $.Nuoya.getURLParam("_token"),
@@ -23,7 +22,6 @@
                 data: param,
                 dataType: "json",
                 success: function (json) {
-                    debugger
                     var isSuccess;
                     if (json.Code == 0) {
                         isSuccess = true;
@@ -39,11 +37,11 @@
                         else {
                             if (isSuccess) {
                                 if (callback)
-                                    $.Nuoya.callFunction(callback, json.Data);
+                                    $.Nuoya.callFunction(callback, json.Result);
                             }
                             else {
                                 if (errorCallback)
-                                    $.Nuoya.callFunction(errorCallback, json.Data);
+                                    $.Nuoya.callFunction(errorCallback, json.Result);
                             }
                         }
                     }

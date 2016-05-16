@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PlugInsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PlugInsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Prize">
           <Key>
             <PropertyRef Name="UNID" />
@@ -23,9 +23,6 @@
           <Property Name="DayLimt" Type="int" />
           <Property Name="AllCountLimt" Type="int" />
           <Property Name="IsShowCount" Type="bit" />
-          <Property Name="Flag" Type="bigint" />
-          <Property Name="CreatedTime" Type="datetime" />
-          <Property Name="UpdatedTime" Type="datetime" />
         </EntityType>
         <EntityType Name="ScratchCard">
           <Key>
@@ -34,6 +31,8 @@
           <Property Name="UNID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="KeyWord" Type="varchar" MaxLength="50" />
+          <Property Name="OngoingTime" Type="datetime" />
+          <Property Name="OverTime" Type="datetime" />
           <Property Name="RepeatNotice" Type="varchar" MaxLength="50" />
           <Property Name="PreheatingTitle" Type="varchar" MaxLength="50" />
           <Property Name="PreheatingImage" Type="varchar" MaxLength="500" />
@@ -76,54 +75,10 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserJoinCounter" EntityType="Self.UserJoinCounter" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PlugInsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Prize">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TargetCode" Type="Int32" />
-          <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OnePrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OnePrizeCount" Type="Int32" />
-          <Property Name="TwoPrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TwoPrizeCount" Type="Int32" />
-          <Property Name="ThreePrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ThreePrizeCount" Type="Int32" />
-          <Property Name="AllCount" Type="Int32" />
-          <Property Name="ExpectedPeopleCount" Type="Int32" />
-          <Property Name="DayLimt" Type="Int32" />
-          <Property Name="AllCountLimt" Type="Int32" />
-          <Property Name="IsShowCount" Type="Boolean" />
-          <Property Name="Flag" Type="Int64" />
-          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="ScratchCard">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="KeyWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RepeatNotice" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PreheatingTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PreheatingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="PreheatingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="OngoingTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OngoingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="OngoingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="OverTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OverImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="OverDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
-          <Property Name="Flag" Type="Int64" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="OpenID" />
@@ -147,62 +102,59 @@
           <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="PlugInsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Prize" EntityType="Self.Prize" />
-          <EntitySet Name="ScratchCard" EntityType="Self.ScratchCard" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="UserJoinCounter" EntityType="Self.UserJoinCounter" />
+          <EntitySet Name="ScratchCard" EntityType="PlugInsModel.ScratchCard" />
+          <EntitySet Name="Prize" EntityType="PlugInsModel.Prize" />
         </EntityContainer>
+        <EntityType Name="ScratchCard">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KeyWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingTime" Type="DateTime" Precision="3" />
+          <Property Name="OverTime" Type="DateTime" Precision="3" />
+          <Property Name="RepeatNotice" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PreheatingTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PreheatingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PreheatingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="OverTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OverImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OverDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Precision="3" />
+          <Property Name="Flag" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Prize">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TargetCode" Type="Int32" />
+          <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OnePrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OnePrizeCount" Type="Int32" />
+          <Property Name="TwoPrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TwoPrizeCount" Type="Int32" />
+          <Property Name="ThreePrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ThreePrizeCount" Type="Int32" />
+          <Property Name="AllCount" Type="Int32" />
+          <Property Name="ExpectedPeopleCount" Type="Int32" />
+          <Property Name="DayLimt" Type="Int32" />
+          <Property Name="AllCountLimt" Type="Int32" />
+          <Property Name="IsShowCount" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PlugInsModelStoreContainer" CdmEntityContainer="PlugInsEntities">
-          <EntitySetMapping Name="Prize">
-            <EntityTypeMapping TypeName="PlugInsModel.Prize">
-              <MappingFragment StoreEntitySet="Prize">
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-                <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
-                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
-                <ScalarProperty Name="OnePrize" ColumnName="OnePrize" />
-                <ScalarProperty Name="OnePrizeCount" ColumnName="OnePrizeCount" />
-                <ScalarProperty Name="TwoPrize" ColumnName="TwoPrize" />
-                <ScalarProperty Name="TwoPrizeCount" ColumnName="TwoPrizeCount" />
-                <ScalarProperty Name="ThreePrize" ColumnName="ThreePrize" />
-                <ScalarProperty Name="ThreePrizeCount" ColumnName="ThreePrizeCount" />
-                <ScalarProperty Name="AllCount" ColumnName="AllCount" />
-                <ScalarProperty Name="ExpectedPeopleCount" ColumnName="ExpectedPeopleCount" />
-                <ScalarProperty Name="DayLimt" ColumnName="DayLimt" />
-                <ScalarProperty Name="AllCountLimt" ColumnName="AllCountLimt" />
-                <ScalarProperty Name="IsShowCount" ColumnName="IsShowCount" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ScratchCard">
-            <EntityTypeMapping TypeName="PlugInsModel.ScratchCard">
-              <MappingFragment StoreEntitySet="ScratchCard">
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="KeyWord" ColumnName="KeyWord" />
-                <ScalarProperty Name="RepeatNotice" ColumnName="RepeatNotice" />
-                <ScalarProperty Name="PreheatingTitle" ColumnName="PreheatingTitle" />
-                <ScalarProperty Name="PreheatingImage" ColumnName="PreheatingImage" />
-                <ScalarProperty Name="PreheatingDescribe" ColumnName="PreheatingDescribe" />
-                <ScalarProperty Name="OngoingTitle" ColumnName="OngoingTitle" />
-                <ScalarProperty Name="OngoingImage" ColumnName="OngoingImage" />
-                <ScalarProperty Name="OngoingDescribe" ColumnName="OngoingDescribe" />
-                <ScalarProperty Name="OverTitle" ColumnName="OverTitle" />
-                <ScalarProperty Name="OverImage" ColumnName="OverImage" />
-                <ScalarProperty Name="OverDescribe" ColumnName="OverDescribe" />
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="PlugInsModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -224,6 +176,50 @@
                 <ScalarProperty Name="IsPrize" ColumnName="IsPrize" />
                 <ScalarProperty Name="PrizeGrade" ColumnName="PrizeGrade" />
                 <ScalarProperty Name="IP" ColumnName="IP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScratchCard">
+            <EntityTypeMapping TypeName="PlugInsModel.ScratchCard">
+              <MappingFragment StoreEntitySet="ScratchCard">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="OverDescribe" ColumnName="OverDescribe" />
+                <ScalarProperty Name="OverImage" ColumnName="OverImage" />
+                <ScalarProperty Name="OverTitle" ColumnName="OverTitle" />
+                <ScalarProperty Name="OngoingDescribe" ColumnName="OngoingDescribe" />
+                <ScalarProperty Name="OngoingImage" ColumnName="OngoingImage" />
+                <ScalarProperty Name="OngoingTitle" ColumnName="OngoingTitle" />
+                <ScalarProperty Name="PreheatingDescribe" ColumnName="PreheatingDescribe" />
+                <ScalarProperty Name="PreheatingImage" ColumnName="PreheatingImage" />
+                <ScalarProperty Name="PreheatingTitle" ColumnName="PreheatingTitle" />
+                <ScalarProperty Name="RepeatNotice" ColumnName="RepeatNotice" />
+                <ScalarProperty Name="OverTime" ColumnName="OverTime" />
+                <ScalarProperty Name="OngoingTime" ColumnName="OngoingTime" />
+                <ScalarProperty Name="KeyWord" ColumnName="KeyWord" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prize">
+            <EntityTypeMapping TypeName="PlugInsModel.Prize">
+              <MappingFragment StoreEntitySet="Prize">
+                <ScalarProperty Name="IsShowCount" ColumnName="IsShowCount" />
+                <ScalarProperty Name="AllCountLimt" ColumnName="AllCountLimt" />
+                <ScalarProperty Name="DayLimt" ColumnName="DayLimt" />
+                <ScalarProperty Name="ExpectedPeopleCount" ColumnName="ExpectedPeopleCount" />
+                <ScalarProperty Name="AllCount" ColumnName="AllCount" />
+                <ScalarProperty Name="ThreePrizeCount" ColumnName="ThreePrizeCount" />
+                <ScalarProperty Name="ThreePrize" ColumnName="ThreePrize" />
+                <ScalarProperty Name="TwoPrizeCount" ColumnName="TwoPrizeCount" />
+                <ScalarProperty Name="TwoPrize" ColumnName="TwoPrize" />
+                <ScalarProperty Name="OnePrizeCount" ColumnName="OnePrizeCount" />
+                <ScalarProperty Name="OnePrize" ColumnName="OnePrize" />
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+                <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
