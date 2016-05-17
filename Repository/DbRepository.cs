@@ -39,6 +39,7 @@ namespace Repository
             }
             catch (Exception ex)
             {
+                Core.Util.LogHelper.WriteException(ex);
                 return 0;
             }
            

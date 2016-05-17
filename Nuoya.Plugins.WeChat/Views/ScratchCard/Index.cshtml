@@ -85,9 +85,8 @@
             else {
                 $("#div_preheatingImage,#div_ongoingImage,#div_overImage").hide();
             }
-            $('[name=OngoingTime]').datepicker({ format: 'yyyy-mm-dd' });
-            $('[name=OverTime]').datepicker({ format: 'yyyy-mm-dd' });
-
+            //$('[name=OngoingTime]').datepicker({ format: 'yyyy-mm-dd' });
+            //$('[name=OverTime]').datepicker({ format: 'yyyy-mm-dd' });
 
             //添加表单验证
             $.Nuoya.form("form").validate({
@@ -342,7 +341,7 @@
             pageSize: 10,
             events: [
                 {
-                    class: "am-text-secondary",
+                    className: "am-text-secondary",
                     icon: "icon-pencil-square-o",
                     name: "编辑",
                     click: function (item) {
@@ -354,31 +353,46 @@
                             title: "编辑刮刮卡",
                             callback: function (e) {
                                 $.Nuoya.action("/ScratchCard/Find", { unid: item.UNID }, function (model) {
+
+                                    $('[name=OngoingTime]').datetimepicker('setDate', (model.OngoingTime));
+                                    $('[name=OverTime]').datetimepicker('setDate', (model.OverTime));
+
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
                                         data: model
                                     });
                                     formInit(model);//表单初始化
+                                    document.forms[0].UNID.value = item.UNID;
                                 });
                             },
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
                                     
-                                    var ongoingTime = document.forms[0].OngoingTime.value;
-                                    var hour = document.forms[0].OngoingTimehour.value;
-                                    var minute = document.forms[0].OngoingTimeMinute.value;
-                                    var second = document.forms[0].OngoingTimeSecond.value;
-                                    ongoingTime = ongoingTime + " " + (hour == "" ? 0 : hour) + ":" + (minute == "" ? 0 : minute) + ":" + (second == "" ? 0 : second);
+                                    //var ongoingTime = document.forms[0].OngoingTime.value;
+                                    //var hour = document.forms[0].OngoingTimehour.value;
+                                    //var minute = document.forms[0].OngoingTimeMinute.value;
+                                    //var second = document.forms[0].OngoingTimeSecond.value;
+                                    //ongoingTime = ongoingTime + " " + (hour == "" ? 0 : hour) + ":" + (minute == "" ? 0 : minute) + ":" + (second == "" ? 0 : second);
+
+                                    //var overTime = document.forms[0].OverTime.value;
+                                    //var overHour = document.forms[0].OverTimehour.value;
+                                    //var overMinute = document.forms[0].OverTimeMinute.value;
+                                    //var overSecond = document.forms[0].OverTimeSecond.value;
+                                    //overTime = overTime + " " + (overHour == "" ? 0 : overHour) + ":" + (overMinute == "" ? 0 : overMinute) + ":" + (overSecond == "" ? 0 : overSecond);
 
                                     $.Nuoya.form("form").ajaxSubmit({
                                         ajaxUrl: "/ScratchCard/Update",
                                         params: {
                                             UNID: item.UNID
                                         },
-                                        callback: function () {
-                                            e.hide();
-                                            grid.reload();
+                                        callback: function (data) {
+                                            if (data.Result == "") {
+                                                e.hide();
+                                                grid.reload();
+                                            }
+                                            else
+                                                $.Nuoya.alert(data.Result);
                                         }
                                     });
                                 }
@@ -387,7 +401,7 @@
                     }
                 },
                 {
-                    class: "am-text-danger",
+                    className: "am-text-danger",
                     icon: "icon-trash-o",
                     name: "删除",
                     click: function (item) {
@@ -397,6 +411,15 @@
                         function () {
                             grid.reload();
                         });
+                    }
+                },
+                {
+                    className: "am-text-danger",
+                    icon: "icon-trash-o",
+                    name: "预览",
+                    click: function (item) {
+                        debugger;
+                        window.open("/ScratchCard/Details?unid=" + item.UNID);
                     }
                 }
             ]

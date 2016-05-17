@@ -12,7 +12,6 @@ namespace Domain.ScratchCard
     /// </summary>
     public class Update: Domain.Prize.Update
     {   
-        public string UNID { get; set; }    
 
         /// <summary>
         /// 活动名

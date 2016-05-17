@@ -168,11 +168,24 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
+    <Content Include="Styles\activity\images\activity-lottery-2.png" />
+    <Content Include="Styles\activity\images\activity-lottery-3.png" />
+    <Content Include="Styles\activity\images\activity-lottery-bg.png" />
+    <Content Include="Styles\activity\images\activity-lottery-bg2.jpg" />
+    <Content Include="Styles\activity\images\activity-scratch-card-bannerbg.png" />
+    <Content Include="Styles\activity\images\activity-scratch-card-bg.jpg" />
+    <Content Include="Styles\activity\images\title-bg-brown.png" />
+    <Content Include="Styles\activity\images\title-bg-green.png" />
     <Content Include="NLog.config" />
+    <Content Include="Scripts\activity\scratchcard\alert.js" />
+    <Content Include="Scripts\activity\scratchcard\wScratchPad.js" />
     <Content Include="Scripts\amazeui.datetimepicker.min.js" />
     <Content Include="Scripts\amazeui.datetimepicker.zh-cn.js" />
     <Content Include="Scripts\amazeui.js" />
     <Content Include="Scripts\amazeui.min.js" />
+    <Content Include="Scripts\datetimepicker\jquery-ui-slide.min.js" />
+    <Content Include="Scripts\datetimepicker\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\datetimepicker\jquery-ui.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-validation\js\additional-methods.min.js" />
     <Content Include="Scripts\jquery-validation\js\jquery.validate.js" />
@@ -203,10 +216,12 @@
     <Content Include="Scripts\uploadify\__MACOSX\._Change Log.txt" />
     <Content Include="Scripts\uploadify\__MACOSX\._uploadify.swf" />
     <Content Include="Scripts\ztree-select.js" />
+    <Content Include="Styles\activity\scratchcard\activity-style.css" />
     <Content Include="Styles\admin.css" />
     <Content Include="Styles\css\amazeui.css" />
     <Content Include="Styles\css\amazeui.datetimepicker.css" />
     <Content Include="Styles\css\amazeui.min.css" />
+    <Content Include="Styles\datetimepicker\jquery-ui.css" />
     <Content Include="Styles\fonts\fontawesome-webfont.svg" />
     <Content Include="Styles\img\remove-icon-small.png" />
     <Content Include="Styles\zTreeStyle\img\diy\1_close.png" />
@@ -240,6 +255,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ScratchCardController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -263,6 +279,7 @@
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
+    <Content Include="Views\ScratchCard\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -273,7 +290,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Styles\datetimepicker\images\" />
     <Folder Include="Upload\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

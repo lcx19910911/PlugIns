@@ -18,13 +18,13 @@ namespace Repository
         public Nullable<int> TargetCode { get; set; }
         public string TargetID { get; set; }
         public string OnePrize { get; set; }
-        public Nullable<int> OnePrizeCount { get; set; }
+        public int OnePrizeCount { get; set; }
         public string TwoPrize { get; set; }
-        public Nullable<int> TwoPrizeCount { get; set; }
+        public int TwoPrizeCount { get; set; }
         public string ThreePrize { get; set; }
-        public Nullable<int> ThreePrizeCount { get; set; }
-        public Nullable<int> AllCount { get; set; }
-        public Nullable<int> ExpectedPeopleCount { get; set; }
+        public int ThreePrizeCount { get; set; }
+        public int AllCount { get; set; }
+        public int ExpectedPeopleCount { get; set; }
         public Nullable<int> DayLimt { get; set; }
         public Nullable<int> AllCountLimt { get; set; }
         public Nullable<bool> IsShowCount { get; set; }

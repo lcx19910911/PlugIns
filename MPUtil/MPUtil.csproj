@@ -80,6 +80,7 @@
     <Compile Include="AcceptMsg\Message\EventMsg\AcpEventSubscribeMsg.cs" />
     <Compile Include="AcceptMsg\Message\EventMsg\AcpEventUnsubscribeMsg.cs" />
     <Compile Include="AcceptMsg\Message\EventMsg\AcpEventViewMsg.cs" />
+    <Compile Include="Auth\OAuthResult.cs" />
     <Compile Include="BaseFunctions.cs" />
     <Compile Include="ErrorCode.cs" />
     <Compile Include="MassSend.cs" />

@@ -13,13 +13,13 @@
           <Property Name="TargetCode" Type="int" />
           <Property Name="TargetID" Type="varchar" MaxLength="50" />
           <Property Name="OnePrize" Type="varchar" MaxLength="50" />
-          <Property Name="OnePrizeCount" Type="int" />
+          <Property Name="OnePrizeCount" Type="int" Nullable="false" />
           <Property Name="TwoPrize" Type="varchar" MaxLength="50" />
-          <Property Name="TwoPrizeCount" Type="int" />
+          <Property Name="TwoPrizeCount" Type="int" Nullable="false" />
           <Property Name="ThreePrize" Type="varchar" MaxLength="50" />
-          <Property Name="ThreePrizeCount" Type="int" />
-          <Property Name="AllCount" Type="int" />
-          <Property Name="ExpectedPeopleCount" Type="int" />
+          <Property Name="ThreePrizeCount" Type="int" Nullable="false" />
+          <Property Name="AllCount" Type="int" Nullable="false" />
+          <Property Name="ExpectedPeopleCount" Type="int" Nullable="false" />
           <Property Name="DayLimt" Type="int" />
           <Property Name="AllCountLimt" Type="int" />
           <Property Name="IsShowCount" Type="bit" />
@@ -67,7 +67,7 @@
           <Property Name="CreatedTime" Type="datetime" />
           <Property Name="IsPrize" Type="bit" />
           <Property Name="PrizeGrade" Type="int" />
-          <Property Name="IP" Type="varchar" MaxLength="50" />
+          <Property Name="SN" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="PlugInsModelStoreContainer">
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
@@ -88,24 +88,11 @@
           <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="UserJoinCounter">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TargetCode" Type="Int32" />
-          <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OpenID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
-          <Property Name="IsPrize" Type="Boolean" />
-          <Property Name="PrizeGrade" Type="Int32" />
-          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityContainer Name="PlugInsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="UserJoinCounter" EntityType="Self.UserJoinCounter" />
           <EntitySet Name="ScratchCard" EntityType="PlugInsModel.ScratchCard" />
           <EntitySet Name="Prize" EntityType="PlugInsModel.Prize" />
+          <EntitySet Name="UserJoinCounter" EntityType="PlugInsModel.UserJoinCounter" />
         </EntityContainer>
         <EntityType Name="ScratchCard">
           <Key>
@@ -138,16 +125,29 @@
           <Property Name="TargetCode" Type="Int32" />
           <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OnePrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OnePrizeCount" Type="Int32" />
+          <Property Name="OnePrizeCount" Type="Int32" Nullable="false" />
           <Property Name="TwoPrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TwoPrizeCount" Type="Int32" />
+          <Property Name="TwoPrizeCount" Type="Int32" Nullable="false" />
           <Property Name="ThreePrize" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ThreePrizeCount" Type="Int32" />
-          <Property Name="AllCount" Type="Int32" />
-          <Property Name="ExpectedPeopleCount" Type="Int32" />
+          <Property Name="ThreePrizeCount" Type="Int32" Nullable="false" />
+          <Property Name="AllCount" Type="Int32" Nullable="false" />
+          <Property Name="ExpectedPeopleCount" Type="Int32" Nullable="false" />
           <Property Name="DayLimt" Type="Int32" />
           <Property Name="AllCountLimt" Type="Int32" />
           <Property Name="IsShowCount" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserJoinCounter">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TargetCode" Type="Int32" />
+          <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OpenID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="IsPrize" Type="Boolean" />
+          <Property Name="PrizeGrade" Type="Int32" />
+          <Property Name="SN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -162,20 +162,6 @@
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
                 <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserJoinCounter">
-            <EntityTypeMapping TypeName="PlugInsModel.UserJoinCounter">
-              <MappingFragment StoreEntitySet="UserJoinCounter">
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-                <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
-                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
-                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="IsPrize" ColumnName="IsPrize" />
-                <ScalarProperty Name="PrizeGrade" ColumnName="PrizeGrade" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -217,6 +203,20 @@
                 <ScalarProperty Name="TwoPrize" ColumnName="TwoPrize" />
                 <ScalarProperty Name="OnePrizeCount" ColumnName="OnePrizeCount" />
                 <ScalarProperty Name="OnePrize" ColumnName="OnePrize" />
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+                <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserJoinCounter">
+            <EntityTypeMapping TypeName="PlugInsModel.UserJoinCounter">
+              <MappingFragment StoreEntitySet="UserJoinCounter">
+                <ScalarProperty Name="SN" ColumnName="SN" />
+                <ScalarProperty Name="PrizeGrade" ColumnName="PrizeGrade" />
+                <ScalarProperty Name="IsPrize" ColumnName="IsPrize" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
                 <ScalarProperty Name="TargetID" ColumnName="TargetID" />
                 <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />

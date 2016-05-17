@@ -12,10 +12,10 @@ namespace Nuoya.Plugins.WeChat
             bundles.Add(new StyleBundle("~/Content/Admin").Include(
                 "~/Styles/zTreeStyle/zTreeStyle.css",
                 "~/Styles/css/amazeui.css",
-                "~/Styles/css/amazeui.datetimepicker.css",
                 "~/Scripts/tipso/css/tipso.min.css",
                 "~/Styles/admin.css",
-                "~/Scripts/uploadify/uploadify.css"));
+                "~/Scripts/uploadify/uploadify.css",
+                "~/Styles/css/jquery-ui.css"));
             #endregion
 
             #region 脚本
@@ -32,14 +32,16 @@ namespace Nuoya.Plugins.WeChat
                "~/Scripts/jquery.ztree.all-3.5.min.js",
                "~/Scripts/ztree-select.js",
                "~/Scripts/tipso/js/tipso.js",
-               "~/Scripts/amazeui.datetimepicker.min.js",
-               "~/Scripts/amazeui.datetimepicker.zh-cn.js",
-               "~/Scripts/uploadify/jquery.uploadify.js",
 
                "~/Scripts/Nuoya/nuoya.core.js",
                "~/Scripts/Nuoya/nuoya.grid.js",
                "~/Scripts/Nuoya/nuoya.form.js",
-               "~/Scripts/Nuoya/nuoya.other.js"));
+               "~/Scripts/Nuoya/nuoya.other.js",
+
+               "~/Scripts/datetimepicker/jquery-ui.js",
+               "~/Scripts/datetimepicker/jquery-ui-slide.min.js",
+               "~/Scripts/datetimepicker/jquery-ui-timepicker-addon.js"
+               ));
 
             bundles.Add(new ScriptBundle("~/Scripts/Avalon").Include(
                 "~/Scripts/avalon.js"

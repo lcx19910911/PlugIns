@@ -20,7 +20,7 @@ namespace Repository
         public string OpenID { get; set; }
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public Nullable<bool> IsPrize { get; set; }
-        public Nullable<int> PrizeGrade { get; set; }
-        public string IP { get; set; }
+        public int PrizeGrade { get; set; }
+        public string SN { get; set; }
     }
 }
