@@ -58,7 +58,7 @@ width:320px;
 .cover{
 	width: 320px;
 	max-width: 480px;
-	margin: 0 auto;
+	margin: -10px auto;
 	position: relative;
 }
 .cover img{
