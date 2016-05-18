@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.Web;
+using Nuoya.Plugins.WeChat.Filters;
 using Server;
 using System;
 using System.Collections.Generic;
@@ -65,38 +66,15 @@ namespace Nuoya.Plugins.WeChat.Controllers
             return JResult(result);
         }
 
-        /// <summary>
-        /// 授权保存openid
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        public ActionResult Auth(string code,string state)
-        {
-            CacheHelper.Get<string>("openId",CacheTimeOption.OneHour,()=> {
-                return code;
-            });
-
-            return Redirect(string.Format("/ScratchCard/Details?unid={0}",state));
-        }
 
         /// <summary>
         /// 明细
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
+        [OAuthFilter]
         public ActionResult Details(string unid)
         {
-            string openId = CacheHelper.Get<string>("openId");
-            if (string.IsNullOrEmpty(openId))
-            {
-                //string redirect_uri = string.Format("{0}/ScratchCard/Auth", Params.DomianName);
-                //string oauthUrl = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_userinfo&state={2}", Params.AppId, redirect_uri,unid);
-                //return Redirect(oauthUrl);
-                CacheHelper.Get<string>("openId", CacheTimeOption.OneHour, () => {
-                    return "11111111";
-                });
-            }
             var model = WebService.Find_ScratchCard(unid);
             return View(model);
         }

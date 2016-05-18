@@ -54,16 +54,22 @@ namespace Server
                         else
                         {
                             //遍历活动名
+                            var targetEntities = entities.ScratchCard;
                             if (name.IsNotNullOrEmpty())
                             {
-                                var targetList = entities.ScratchCard.Where(x => x.Name.Contains(name));
-                                scratchCardDic = targetList.ToDictionary(x=>x.UNID);
-                                var targetIdList = targetList.Select(x => x.UNID).ToList();
-                                query = query.Where(x =>targetIdList.Contains(x.TargetID));
+                                scratchCardDic = targetEntities.Where(x => x.Name.Contains(name)).ToDictionary(x => x.UNID);
+                                var targetIdList = targetEntities.Where(x => x.Name.Contains(name)).Select(x => x.UNID).ToList();
+                                query = query.Where(x => targetIdList.Contains(x.TargetID));
+                            }
+                            else
+                            {
+                                scratchCardDic = targetEntities.ToDictionary(x => x.UNID);
                             }
                         }
                     }
                 }
+                else
+                     return CreatePageList(new List<UserJoinCounterModel>(), 0, 0); ;
 
 
                 if (openId.IsNotNullOrEmpty())
@@ -96,7 +102,7 @@ namespace Server
                         {
                             if (targetCode == (int)TargetCode.ScratchCard)
                             {
-                                scratchCardDic.TryGetValue(x.UNID, out scratchCardItem);
+                                scratchCardDic.TryGetValue(x.TargetID, out scratchCardItem);
                             }
                         }
                         list.Add(new UserJoinCounterModel()
