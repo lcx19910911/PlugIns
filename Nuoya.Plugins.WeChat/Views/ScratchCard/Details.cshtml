@@ -3,7 +3,7 @@
     Layout = null;
     string image = string.Empty;
 }
-
+@Html.AntiForgeryToken();
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,6 +90,10 @@
     {
         image = Model.OverImage;
     }
+    else
+    {
+         image = "/Styles/activity/images/activity-scratch-card-bg.jpg";
+    }
 }
 <body data-role="page" class="activity-scratch-card-winning" style="background-image:url(@(image))">
     <script src="~/Scripts/jquery-2.2.3.min.js"></script>
@@ -150,7 +154,7 @@
                     <div class="Detail">
                         @if (Model != null)
                         {
-                            if (Model.IsShowCount)
+                            if (Model.IsShowCount==1)
                             {
                                 <pre>  一等奖：@Model.OnePrize      奖品数量：@Model.OnePrizeCount</pre>
                                 <pre>  二等奖：@Model.TwoPrize      奖品数量：@Model.TwoPrizeCount</pre>
@@ -174,22 +178,23 @@
                     <div class="Detail">
                         @if (Model != null)
                         {
-                            <p class="red">活动须知：</p>
                             if (DateTime.Now > Model.OngoingTime && Model.OngoingTime >= DateTime.Now.AddMinutes(-10))
                             {
-
+                                <p class="red">活动须知：</p>
                                 <p>
                                    &nbsp;  &nbsp; &nbsp; &nbsp;@Model.PreheatingDescribe
                                 </p>
                             }
                             else if (Model.OngoingTime <= DateTime.Now && DateTime.Now < Model.OverTime)
                             {
+                                <p class="red">活动须知：</p>
                                 <p>
                                     &nbsp;  &nbsp; &nbsp; &nbsp;@Model.OngoingDescribe
                                 </p>
                             }
                             else if (Model.OverTime < DateTime.Now)
                             {
+                                <p class="red">活动须知：</p>
                                 <p>
                                     &nbsp;  &nbsp; &nbsp; &nbsp;@Model.OverDescribe
                                 </p>
@@ -206,7 +211,6 @@
         <div style="clear:both;">
         </div>
     </div>
-    <script src="~/Scripts/activity/scratchcard/alert.js"></script>
     <script src="~/Scripts/Nuoya/nuoya.core.js"></script>
     <script type="text/javascript">
         window.sncode = "null";

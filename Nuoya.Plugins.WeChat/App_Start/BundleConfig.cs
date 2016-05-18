@@ -14,8 +14,7 @@ namespace Nuoya.Plugins.WeChat
                 "~/Styles/css/amazeui.css",
                 "~/Scripts/tipso/css/tipso.min.css",
                 "~/Styles/admin.css",
-                "~/Scripts/uploadify/uploadify.css",
-                "~/Styles/css/jquery-ui.css"));
+                "~/Scripts/My97DatePicker/WdatePicker.css"));
             #endregion
 
             #region 脚本
@@ -23,6 +22,7 @@ namespace Nuoya.Plugins.WeChat
                 "~/Scripts/jquery-2.2.3.min.js",
                 "~/Scripts/amazeui.js",
                 "~/Scripts/Nuoya/nuoya.core.js"));
+
 
             bundles.Add(new ScriptBundle("~/Scripts/Admin").Include(
                "~/Scripts/jquery-2.2.3.min.js",
@@ -38,9 +38,9 @@ namespace Nuoya.Plugins.WeChat
                "~/Scripts/Nuoya/nuoya.form.js",
                "~/Scripts/Nuoya/nuoya.other.js",
 
-               "~/Scripts/datetimepicker/jquery-ui.js",
-               "~/Scripts/datetimepicker/jquery-ui-slide.min.js",
-               "~/Scripts/datetimepicker/jquery-ui-timepicker-addon.js"
+               "~/Scripts/My97DatePicker/WdatePicker.js",
+               "~/Scripts/My97DatePicker/config.js",
+               "~/Scripts/My97DatePicker/lang/zh-cn.js"
                ));
 
             bundles.Add(new ScriptBundle("~/Scripts/Avalon").Include(

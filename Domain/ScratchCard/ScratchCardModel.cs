@@ -11,19 +11,23 @@ namespace Domain.ScratchCard
         public string UNID { get; set; }
         public string Name { get; set; }
         public string KeyWord { get; set; }
-        public Nullable<System.DateTime> OngoingTime { get; set; }
-        public Nullable<System.DateTime> OverTime { get; set; }
+        public System.DateTime OngoingTime { get; set; }
+        public System.DateTime OverTime { get; set; }
       
-        public Nullable<System.DateTime> CreatedTime { get; set; }
-        public Nullable<System.DateTime> UpdatedTime { get; set; }
+        public System.DateTime CreatedTime { get; set; }
+        public System.DateTime UpdatedTime { get; set; }
 
         public string State { get {
-                if (OngoingTime < DateTime.Now)
+                if (OngoingTime > DateTime.Now)
                     return "未开始";
-                else if (OverTime > DateTime.Now)
+                else if (DateTime.Now > this.OngoingTime && this.OngoingTime >= DateTime.Now.AddMinutes(-10))
+                    return "预热中";
+                else if (this.OngoingTime <= DateTime.Now && DateTime.Now < this.OverTime)
                     return "正在进行中";
-                else
+                else if (this.OverTime <= DateTime.Now)
                     return "已结束";
+                else
+                    return "未知";
             } }
     }
 }

@@ -22,7 +22,7 @@
           <Property Name="ExpectedPeopleCount" Type="int" Nullable="false" />
           <Property Name="DayLimt" Type="int" />
           <Property Name="AllCountLimt" Type="int" />
-          <Property Name="IsShowCount" Type="bit" />
+          <Property Name="IsShowCount" Type="int" />
         </EntityType>
         <EntityType Name="ScratchCard">
           <Key>
@@ -61,13 +61,15 @@
             <PropertyRef Name="UNID" />
           </Key>
           <Property Name="UNID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="TargetCode" Type="int" />
+          <Property Name="TargetCode" Type="int" Nullable="false" />
           <Property Name="TargetID" Type="varchar" MaxLength="50" />
           <Property Name="OpenID" Type="varchar" MaxLength="50" />
           <Property Name="CreatedTime" Type="datetime" />
-          <Property Name="IsPrize" Type="bit" />
+          <Property Name="IsPrize" Type="int" />
           <Property Name="PrizeGrade" Type="int" />
           <Property Name="SN" Type="varchar" MaxLength="50" />
+          <Property Name="IsCach" Type="int" />
+          <Property Name="CachTime" Type="datetime" />
         </EntityType>
         <EntityContainer Name="PlugInsModelStoreContainer">
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
@@ -134,20 +136,22 @@
           <Property Name="ExpectedPeopleCount" Type="Int32" Nullable="false" />
           <Property Name="DayLimt" Type="Int32" />
           <Property Name="AllCountLimt" Type="Int32" />
-          <Property Name="IsShowCount" Type="Boolean" />
+          <Property Name="IsShowCount" Type="Int32" />
         </EntityType>
         <EntityType Name="UserJoinCounter">
           <Key>
             <PropertyRef Name="UNID" />
           </Key>
           <Property Name="UNID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TargetCode" Type="Int32" />
+          <Property Name="TargetCode" Type="Int32" Nullable="false" />
           <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OpenID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
-          <Property Name="IsPrize" Type="Boolean" />
+          <Property Name="IsPrize" Type="Int32" />
           <Property Name="PrizeGrade" Type="Int32" />
           <Property Name="SN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsCach" Type="Int32" />
+          <Property Name="CachTime" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -212,6 +216,8 @@
           <EntitySetMapping Name="UserJoinCounter">
             <EntityTypeMapping TypeName="PlugInsModel.UserJoinCounter">
               <MappingFragment StoreEntitySet="UserJoinCounter">
+                <ScalarProperty Name="CachTime" ColumnName="CachTime" />
+                <ScalarProperty Name="IsCach" ColumnName="IsCach" />
                 <ScalarProperty Name="SN" ColumnName="SN" />
                 <ScalarProperty Name="PrizeGrade" ColumnName="PrizeGrade" />
                 <ScalarProperty Name="IsPrize" ColumnName="IsPrize" />
@@ -223,7 +229,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

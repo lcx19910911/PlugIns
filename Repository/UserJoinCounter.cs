@@ -15,12 +15,14 @@ namespace Repository
     public partial class UserJoinCounter
     {
         public string UNID { get; set; }
-        public Nullable<int> TargetCode { get; set; }
+        public int TargetCode { get; set; }
         public string TargetID { get; set; }
         public string OpenID { get; set; }
-        public Nullable<System.DateTime> CreatedTime { get; set; }
-        public Nullable<bool> IsPrize { get; set; }
+        public System.DateTime CreatedTime { get; set; }
+        public int IsPrize { get; set; }
         public int PrizeGrade { get; set; }
         public string SN { get; set; }
+        public int IsCach { get; set; }
+        public Nullable<System.DateTime> CachTime { get; set; }
     }
 }

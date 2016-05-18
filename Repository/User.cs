@@ -17,6 +17,6 @@ namespace Repository
         public string OpenID { get; set; }
         public string NickName { get; set; }
         public string MobilePhone { get; set; }
-        public Nullable<System.DateTime> CreatedTime { get; set; }
+        public System.DateTime CreatedTime { get; set; }
     }
 }

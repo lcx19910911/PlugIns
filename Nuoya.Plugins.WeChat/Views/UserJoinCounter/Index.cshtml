@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "参与情况管理";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">参与情况管理</strong></div>
+</div>
+<div id="searchDomain">
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">活动类型</span>
+                <select name="targetCode" data-am-selected="{btnSize: 'sm'}">
+                    <option value="0">请选择</option>
+                    <option value="1">刮刮卡</option>
+                </select>
+                <span class="am-input-group-label">活动名称</span>
+                <input type="text" class="am-form-field" placeholder="按名称搜索" name="name" ;>
+                <span class="am-input-group-label">SN码</span>
+                <input type="text" class="am-form-field" placeholder="按SN码搜索" name="sn" ;>
+                <span class="am-input-group-label">微信openId</span>
+                <input type="text" class="am-form-field" placeholder="按微信openId搜索" name="sn" ;>
+                <span class="am-input-group-label  am-margin-left-sm">活动日期</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
+                <span class="am-input-group-label"> - </span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="am-g am-margin-top-sm">
+        <div class="am-u-lg-4">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-sm">
+                    <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+                    <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="UNID" type="checkbox"></th>
+                <th dataname="Name">名称</th>
+                <th dataname="TargetCode">活动类型</th>
+                <th dataname="PrizeResult">中奖情况</th>
+                <th dataname="SN">SN码</th>
+                <th dataname="OpenID">微信OpenID</th>
+                <th dataname="IsCach">是否兑奖</th>
+                <th dataname="CashTime" datatype="jsondate">兑奖时间</th>
+                <th dataname="CreatedTime" datatype="jsondate">参与时间</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $('[name=createdTimeStart]').datepicker({ format: 'yyyy-mm-dd' });
+        $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
+
+
+        function ClearFilter()
+        {
+            $("#searchDomain input").val("");
+            $("select[name='targetCode']").val("0");
+        }
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/UserJoinCounter/GetPageList",
+            //数据请求地址
+            pageSize: 10,
+            events: [
+
+                {
+                    className: "am-text-secondary",
+                    icon: "icon-check",
+                    name: "兑奖",
+                    formula: function (item) {
+                        if (item.IsCach == "未兑奖") {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    },
+                    click: function (item) {
+                        $.Nuoya.confirm("是否确认兑奖？", function () {
+
+                            $.Nuoya.action("/UserJoinCounter/Cash", {
+                                unids: item.UNID
+                            },
+                            function (data) {
+                                if (data.Result != "") {
+                                    $.Nuoya.alert(date.Result);
+                                }
+                                else {
+                                    grid.reload();
+                                }
+                            });
+                        });                  
+                    }
+                }
+            ]
+        });
+    </script>
+}

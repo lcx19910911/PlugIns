@@ -107,7 +107,8 @@
                             }
                             break;
                         case "file": break;
-                        default: $item.val(value);
+                        default:
+                            $item.val(value);
                     }
 
                 } else {

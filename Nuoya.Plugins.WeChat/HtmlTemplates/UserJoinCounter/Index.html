@@ -1,0 +1,71 @@
+﻿<div id="searchUserJoinDomain">
+    <div class="am-g">    
+        <div class="am-u-lg-3">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">活动名称：</span>
+                <input type="text" class="am-form-field" placeholder="按名称搜索" style="width:auto" name="name" ;>
+
+            </div>
+        </div>
+        <div class="am-u-lg-3 am-form am-form-inline">
+            <div class="am-input-group">
+                <span class="am-u-lg-1 am-input-group-label">活动类型</span>
+                <div class="am-u-sm-2  am-u-end">
+                    <select name="targetCode" data-am-selected style="width:160px;float:left;margin-left:-20px;">
+                        <option value="0">请选择</option>
+                        <option value="1">刮刮卡</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="am-u-lg-3">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">SN码：</span>
+                <input type="text" class="am-form-field" placeholder="按SN码搜索" style="width:auto" name="sn" ;>
+
+            </div>
+        </div>
+
+        <div class="am-u-lg-3  am-u-end">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">微信openId</span>
+                <input type="text" class="am-form-field" placeholder="按微信openId搜索" name="openId">
+            </div>
+        </div>
+    </div>
+    <div class="am-g" style="padding-top:10px; margin-left:-12px;">
+
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label  am-margin-left-sm">参与时间</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
+                <span class="am-input-group-label"> - </span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnUserJoinSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="UserJoinClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="grid_container">
+    <table id="userJoinDataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="UNID" type="checkbox"></th>
+                <th dataname="Name">名称</th>
+                <th dataname="TargetCode">活动类型</th>
+                <th dataname="PrizeResult">中奖情况</th>
+                <th dataname="SN">SN码</th>
+                <th dataname="OpenID">微信OpenID</th>
+                <th dataname="IsCach">是否兑奖</th>
+                <th dataname="CashTime" datatype="jsondate">兑奖时间</th>
+                <th dataname="CreatedTime" datatype="jsondate">参与时间</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

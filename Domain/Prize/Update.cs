@@ -48,6 +48,6 @@ namespace Domain.Prize
         /// <summary>
         /// 是否显示奖品数量
         /// </summary>
-        public bool IsShowCount { get; set; } = true;
+        public int IsShowCount { get; set; }
     }
 }

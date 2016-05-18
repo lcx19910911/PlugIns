@@ -32,7 +32,7 @@ namespace Server
             using (DbRepository entities = new DbRepository())
             {
                 var query = entities.ScratchCard.AsQueryable();
-                if (title != null)
+                if (title.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(title));
                 }
@@ -114,6 +114,7 @@ namespace Server
                 var addPrizeEntity = model.AutoMap<Domain.ScratchCard.Update, Prize>();
                 if (model.AllCountLimt < model.DayLimt)
                     return "个人抽奖次数总计要大于或等于每天次数限制";
+
                 addPrizeEntity.UNID = Guid.NewGuid().ToString("N");
                 addPrizeEntity.TargetCode = (int)TargetCode.ScratchCard;
                 addPrizeEntity.TargetID = addEntity.UNID;
@@ -142,9 +143,9 @@ namespace Server
                 || model.OngoingTime == null
                 || model.OverTime == null
                 || !model.RepeatNotice.IsNotNullOrEmpty()
-                || model.PreheatingImageFile == null
-                || model.OngoingImageFile == null
-                || model.OverImageFile == null
+                || !model.PreheatingImage.IsNotNullOrEmpty()
+                || !model.OngoingImage.IsNotNullOrEmpty()
+                || !model.OverImage.IsNotNullOrEmpty()
                 || !model.OnePrize.IsNotNullOrEmpty()
                 || !model.TwoPrize.IsNotNullOrEmpty()
                 || !model.ThreePrize.IsNotNullOrEmpty()
@@ -261,11 +262,11 @@ namespace Server
                 //参与抽奖的参与情况
                 var hadPrizeList = entities.UserJoinCounter.Where(x =>x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).ToList();
                 //一等奖个数
-                int onePrizeNum = hadPrizeList.Where(x => x.IsPrize==true && x.PrizeGrade == 1).Count();
+                int onePrizeNum = hadPrizeList.Where(x => x.IsPrize==1 && x.PrizeGrade == 1).Count();
                 //二等奖个数
-                int twoPrizeNum = hadPrizeList.Where(x => x.IsPrize == true && x.PrizeGrade == 2).Count();
+                int twoPrizeNum = hadPrizeList.Where(x => x.IsPrize == 1 && x.PrizeGrade == 2).Count();
                 //三等奖个数
-                int threePrizeNum = hadPrizeList.Where(x => x.IsPrize == true && x.PrizeGrade == 3).Count();
+                int threePrizeNum = hadPrizeList.Where(x => x.IsPrize == 1 && x.PrizeGrade == 3).Count();
                 //个人参与总次数
                 int hadJoinCount = hadPrizeList.Where(x => x.OpenID.Equals(openId)).Count();
                 if (prizeEntity.AllCountLimt <= hadPrizeList.Count)
@@ -296,32 +297,33 @@ namespace Server
                 userJoin.SN = userJoin.UNID.SubString(16);
                 result.SN = userJoin.SN;
                 userJoin.OpenID = openId;
+                userJoin.IsCach = 0;
 
                 //减去已中奖个数
                 if (num <= prizeEntity.OnePrizeCount- onePrizeNum)
                 {
-                    userJoin.IsPrize = true;
+                    userJoin.IsPrize = 1;
                     userJoin.PrizeGrade = 1;
                     result.Result = "一等奖";
                     result.IsPrize = true;
                 }
                 else if (prizeEntity.OnePrizeCount- onePrizeNum < num && num <= (prizeEntity.OnePrizeCount- onePrizeNum + prizeEntity.TwoPrizeCount-twoPrizeNum))
                 {
-                    userJoin.IsPrize = true;
+                    userJoin.IsPrize = 1;
                     userJoin.PrizeGrade = 2;
                     result.Result = "二等奖";
                     result.IsPrize = true;
                 }
                 else if ((prizeEntity.OnePrizeCount - onePrizeNum + prizeEntity.TwoPrizeCount-twoPrizeNum) < num && num <= (prizeEntity.AllCount - onePrizeNum - twoPrizeNum - threePrizeNum))
                 {
-                    userJoin.IsPrize = true;
+                    userJoin.IsPrize = 1;
                     userJoin.PrizeGrade = 3;
                     result.Result = "三等奖";
                     result.IsPrize = true;
                 }
                 else
                 {
-                    userJoin.IsPrize = false;
+                    userJoin.IsPrize = 0;
                     userJoin.PrizeGrade = 0;
                     result.Result = "谢谢参与";
                     userJoin.SN = null;

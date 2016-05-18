@@ -25,8 +25,8 @@ namespace Repository
         public int ThreePrizeCount { get; set; }
         public int AllCount { get; set; }
         public int ExpectedPeopleCount { get; set; }
-        public Nullable<int> DayLimt { get; set; }
-        public Nullable<int> AllCountLimt { get; set; }
-        public Nullable<bool> IsShowCount { get; set; }
+        public int DayLimt { get; set; }
+        public int AllCountLimt { get; set; }
+        public int IsShowCount { get; set; }
     }
 }

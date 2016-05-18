@@ -168,6 +168,21 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
+    <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
+    <Content Include="Scripts\My97DatePicker\calendar.js" />
+    <Content Include="Scripts\My97DatePicker\config.js" />
+    <Content Include="Scripts\My97DatePicker\lang\en.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\My97DatePicker\My97DatePicker.htm" />
+    <Content Include="Scripts\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\My97DatePicker\WdatePicker.js" />
     <Content Include="Styles\activity\images\activity-lottery-2.png" />
     <Content Include="Styles\activity\images\activity-lottery-3.png" />
     <Content Include="Styles\activity\images\activity-lottery-bg.png" />
@@ -183,9 +198,6 @@
     <Content Include="Scripts\amazeui.datetimepicker.zh-cn.js" />
     <Content Include="Scripts\amazeui.js" />
     <Content Include="Scripts\amazeui.min.js" />
-    <Content Include="Scripts\datetimepicker\jquery-ui-slide.min.js" />
-    <Content Include="Scripts\datetimepicker\jquery-ui-timepicker-addon.js" />
-    <Content Include="Scripts\datetimepicker\jquery-ui.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-validation\js\additional-methods.min.js" />
     <Content Include="Scripts\jquery-validation\js\jquery.validate.js" />
@@ -254,6 +266,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UserJoinCounterController.cs" />
     <Compile Include="Controllers\ScratchCardController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -280,6 +293,7 @@
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
     <Content Include="Views\ScratchCard\Details.cshtml" />
+    <Content Include="Views\UserJoinCounter\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -292,6 +306,7 @@
     <Folder Include="Models\" />
     <Folder Include="Styles\datetimepicker\images\" />
     <Folder Include="Upload\" />
+    <Folder Include="Views\Prize\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +317,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{c11f259a-56d2-4a64-bd34-e613f43212d8}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Enum\Enum.csproj">
+      <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
+      <Name>Enum</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>

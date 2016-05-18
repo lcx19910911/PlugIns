@@ -17,8 +17,8 @@ namespace Repository
         public string UNID { get; set; }
         public string Name { get; set; }
         public string KeyWord { get; set; }
-        public Nullable<System.DateTime> OngoingTime { get; set; }
-        public Nullable<System.DateTime> OverTime { get; set; }
+        public System.DateTime OngoingTime { get; set; }
+        public System.DateTime OverTime { get; set; }
         public string RepeatNotice { get; set; }
         public string PreheatingTitle { get; set; }
         public string PreheatingImage { get; set; }
@@ -29,8 +29,8 @@ namespace Repository
         public string OverTitle { get; set; }
         public string OverImage { get; set; }
         public string OverDescribe { get; set; }
-        public Nullable<System.DateTime> CreatedTime { get; set; }
-        public Nullable<System.DateTime> UpdatedTime { get; set; }
-        public Nullable<long> Flag { get; set; }
+        public System.DateTime CreatedTime { get; set; }
+        public System.DateTime UpdatedTime { get; set; }
+        public long Flag { get; set; }
     }
 }
