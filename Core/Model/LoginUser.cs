@@ -11,26 +11,21 @@ namespace Core.Code
     /// </summary>
     public class LoginUser
     {
-        public LoginUser(string UNID)
+        public LoginUser(string AppId, string AppSecret)
         {
-            this.UserId = UNID;
+            this.AppId = AppId;
+            this.AppSecret = AppSecret;
 
         }
         /// <summary>
-        /// 用户ID
+        /// 公众号appid
         /// </summary>
-        public string UserId { get; set; }
+        public string AppId { get; set; }
 
-        ///// <summary>
-        ///// 用户手机号 
-        ///// </summary>
-        //public string Phone { get; set; }
-
-        ///// <summary>
-        ///// 用户昵称
-        ///// </summary>
-        //public string Nickname { get; set; }
-
+        /// <summary>
+        /// AppSecret
+        /// </summary>
+        public string AppSecret { get; set; }
 
     }
 }

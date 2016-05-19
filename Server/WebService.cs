@@ -88,7 +88,7 @@ namespace Server
 
         public bool IsLoginUser()
         {
-            return !this.Client.UserID.IsNullOrEmpty();
+            return !this.Client.AppId.IsNullOrEmpty();
         }
 
         public WebResult<T> Result<T>(T model)

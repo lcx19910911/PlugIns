@@ -54,15 +54,27 @@ namespace Core.Model
         }
 
         /// <summary>
-        /// 当前登录用户ID
+        /// 当前登录AppSecret
         /// </summary>
-        public string UserID
+        public string AppId
         {
             get
             {
-                return LoginUser?.UserId;
+                return LoginUser?.AppId;
             }
         }
+
+        /// <summary>
+        /// 当前登录用户AppSecret
+        /// </summary>
+        public string AppSecret
+        {
+            get
+            {
+                return LoginUser?.AppSecret;
+            }
+        }
+
 
         private string _postData = null;
 

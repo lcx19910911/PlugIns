@@ -17,6 +17,7 @@ namespace Repository
         public string UNID { get; set; }
         public int TargetCode { get; set; }
         public string TargetID { get; set; }
+        public string AppId { get; set; }
         public string OpenID { get; set; }
         public System.DateTime CreatedTime { get; set; }
         public int IsPrize { get; set; }

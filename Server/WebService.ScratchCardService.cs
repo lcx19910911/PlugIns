@@ -31,12 +31,12 @@ namespace Server
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.ScratchCard.AsQueryable();
+                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag&(long)GlobalFlag.Removed)==0);
                 if (title.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(title));
                 }
-
+                query = query.Where(x => x.AppId.Equals(this.Client.AppId));
                 if (createdTimeStart != null)
                 {
                     query = query.Where(x => x.OngoingTime >= createdTimeStart);
@@ -95,8 +95,8 @@ namespace Server
                 || !model.OnePrize.IsNotNullOrEmpty()
                 )
                 return "数据为空";
-            if (model.OngoingTime < DateTime.Now)
-                return "开始时间小于当前时间";
+            if (model.OngoingTime < DateTime.Now.AddMinutes(20))
+                return "开始时间需比当前时间晚20分钟";
             if (model.OverTime < model.OngoingTime || model.OverTime < DateTime.Now)
                 return "结束时间必须大于当前时间和开始时间";
             using (DbRepository entities = new DbRepository())
@@ -109,11 +109,15 @@ namespace Server
                 addEntity.PreheatingImage = UploadHelper.Save(model.PreheatingImageFile, "ScratchCard");
                 addEntity.OngoingImage = UploadHelper.Save(model.OngoingImageFile, "ScratchCard");
                 addEntity.OverImage = UploadHelper.Save(model.OverImageFile, "ScratchCard");
+                addEntity.AppId = this.Client.AppId;
                 entities.ScratchCard.Add(addEntity);
 
                 var addPrizeEntity = model.AutoMap<Domain.ScratchCard.Update, Prize>();
                 if (model.AllCountLimt < model.DayLimt)
                     return "个人抽奖次数总计要大于或等于每天次数限制";
+
+                if (model.ExpectedPeopleCount < (model.OnePrizeCount+model.TwoPrizeCount+model.ThreePrizeCount))
+                    return "预计参与人数须大于奖品的总数";
 
                 addPrizeEntity.UNID = Guid.NewGuid().ToString("N");
                 addPrizeEntity.TargetCode = (int)TargetCode.ScratchCard;
@@ -152,8 +156,8 @@ namespace Server
                 || !model.OnePrize.IsNotNullOrEmpty()
                 )
                 return "数据为空";
-            if (model.OngoingTime < DateTime.Now)
-                return "开始时间小于当前时间";
+            if (model.OngoingTime < DateTime.Now.AddMinutes(20))
+                return "开始时间需比当前时间晚20分钟";
             if (model.OverTime < model.OngoingTime || model.OverTime < DateTime.Now)
                 return "结束时间必须大于当前时间和开始时间";
             if (model.AllCountLimt < model.DayLimt)
@@ -167,15 +171,22 @@ namespace Server
 
                     if (model.PreheatingImageFile != null)
                         oldEntity.PreheatingImage = UploadHelper.Save(model.PreheatingImageFile, "ScratchCard");
-                    if (model.PreheatingImageFile != null)
+                    if (model.OngoingImageFile != null)
                         oldEntity.OngoingImage = UploadHelper.Save(model.OngoingImageFile, "ScratchCard");
-                    if (model.PreheatingImageFile != null)
+                    if (model.OverImageFile != null)
                         oldEntity.OverImage = UploadHelper.Save(model.OverImageFile, "ScratchCard");
 
                     var oldPrizeEntity = entities.Prize.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).FirstOrDefault();
                     if (oldPrizeEntity != null)
                     {
-                        model.AutoMap<Domain.ScratchCard.Update, Prize>(oldPrizeEntity);
+                        oldPrizeEntity.OnePrize = model.OnePrize;
+                        oldPrizeEntity.TwoPrize = model.TwoPrize;
+                        oldPrizeEntity.ThreePrize = model.ThreePrize;
+                        oldPrizeEntity.IsShowCount = model.IsShowCount;
+                        oldPrizeEntity.ExpectedPeopleCount = model.ExpectedPeopleCount;
+                        oldPrizeEntity.DayLimt = model.DayLimt;
+                        oldPrizeEntity.AllCountLimt = model.AllCountLimt;
+
                         oldPrizeEntity.AllCount = oldPrizeEntity.OnePrizeCount + oldPrizeEntity.TwoPrizeCount + oldPrizeEntity.ThreePrizeCount;
                     }
                     else
@@ -340,6 +351,27 @@ namespace Server
                     result.IsError = false;
                     return result;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 参与刮刮卡活动
+        /// </summary>
+        /// <param name="unids"></param>
+        /// <returns></returns>
+        public bool Delete_ScratchCard(string unids)
+        {
+            if (!unids.IsNotNullOrEmpty())
+            {
+                return false;
+            }
+            using (DbRepository entities = new DbRepository())
+            {
+                //找到实体
+                entities.ScratchCard.Where(x=>unids.Contains(x.UNID)).ToList().ForEach(x=> {
+                    x.Flag = (x.Flag|(long)GlobalFlag.Removed);
+                });
+                return entities.SaveChanges() > 0 ? true : false;             
             }
         }
     }

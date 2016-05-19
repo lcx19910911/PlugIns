@@ -42,7 +42,6 @@
             <tr>
                 <th dataname="UNID" type="checkbox"></th>
                 <th dataname="Name">活动名称</th>
-                <th dataname="KeyWord">回复关键字</th>
                 <th dataname="OngoingTime" datatype="jsondate">开始时间</th>
                 <th dataname="OverTime" datatype="jsondate">结束时间</th>
                 <th dataname="State">状态</th>
@@ -70,37 +69,29 @@
 
         function formInit(dataitem) {
 
-            if (dataitem != null) {
-                if (dataitem.PreheatingImage == null) {
-                    $("#div_preheatingImage").hide();
-                }
-                else {
-                    $("#div_preheatingImage").find("img").attr("src", dataitem.PreheatingImage);
+            if (dataitem != null)
+            {
+                if (dataitem.PreheatingImage != null) {
+                    $("#div_preheatingImageShow").find("img").attr("src", dataitem.PreheatingImage);
                 }
 
-                if (dataitem.OngoingImage == null) {
-                    $("#div_ongoingImage").hide();
-                }
-                else {
-                    $("#div_ongoingImage").find("img").attr("src", dataitem.OngoingImage);
+                if (dataitem.OngoingImage != null) {
+                    $("#div_ongoingImageShow").find("img").attr("src", dataitem.OngoingImage);
                 }
 
-                if (dataitem.OverImage == null) {
-                    $("#div_overImage").hide();
+                if (dataitem.OverImage != null) {
+                    $("#div_overImageShow").find("img").attr("src", dataitem.OverImage);
                 }
-                else {
-                    $("#div_overImage").find("img").attr("src", dataitem.OverImage);
+                if (dataitem.IsShowCount == "1") {
+                    $("input[name='IsShowCount']").attr("checked", "checked");
                 }
-            }
-            else {
-                $("#div_preheatingImage,#div_ongoingImage,#div_overImage").hide();
             }
             //添加表单验证
             $.Nuoya.form("form").validate({
                 rules: {
                     Name: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 64
                     },
                     KeyWord: {
                         maxlength: 50
@@ -113,11 +104,11 @@
                     },
                     RepeatNotice: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 64
                     },
                     PreheatingTitle: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 64
                     },
                     PreheatingImage: {
                         required: true
@@ -127,7 +118,7 @@
                     },
                     OngoingTitle: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 64
                     },
                     OngoingImage: {
                         required: true
@@ -137,7 +128,7 @@
                     },
                     OverTitle: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 64
                     },
                     OverImage: {
                         required: true
@@ -160,39 +151,35 @@
                     },
                     DayLimt: {
                         required: true,
-                        digits: true,
-                        max: 2147483647,
-                        min: -2147483647
+                        digits: true
                     },
                     AllCountLimt: {
                         required: true,
                         digits: true,
-                        max: 2147483647,
-                        min: -2147483647
+                        max: 100000,
+                        min: 1
                     },
                     OnePrizeCount: {
                         required: true,
                         digits: true,
-                        max: 2147483647,
-                        min: -2147483647
+                        max: 5000,
+                        min: 1
                     },
                     TwoPrizeCount: {
                         required: true,
                         digits: true,
-                        max: 2147483647,
-                        min: -2147483647
+                        max: 5000,
+                        min: 1
                     },
                     ThreePrizeCount: {
                         required: true,
                         digits: true,
-                        max: 2147483647,
-                        min: -2147483647
+                        max: 5000,
+                        min: 1
                     },
                     ExpectedPeopleCount: {
                         required: true,
-                        digits: true,
-                        max: 2147483647,
-                        min: -2147483647
+                        digits: true
                     }
                 },
                 messages: {
@@ -261,7 +248,6 @@
                     DayLimt: {
                         required: "不允许为空",
                         digits: "请输入数字",
-                        max: "必须小于{0}",
                         min: "必须大于{0}"
                     },
                     AllCountLimt: {
@@ -290,14 +276,11 @@
                     },
                     ExpectedPeopleCount: {
                         required: "不允许为空",
-                        digits: "请输入数字",
-                        max: "必须小于{0}",
-                        min: "必须大于{0}"
+                        digits: "请输入数字"
                     }
                 }
             });
         }
-
 
         //新增
         function add() {
@@ -319,6 +302,25 @@
                         if (ongoingTime > overTime) {
                             $.Nuoya.alert("开始时间必须小于结束时间");
                             return false;
+                        }
+                        var onePrizeCount = document.forms[0].OnePrizeCount.value;
+                        var twoPrizeCount = document.forms[0].TwoPrizeCount.value;
+                        var threePrizeCount = document.forms[0].ThreePrizeCount.value;
+
+                        var expectedPeopleCount = document.forms[0].ExpectedPeopleCount.value;
+                        var prizeCount = parseInt(onePrizeCount) + parseInt(twoPrizeCount) + parseInt(threePrizeCount);
+                        if (prizeCount > parseInt(expectedPeopleCount)) {
+                            $.Nuoya.alert("预计参与人数须大于奖品的总数" + prizeCount);
+                            return false;
+                        }
+
+                        if (document.getElementById('chk_isShowCount').checked)
+                        {
+                            document.forms[0].IsShowCount.value = "1";
+                        }
+                        else
+                        {
+                            document.forms[0].IsShowCount.value = "0";
                         }
 
                         var dayLimt = document.forms[0].DayLimt.value;
@@ -344,9 +346,6 @@
                 }]
             })
         }
-
-
-
         var grid = $.Nuoya.grid({
             tableId: "dataTable",
             //表格id
@@ -388,6 +387,26 @@
                                     if (ongoingTime > overTime) {
                                         $.Nuoya.alert("开始时间必须小于结束时间");
                                         return false;
+                                    }
+
+                                    var onePrizeCount = document.forms[0].OnePrizeCount.value;
+                                    var twoPrizeCount = document.forms[0].TwoPrizeCount.value;
+                                    var threePrizeCount = document.forms[0].ThreePrizeCount.value;
+
+                                    var expectedPeopleCount = document.forms[0].ExpectedPeopleCount.value;
+                                    var prizeCount = parseInt(onePrizeCount) + parseInt(twoPrizeCount) + parseInt(threePrizeCount);
+                                    if (prizeCount > parseInt(expectedPeopleCount)) {
+                                        $.Nuoya.alert("预计参与人数须大于奖品的总数" + prizeCount);
+                                        return false;
+                                    }
+
+                                    if (document.getElementById('chk_isShowCount').checked)
+                                    {
+                                        document.forms[0].IsShowCount.value = "1";
+                                    }
+                                    else
+                                    {
+                                        document.forms[0].IsShowCount.value = "0";
                                     }
 
                                     var dayLimt = document.forms[0].DayLimt.value;
@@ -486,7 +505,7 @@
                                                     unid: item.UNID
                                                 },
                                                 function (data) {
-                                                    if (data!= "") {
+                                                    if (data != "") {
                                                         $.Nuoya.alert(date);
                                                     }
                                                     else {

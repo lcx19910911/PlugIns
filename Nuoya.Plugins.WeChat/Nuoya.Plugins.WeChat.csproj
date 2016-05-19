@@ -169,6 +169,9 @@
     <Content Include="Global.asax" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
+    <Content Include="Images\ScratchCard\ongoing.jpg" />
+    <Content Include="Images\ScratchCard\over.jpg" />
+    <Content Include="Images\ScratchCard\preheating.jpg" />
     <Content Include="Scripts\My97DatePicker\calendar.js" />
     <Content Include="Scripts\My97DatePicker\config.js" />
     <Content Include="Scripts\My97DatePicker\lang\en.js" />
@@ -270,6 +273,7 @@
     <Compile Include="Controllers\UserJoinCounterController.cs" />
     <Compile Include="Controllers\ScratchCardController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WallController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -295,6 +299,7 @@
     <Content Include="Scripts\uploadify\uploadify.php" />
     <Content Include="Views\ScratchCard\Details.cshtml" />
     <Content Include="Views\UserJoinCounter\Index.cshtml" />
+    <Content Include="Views\Wall\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -322,6 +327,10 @@
     <ProjectReference Include="..\Enum\Enum.csproj">
       <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
       <Name>Enum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPUtil\MPUtil.csproj">
+      <Project>{3bbc72d2-fb0d-4490-acfa-c62b31a95ab5}</Project>
+      <Name>MPUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>

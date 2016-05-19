@@ -89,5 +89,17 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var model = WebService.Do_ScratchCard(unid);
             return JResult(model);
         }
+
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        public ActionResult Delete(string unids)
+        {
+            var model = WebService.Delete_ScratchCard(unids);
+            return JResult(model);
+        }
     }
 }

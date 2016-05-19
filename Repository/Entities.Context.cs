@@ -25,9 +25,10 @@ namespace Repository
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<ScratchCard> ScratchCard { get; set; }
         public virtual DbSet<Prize> Prize { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<ScratchCard> ScratchCard { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserJoinCounter> UserJoinCounter { get; set; }
     }
 }

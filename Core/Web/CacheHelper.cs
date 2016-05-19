@@ -782,6 +782,10 @@ namespace Core.Web
         /// </summary>
         OneHour = 60,
         /// <summary>
+        /// 二小时
+        /// </summary>
+        TwoHour = 120,
+        /// <summary>
         /// 半天(12小时)
         /// </summary>
         HalfDay = 720

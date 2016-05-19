@@ -42,7 +42,7 @@ namespace MPUtil.UserMng
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <returns></returns>
-        public Hashtable GetInfo(string accessToken, string openId)
+        public static Hashtable GetInfo(string accessToken, string openId)
         {
             string wxurl = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang=zh_CN",accessToken,openId);
             string result = HttpHelper.GetReponseText(wxurl);

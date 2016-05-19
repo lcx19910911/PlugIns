@@ -22,7 +22,8 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public JsonResult Submit(string account, string password)
         {
-            Client.LoginUser = new Core.Code.LoginUser("111");
+            Client.LoginUser = new Core.Code.LoginUser("111","22222222222");
+            //WebService.Update_Admin("111","2222222","")
             return JResult("1");
         }
     }

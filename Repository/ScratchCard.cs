@@ -15,6 +15,7 @@ namespace Repository
     public partial class ScratchCard
     {
         public string UNID { get; set; }
+        public string AppId { get; set; }
         public string Name { get; set; }
         public string KeyWord { get; set; }
         public System.DateTime OngoingTime { get; set; }
@@ -31,6 +32,6 @@ namespace Repository
         public string OverDescribe { get; set; }
         public System.DateTime CreatedTime { get; set; }
         public System.DateTime UpdatedTime { get; set; }
-        public long Flag { get; set; }
+        public Nullable<long> Flag { get; set; }
     }
 }
