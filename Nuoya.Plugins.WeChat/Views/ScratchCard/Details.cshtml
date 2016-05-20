@@ -92,15 +92,15 @@
     }
     else
     {
-         image = "/Styles/activity/images/activity-scratch-card-bg.jpg";
+        image = "/Styles/activity/images/activity-scratch-card-bannerbg.png";
     }
 }
-<body data-role="page" class="activity-scratch-card-winning" style="background-image:url(@(image))">
+<body data-role="page" class="activity-scratch-card-winning">
     <script src="~/Scripts/jquery-2.2.3.min.js"></script>
     <script src="~/Scripts/activity/scratchcard/wScratchPad.js"></script>
     <div class="main">
         <div class="cover">
-            <img src="~/Styles/activity/images/activity-scratch-card-bannerbg.png">
+            <img src="@(image)">
             <div id="prizeDiv">
             </div>
             <div id="scratchpad">

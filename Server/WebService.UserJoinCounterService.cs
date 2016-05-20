@@ -76,7 +76,7 @@ namespace Server
                 {
                     query = query.Where(x => x.OpenID.Contains(openId));
                 }
-                query = query.Where(x => x.AppId.Equals(this.Client.AppId));
+               // query = query.Where(x => x.AppId.Equals(this.Client.AppId));
 
                 if (SN.IsNotNullOrEmpty())
                 {

@@ -14,7 +14,8 @@ namespace Nuoya.Plugins.WeChat
                 "~/Styles/css/amazeui.css",
                 "~/Scripts/tipso/css/tipso.min.css",
                 "~/Styles/admin.css",
-                "~/Scripts/My97DatePicker/WdatePicker.css"));
+                "~/Scripts/My97DatePicker/WdatePicker.css",
+                "~/Scripts/uploadify/uploadify.css"));
             #endregion
 
             #region 脚本
@@ -40,7 +41,9 @@ namespace Nuoya.Plugins.WeChat
 
                "~/Scripts/My97DatePicker/WdatePicker.js",
                "~/Scripts/My97DatePicker/config.js",
-               "~/Scripts/My97DatePicker/lang/zh-cn.js"
+               "~/Scripts/My97DatePicker/lang/zh-cn.js",
+
+               "~/Scripts/uploadify/jquery.uploadify.min.js"
                ));
 
             bundles.Add(new ScriptBundle("~/Scripts/Avalon").Include(

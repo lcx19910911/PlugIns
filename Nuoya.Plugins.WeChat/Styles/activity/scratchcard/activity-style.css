@@ -8,10 +8,12 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 margin: 0 auto;
 width:320px;
 }
+
 .activity-lottery-winning{ background: url(../images/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;}
 .activity-lottery-end{ background: url(../images/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;}
-.activity-coupon-winning{ background-color:#8d0001;overflow-x: hidden;}
+.activity-coupon-winning{ background: url(../images/activity-scratch-card-bg.jpg);background-color:#8d0001;overflow-x: hidden;}
 .activity-coupon-end{ background-color:#8d0001;overflow-x: hidden;}
+.activity-scratch-card-winning{background: url(../images/activity-scratch-card-bg.jpg) #944f20;overflow-x: hidden;}
 .activity-scratch-card-end{background: url(../images/activity-scratch-card-bg.jpg) #944f20;overflow-x: hidden;}
 
 .activity-lottery-winning .main{

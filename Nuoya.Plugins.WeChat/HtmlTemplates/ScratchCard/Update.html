@@ -30,9 +30,9 @@
                             活动时间
                         </div>
                         <div class="am-u-md-6">
-                            <input type="text" name="OngoingTime" style="width:160px;float:left;"  readonly onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" datatype="jsondate" />
+                            <input type="text" name="OngoingTime" style="width:170px;float:left;"  readonly onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" datatype="jsondate" />
                             <label class="am-u-md-1 am-text-left">-</label>
-                            <input type="text" name="OverTime" style="width:160px;float:left;"   readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" datatype="jsondate" />
+                            <input type="text" name="OverTime" style="width:170px;float:left;"   readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" datatype="jsondate" />
                         </div>
                         <div class="am-hide-sm-only am-u-md-3 am-text-left"></div>
                     </div>
@@ -84,8 +84,8 @@
                                     预热图片
                                 </div>
                                 <div class="am-u-md-5">
-                                    <input type="file" class="file" name="PreheatingImageFile" />
-                                    <input type="hidden" name="PreheatingImage" />
+                                    <input type="file" class="file" id="preheatingImageFile"/>
+                                    <input type="hidden" name="PreheatingImage" value="/Images/ScratchCard/preheating.jpg"/>
                                 </div>
                                 <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>参考尺寸：700*300</div>
                             </div>
@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="am-g am-margin-top">
-                                <div class="am-u-md-12 am-text-left" id="div_ongingingImageShow">
+                                <div class="am-u-md-12 am-text-left" id="div_ongingImageShow">
                                     <img class="am-img-circle am-img-thumbnail" style="width:350px;" src="/Images/ScratchCard/ongoing.jpg" alt="">
                                 </div>
 
@@ -137,8 +137,8 @@
                                     开始抽奖图片
                                 </div>
                                 <div class="am-u-md-5">
-                                    <input type="file" class="file" name="OngoingImageFile" />
-                                    <input type="hidden" name="OngoingImage" />
+                                    <input type="file" class="file" id="ongoingImageFile"/>
+                                    <input type="hidden" name="OngoingImage" value="/Images/ScratchCard/ongoing.jpg"/>
                                 </div>
                                 <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>参考尺寸：700*300</div>
                             </div>
@@ -190,8 +190,8 @@
                                     发放完毕通知图片
                                 </div>
                                 <div class="am-u-md-5">
-                                    <input type="file" class="file" name="OverImageFile" />
-                                    <input type="hidden" name="OverImage" />
+                                    <input type="file" class="file" id="overImageFile" />
+                                    <input type="hidden" name="OverImage" value="/Images/ScratchCard/over.jpg"/>
                                 </div>
                                 <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>参考尺寸：700*300</div>
                             </div>

@@ -280,6 +280,72 @@
                     }
                 }
             });
+
+            $("#preheatingImageFile").uploadify({
+                'formData': { mark: 'ScratchCard'},
+                'swf': '/Scripts/uploadify/uploadify.swf',
+                'uploader': '/upload/uploadimage',
+                'buttonText': '选择图片',
+                'auto': true,
+                'multi': false,
+                'removeCompleted': true,
+                'fileSizeLimit': '2048KB',
+                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
+                'onUploadSuccess': function (file, data, response) {
+                    var data = JSON.parse(data);
+                    if (data.Code == 0) {
+                        $("[name='PreheatingImage']").val(data.Result);
+                        $("#div_preheatingImageShow").find("img").attr("src", data.Result);
+
+                    } else {
+                        $.Nuoya.alert("上传错误");
+                    }
+                }
+            });
+            
+            $("#ongoingImageFile").uploadify({
+                'formData': { mark: 'ScratchCard' },
+                'swf': '/Scripts/uploadify/uploadify.swf',
+                'uploader': '/upload/uploadimage',
+                'buttonText': '选择图片',
+                'auto': true,
+                'multi': false,
+                'removeCompleted': true,
+                'fileSizeLimit': '2048KB',
+                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
+                'onUploadSuccess': function (file, data, response) {
+                    var data = JSON.parse(data);
+                    if (data.Code == 0) {
+                        $("[name='OngoingImage']").val(data.Result);
+                        $("#div_ongingImageShow").find("img").attr("src", data.Result);
+
+                    } else {
+                        $.Nuoya.alert("上传错误");
+                    }
+                }
+            });
+
+            $("#overImageFile").uploadify({
+                'formData': { mark: 'ScratchCard' },
+                'swf': '/Scripts/uploadify/uploadify.swf',
+                'uploader': '/upload/uploadimage',
+                'buttonText': '选择图片',
+                'auto': true,
+                'multi': false,
+                'removeCompleted': true,
+                'fileSizeLimit': '2048KB',
+                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
+                'onUploadSuccess': function (file, data, response) {
+                    var data = JSON.parse(data);
+                    if (data.Code == 0) {
+                        $("[name='OverImage']").val(data.Result);
+                        $("#div_overImageShow").find("img").attr("src", data.Result);
+
+                    } else {
+                        $.Nuoya.alert("上传错误");
+                    }
+                }
+            });
         }
 
         //新增

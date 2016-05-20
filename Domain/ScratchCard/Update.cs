@@ -40,7 +40,6 @@ namespace Domain.ScratchCard
         /// <summary>
         /// 预热图片
         /// </summary>
-        public HttpPostedFileBase PreheatingImageFile { get; set; }
         public string PreheatingImage { get; set; }
         /// <summary>
         /// 预热描述
@@ -53,7 +52,6 @@ namespace Domain.ScratchCard
         /// <summary>
         /// 进行时图片
         /// </summary>
-        public HttpPostedFileBase OngoingImageFile { get; set; }
         public string OngoingImage { get; set; }
         /// <summary>
         /// 进行时描述
@@ -66,7 +64,6 @@ namespace Domain.ScratchCard
         /// <summary>
         /// 结束图片
         /// </summary>
-        public HttpPostedFileBase OverImageFile { get; set; }
         public string OverImage { get; set; }
         /// <summary>
         /// 结束描述

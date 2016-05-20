@@ -186,6 +186,15 @@
     <Content Include="Scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
     <Content Include="Scripts\My97DatePicker\skin\whyGreen\img.gif" />
     <Content Include="Scripts\My97DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\uploadify\Change Log.txt" />
+    <Content Include="Scripts\uploadify\jquery.uploadify.js" />
+    <Content Include="Scripts\uploadify\jquery.uploadify.min.js" />
+    <Content Include="Scripts\uploadify\license.txt" />
+    <Content Include="Scripts\uploadify\uploadify-cancel.png" />
+    <Content Include="Scripts\uploadify\uploadify.css" />
+    <Content Include="Scripts\uploadify\uploadify.swf" />
+    <Content Include="Scripts\uploadify\__MACOSX\._Change Log.txt" />
+    <Content Include="Scripts\uploadify\__MACOSX\._uploadify.swf" />
     <Content Include="Styles\activity\images\activity-lottery-2.png" />
     <Content Include="Styles\activity\images\activity-lottery-3.png" />
     <Content Include="Styles\activity\images\activity-lottery-bg.png" />
@@ -221,15 +230,6 @@
     <Content Include="Scripts\Nuoya\nuoya.other.js" />
     <Content Include="Scripts\tipso\css\tipso.min.css" />
     <Content Include="Scripts\tipso\js\tipso.js" />
-    <Content Include="Scripts\uploadify\Change Log.txt" />
-    <Content Include="Scripts\uploadify\jquery.uploadify.js" />
-    <Content Include="Scripts\uploadify\jquery.uploadify.min.js" />
-    <Content Include="Scripts\uploadify\license.txt" />
-    <Content Include="Scripts\uploadify\uploadify-cancel.png" />
-    <Content Include="Scripts\uploadify\uploadify.css" />
-    <Content Include="Scripts\uploadify\uploadify.swf" />
-    <Content Include="Scripts\uploadify\__MACOSX\._Change Log.txt" />
-    <Content Include="Scripts\uploadify\__MACOSX\._uploadify.swf" />
     <Content Include="Scripts\ztree-select.js" />
     <Content Include="Styles\activity\scratchcard\activity-style.css" />
     <Content Include="Styles\admin.css" />
@@ -270,6 +270,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserJoinCounterController.cs" />
     <Compile Include="Controllers\ScratchCardController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -294,12 +295,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\PartialMenu.cshtml" />
-    <Content Include="Scripts\uploadify\check-exists.php" />
-    <Content Include="Scripts\uploadify\index.php" />
-    <Content Include="Scripts\uploadify\uploadify.php" />
     <Content Include="Views\ScratchCard\Details.cshtml" />
     <Content Include="Views\UserJoinCounter\Index.cshtml" />
     <Content Include="Views\Wall\Index.cshtml" />
+    <Content Include="Scripts\uploadify\check-exists.php" />
+    <Content Include="Scripts\uploadify\index.php" />
+    <Content Include="Scripts\uploadify\uploadify.php" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -313,6 +314,7 @@
     <Folder Include="Styles\datetimepicker\images\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Prize\" />
+    <Folder Include="Views\Upload\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

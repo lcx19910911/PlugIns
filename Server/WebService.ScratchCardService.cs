@@ -36,7 +36,7 @@ namespace Server
                 {
                     query = query.Where(x => x.Name.Contains(title));
                 }
-                query = query.Where(x => x.AppId.Equals(this.Client.AppId));
+                //query = query.Where(x => x.AppId.Equals(this.Client.AppId));
                 if (createdTimeStart != null)
                 {
                     query = query.Where(x => x.OngoingTime >= createdTimeStart);
@@ -86,9 +86,6 @@ namespace Server
                 || model.OngoingTime == null
                 || model.OverTime == null
                 || !model.RepeatNotice.IsNotNullOrEmpty()
-                || model.PreheatingImageFile == null
-                || model.OngoingImageFile == null
-                || model.OverImageFile == null
                 || !model.OnePrize.IsNotNullOrEmpty()
                 || !model.TwoPrize.IsNotNullOrEmpty()
                 || !model.ThreePrize.IsNotNullOrEmpty()
@@ -106,10 +103,7 @@ namespace Server
                 addEntity.CreatedTime = DateTime.Now;
                 addEntity.UpdatedTime = DateTime.Now;
                 addEntity.Flag = (long)GlobalFlag.Normal;
-                addEntity.PreheatingImage = UploadHelper.Save(model.PreheatingImageFile, "ScratchCard");
-                addEntity.OngoingImage = UploadHelper.Save(model.OngoingImageFile, "ScratchCard");
-                addEntity.OverImage = UploadHelper.Save(model.OverImageFile, "ScratchCard");
-                addEntity.AppId = this.Client.AppId;
+                //addEntity.AppId = this.Client.AppId;
                 entities.ScratchCard.Add(addEntity);
 
                 var addPrizeEntity = model.AutoMap<Domain.ScratchCard.Update, Prize>();
@@ -168,14 +162,6 @@ namespace Server
                 if (oldEntity != null)
                 {
                     model.AutoMap<Domain.ScratchCard.Update, ScratchCard>(oldEntity);
-
-                    if (model.PreheatingImageFile != null)
-                        oldEntity.PreheatingImage = UploadHelper.Save(model.PreheatingImageFile, "ScratchCard");
-                    if (model.OngoingImageFile != null)
-                        oldEntity.OngoingImage = UploadHelper.Save(model.OngoingImageFile, "ScratchCard");
-                    if (model.OverImageFile != null)
-                        oldEntity.OverImage = UploadHelper.Save(model.OverImageFile, "ScratchCard");
-
                     var oldPrizeEntity = entities.Prize.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).FirstOrDefault();
                     if (oldPrizeEntity != null)
                     {
