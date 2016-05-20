@@ -9,15 +9,15 @@ margin: 0 auto;
 width:320px;
 }
 
-.activity-lottery-winning{ background: url(../images/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;}
-.activity-lottery-end{ background: url(../images/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;}
-.activity-coupon-winning{ background: url(../images/activity-scratch-card-bg.jpg);background-color:#8d0001;overflow-x: hidden;}
+.activity-lottery-winning{ background: url(../images/scratchcard/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;}
+.activity-lottery-end{ background: url(../images/scratchcard/activity-lottery-bg2.jpg) #2a8a00;overflow-x: hidden;}
+.activity-coupon-winning{ background: url(../images/scratchcard/activity-scratch-card-bg.jpg);background-color:#8d0001;overflow-x: hidden;}
 .activity-coupon-end{ background-color:#8d0001;overflow-x: hidden;}
-.activity-scratch-card-winning{background: url(../images/activity-scratch-card-bg.jpg) #944f20;overflow-x: hidden;}
-.activity-scratch-card-end{background: url(../images/activity-scratch-card-bg.jpg) #944f20;overflow-x: hidden;}
+.activity-scratch-card-winning{background: url(../images/scratchcard/activity-scratch-card-bg.jpg) #944f20;overflow-x: hidden;}
+.activity-scratch-card-end{background: url(../images/scratchcard/activity-scratch-card-bg.jpg) #944f20;overflow-x: hidden;}
 
 .activity-lottery-winning .main{
-	background: url(../images/activity-lottery-bg.png) no-repeat top center;
+	background: url(../images/scratchcard/activity-lottery-bg.png) no-repeat top center;
 	background-size: 320px auto;
 }
 
@@ -120,7 +120,7 @@ width:320px;
 }
 .box .title-red {
 	padding: 0 5px 0px 10px;
-	background:url(../images/title-bg-brown.png) no-repeat 0 0;
+	background:url(../images/scratchcard/title-bg-brown.png) no-repeat 0 0;
 	border-radius: 3px 3px 3px 0;
 	color:#ffffff;
 	height:22px;
@@ -130,7 +130,7 @@ width:320px;
 }
 .box .title-orange {
 	padding: 0 5px 0px 10px;
-	background:url(../images/title-bg-brown.png) no-repeat 0 0;
+	background:url(../images/scratchcard/title-bg-brown.png) no-repeat 0 0;
 	border-radius: 3px 3px 3px 0;
 	color:#ffffff;
 	height:22px;
@@ -140,7 +140,7 @@ width:320px;
 }
 .box .title-green {
 	padding: 0 5px 0px 10px;
-	background:url(../images/title-bg-green.png) no-repeat 0 0;
+	background:url(../images/scratchcard/title-bg-green.png) no-repeat 0 0;
 	border-radius: 3px 3px 3px 0;
 	color:#ffffff;
 	height:22px;
@@ -150,7 +150,7 @@ width:320px;
 }
 .box .title-brown {
 	padding: 0 5px 0px 10px;
-	background:url(../images/title-bg-brown.png) no-repeat 0 0;
+	background:url(../images/scratchcard/title-bg-brown.png) no-repeat 0 0;
 	border-radius: 3px 3px 3px 0;
 	height:22px;
 	margin:-1px;

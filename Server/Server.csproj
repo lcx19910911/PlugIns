@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapperExtension.cs" />
+    <Compile Include="WebService.WallService.cs" />
     <Compile Include="WebService.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="WebService.AdminService.cs" />

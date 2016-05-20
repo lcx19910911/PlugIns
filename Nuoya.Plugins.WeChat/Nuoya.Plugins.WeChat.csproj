@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -169,9 +171,14 @@
     <Content Include="Global.asax" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
+    <Content Include="HtmlTemplates\Wall\Update.html" />
     <Content Include="Images\ScratchCard\ongoing.jpg" />
     <Content Include="Images\ScratchCard\over.jpg" />
     <Content Include="Images\ScratchCard\preheating.jpg" />
+    <Content Include="Scripts\activity\wall\helper_min.js" />
+    <Content Include="Scripts\activity\wall\jquery_flexslider.js" />
+    <Content Include="Scripts\activity\wall\main.js" />
+    <Content Include="Scripts\activity\wall\msgScroll.js" />
     <Content Include="Scripts\My97DatePicker\calendar.js" />
     <Content Include="Scripts\My97DatePicker\config.js" />
     <Content Include="Scripts\My97DatePicker\lang\en.js" />
@@ -195,14 +202,14 @@
     <Content Include="Scripts\uploadify\uploadify.swf" />
     <Content Include="Scripts\uploadify\__MACOSX\._Change Log.txt" />
     <Content Include="Scripts\uploadify\__MACOSX\._uploadify.swf" />
-    <Content Include="Styles\activity\images\activity-lottery-2.png" />
-    <Content Include="Styles\activity\images\activity-lottery-3.png" />
-    <Content Include="Styles\activity\images\activity-lottery-bg.png" />
-    <Content Include="Styles\activity\images\activity-lottery-bg2.jpg" />
-    <Content Include="Styles\activity\images\activity-scratch-card-bannerbg.png" />
-    <Content Include="Styles\activity\images\activity-scratch-card-bg.jpg" />
-    <Content Include="Styles\activity\images\title-bg-brown.png" />
-    <Content Include="Styles\activity\images\title-bg-green.png" />
+    <Content Include="Styles\activity\images\scratchcard\activity-lottery-2.png" />
+    <Content Include="Styles\activity\images\scratchcard\activity-lottery-3.png" />
+    <Content Include="Styles\activity\images\scratchcard\activity-lottery-bg.png" />
+    <Content Include="Styles\activity\images\scratchcard\activity-lottery-bg2.jpg" />
+    <Content Include="Styles\activity\images\scratchcard\activity-scratch-card-bannerbg.png" />
+    <Content Include="Styles\activity\images\scratchcard\activity-scratch-card-bg.jpg" />
+    <Content Include="Styles\activity\images\scratchcard\title-bg-brown.png" />
+    <Content Include="Styles\activity\images\scratchcard\title-bg-green.png" />
     <Content Include="NLog.config" />
     <Content Include="Scripts\activity\scratchcard\alert.js" />
     <Content Include="Scripts\activity\scratchcard\wScratchPad.js" />
@@ -231,7 +238,21 @@
     <Content Include="Scripts\tipso\css\tipso.min.css" />
     <Content Include="Scripts\tipso\js\tipso.js" />
     <Content Include="Scripts\ztree-select.js" />
-    <Content Include="Styles\activity\scratchcard\activity-style.css" />
+    <Content Include="Styles\activity\images\wall\5.jpg" />
+    <Content Include="Styles\activity\images\wall\6.jpg" />
+    <Content Include="Styles\activity\images\wall\bg2.png" />
+    <Content Include="Styles\activity\images\wall\bg3.png" />
+    <Content Include="Styles\activity\images\wall\bg4.png" />
+    <Content Include="Styles\activity\images\wall\bg5.png" />
+    <Content Include="Styles\activity\images\wall\bg7.png" />
+    <Content Include="Styles\activity\images\wall\btn_luck.png" />
+    <Content Include="Styles\activity\images\wall\btn_luck2.png" />
+    <Content Include="Styles\activity\images\wall\close.png" />
+    <Content Include="Styles\activity\images\wall\icons.png" />
+    <Content Include="Styles\activity\images\wall\icons2.png" />
+    <Content Include="Styles\activity\scratchcard\scratchcard.css" />
+    <Content Include="Styles\activity\wall\core.css" />
+    <Content Include="Styles\activity\wall\wall.css" />
     <Content Include="Styles\admin.css" />
     <Content Include="Styles\css\amazeui.css" />
     <Content Include="Styles\css\amazeui.datetimepicker.css" />
@@ -301,6 +322,7 @@
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
+    <Content Include="Views\Wall\Detials.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -311,6 +333,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Styles\activity\images\wall\template1\" />
     <Folder Include="Styles\datetimepicker\images\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Prize\" />
@@ -343,11 +366,15 @@
       <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

@@ -11,30 +11,29 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    public partial class ScratchCard
+    
+    public partial class Wall
     {
         public string UNID { get; set; }
         public string AppId { get; set; }
         public string Name { get; set; }
-        public string KeyWord { get; set; }
+        public string Sponsor { get; set; }
+        public string SponsorLogo { get; set; }
+        public string TopLogo { get; set; }
+        public string Qrcode { get; set; }
+        public string BackgroundImage { get; set; }
         public System.DateTime OngoingTime { get; set; }
         public System.DateTime OverTime { get; set; }
-        public string RepeatNotice { get; set; }
-        public string PreheatingTitle { get; set; }
-        public string PreheatingImage { get; set; }
-        public string PreheatingDescribe { get; set; }
-        public string OngoingTitle { get; set; }
-        public string OngoingImage { get; set; }
-        public string OngoingDescribe { get; set; }
-        public string OverTitle { get; set; }
-        public string OverImage { get; set; }
-        public string OverDescribe { get; set; }
+        public string Describe { get; set; }
+        public string TipLogo { get; set; }
+        public int IsShowVedio { get; set; }
+        public string Vedio { get; set; }
+        public int IsOpen { get; set; }
+        public int IsAudting { get; set; }
+        public int IsShow { get; set; }
+        public Nullable<long> ContentFlag { get; set; }
+        public Nullable<long> Flag { get; set; }
         public System.DateTime CreatedTime { get; set; }
         public System.DateTime UpdatedTime { get; set; }
-        public Nullable<long> Flag { get; set; }
-        [ConcurrencyCheck]
-        [Timestamp]
-        public byte TimeStamp { get; set; }
     }
 }

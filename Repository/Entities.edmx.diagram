@@ -5,11 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d607267f418742b9b1f9bb870bf1f7e7" Name="Diagram1">
-        <EntityTypeShape EntityType="PlugInsModel.Prize" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="PlugInsModel.Admin" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PlugInsModel.ScratchCard" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="PlugInsModel.User" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="PlugInsModel.UserJoinCounter" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PlugInsModel.Prize" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="PlugInsModel.WallMessage" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PlugInsModel.Wall" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PlugInsModel.WallImage" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="PlugInsModel.ScratchCard" Width="1.5" PointX="8.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

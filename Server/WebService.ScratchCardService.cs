@@ -162,6 +162,7 @@ namespace Server
                 if (oldEntity != null)
                 {
                     model.AutoMap<Domain.ScratchCard.Update, ScratchCard>(oldEntity);
+                    oldEntity.UpdatedTime = DateTime.Now;
                     var oldPrizeEntity = entities.Prize.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).FirstOrDefault();
                     if (oldPrizeEntity != null)
                     {
@@ -197,6 +198,7 @@ namespace Server
                 return null;
             using (DbRepository entities = new DbRepository())
             {
+                
                 Domain.ScratchCard.Update model = new Update();
                 var scratchScardEntity = entities.ScratchCard.Find(unid);
                 var prizeEntity = entities.Prize.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).FirstOrDefault();
@@ -327,6 +329,7 @@ namespace Server
                     result.SN = null;
                 }
 
+                scratchScardEntity.SingleCount = scratchScardEntity.SingleCount++;
                 entities.UserJoinCounter.Add(userJoin);
 
                 //保存

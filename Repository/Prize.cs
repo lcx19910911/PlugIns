@@ -15,18 +15,21 @@ namespace Repository
     public partial class Prize
     {
         public string UNID { get; set; }
-        public Nullable<int> TargetCode { get; set; }
+        public int TargetCode { get; set; }
         public string TargetID { get; set; }
         public string OnePrize { get; set; }
         public int OnePrizeCount { get; set; }
+        public string OnePrizeImage { get; set; }
         public string TwoPrize { get; set; }
         public int TwoPrizeCount { get; set; }
+        public string TwoPrizeImage { get; set; }
         public string ThreePrize { get; set; }
         public int ThreePrizeCount { get; set; }
+        public string ThreePrizeImage { get; set; }
         public int AllCount { get; set; }
         public int ExpectedPeopleCount { get; set; }
-        public Nullable<int> DayLimt { get; set; }
-        public Nullable<int> AllCountLimt { get; set; }
-        public Nullable<int> IsShowCount { get; set; }
+        public int DayLimt { get; set; }
+        public int AllCountLimt { get; set; }
+        public int IsShowCount { get; set; }
     }
 }
