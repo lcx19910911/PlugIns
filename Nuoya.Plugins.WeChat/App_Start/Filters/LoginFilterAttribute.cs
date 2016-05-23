@@ -21,26 +21,30 @@ namespace Nuoya.Plugins.WeChat.Filters
             var controllerName = filterContext.RouteData.Values["Controller"].ToString();
             var actionMethodList = filterContext.Controller.GetType().GetMethods();
 
-            //判断用户token是否有效
-            if (controller.Client.LoginUser == null)
+            //预览页面不做登陆验证
+            if(!actionName.ToLower().Equals("details"))
             {
-                if (!controllerName.ToLower().Equals("login"))
+                //判断用户token是否有效
+                if (controller.Client.LoginUser == null)
                 {
-                    var actionMethod = actionMethodList.FirstOrDefault(x => x.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase));
-                    if (actionMethod != null)
+                    if (!controllerName.ToLower().Equals("login"))
                     {
-                        if (actionMethod.ReturnType.Name == "ViewResult" || actionMethod.ReturnType.Name == "ActionResult")
+                        var actionMethod = actionMethodList.FirstOrDefault(x => x.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase));
+                        if (actionMethod != null)
                         {
-                            RedirectResult redirectResult = new RedirectResult("/login/index");
-                            filterContext.Result = redirectResult;
+                            if (actionMethod.ReturnType.Name == "ViewResult" || actionMethod.ReturnType.Name == "ActionResult")
+                            {
+                                RedirectResult redirectResult = new RedirectResult("/login/index");
+                                filterContext.Result = redirectResult;
 
-                        }
-                        else if (actionMethod.ReturnType.Name == "JsonResult")
-                        {
-                            JsonResult jsonResult = new JsonResult();
-                            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                            filterContext.RequestContext.HttpContext.Response.StatusCode = 9999;
-                            filterContext.Result = jsonResult;
+                            }
+                            else if (actionMethod.ReturnType.Name == "JsonResult")
+                            {
+                                JsonResult jsonResult = new JsonResult();
+                                jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                                filterContext.RequestContext.HttpContext.Response.StatusCode = 9999;
+                                filterContext.Result = jsonResult;
+                            }
                         }
                     }
                 }

@@ -11,7 +11,7 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Prize
     {
         public string UNID { get; set; }
@@ -28,8 +28,13 @@ namespace Repository
         public string ThreePrizeImage { get; set; }
         public int AllCount { get; set; }
         public int ExpectedPeopleCount { get; set; }
+        public int hadPrizeCount { get; set; }
         public int DayLimt { get; set; }
         public int AllCountLimt { get; set; }
         public int IsShowCount { get; set; }
+
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] TimeStamp { get; set; }
     }
 }

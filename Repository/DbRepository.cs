@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,11 @@ namespace Repository
             }
             catch (Exception ex)
             {
+                //并发冲突数据
+                if (ex.GetType() == typeof(DbUpdateConcurrencyException))
+                {
+                    return -1;
+                }
                 Core.Util.LogHelper.WriteException(ex);
                 return 0;
             }

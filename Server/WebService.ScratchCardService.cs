@@ -12,6 +12,7 @@ using Extension;
 using Enum;
 using Core.Helper;
 using Core.Web;
+using System.Data.Entity.Infrastructure;
 
 namespace Server
 {
@@ -252,16 +253,17 @@ namespace Server
                 }
 
                 //当前的微信 openid
-                string openId = CacheHelper.Get<string>("openId");
-                if(!openId.IsNotNullOrEmpty())
-                {
-                    result.Result = "身份授权已过期，请重新刷新页面授权";
-                    return result;
-                }
+                string openId ="11111111111";
+                //string openId = CacheHelper.Get<string>("openId");
+                //if (!openId.IsNotNullOrEmpty())
+                //{
+                //    result.Result = "身份授权已过期，请重新刷新页面授权";
+                //    return result;
+                //}
                 //参与抽奖的参与情况
-                var hadPrizeList = entities.UserJoinCounter.Where(x =>x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).ToList();
+                var hadPrizeList = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).ToList();
                 //一等奖个数
-                int onePrizeNum = hadPrizeList.Where(x => x.IsPrize==1 && x.PrizeGrade == 1).Count();
+                int onePrizeNum = hadPrizeList.Where(x => x.IsPrize == 1 && x.PrizeGrade == 1).Count();
                 //二等奖个数
                 int twoPrizeNum = hadPrizeList.Where(x => x.IsPrize == 1 && x.PrizeGrade == 2).Count();
                 //三等奖个数
@@ -328,13 +330,31 @@ namespace Server
                     userJoin.SN = null;
                     result.SN = null;
                 }
+                if (result.IsPrize)
+                {
+                    prizeEntity.hadPrizeCount++;
+                    if (prizeEntity.hadPrizeCount > prizeEntity.OnePrizeCount + prizeEntity.TwoPrizeCount + prizeEntity.ThreePrizeCount)
+                    {
+                        result.Result = "很抱歉，奖品已经全部派送完了";
+                        return result;
+                    }
 
-                scratchScardEntity.SingleCount = scratchScardEntity.SingleCount++;
+                }
+
+
                 entities.UserJoinCounter.Add(userJoin);
-
+                int effect = entities.SaveChanges();
                 //保存
-                if (entities.SaveChanges() < 0)
-                    return new PrizeResult() { IsError = true };
+                if (effect < 0)
+                {
+                    if (effect == -1)
+                    {
+                        result.Result = "系统繁忙，请刷新页面重新刮奖";
+                        return result;
+                    }
+                    else
+                        return new PrizeResult() { IsError = true };
+                }
                 else
                 {
                     result.IsError = false;

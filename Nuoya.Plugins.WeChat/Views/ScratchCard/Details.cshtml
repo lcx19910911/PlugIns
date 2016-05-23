@@ -2,8 +2,28 @@
 @{
     Layout = null;
     string image = string.Empty;
+    bool isCanva = false;
 }
-@Html.AntiForgeryToken();
+@if (Model != null)
+{
+    if (DateTime.Now.AddMinutes(10) > Model.OngoingTime && Model.OngoingTime >= DateTime.Now)
+    {
+        image = Model.PreheatingImage;
+    }
+    else if (Model.OngoingTime <= DateTime.Now && DateTime.Now < Model.OverTime)
+    {
+        image = Model.OngoingImage;
+        isCanva = true;
+    }
+    else if (Model.OverTime <= DateTime.Now)
+    {
+        image = Model.OverImage;
+    }
+    else
+    {
+        image = "/Styles/activity/images/scratchcard/activity-scratch-card-bannerbg.png";
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,25 +96,7 @@
         };
     </script>
 </head>
-@if (Model != null)
-{
-    if (DateTime.Now > Model.OngoingTime && Model.OngoingTime >= DateTime.Now.AddMinutes(-10))
-    {
-        image = Model.PreheatingImage;
-    }
-    else if (Model.OngoingTime <= DateTime.Now && DateTime.Now < Model.OverTime)
-    {
-        image = Model.OngoingImage;
-    }
-    else if (Model.OverTime <= DateTime.Now)
-    {
-        image = Model.OverImage;
-    }
-    else
-    {
-        image = "/Styles/activity/images/scratchcard/activity-scratch-card-bannerbg.png";
-    }
-}
+
 <body data-role="page" class="activity-scratch-card-winning">
     <script src="~/Scripts/jquery-2.2.3.min.js"></script>
     <script src="~/Scripts/activity/scratchcard/wScratchPad.js"></script>
@@ -131,11 +133,10 @@
 
                             </span>
                         </p>
-                        <div id="userInfoDiv">
+                        <div id="userInfoDiv" style="display:none">
                             <p>
                                 <input name="" class="px" id="tel" value="" type="text" placeholder="用户请输入您的手机号">
                             </p>
-                            <p>
                             <p>
                                 <input class="pxbtn" name="提 交" id="save-btn" type="button" value="确认提交">
                             </p>
@@ -143,7 +144,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <div class="boxcontent">
                 <div class="box">
                     <div class="title-brown">
@@ -156,15 +157,15 @@
                         {
                             if (Model.IsShowCount==1)
                             {
-                                <pre>  一等奖：@Model.OnePrize      奖品数量：@Model.OnePrizeCount</pre>
-                                <pre>  二等奖：@Model.TwoPrize      奖品数量：@Model.TwoPrizeCount</pre>
-                                <pre>  三等奖：@Model.ThreePrize      奖品数量：@Model.ThreePrizeCount</pre>
+                        <pre>  一等奖：@Model.OnePrize      奖品数量：@Model.OnePrizeCount</pre>
+                        <pre>  二等奖：@Model.TwoPrize      奖品数量：@Model.TwoPrizeCount</pre>
+                        <pre>  三等奖：@Model.ThreePrize      奖品数量：@Model.ThreePrizeCount</pre>
                             }
                             else
                             {
-                                <pre>一等奖： @Model.OnePrize </pre>
-                                <pre>二等奖： @Model.TwoPrize</pre>
-                                <pre>三等奖： @Model.ThreePrize</pre>
+                        <pre>一等奖： @Model.OnePrize </pre>
+                        <pre>二等奖： @Model.TwoPrize</pre>
+                        <pre>三等奖： @Model.ThreePrize</pre>
                             }
                         }
                     </div>
@@ -178,31 +179,31 @@
                     <div class="Detail">
                         @if (Model != null)
                         {
-                            if (DateTime.Now > Model.OngoingTime && Model.OngoingTime >= DateTime.Now.AddMinutes(-10))
+                            if (DateTime.Now.AddMinutes(10) > Model.OngoingTime && Model.OngoingTime >= DateTime.Now)
                             {
-                                <p class="red">活动须知：</p>
-                                <p>
-                                   &nbsp;  &nbsp; &nbsp; &nbsp;@Model.PreheatingDescribe
-                                </p>
+                        <p class="red">活动须知：</p>
+                        <p>
+                            &nbsp;  &nbsp; &nbsp; &nbsp;@Model.PreheatingDescribe
+                        </p>
                             }
                             else if (Model.OngoingTime <= DateTime.Now && DateTime.Now < Model.OverTime)
                             {
-                                <p class="red">活动须知：</p>
-                                <p>
-                                    &nbsp;  &nbsp; &nbsp; &nbsp;@Model.OngoingDescribe
-                                </p>
+                        <p class="red">活动须知：</p>
+                        <p>
+                            &nbsp;  &nbsp; &nbsp; &nbsp;@Model.OngoingDescribe
+                        </p>
                             }
                             else if (Model.OverTime < DateTime.Now)
                             {
-                                <p class="red">活动须知：</p>
-                                <p>
-                                    &nbsp;  &nbsp; &nbsp; &nbsp;@Model.OverDescribe
-                                </p>
+                        <p class="red">活动须知：</p>
+                        <p>
+                            &nbsp;  &nbsp; &nbsp; &nbsp;@Model.OverDescribe
+                        </p>
                             }
-                            <p class="red">活动时间：</p>
-                            <p>&nbsp;  &nbsp; &nbsp; &nbsp;@(Model.OngoingTime.ToString("yyyy-MM-dd hh:mm:ss")) 至 @(Model.OverTime.ToString("yyyy-MM-dd hh:mm:ss"))</p>
-                            <p class="red">活动规则：</p>
-                            <p>&nbsp;  &nbsp; &nbsp; &nbsp;每天有@(Model.DayLimt)次刮刮卡机会,总次数为@(Model.AllCountLimt)</p>
+                        <p class="red">活动时间：</p>
+                        <p>&nbsp;  &nbsp; &nbsp; &nbsp;@(Model.OngoingTime.ToString("yyyy-MM-dd hh:mm:ss")) 至 @(Model.OverTime.ToString("yyyy-MM-dd hh:mm:ss"))</p>
+                        <p class="red">活动规则：</p>
+                        <p>&nbsp;  &nbsp; &nbsp; &nbsp;每天有@(Model.DayLimt)次刮刮卡机会,总次数为@(Model.AllCountLimt)</p>
                         }
                     </div>
                 </div>
@@ -213,12 +214,11 @@
     </div>
     <script src="~/Scripts/Nuoya/nuoya.core.js"></script>
     <script type="text/javascript">
-        window.sncode = "null";
-        window.prize = "谢谢参与";
+
+        var isCanva = "@(isCanva)";
 
         var num = 0;
-        var goon = true;
-        $(function () {
+        if (isCanva == "True") {
             $("#scratchpad").wScratchPad({
                 width: 150,
                 height: 40,
@@ -237,10 +237,9 @@
                                     $("#sncode").html(model.SN);
                                     alert("SN为兑奖唯一凭证，请妥善保存");
                                 }
-                                else
-                                {
+                                else {
                                     $("#rePrizeDiv").slideToggle(500);
-                                    $("#userInfoDiv").hide();
+                                   // $("#userInfoDiv").hide();
                                 }
                                 $("#prizeResultDiv").slideToggle(500);
                                 $("#theAward").html(model.Result);
@@ -251,8 +250,7 @@
                     }
                 }
             });
-        });
-
+        }
         //再刮一次
         $("#re-btn").bind("click", function () {
             window.location.reload();

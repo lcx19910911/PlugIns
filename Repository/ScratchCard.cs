@@ -11,7 +11,7 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class ScratchCard
     {
         public string UNID { get; set; }
@@ -33,8 +33,5 @@ namespace Repository
         public System.DateTime CreatedTime { get; set; }
         public System.DateTime UpdatedTime { get; set; }
         public Nullable<long> Flag { get; set; }
-        [ConcurrencyCheck]
-        [Timestamp]
-        public byte TimeStamp { get; set; }
     }
 }

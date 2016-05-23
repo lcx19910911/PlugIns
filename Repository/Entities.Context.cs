@@ -28,10 +28,10 @@ namespace Repository
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserJoinCounter> UserJoinCounter { get; set; }
-        public virtual DbSet<Prize> Prize { get; set; }
         public virtual DbSet<WallMessage> WallMessage { get; set; }
         public virtual DbSet<Wall> Wall { get; set; }
         public virtual DbSet<WallImage> WallImage { get; set; }
         public virtual DbSet<ScratchCard> ScratchCard { get; set; }
+        public virtual DbSet<Prize> Prize { get; set; }
     }
 }
