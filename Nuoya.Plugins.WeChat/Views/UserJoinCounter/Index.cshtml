@@ -11,15 +11,15 @@
         <div class="am-u-lg-12">
             <div class="am-input-group am-input-group-sm">
                 <span class="am-input-group-label">活动类型</span>
-                <select name="targetCode" data-am-selected="{btnSize: 'sm'}">
+                <select name="targetCode" data-am-selected="{btnSize: 'sm'}" >
                     <option value="0">请选择</option>
                     <option value="1">刮刮卡</option>
                 </select>
-                <span class="am-input-group-label">活动名称</span>
+                <span class="am-input-group-label am-margin-left-sm">活动名称</span>
                 <input type="text" class="am-form-field" placeholder="按名称搜索" name="name" ;>
-                <span class="am-input-group-label">SN码</span>
+                <span class="am-input-group-label am-margin-left-sm">SN码</span>
                 <input type="text" class="am-form-field" placeholder="按SN码搜索" name="sn" ;>
-                <span class="am-input-group-label">微信openId</span>
+                <span class="am-input-group-label am-margin-left-sm">微信openId</span>
                 <input type="text" class="am-form-field" placeholder="按微信openId搜索" name="sn" ;>
             </div>
         </div>
@@ -28,7 +28,16 @@
     <div class="am-g">
         <div class="am-u-lg-12" style="padding-top:10px;">
             <div class="am-input-group am-input-group-sm">
-                <span class="am-input-group-label">活动日期</span>
+                <span class="am-input-group-label">是否中奖</span>
+                <select name="prizeType" data-am-selected="{btnSize: 'sm'}">
+                    <option value="0">不限</option>
+                    <option value="-2">未中奖</option>
+                    <option value="-1">中奖</option>
+                    <option value="1">一等级</option>
+                    <option value="2">二等奖</option>
+                    <option value="3">三等奖</option>
+                </select>
+                <span class="am-input-group-label am-margin-left-sm">活动日期</span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
                 <span class="am-input-group-label"> - </span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
@@ -70,6 +79,7 @@
         function ClearFilter() {
             $("#searchDomain input").val("");
             $("select[name='targetCode']").val("0");
+            $("select[name='prizeType']").val("0");
         }
 
         var grid = $.Nuoya.grid({

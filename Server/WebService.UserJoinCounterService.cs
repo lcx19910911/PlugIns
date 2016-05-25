@@ -26,7 +26,7 @@ namespace Server
         /// <param name="createdTimeStart">中奖时间开始</param>
         /// <param name="createdTimeEnd">中奖时间结束</param>
         /// <returns></returns>
-        public PageList<UserJoinCounterModel> Get_UserJoinCounterPageList(int pageIndex, int pageSize, string name, string openId, int targetCode, string targetId, string SN, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        public PageList<UserJoinCounterModel> Get_UserJoinCounterPageList(int pageIndex, int pageSize, string name, string openId, int targetCode, string targetId, string SN,int prizeType, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -71,6 +71,31 @@ namespace Server
                 else
                      return CreatePageList(new List<UserJoinCounterModel>(), 0, 0,0); ;
 
+                //奖品类型  中奖
+                if (prizeType == -1)
+                {
+                    query= query.Where(x =>x.IsPrize==1);
+                }
+                //未中奖
+                else if (prizeType == -2)
+                {
+                    query = query.Where(x => x.IsPrize == 0);
+                }
+                //一等奖
+                else if (prizeType ==1)
+                {
+                    query = query.Where(x => x.IsPrize == 1&&x.PrizeGrade==1);
+                }
+                //二等奖
+                else if (prizeType == 2)
+                {
+                    query = query.Where(x => x.IsPrize == 1 && x.PrizeGrade == 2);
+                }
+                //三等奖
+                else if (prizeType == 3)
+                {
+                    query = query.Where(x => x.IsPrize == 1 && x.PrizeGrade == 3);
+                }
 
                 if (openId.IsNotNullOrEmpty())
                 {

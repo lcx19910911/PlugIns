@@ -27,9 +27,9 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <param name="createdTimeStart">中奖时间开始</param>
         /// <param name="createdTimeEnd">中奖时间结束</param>
         /// <returns></returns>
-        public JsonResult GetPageList(int pageIndex, int pageSize, string name, string openId,int targetCode, string targetId,string sn, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        public JsonResult GetPageList(int pageIndex, int pageSize, string name, string openId,int targetCode, string targetId,string sn,int prizeType, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
-            var pagelist = WebService.Get_UserJoinCounterPageList(pageIndex, pageSize, name, openId, targetCode, targetId, sn, createdTimeStart, createdTimeEnd);
+            var pagelist = WebService.Get_UserJoinCounterPageList(pageIndex, pageSize, name, openId, targetCode, targetId, sn, prizeType, createdTimeStart, createdTimeEnd);
             return JResult(pagelist);
         }
 

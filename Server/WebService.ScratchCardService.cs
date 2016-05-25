@@ -94,8 +94,8 @@ namespace Server
                 || !model.OnePrize.IsNotNullOrEmpty()
                 )
                 return "数据为空";
-            if (model.OngoingTime < DateTime.Now.AddMinutes(20))
-                return "开始时间需比当前时间晚20分钟";
+            if (model.OngoingTime < DateTime.Now)
+                return "开始时间需比晚于当前时间";
             if (model.OverTime < model.OngoingTime || model.OverTime < DateTime.Now)
                 return "结束时间必须大于当前时间和开始时间";
             using (DbRepository entities = new DbRepository())
@@ -152,8 +152,8 @@ namespace Server
                 || !model.OnePrize.IsNotNullOrEmpty()
                 )
                 return "数据为空";
-            if (model.OngoingTime < DateTime.Now.AddMinutes(20))
-                return "开始时间需比当前时间晚20分钟";
+            if (model.OngoingTime < DateTime.Now)
+                return "开始时间需比晚于当前时间";
             if (model.OverTime < model.OngoingTime || model.OverTime < DateTime.Now)
                 return "结束时间必须大于当前时间和开始时间";
             if (model.AllCountLimt < model.DayLimt)
