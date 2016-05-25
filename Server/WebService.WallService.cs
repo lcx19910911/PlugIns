@@ -43,6 +43,7 @@ namespace Server
                 }
 
                 var list = new List<WallModel>();
+                var count = query.Count();
                 query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
@@ -59,7 +60,7 @@ namespace Server
                         });
                     }
                 });
-                return CreatePageList(list, pageIndex, pageSize);
+                return CreatePageList(list, pageIndex, pageSize, count);
             }
         }
 

@@ -69,6 +69,23 @@ namespace Domain.ScratchCard
         /// 结束描述
         /// </summary>
         public string OverDescribe { get; set; }
-  
+
+        /// <summary>
+        /// 今天是否已抽完
+        /// </summary>
+        public bool TodayIsHadPrize { get; set; } = false;
+
+        /// <summary>
+        /// 一等奖中奖数
+        /// </summary>
+        public int HadPrizeOnePrizeCount { get; set; }
+        /// <summary>
+        /// 二等奖中奖数
+        /// </summary>
+        public int HadPrizeTwoPrizeCount { get; set; }
+        /// <summary>
+        /// 三等奖中奖数
+        /// </summary>
+        public int HadPrizeThreePrizeCount { get; set; }
     }
 }

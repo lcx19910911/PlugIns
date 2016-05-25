@@ -530,7 +530,7 @@ $.extend( $.validator, {
 			return this.errorList.length;
 		},
 
-		focusInvalid: function() {
+		focusInvalid: function(callback) {
 			if ( this.settings.focusInvalid ) {
 				try {
 					$( this.findLastActive() || this.errorList.length && this.errorList[ 0 ].element || [])
@@ -542,6 +542,7 @@ $.extend( $.validator, {
 					// ignore IE throwing errors when focusing hidden elements
 				}
 			}
+			$.Nuoya.callFunction(callback)
 		},
 
 		findLastActive: function() {

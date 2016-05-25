@@ -45,8 +45,8 @@
         }
 
         //表单有效验证
-        var _focusInvalid = function () {
-            $form.data("validator").focusInvalid();
+        var _focusInvalid = function (callback) {
+            $form.data("validator").focusInvalid(callback);
         }
 
         //表单序列化
@@ -146,7 +146,8 @@
                 params: _serialize(),//请求附带参数                
                 isValid: true,//是否验证有效性,在验证前需要绑定验证事件
                 callback: null,//提交完成后回调
-                beforeSubmit: null
+                beforeSubmit: null,
+                afterValid: null
             };
             options = $.extend(true, defaults, options);
 
@@ -157,16 +158,18 @@
                     });
             }
             else {
-                _focusInvalid();
+                _focusInvalid(options.afterValid);
             }
         };
+
         var _ajaxSubmit = function (options) {
             var defaults = {
                 ajaxUrl: null,//数据请求地址
                 params: _serialize(),//请求附带参数                
                 isValid: true,//是否验证有效性,在验证前需要绑定验证事件
                 callback: null,//提交完成后回调
-                beforeSubmit: null
+                beforeSubmit: null,
+                afterValid:null
             };
             options = $.extend(true, defaults, options);
 
@@ -185,7 +188,7 @@
                 }
             }
             else {
-                _focusInvalid();
+                _focusInvalid(options.afterValid);
             }
         };
         var _init = function () {
@@ -196,7 +199,6 @@
                 submit: _submit,//提交
                 ajaxSubmit: _ajaxSubmit,//ajax提交
                 dataLoad: _dataLoad//数据加载
-
             };
         }
         return _init();

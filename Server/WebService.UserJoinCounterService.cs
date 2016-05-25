@@ -69,7 +69,7 @@ namespace Server
                     }
                 }
                 else
-                     return CreatePageList(new List<UserJoinCounterModel>(), 0, 0); ;
+                     return CreatePageList(new List<UserJoinCounterModel>(), 0, 0,0); ;
 
 
                 if (openId.IsNotNullOrEmpty())
@@ -94,6 +94,7 @@ namespace Server
                 }
 
                 var list = new List<UserJoinCounterModel>();
+                var count = query.Count();
                 query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
@@ -121,7 +122,7 @@ namespace Server
                     }
                 });
 
-                return CreatePageList(list, pageIndex, pageSize);
+                return CreatePageList(list, pageIndex, pageSize, count);
             }
         }
 

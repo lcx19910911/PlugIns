@@ -399,6 +399,20 @@
 
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/ScratchCard/Add",
+                            afterValid: function () {
+                                $("#tab1,#tab2").removeClass("am-in").removeClass("am-active");
+                                $("#selectTabUl li").removeClass("am-active");
+                                if ($("#tab1 .tipso_content").length != 0)
+                                {
+                                    $("#selectTabUl li").eq(0).addClass("am-active");
+                                    $("#tab1").addClass("am-in").addClass("am-active");
+                                }
+                                else
+                                {
+                                    $("#selectTabUl li").eq(1).addClass("am-active");
+                                    $("#tab2").addClass("am-in").addClass("am-active");
+                                }
+                            },
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();

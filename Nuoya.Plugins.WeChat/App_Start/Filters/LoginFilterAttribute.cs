@@ -13,6 +13,19 @@ namespace Nuoya.Plugins.WeChat.Filters
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class LoginFilterAttribute : ActionFilterAttribute
     {
+        public List<Tuple<string, string>> allowAction
+        {
+            get
+            {
+                List<Tuple<string, string>> allowAction = new List<Tuple<string, string>>();
+                allowAction.Add(new Tuple<string, string>("scratchcard", "details"));
+                allowAction.Add(new Tuple<string, string>("scratchcard", "do"));
+                allowAction.Add(new Tuple<string, string>("upload", "uploadimage"));
+                
+                return allowAction;
+            }
+        }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var controller = filterContext.Controller as BaseController;
@@ -21,8 +34,8 @@ namespace Nuoya.Plugins.WeChat.Filters
             var controllerName = filterContext.RouteData.Values["Controller"].ToString();
             var actionMethodList = filterContext.Controller.GetType().GetMethods();
 
-            //预览页面不做登陆验证
-            if(!actionName.ToLower().Equals("details"))
+            //判断页面是否需要登录
+            if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName.ToLower()) && x.Item2.Equals(actionName.ToLower())) == null)
             {
                 //判断用户token是否有效
                 if (controller.Client.LoginUser == null)
@@ -36,7 +49,6 @@ namespace Nuoya.Plugins.WeChat.Filters
                             {
                                 RedirectResult redirectResult = new RedirectResult("/login/index");
                                 filterContext.Result = redirectResult;
-
                             }
                             else if (actionMethod.ReturnType.Name == "JsonResult")
                             {

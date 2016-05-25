@@ -152,13 +152,10 @@ namespace Server
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        protected PageList<T> CreatePageList<T>(List<T> list, int pageIndex, int pageSize)
+        protected PageList<T> CreatePageList<T>(List<T> list, int pageIndex, int pageSize,int recordCount)
         {
-            int recordCount = 0;
             try
             {
-                recordCount = list.Count();
-
                 return new PageList<T>(list, pageIndex, pageSize, recordCount);
             }
             catch (Exception ex)

@@ -49,6 +49,7 @@ namespace Server
                 }
 
                 var list = new List<ScratchCardModel>();
+                var count = query.Count();
                 query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
@@ -66,7 +67,7 @@ namespace Server
                     }
                 });
 
-                return CreatePageList(list, pageIndex, pageSize);
+                return CreatePageList(list, pageIndex, pageSize, count);
             }
         }
 
@@ -198,8 +199,7 @@ namespace Server
             if (!unid.IsNotNullOrEmpty())
                 return null;
             using (DbRepository entities = new DbRepository())
-            {
-                
+            {             
                 Domain.ScratchCard.Update model = new Update();
                 var scratchScardEntity = entities.ScratchCard.Find(unid);
                 var prizeEntity = entities.Prize.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).FirstOrDefault();
@@ -210,7 +210,49 @@ namespace Server
                 if (scratchScardEntity != null)
                     scratchScardEntity.AutoMap<ScratchCard, Domain.ScratchCard.Update>(model);
 
+                var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
+                var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
+                var hadJoinList = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)&& x.CreatedTime >= startDate && x.CreatedTime < endDate).ToList();
 
+                return model;
+            }
+        }
+
+        /// <summary>
+        /// 查找活动和奖品情况
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        public Domain.ScratchCard.Update Show_ScratchCard(string unid, string openId)
+        {
+            if (!unid.IsNotNullOrEmpty()||!openId.IsNotNullOrEmpty())
+                return null;
+            using (DbRepository entities = new DbRepository())
+            {
+                Domain.ScratchCard.Update model = new Update();
+                var scratchScardEntity = entities.ScratchCard.Find(unid);
+                var prizeEntity = entities.Prize.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).FirstOrDefault();
+                if (prizeEntity != null)
+                {
+                    prizeEntity.AutoMap<Prize, Domain.ScratchCard.Update>(model);
+                }
+                if (scratchScardEntity != null)
+                    scratchScardEntity.AutoMap<ScratchCard, Domain.ScratchCard.Update>(model);
+
+                var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
+                var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
+
+                //当前用户的参与状况
+                var hadJoinEntity = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid));
+
+                var todayHadJoinCount = hadJoinEntity.Where(x => x.CreatedTime >= startDate && x.CreatedTime < endDate && x.OpenID.Equals(openId)).Count();
+
+                model.HadPrizeOnePrizeCount = hadJoinEntity.Where(x => x.IsPrize == 1 && x.PrizeGrade == 1).Count();
+                model.HadPrizeTwoPrizeCount = hadJoinEntity.Where(x => x.IsPrize == 1 && x.PrizeGrade == 2).Count();
+                model.HadPrizeThreePrizeCount = hadJoinEntity.Where(x => x.IsPrize == 1 && x.PrizeGrade == 3).Count();
+
+                if (todayHadJoinCount == prizeEntity.DayLimt)
+                    model.TodayIsHadPrize = true;
                 return model;
             }
         }
@@ -253,13 +295,12 @@ namespace Server
                 }
 
                 //当前的微信 openid
-                string openId ="11111111111";
-                //string openId = CacheHelper.Get<string>("openId");
-                //if (!openId.IsNotNullOrEmpty())
-                //{
-                //    result.Result = "身份授权已过期，请重新刷新页面授权";
-                //    return result;
-                //}
+                string openId = CacheHelper.Get<string>("openId");
+                if (!openId.IsNotNullOrEmpty())
+                {
+                    result.Result = "身份授权已过期，请重新刷新页面授权";
+                    return result;
+                }
                 //参与抽奖的参与情况
                 var hadPrizeList = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).ToList();
                 //一等奖个数
@@ -287,7 +328,7 @@ namespace Server
 
                 //随机概率
                 Random randow = new Random();
-                int num = randow.Next(1, prizeEntity.ExpectedPeopleCount);
+                int num = randow.Next(1, prizeEntity.ExpectedPeopleCount-onePrizeNum-twoPrizeNum-threePrizeNum);
 
                 //保存的参与抽奖情况
                 var userJoin = new UserJoinCounter();
