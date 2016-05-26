@@ -10,7 +10,7 @@ using Core;
 namespace Nuoya.Plugins.WeChat.Filters
 {
     /// <summary>
-    /// 过滤器
+    /// 过滤器  微信身份验证
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class OAuthFilterAttribute : ActionFilterAttribute
@@ -25,10 +25,12 @@ namespace Nuoya.Plugins.WeChat.Filters
                 if (userAgent.ToLower().Contains("micromessenger"))
                 {
                     string redirect_uri = string.Format("{0}/User/DoAuth", Params.DomianName);
-                    string oauthUrl = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_userinfo&state={2}", Params.AppId, redirect_uri, requestUrl);
-                    RedirectResult redirectResult = new RedirectResult("/User/DoAuth?code=11222333&state=" + requestUrl);
+                    // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+                    string oauthUrl = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_userinfo&state={2}#wechat_redirect", Params.AppId, HttpUtility.HtmlEncode(redirect_uri), HttpUtility.HtmlEncode(requestUrl));
 
-                    filterContext.Result = redirectResult;
+                    filterContext.HttpContext.Response.Redirect(oauthUrl);
+                    filterContext.HttpContext.Response.Clear();
+                    filterContext.HttpContext.Response.End();
                 }
             }
         }

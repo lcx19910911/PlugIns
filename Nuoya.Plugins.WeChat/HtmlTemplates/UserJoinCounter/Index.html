@@ -37,7 +37,16 @@
 
         <div class="am-u-lg-12">
             <div class="am-input-group am-input-group-sm">
-                <span class="am-input-group-label  am-margin-left-sm">参与时间</span>
+                <span class="am-input-group-label   am-margin-left-sm">是否中奖</span>
+                <select name="prizeType" data-am-selected="{btnSize: 'sm'}">
+                    <option value="0">不限</option>
+                    <option value="-2">未中奖</option>
+                    <option value="-1">中奖</option>
+                    <option value="1">一等级</option>
+                    <option value="2">二等奖</option>
+                    <option value="3">三等奖</option>
+                </select>
+                <span class="am-input-group-label   am-margin-left-sm">参与时间</span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
                 <span class="am-input-group-label"> - </span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">

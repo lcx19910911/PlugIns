@@ -26,8 +26,8 @@ namespace Nuoya.Plugins.WeChat.Controllers
         public ActionResult DoAuth(string code, string state)
         {
             CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () => {
-                //return WebService.Update_User(code)? code:"";
-                return "12345678";
+                return WebService.Update_User(code)? code:"";
+                //return "12345678";
             });
             return Redirect(state);
         }

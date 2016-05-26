@@ -223,9 +223,9 @@ namespace Server
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        public Domain.ScratchCard.Update Show_ScratchCard(string unid, string openId)
+        public Domain.ScratchCard.Update Show_ScratchCard(string unid)
         {
-            if (!unid.IsNotNullOrEmpty()||!openId.IsNotNullOrEmpty())
+            if (!unid.IsNotNullOrEmpty())
                 return null;
             using (DbRepository entities = new DbRepository())
             {
@@ -241,6 +241,8 @@ namespace Server
 
                 var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
+
+                string openId = CacheHelper.Get<string>("openId");
 
                 //当前用户的参与状况
                 var hadJoinEntity = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid));
@@ -388,10 +390,10 @@ namespace Server
                 //保存
                 if (effect < 0)
                 {
+                    //并发修改异常再次执行
                     if (effect == -1)
                     {
-                        result.Result = "系统繁忙，请刷新页面重新刮奖";
-                        return result;
+                        return Do_ScratchCard(unid);
                     }
                     else
                         return new PrizeResult() { IsError = true };

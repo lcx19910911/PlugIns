@@ -323,6 +323,7 @@
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
     <Content Include="Views\Wall\Detials.cshtml" />
+    <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
