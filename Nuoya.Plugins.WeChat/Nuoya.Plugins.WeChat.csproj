@@ -169,6 +169,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="HtmlTemplates\Menu\Update.html" />
+    <Content Include="HtmlTemplates\Person\Update.html" />
+    <Content Include="HtmlTemplates\Role\Update.html" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
     <Content Include="HtmlTemplates\Wall\Update.html" />
@@ -291,6 +294,9 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserJoinCounterController.cs" />
     <Compile Include="Controllers\ScratchCardController.cs" />
@@ -324,6 +330,10 @@
     <Content Include="Scripts\uploadify\uploadify.php" />
     <Content Include="Views\Wall\Detials.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\PartialMenu.cshtml" />
+    <Content Include="Views\Person\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -11,10 +11,13 @@ namespace Core.Code
     /// </summary>
     public class LoginUser
     {
-        public LoginUser(string AppId, string AppSecret)
+        public LoginUser(string UNID, string Account, string Name, string Mobile, long MenuLimitFlag)
         {
-            this.AppId = AppId;
-            this.AppSecret = AppSecret;
+            this.UNID = UNID;
+            this.Account = Account;
+            this.Name = Name;
+            this.Mobile = Mobile;
+            this.MenuLimitFlag = MenuLimitFlag;
 
         }
         /// <summary>
@@ -27,5 +30,29 @@ namespace Core.Code
         /// </summary>
         public string AppSecret { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UNID { get; set; }
+
+        /// <summary>
+        /// 账号
+        /// </summary>
+        public string Account { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Mobile { get; set; }
+
+        /// <summary>
+        /// 菜单权限集合
+        /// </summary>
+        public long MenuLimitFlag { get; set; }
     }
 }

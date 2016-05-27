@@ -21,10 +21,28 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <param name="password">密码</param> 
         /// <returns></returns>
         public JsonResult Submit(string account, string password)
+        {         
+            var user = WebService.Login(account, password);
+            if (user != null)
+            {
+                Client.LoginUser = new Core.Code.LoginUser(user.UNID, user.Account, user.Name, user.Mobile, WebService.Get_UserMenuLimit((long)user.RoleFlag));
+                return JResult(true);
+            }
+            else
+            {
+                return JResult(false);
+            }
+        }
+
+
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Quit()
         {
-            Client.LoginUser = new Core.Code.LoginUser("111","22222222222");
-            //WebService.Update_Admin("111","2222222","")
-            return JResult("1");
+            Client.LoginUser = null;
+            return RedirectToAction("/login");
         }
     }
 }

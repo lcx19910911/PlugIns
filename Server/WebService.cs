@@ -9,6 +9,9 @@ using Core.Web;
 using Core.Extensions;
 using Core.Code;
 using StackExchange.Profiling;
+using Repository;
+using Extension;
+using System.Data.Entity;
 
 namespace Server
 {
@@ -68,22 +71,77 @@ namespace Server
 
 
         /// <summary>
-        /// 创建数据存储对象实例
+        /// 添加
         /// </summary>
-        /// <returns></returns>
-        //public DBRepository CreateDBRepository()
-        //{
-        //    return new DBRepository(this.Client.LogCode != LogCode.None);
-        //}
+        /// <param name="source">实体</param>
+        /// <returns>影响条数</returns>
+        public void Add<TSource, TEntity>(TSource source) where TEntity : class
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var addEntity = source.AutoMap<TSource, TEntity>();
+                entities.Entry(addEntity).State = System.Data.Entity.EntityState.Added;
+                entities.SaveChanges();
+            }
+        }
 
         /// <summary>
-        /// 创建数据存储对象实例
+        /// 删除
+        /// </summary>
+        /// <param name="unids">unid，多个id用逗号分隔</param>
+        /// <returns>影响条数</returns>
+        public int Delete<TEntity>(string unids) where TEntity : class
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                //按逗号分隔符分隔开得到unid列表
+                var unidArray = unids.Split(',');
+                //遍历unid列表逐个删除
+                foreach (var unid in unidArray)
+                {
+                    DbSet<TEntity> dbSet = entities.Set<TEntity>();
+                    var entity = dbSet.Find(unid);
+                    if (entity != null)
+                    {
+                        entities.Entry(entity).State = EntityState.Deleted;
+                    }
+                }
+                return entities.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 查找所有
         /// </summary>
         /// <returns></returns>
-        //public AdminDBRepository CreateAdminDBRepository()
-        //{
-        //    return new AdminDBRepository(this.Client.LogCode != LogCode.None);
-        //}
+        public List<TEntity> GetAll<TEntity>() where TEntity : class
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                DbSet<TEntity> dbSet = entities.Set<TEntity>();
+                return dbSet.ToList();
+            }
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="unid">unid</param>
+        /// <param name="source">实体</param>
+        public void Update<TSource, TEntity>(string unid, TSource source) where TEntity : class
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                DbSet<TEntity> dbSet = entities.Set<TEntity>();
+                var sourceEntity = dbSet.Find(unid);
+                if (sourceEntity != null)
+                {
+                    source.AutoMap<TSource, TEntity>(sourceEntity);
+                }
+                entities.SaveChanges();
+            }
+        }
+
 
 
         public bool IsLoginUser()
@@ -185,85 +243,5 @@ namespace Server
             }
         }
 
-
-        #region 基础方法
-
-        /// <summary>
-        /// 添加
-        /// </summary>
-        /// <param name="source">实体</param>
-        /// <returns>影响条数</returns>
-        public void Add<TSource, TEntity>(TSource source) where TEntity : class
-        {
-            using (MiniProfilerLog.Step("基础方法  Add"))
-            {
-
-            }
-                //using (TobeiEntities entities = new TobeiEntities())
-                //{
-                //    var addEntity = source.AutoMap<TSource, TEntity>();
-                //    entities.Entry(addEntity).State = System.Data.Entity.EntityState.Added;
-                //    entities.SaveChanges();
-                //}
-            }
-
-      
-
-        /// <summary>
-        /// 更新
-        /// </summary>
-        /// <param name="unid">unid</param>
-        /// <param name="source">实体</param>
-        public void Update<TSource, TEntity>(string unid, TSource source) where TEntity : class
-        {
-            using (MiniProfilerLog.Step("基础方法  Update"))
-            {
-
-            }
-            //using (TobeiEntities entities = new TobeiEntities())
-            //{
-            //    DbSet<TEntity> dbSet = entities.Set<TEntity>();
-            //    var sourceEntity = dbSet.Find(unid);
-            //    if (sourceEntity != null)
-            //    {
-            //        source.AutoMap<TSource, TEntity>(sourceEntity);
-            //    }
-            //    entities.SaveChanges();
-            //}
-        }
-
-        /// <summary>
-        /// 查询单个
-        /// </summary>
-        /// <param name="unid">unid</param>
-        /// <returns>返回实体</returns>
-        public TEntity Find<TEntity>(string unid) where TEntity : class
-        {
-            using (MiniProfilerLog.Step("基础方法  Find"))
-            {
-
-            }
-            //using (TobeiEntities entities = new TobeiEntities())
-            //{
-            //    DbSet<TEntity> dbSet = entities.Set<TEntity>();
-            //    return dbSet.Find(unid);
-            //}
-            return null;
-        }
-
-        /// <summary>
-        /// 查找所有
-        /// </summary>
-        /// <returns></returns>
-        public List<TEntity> GetAll<TEntity>() where TEntity : class
-        {
-            using (MiniProfilerLog.Step("基础方法  GetAll"))
-            {
-
-            }
-
-            return null;
-        }
-        #endregion
     }
 }

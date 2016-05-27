@@ -59,18 +59,22 @@
     <script type="text/javascript">
         function onSubmit(e) {
             if (document.forms[0].account.value == "") {
-                alert("请输入账号");
+                $.Nuoya.alert("请输入账号");
                 return false;
             }
             if (document.forms[0].password.value == "") {
-                alert("请输入密码");
+                $.Nuoya.alert("请输入密码");
                 return false;
             }
             if (e)
             { e.preventDefault(); }
             $.Nuoya.action("/Login/Submit", { password: document.forms[0].password.value, account: document.forms[0].account.value }, function (data) {
-                if (data)
+                if (data) {
                     window.location.href = "/";
+                }
+                else {
+                    $.Nuoya.alert("账号或密码错误");
+                }
             });
         }
         $(function () {

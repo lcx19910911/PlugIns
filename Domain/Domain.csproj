@@ -41,7 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menu\Add.cs" />
+    <Compile Include="Menu\Item.cs" />
+    <Compile Include="Menu\List.cs" />
+    <Compile Include="Menu\Update.cs" />
+    <Compile Include="Person\Add.cs" />
+    <Compile Include="Person\List.cs" />
+    <Compile Include="Person\Update.cs" />
     <Compile Include="PrizeResult.cs" />
+    <Compile Include="Role\Add.cs" />
+    <Compile Include="Role\List.cs" />
+    <Compile Include="Role\Update.cs" />
     <Compile Include="UserJoinCounter\UserJoinCounterModel.cs" />
     <Compile Include="Prize\Update.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,6 +63,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{54f62fcf-237f-4071-8d89-2b3a4ac8a2af}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Enum\Enum.csproj">
+      <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
+      <Name>Enum</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>

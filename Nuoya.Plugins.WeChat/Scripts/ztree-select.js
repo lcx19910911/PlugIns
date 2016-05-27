@@ -93,7 +93,7 @@
                 if (!isFlag && !isMulitSelect) {
                     if (nodes && nodes.length > 0) {
                         if (selfValue != null && nodes[0].value == selfValue) {
-                            $.palmv.alert("不能选取自身作为父级节点");
+                            $.Nuoya.alert("不能选取自身作为父级节点");
                         }
                         else {
                             $(dom).val(nodes[0].name);
@@ -115,7 +115,7 @@
                 }
             });
             $(document).ready(function () {
-                $.palmv.action(jsonUrl, {}, function (json) {
+                $.Nuoya.action(jsonUrl, {}, function (json) {
                     var zNodes = json;
                     ztreeObj = $.fn.zTree.init($(ztree), setting, zNodes);
 

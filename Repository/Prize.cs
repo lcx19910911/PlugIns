@@ -11,7 +11,7 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Prize
     {
         public string UNID { get; set; }
@@ -32,9 +32,6 @@ namespace Repository
         public int DayLimt { get; set; }
         public int AllCountLimt { get; set; }
         public int IsShowCount { get; set; }
-
-        [Timestamp]
-        [ConcurrencyCheck]
         public byte[] TimeStamp { get; set; }
     }
 }

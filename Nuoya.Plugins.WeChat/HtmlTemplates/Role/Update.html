@@ -1,0 +1,33 @@
+﻿<form id="form" class="am-form am-form-horizontal">
+    <div class="am-form-group">
+        <label class="am-u-sm-3 am-form-label">名称</label>
+        <div class="am-u-sm-9">
+            <input type="text" name="Name" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-3 am-form-label">菜单权限</label>
+        <div class="am-u-sm-9">
+            <input type="hidden" name="LimitFlag" />
+            <input type="text" name="LimitFlagSelect" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-3 am-form-label">备注</label>
+        <div class="am-u-sm-9">
+            <input type="text" name="Remark" />
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-3 am-form-label">状态</label>
+        <div class="am-u-sm-9">
+            <div style="text-align:left;">
+                <select name="Flag">
+                    <option value="0">正常</option>
+                    <!--<option value="1">已删除</option>-->
+                    <option value="2">已禁用</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>

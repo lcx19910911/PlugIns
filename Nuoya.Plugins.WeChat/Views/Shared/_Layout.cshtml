@@ -19,9 +19,9 @@
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
         <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
             <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-                <li><a href="javascript:;"><span>@(Session["LoginPerson"] != null ? "11" : "登入用户名")</span></a></li>
+                <li><a href="javascript:;"><span>@(Session["LoginPerson"] != null ? (Session["LoginPerson"] as Core.Code.LoginUser)?.Name : "登入用户名")</span></a></li>
                 <li><a href="javascript:;" class="admin-clear-cache"><span class="am-icon-close"></span> <span>清除缓存</span></a></li>
-                <li><a href="javascript:;" class="admin-quit"><span class="am-icon-sign-out"></span> <span>注销</span></a></li>
+                <li><a href="/login/Quit" class="admin-quit"><span class="am-icon-sign-out"></span> <span>注销</span></a></li>
             </ul>
         </div>
     </header>
@@ -29,7 +29,8 @@
         <!-- sidebar start -->
         <div class="admin-sidebar">
             <ul class="am-list admin-sidebar-list">
-              @Html.Partial("PartialMenu")
+                @Html.Action("PartialMenu", "Menu")
+              @*@Html.Partial("PartialMenu")*@
             </ul>
         </div>
         <!-- sidebar end -->
@@ -47,11 +48,11 @@
     <script type="text/javascript">
         $(function () {
             $(".admin-quit").click(function () {
-                $.palmv.action("/Login/Quit", function (json) {
+                $.Nuoya.action("/Login/Quit", function (json) {
                 });
             });
             $(".admin-clear-cache").click(function () {
-                $.palmv.action("/Home/ClearCache", function (json) {
+                $.Nuoya.action("/Home/ClearCache", function (json) {
                 });
             });
         });

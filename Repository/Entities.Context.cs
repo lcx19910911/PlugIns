@@ -33,5 +33,8 @@ namespace Repository
         public virtual DbSet<WallImage> WallImage { get; set; }
         public virtual DbSet<ScratchCard> ScratchCard { get; set; }
         public virtual DbSet<Prize> Prize { get; set; }
+        public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
     }
 }
