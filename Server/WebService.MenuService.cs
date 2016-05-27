@@ -152,8 +152,8 @@ namespace Server
             var group = groups.FirstOrDefault(x => x.Key == parentId);
             if (group != null)
             {
-                //.Where(x=>(x.LimitFlag&Client.LoginUser.MenuLimitFlag)!=0)
-                menuList = group.Select(
+                //
+                menuList = group.Where(x => (x.LimitFlag & Client.LoginUser.MenuLimitFlag) != 0).Select(
                     x => new Domain.Menu.Item()
                     {
                         ClassName = x.ClassName,

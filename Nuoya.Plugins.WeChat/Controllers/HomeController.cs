@@ -1,4 +1,5 @@
 ﻿using Core.Helper;
+using Core.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,12 @@ namespace Nuoya.Plugins.WeChat.Controllers
             UploadHelper.Save(file, "ScratchCard111");
             return JResult(true);
         }
+
+        public ActionResult ClearCache()
+        {
+            CacheHelper.Clear();
+            return JResult(true);
+        }
+
     }
 }

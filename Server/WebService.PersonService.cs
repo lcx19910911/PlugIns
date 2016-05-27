@@ -56,7 +56,7 @@ namespace Server
                 if (sourceEntity != null)
                 {
                     source.AutoMap<Domain.Person.Update, Person>(sourceEntity);
-                    if (password != null)
+                    if (!string.IsNullOrEmpty(password))
                     {
                         sourceEntity.Password = Core.Util.CryptoHelper.MD5_Encrypt(password);
                     }
@@ -78,7 +78,7 @@ namespace Server
             {
                 var query = entities.Person.AsQueryable();
 
-                if (keyword != null)
+                if (!string.IsNullOrEmpty(keyword))
                 {
                     query = query.Where(x => x.Name.Contains(keyword)|| x.Mobile.Contains(keyword));
                 }
