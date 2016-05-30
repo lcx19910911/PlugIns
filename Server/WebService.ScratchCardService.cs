@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Extensions;
 using Extension;
-using Enum;
+using  EnumPro;
 using Core.Helper;
 using Core.Web;
 using System.Data.Entity.Infrastructure;
@@ -76,7 +76,7 @@ namespace Server
         /// 增加刮刮卡
         /// </summary>
         /// <param name="model"></param>
-        /// <returns>0:保存出错 -1:开始时间小于当前时间  -2:结束时间必须大于当前时间和开始时间  -3:个人抽奖次数总计要大于或等于每天次数限制</returns>
+        /// <returns></returns>
         public string Add_ScratchCard(Domain.ScratchCard.Update model)
         {
             if (model == null
@@ -131,7 +131,7 @@ namespace Server
         /// 增加刮刮卡
         /// </summary>
         /// <param name="model"></param>
-        /// <returns>0:保存出错 -1:开始时间小于当前时间  -2:结束时间必须大于当前时间和开始时间  -3:个人抽奖次数总计要大于或等于每天次数限制</returns>
+        /// <returns></returns>
         public string Update_ScratchCard(Domain.ScratchCard.Update model, string unid)
         {
             if (model == null

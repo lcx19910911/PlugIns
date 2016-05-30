@@ -1,4 +1,5 @@
 ﻿using Core.Attributes;
+using EnumPro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace Domain.Person
         /// <summary>
         /// 状态
         /// </summary>
-        [EnumAutoMapper("Flag", typeof(Enum.GlobalFlag))]
+        [EnumAutoMapper("Flag", typeof(GlobalFlag))]
         public string FlagState { get; set; }        
     }
 }

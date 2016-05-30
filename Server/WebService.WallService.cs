@@ -1,7 +1,7 @@
 ﻿using Core.Extensions;
 using Core.Model;
 using Domain.Wall;
-using Enum;
+using  EnumPro;
 using Repository;
 using System;
 using System.Collections.Generic;

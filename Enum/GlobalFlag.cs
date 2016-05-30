@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Enum
+namespace EnumPro
 {
     /// <summary>
     /// 全局状态
@@ -24,5 +24,11 @@ namespace Enum
         /// </summary>
         [Description("已删除")]
         Removed = 1,
+
+        /// <summary>
+        /// 已禁用
+        /// </summary>
+        [Description("已禁用")]
+        Unabled =2,
     }
 }

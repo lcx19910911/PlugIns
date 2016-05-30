@@ -36,7 +36,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// 增加
         /// </summary>
         /// <param name="model"</param>
-        /// <returns>0:保存出错 -1:开始时间小于当前时间  -2:结束时间必须大于当前时间和开始时间  -3:个人抽奖次数总计要大于或等于每天次数限制</returns>
+        /// <returns></returns>
         public JsonResult Add(Domain.ScratchCard.Update model)
         {
             var result = WebService.Add_ScratchCard(model);
@@ -48,7 +48,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// 修改
         /// </summary>
         /// <param name="model"</param>
-        /// <returns>0:保存出错 -1:开始时间小于当前时间  -2:结束时间必须大于当前时间和开始时间  -3:个人抽奖次数总计要大于或等于每天次数限制</returns>
+        /// <returns></returns>
         public JsonResult Update(Domain.ScratchCard.Update model,string unid)
         {
             var result = WebService.Update_ScratchCard(model, unid);

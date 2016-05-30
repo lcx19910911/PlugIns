@@ -35,6 +35,9 @@ namespace Repository
         public virtual DbSet<Prize> Prize { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<DinnerShop> DinnerShop { get; set; }
+        public virtual DbSet<DinnerCategory> DinnerCategory { get; set; }
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<DinnerDish> DinnerDish { get; set; }
     }
 }

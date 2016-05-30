@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Enum
+namespace EnumPro
 {
     /// <summary>
     /// 活动类型
@@ -13,10 +13,22 @@ namespace Enum
     public enum TargetCode
     {
         /// <summary>
+        /// 管理员
+        /// </summary>
+        [Description("管理员")]
+        Admin =0,
+
+        /// <summary>
         /// 刮刮卡
         /// </summary>
         [Description("刮刮卡")]
         ScratchCard = 1,
+
+        /// <summary>
+        /// 微点餐
+        /// </summary>
+        [Description("微点餐")]
+        Dinner = 2,
 
     }
 }

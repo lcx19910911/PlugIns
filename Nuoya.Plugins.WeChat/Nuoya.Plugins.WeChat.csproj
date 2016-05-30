@@ -169,6 +169,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
+    <Content Include="HtmlTemplates\DinnerDish\Update.html" />
+    <Content Include="HtmlTemplates\DinnerShop\Update.html" />
     <Content Include="HtmlTemplates\Menu\Update.html" />
     <Content Include="HtmlTemplates\Person\Update.html" />
     <Content Include="HtmlTemplates\Role\Update.html" />
@@ -291,17 +294,21 @@
     <Compile Include="App_Start\Filters\LoginFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\TimerAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
+    <Compile Include="Controllers\Dinner\DinnerDishController.cs" />
+    <Compile Include="Controllers\Dinner\DinnerCustomerController.cs" />
+    <Compile Include="Controllers\Dinner\DinnerCategoryController.cs" />
+    <Compile Include="Controllers\Dinner\DinnerShopController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\Admin\MenuController.cs" />
+    <Compile Include="Controllers\Admin\PersonController.cs" />
+    <Compile Include="Controllers\Admin\RoleController.cs" />
+    <Compile Include="Controllers\Base\UploadController.cs" />
     <Compile Include="Controllers\UserJoinCounterController.cs" />
-    <Compile Include="Controllers\ScratchCardController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\WallController.cs" />
+    <Compile Include="Controllers\ScratchCard\ScratchCardController.cs" />
+    <Compile Include="Controllers\Base\UserController.cs" />
+    <Compile Include="Controllers\Wall\WallController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -334,6 +341,10 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\PartialMenu.cshtml" />
     <Content Include="Views\Person\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\DinnerShop\Index.cshtml" />
+    <Content Include="Views\DinnerCategory\Index.cshtml" />
+    <Content Include="Views\DinnerDish\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -348,7 +359,6 @@
     <Folder Include="Styles\datetimepicker\images\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Prize\" />
-    <Folder Include="Views\Upload\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

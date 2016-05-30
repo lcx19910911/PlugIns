@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dinner\DinnerCategory\Update.cs" />
+    <Compile Include="Dinner\DinnerDish\List.cs" />
+    <Compile Include="Dinner\DinnerShop\List.cs" />
+    <Compile Include="Dinner\DinnerShop\Update.cs" />
     <Compile Include="Menu\Add.cs" />
     <Compile Include="Menu\Item.cs" />
     <Compile Include="Menu\List.cs" />

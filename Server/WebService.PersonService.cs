@@ -1,5 +1,5 @@
 ﻿using Core.Model;
-using Enum;
+using  EnumPro;
 using Extension;
 using Repository;
 using System;
@@ -34,6 +34,8 @@ namespace Server
                 addEntity.CreatedTime = DateTime.Now;
                 addEntity.UpdatedTime = DateTime.Now;
                 addEntity.Flag = (long)GlobalFlag.Normal;
+                addEntity.TargetCode = (int)TargetCode.Admin;
+
                 entities.Person.Add(addEntity);
                 return entities.SaveChanges() > 0 ? "" : "保存出错";
             }

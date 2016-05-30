@@ -2,7 +2,7 @@
 using Core.Helper;
 using Core.Model;
 using Domain.UserJoinCounter;
-using Enum;
+using  EnumPro;
 using Repository;
 using System;
 using System.Collections.Generic;

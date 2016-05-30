@@ -55,6 +55,15 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbRepository.cs" />
+    <Compile Include="DinnerCategory.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DinnerDish.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DinnerShop.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

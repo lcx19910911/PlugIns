@@ -1,5 +1,5 @@
 ﻿using Core.Attributes;
-using Enum;
+using  EnumPro;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using  EnumPro;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,7 +26,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var user = WebService.Login(account, password);
             if (user != null)
             {
-                Client.LoginUser = new Core.Code.LoginUser(user.UNID, user.Account, user.Name, user.Mobile, WebService.Get_UserMenuLimit((long)user.RoleFlag));
+                Client.LoginUser = new Core.Code.LoginUser(user.UNID, user.Account, user.Name, user.Mobile, WebService.Get_UserMenuLimit((long)user.RoleFlag),(TargetCode)user.TargetCode,user.TargetID);
                 return JResult(true);
             }
             else

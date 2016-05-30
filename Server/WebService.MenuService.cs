@@ -1,5 +1,5 @@
 ﻿using Core.Model;
-using Enum;
+using  EnumPro;
 using Extension;
 using Repository;
 using System;

@@ -24,5 +24,7 @@ namespace Repository
         public long Flag { get; set; }
         public System.DateTime UpdatedTime { get; set; }
         public System.DateTime CreatedTime { get; set; }
+        public string TargetID { get; set; }
+        public Nullable<int> TargetCode { get; set; }
     }
 }
