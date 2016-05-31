@@ -103,8 +103,9 @@
             url: "OrderSubmit",
             type: "post",
             data: { "info": JSON.stringify(data) },
-            success: function(rv) {
-                if (rv.Code==0) {
+            success: function (rv) {
+                debugger
+                if (rv.Result=="") {
                     $.cookie('cart', "");
 
                     $("#alert .am-modal-bd").text("已经提交到后台")
@@ -114,8 +115,9 @@
                         }
                     })
                     
-                } else {
-                    $("#alert .am-modal-bd").text(rv.Message)
+                }
+                else {
+                    $("#alert .am-modal-bd").text(rv.Result)
                     $("#alert").modal()
                 }
             }

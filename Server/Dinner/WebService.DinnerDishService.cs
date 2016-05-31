@@ -66,7 +66,7 @@ namespace Server
             if (model == null
                 || !model.Name.IsNotNullOrEmpty()
                 || !model.DinnerCategoryId.IsNotNullOrEmpty()
-                || model.Price==0
+                || model.Price == 0
                 || !model.Image.IsNotNullOrEmpty()
                 )
                 return "数据为空";
@@ -82,7 +82,7 @@ namespace Server
                 model.ShopId = Client.LoginUser.TargetID;
 
                 entities.DinnerDish.Add(model);
-                return entities.SaveChanges() > 0 ? "" : "保存出错";
+                return entities.SaveChanges() > 0 ?"": "保存错误";
             }
 
         }
@@ -101,7 +101,7 @@ namespace Server
                 || model.Price == 0
                 || !model.Image.IsNotNullOrEmpty()
                 )
-                return "数据为空";
+                 return "数据为空";
             using (DbRepository entities = new DbRepository())
             {
                 var oldEntity = entities.DinnerDish.Find(unid);
@@ -122,9 +122,9 @@ namespace Server
                     oldEntity.UpdatedTime = DateTime.Now;
                 }
                 else
-                    return "数据为空";
+                     return "数据为空";
 
-                return entities.SaveChanges() > 0 ? "" : "保存出错";
+                return entities.SaveChanges() > 0 ? "": "保存错误";
             }
 
         }

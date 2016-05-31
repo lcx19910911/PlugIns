@@ -74,7 +74,7 @@ namespace Server
                 var addEntity = new DinnerOrder();
                 addEntity.UNID = Guid.NewGuid().ToString("N");
                 addEntity.OpenId = openId;
-
+                addEntity.Details = "";
 
                 decimal totalPrice = 0;
                 model.Details.ForEach(x => {
@@ -88,6 +88,7 @@ namespace Server
                         Price = x.Price,
                     }); 
                     totalPrice += (x.Price * x.Number);
+                    addEntity.Details = string.Format("{0} {1}X{2}份 ", addEntity.Details, x.DishName, x.Number);
                 });
 
                 addEntity.TotalPrice = totalPrice;

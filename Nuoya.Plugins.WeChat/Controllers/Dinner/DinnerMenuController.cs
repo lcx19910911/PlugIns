@@ -12,13 +12,13 @@ namespace Nuoya.Plugins.WeChat.Controllers
         // GET: Customer
         public ActionResult Index(string openId,string shopId)
         {
-            ViewBag.ExistsOrder = !string.IsNullOrEmpty(CacheHelper.Get<string>("dinner-openId"));
+            ViewBag.ExistsOrder = Client.Request.Cookies["cart"] == null ? false : (string.IsNullOrEmpty(Client.Request.Cookies["cart"].Value) ? false:true);
 
             CacheHelper.Get<string>("dinner-openId", CacheTimeOption.TwoHour, () => {
                 return openId;
             });
 
-            CacheHelper.Get<string>("dinner-shopId", CacheTimeOption.TwoHour, () => {
+            shopId=CacheHelper.Get<string>("dinner-shopId", CacheTimeOption.TwoHour, () => {
                 return shopId;
             });
 

@@ -105,16 +105,9 @@
           <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“PlugIns.dbo.OrderDetails”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="UNID" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="DishId" />
-            <PropertyRef Name="DishName" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Number" />
           </Key>
           <Property Name="UNID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderId" Type="char" MaxLength="32" Nullable="false" />
@@ -289,6 +282,7 @@
           <EntitySet Name="DinnerShop" EntityType="Self.DinnerShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerTable" EntityType="Self.DinnerTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -297,16 +291,6 @@
           <EntitySet Name="UserJoinCounter" EntityType="Self.UserJoinCounter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wall" EntityType="Self.Wall" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WallMessage" EntityType="Self.WallMessage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [OrderDetails].[UNID] AS [UNID], 
-    [OrderDetails].[OrderId] AS [OrderId], 
-    [OrderDetails].[DishId] AS [DishId], 
-    [OrderDetails].[DishName] AS [DishName], 
-    [OrderDetails].[Price] AS [Price], 
-    [OrderDetails].[Number] AS [Number]
-    FROM [dbo].[OrderDetails] AS [OrderDetails]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="WallImage" EntityType="Self.WallImage" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [WallImage].[UNID] AS [UNID], 
@@ -598,11 +582,6 @@
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="UNID" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="DishId" />
-            <PropertyRef Name="DishName" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Number" />
           </Key>
           <Property Name="UNID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />

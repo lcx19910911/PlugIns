@@ -11,9 +11,7 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("Menu")]
+    
     public partial class Menu
     {
         public string UNID { get; set; }

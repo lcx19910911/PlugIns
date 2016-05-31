@@ -42,6 +42,13 @@ namespace Core.Code
         sys_user_role_error = 12,
 
 
+        /// <summary>
+        /// 微信openid不存在
+        /// </summary>
+        [Description("微信openid不存在.")]
+        openid_no_exit = 13,
+
+
         #endregion
 
         #region 数据库操作 100-199
