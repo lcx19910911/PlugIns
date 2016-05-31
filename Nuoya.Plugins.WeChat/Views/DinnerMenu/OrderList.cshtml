@@ -87,7 +87,6 @@
     }
 
     function orderSubmit() {
-        debugger
         var cart = getCart();
         var orderDetails = [];
       
@@ -104,7 +103,6 @@
             type: "post",
             data: { "info": JSON.stringify(data) },
             success: function (rv) {
-                debugger
                 if (rv.Result=="") {
                     $.cookie('cart', "");
 
