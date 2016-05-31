@@ -27,12 +27,12 @@ namespace Server
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.DinnerDish.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0);
+                var query = entities.DinnerDish.AsQueryable();
                 if (name.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(name));
                 }
-                if (categoryId.IsNotNullOrEmpty())
+                if (categoryId.IsNotNullOrEmpty()&&!categoryId.Equals("0"))
                 {
                     query = query.Where(x => x.DinnerCategoryId.Contains(categoryId));
                 }
@@ -79,7 +79,6 @@ namespace Server
                 model.UNID = Guid.NewGuid().ToString("N");
                 model.CreatedTime = DateTime.Now;
                 model.UpdatedTime = DateTime.Now;
-                model.Flag = (long)GlobalFlag.Normal;
                 model.ShopId = Client.LoginUser.TargetID;
 
                 entities.DinnerDish.Add(model);
@@ -114,6 +113,7 @@ namespace Server
 
                     oldEntity.Name = model.Name;
                     oldEntity.Sort = model.Sort;
+                    oldEntity.State = model.State;
                     oldEntity.DinnerCategoryId = model.DinnerCategoryId;
                     oldEntity.Image = model.Image;
                     oldEntity.Price = model.Price;
@@ -143,7 +143,7 @@ namespace Server
             {
                 //找到实体
                 entities.DinnerDish.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x => {
-                    x.Flag = (x.Flag | (long)GlobalFlag.Removed);
+                    entities.DinnerDish.Remove(x);
                 });
                 return entities.SaveChanges() > 0 ? true : false;
             }
@@ -163,6 +163,19 @@ namespace Server
             {
                 var entity = entities.DinnerDish.Find(unid);
                 return entity;
+            }
+        }
+
+        /// <summary>
+        /// 获取选择项
+        /// </summary>
+        /// <param name="cId"></param>
+        /// <returns></returns>
+        public List<DinnerDish> Get_DishListByCategoryId(string cId)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                return entities.DinnerDish.Where(x => x.DinnerCategoryId.Equals(cId)).ToList();
             }
         }
     }

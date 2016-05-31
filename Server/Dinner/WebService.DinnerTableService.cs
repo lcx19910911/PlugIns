@@ -19,30 +19,31 @@ namespace Server
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="title">标题 - 搜索项</param>
+        /// <param name="name">标题 - 搜索项</param>
         /// <returns></returns>
-        public PageList<DinnerCategory> Get_DinnerCategoryPageList(int pageIndex, int pageSize, string name)
+        public PageList<DinnerTable> Get_DinnerTablePageList(int pageIndex, int pageSize, string name)
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.DinnerCategory.AsQueryable();
+                var query = entities.DinnerTable.AsQueryable();
                 if (name.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(name));
                 }
 
-                var list = new List<DinnerCategory>();
+                var list = new List<DinnerTable>();
                 var count = query.Count();
-                query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
+                query.OrderBy(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
                     {
-                        list.Add(new DinnerCategory()
+                        list.Add(new DinnerTable()
                         {
                             UNID = x.UNID,
                             CreatedTime = x.CreatedTime,
                             Name = x.Name,
-                            UpdatedTime = x.UpdatedTime,
+                            MinNum=x.MinNum,
+                            MaxNum=x.MaxNum,
                             Sort = x.Sort                  
                         });
                     }
@@ -58,27 +59,31 @@ namespace Server
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string Add_DinnerCategory(DinnerCategory model)
+        public string Add_DinnerTable(DinnerTable model)
         {
             if (model == null
                 || !model.Name.IsNotNullOrEmpty()
+                ||model.MinNum>model.MaxNum
                 )
                 return "数据为空";
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.DinnerCategory.AsQueryable();
-                if (query.Where(x => x.Name.Equals(model.Name) &&x.ShopId.Equals(Client.LoginUser.TargetID)).Count() != 0)
-                    return "分类名称已存在";
+                var query = entities.DinnerTable.AsQueryable();
+                if (query.Where(x => x.Name.Equals(model.Name) &&x.ShopId.Equals(Client.LoginUser.TargetID) ).Count() != 0)
+                    return "餐台标识名称已存在";
 
-                var addEntity =new DinnerCategory();
+                var addEntity =new DinnerTable();
                 addEntity.UNID = Guid.NewGuid().ToString("N");
                 addEntity.Sort = model.Sort;
                 addEntity.Name = model.Name;
+                addEntity.State = model.State;
                 addEntity.CreatedTime = DateTime.Now;
                 addEntity.UpdatedTime = DateTime.Now;
                 addEntity.ShopId = Client.LoginUser.TargetID;
+                addEntity.MinNum = model.MinNum;
+                addEntity.MaxNum = model.MaxNum;
 
-                entities.DinnerCategory.Add(addEntity);
+                entities.DinnerTable.Add(addEntity);
                 return entities.SaveChanges() > 0 ? "" : "保存出错";
             }
 
@@ -90,23 +95,26 @@ namespace Server
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string Update_DinnerCategory(DinnerCategory model, string unid)
+        public string Update_DinnerTable(DinnerTable model, string unid)
         {
             if (model == null
                  || !model.Name.IsNotNullOrEmpty()
+                 || model.MinNum > model.MaxNum
                 )
                 return "数据为空";
             using (DbRepository entities = new DbRepository())
             {
-                var oldEntity = entities.DinnerCategory.Find(unid);
+                var oldEntity = entities.DinnerTable.Find(unid);
                 if (oldEntity != null)
                 {
-                    var query = entities.DinnerCategory.AsQueryable();
+                    var query = entities.DinnerTable.AsQueryable();
                     if (query.Where(x => x.Name.Equals(model.Name)&&!x.UNID.Equals(unid)&& x.ShopId.Equals(Client.LoginUser.TargetID)).Count() != 0)
-                        return "分类名称已存在";
+                        return "餐台标识名称已存在";
 
                     oldEntity.Sort = model.Sort;
                     oldEntity.Name = model.Name;
+                    oldEntity.MinNum = model.MinNum;
+                    oldEntity.MaxNum = model.MaxNum;
                     oldEntity.UpdatedTime = DateTime.Now;
                 }
                 else
@@ -117,11 +125,11 @@ namespace Server
 
         }
         /// <summary>
-        /// 
+        /// 真删
         /// </summary>
         /// <param name="unids"></param>
         /// <returns></returns>
-        public bool Delete_DinnerCategory(string unids)
+        public bool Delete_DinnerTable(string unids)
         {
             if (!unids.IsNotNullOrEmpty())
             {
@@ -130,12 +138,8 @@ namespace Server
             using (DbRepository entities = new DbRepository())
             {
                 //找到实体
-                entities.DinnerCategory.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x =>
-                {
-                    entities.DinnerDish.Where(y => y.DinnerCategoryId.Equals(x.UNID)).ToList().ForEach(y =>
-                    {
-                        entities.DinnerDish.Remove(y);
-                    });
+                entities.DinnerTable.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x => {
+                    entities.DinnerTable.Remove(x);
                 });
                 return entities.SaveChanges() > 0 ? true : false;
             }
@@ -147,62 +151,14 @@ namespace Server
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        public DinnerCategory Find_DinnerCategory(string unid)
+        public DinnerTable Find_DinnerTable(string unid)
         {
             if (!unid.IsNotNullOrEmpty())
                 return null;
             using (DbRepository entities = new DbRepository())
             {
-                var entity = entities.DinnerCategory.Find(unid);
+                var entity = entities.DinnerTable.Find(unid);
                 return entity;
-            }
-        }
-
-
-        /// <summary>
-        /// 获取选择项
-        /// </summary>
-        /// <param name="dinnerCategoryId"></param>
-        /// <returns></returns>
-        public List<SelectItem> Get_DinnerCategorySelectItem(string dinnerCategoryId)
-        {
-            using (DbRepository entities = new DbRepository())
-            {
-                List<SelectItem> list = new List<SelectItem>();
-                entities.DinnerCategory.ToList().ForEach(x =>
-                {
-                    list.Add(new SelectItem()
-                    {
-                        Selected = x.UNID.Equals(dinnerCategoryId),
-                        Text = x.Name,
-                        Value = x.UNID
-                    });
-                });
-                return list;
-
-            }
-        }
-
-        /// <summary>
-        /// 获取选择项
-        /// </summary>
-        /// <param name="dinnerCategoryId"></param>
-        /// <returns></returns>
-        public List<SelectItem> Get_ItemByShopId(string shopId)
-        {
-            using (DbRepository entities = new DbRepository())
-            {
-                List<SelectItem> list = new List<SelectItem>();
-                entities.DinnerCategory.Where(x =>x.ShopId.Equals(shopId)).ToList().ForEach(x =>
-                {
-                    list.Add(new SelectItem()
-                    {
-                        Text = x.Name,
-                        Value = x.UNID
-                    });
-                });
-                return list;
-
             }
         }
     }

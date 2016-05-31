@@ -1,4 +1,5 @@
-﻿using Repository;
+﻿using Nuoya.Plugins.WeChat.Filters;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
+    [LoginFilter]
     public class DinnerCategoryController : BaseController
     {
         // GET: DinnerCategory
@@ -23,9 +25,9 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <param name="groupName">分组名称 - 搜索项</param>
         /// <param name="keyValue">键值 - 搜索项</param>
         /// <returns></returns>
-        public JsonResult GetPageList(int pageIndex, int pageSize, string name, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        public JsonResult GetPageList(int pageIndex, int pageSize, string name)
         {
-            var pagelist = WebService.Get_DinnerCategoryPageList(pageIndex, pageSize, name, createdTimeStart, createdTimeEnd);
+            var pagelist = WebService.Get_DinnerCategoryPageList(pageIndex, pageSize, name);
             return JResult(pagelist);
         }
 

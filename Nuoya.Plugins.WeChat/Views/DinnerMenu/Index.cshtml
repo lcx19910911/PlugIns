@@ -1,0 +1,84 @@
+﻿@model List<Core.Model.SelectItem>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>点餐</title>
+    <link href="~/Styles/dinner/mobile-modal.css" rel="stylesheet" />
+    <link href="~/Styles/dinner/index.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/dinner/iscroll.js"></script>
+    <script src="~/Scripts/dinner/jquery.cookie.js"></script>
+    <script src="~/Scripts/dinner/handle.js"></script>
+    <script src="~/Scripts/amazeui.js"></script>
+</head>
+<body>
+    <div id="pageone" class="preorder-menu unsupport-input">
+        <div class="menu-list">
+            <div id="left-menu" class="left-menu ">
+                <ul>
+                    @foreach (Core.Model.SelectItem d in Model)
+                    {
+                        <li id="dish@{@d.Value}" data-id="@d.Value">
+                            <div class="type-name">@d.Text</div>
+                            <span class="number-tip menu-number-tip">0</span>
+                        </li>
+    }
+                </ul>
+            </div>
+            <div id="right-menu" class="right-list">
+                <ul class="right_bc"></ul>
+            </div>
+        </div>
+        <div id="cart" class="bottom-zone clearfix empty" onclick="showCartList()">
+            <span class="cart-icon-container">
+                <i class="cart-icon cart-icon-empty glyphicon glyphicon-shopping-cart"></i>
+                <span id="cartNum" class="number-tip">0</span>
+            </span>
+            <span id="cartEmpty" class="empty-tip J-empty-tip">点菜单是空的</span>
+            <span id="cartPrice" class="J-total-price total-price">￥<span class="value J-value">0</span></span>
+            @if (ViewBag.ExistsOrder)
+            {
+                <input id="orderShow" type="button" value="已点单" class="btn btn-strong select-btn">
+            }
+            <input id="cartOK" type="button" value="选好了" class="btn btn-strong select-btn" disabled="disabled">
+        </div>
+
+        <div class="cart-detail" style="display:none;transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+            <div class="title">
+                <span>点菜单</span>
+                <span onclick="clearAll()" class="delete-all">
+                    <i class="trash-icon glyphicon glyphicon-trash"></i>清空全部
+                </span>
+            </div>
+            <div id="list" class="cart-menu-list">
+                <ul id="cartmenulist" class="container" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);"></ul>
+            </div>
+        </div>
+        <div class="overlay" style="display:none; z-index: 0; transform-origin: 0px 0px 0px; transform: scale(1, 1); opacity: 0.8;"></div>
+    </div>
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">系统提示</div>
+            <div class="am-modal-bd"></div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

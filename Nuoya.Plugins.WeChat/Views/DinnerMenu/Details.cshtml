@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>点餐</title>
+    <link rel="stylesheet" href="~/Content/bootstrap/css/font.css" />
+    <link href="~/Css/mobile-modal.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Areas/Mobile/Css/index.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/iscroll.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.cookie.js"></script>
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/amazeui.js"></script>
+</head>
+<body>
+    <div id="pageTwo" class="menu-detail-page">
+        <div class="header"><img id="dishImg" src="#" width="100%" height="100%"></div>
+        <div class="content-container">
+            <div class="content">
+                <div class="clearfix">
+                    <h1 id="name" class="name">蘑菇汤莜面鱼鱼</h1>
+                </div>
+                <div class="clearfix price-row">
+                    <span id="price" class="price">¥39</span><span class="unit">/份</span>
+                </div>
+                <div class="clearfix count-row">
+                    <span class="label">数量</span>
+                    <span class="oper-container">
+                        <a data-gaevent="delBtnClick/sku" class="delete-oper oper-icon" onclick="deloper()"></a>
+                        <span id="num" class="num">1</span>
+                        <a data-gaevent="addBtnClick/sku" class="add-oper oper-icon" onclick="addoper()"></a>
+                    </span>
+                </div>
+            </div>
+            <div class="content"><div class="clearfix description-row"><div class="label">描述</div><p class="text" id="des">无</p></div></div>
+        </div>
+        <input type="button" value="加入预点菜单" class="btn save-btn" onclick="beforehand()">
+        <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="loading">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">正在加入...</div>
+                <div class="am-modal-bd">
+                    <span class="am-icon-spinner am-icon-spin"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var request = getRequest();
+
+    $("#dishImg").attr("src", unescape(request["img"]));
+    $("#name").text(unescape(request["name"])).attr("data", request["tid"]);
+    $("#price").text(unescape(request["price"]));
+    if (request["des"] && request["des"]!="null") {
+        $("#des").text(unescape(request["des"]));
+    }
+    //按钮操作数量
+
+    function deloper() {
+        var n = $("#num");
+        if (n.text() > "1") {
+            n.text(parseInt(n.text()) - 1);
+        }
+    }
+
+    function addoper() {
+        var n = $("#num");
+        if (n.text() < "99") {
+            n.text(parseInt(n.text()) + 1);
+        }
+    }
+    
+    function beforehand() {
+        $("#loading").modal();
+
+        setTimeout(function () {
+            var cart = getCart();
+            var tid = $("#name").attr("data");
+
+            if (!cart[tid]) {
+                cart[tid] = {
+                    "num": parseInt($("#num").text()),
+                    "price": parseInt($("#price").text().replace("¥", "")),
+                    "name": $("#name").text()
+                };
+            } else {
+                cart[tid]["num"] = cart[tid]["num"] + parseInt($("#num").text());
+            }
+            $.cookie('cart', JSON.stringify(cart), "/");
+            window.location.href = "index";
+        }, 1000);
+    }
+
+    function getCart() {
+        var cart = null;
+        try {
+            cart = $.cookie('cart');
+            if (!cart) cart = new Object();
+            else cart = JSON.parse(cart);
+        } catch (e) {
+            cart = new Object();
+        }
+
+        return cart;
+    }
+</script>

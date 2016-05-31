@@ -1,19 +1,20 @@
 ﻿
 
 @{
-    ViewBag.Title = "菜品分类管理";
+    ViewBag.Title = "餐台管理";
 }
 
 <div class="am-cf am-padding">
-    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">菜品分类管理</strong></div>
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">餐台管理</strong></div>
 </div>
 <div id="searchDomain">
 
     <div class="am-g">
         <div class="am-u-lg-12">
             <div class="am-input-group am-input-group-sm">
-                <span class="am-input-group-label">名称</span>
-                <input type="text" class="am-form-field" placeholder="按分类名称搜索" name="name" ;>
+                <span class="am-input-group-label">餐台名称</span>
+                <input type="text" class="am-form-field" placeholder="按餐台名称搜索" name="name" ;>
+
                 <span class="am-input-group-btn am-margin-left-sm">
                     <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
                     <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
@@ -39,7 +40,8 @@
             <tr>
                 <th dataname="UNID" type="checkbox"></th>
                 <th dataname="Name">分类名称</th>
-                <th dataname="Sort">排序</th>
+                <th dataname="Sort">编号</th>
+                <th render="showNum">人数范围</th>
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
             </tr>
@@ -50,6 +52,12 @@
 @section scripts
 {
     <script type="text/javascript">
+
+        function showNum(item)
+        {
+            return item.MinNum + "-" + item.MaxNum;
+        }
+
         function ClearFilter() {
             $("#searchDomain input").val("");
         }
@@ -57,7 +65,7 @@
         //批量删除
         function batchDelete() {
             grid.del({
-                ajaxUrl: "/DinnerCategory/Delete",
+                ajaxUrl: "/DinnerTable/Delete",
                 callback: function (json) {
                     grid.reload();
                 }
@@ -73,7 +81,11 @@
                         required: true,
                         maxlength: 25
                     },
-                    Sort: {
+                    MinNum: {
+                        required: true,
+                        digits: true
+                    },
+                    MaxNum: {
                         required: true,
                         digits: true
                     }
@@ -83,7 +95,11 @@
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
                     },
-                    Sort: {
+                    MinNum: {
+                        required: "不允许为空",
+                        digits: "请输入数字"
+                    },
+                    MaxNum: {
                         required: "不允许为空",
                         digits: "请输入数字"
                     }
@@ -95,8 +111,8 @@
         function add() {
             $.Nuoya.ajaxDialog({
                 closeViaDimmer: false,
-                ajaxUrl: "/HtmlTemplates/DinnerCategory/Update.html",
-                title: "添加分类",
+                ajaxUrl: "/HtmlTemplates/DinnerTable/Update.html",
+                title: "添加餐台",
                 callback: function (e) {
                     formInit();//表单初始化
                 },
@@ -104,8 +120,14 @@
                     label: "保存",
                     callback: function (e) {
 
+                        if (document.forms[0].MinNum.value > document.forms[0].MaxNum.value)
+                        {
+                            $.Nuoya.alert("最小人数必须小于最大人数");
+                            return false;
+                        }
+
                         $.Nuoya.form("form").ajaxSubmit({
-                            ajaxUrl: "/DinnerCategory/Add",
+                            ajaxUrl: "/DinnerTable/Add",
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
@@ -127,7 +149,7 @@
                 domainId: "searchDomain",
                 subId: "btnSearch"
             },
-            ajaxUrl: "/DinnerCategory/GetPageList",
+            ajaxUrl: "/DinnerTable/GetPageList",
             //数据请求地址
             pageSize: 10,
             events: [
@@ -138,10 +160,10 @@
                     click: function (item) {
                         $.Nuoya.ajaxDialog({
                             closeViaDimmer: false,
-                            ajaxUrl: "/HtmlTemplates/DinnerCategory/Update.html",
-                            title: "编辑分类",
+                            ajaxUrl: "/HtmlTemplates/DinnerTable/Update.html",
+                            title: "编辑餐台",
                             callback: function (e) {
-                                $.Nuoya.action("/DinnerCategory/Find", { unid: item.UNID }, function (model) {
+                                $.Nuoya.action("/DinnerTable/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
                                         data: model
@@ -154,8 +176,13 @@
                                 label: "保存",
                                 callback: function (e) {
 
+                                    if (document.forms[0].MinNum.value > document.forms[0].MaxNum.value) {
+                                        $.Nuoya.alert("最小人数必须小于最大人数");
+                                        return false;
+                                    }
+
                                     $.Nuoya.form("form").ajaxSubmit({
-                                        ajaxUrl: "/DinnerCategory/Update",
+                                        ajaxUrl: "/DinnerTable/Update",
                                         params: {
                                             UNID: item.UNID
                                         },
@@ -178,7 +205,7 @@
                     icon: "icon-trash-o",
                     name: "删除",
                     click: function (item) {
-                        $.Nuoya.deleteAction("/DinnerCategory/Delete", {
+                        $.Nuoya.deleteAction("/DinnerTable/Delete", {
                             unids: item.UNID
                         },
                         function () {

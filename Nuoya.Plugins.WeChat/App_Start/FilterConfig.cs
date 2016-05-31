@@ -12,7 +12,7 @@ namespace Nuoya.Plugins.WeChat
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {         
             filters.Add(new TimerAttribute());          
-            filters.Add(new LoginFilterAttribute());
+            //filters.Add(new LoginFilterAttribute());
 
         }
     }

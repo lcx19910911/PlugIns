@@ -24,10 +24,12 @@ namespace Nuoya.Plugins.WeChat.Filters
                 allowAction.Add(new Tuple<string, string>("upload", "uploadimage"));
                 allowAction.Add(new Tuple<string, string>("login", "submit"));
                 allowAction.Add(new Tuple<string, string>("login", "index"));
+                allowAction.Add(new Tuple<string, string>("dinnermenu", "index"));
+                allowAction.Add(new Tuple<string, string>("dinnermenu", "getdish"));
                 return allowAction;
             }
         }
-
+        
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var controller = filterContext.Controller as BaseController;

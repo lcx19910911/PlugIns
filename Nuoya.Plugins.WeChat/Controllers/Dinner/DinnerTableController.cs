@@ -9,9 +9,9 @@ using System.Web.Mvc;
 namespace Nuoya.Plugins.WeChat.Controllers
 {
     [LoginFilter]
-    public class DinnerDishController : BaseController
+    public class DinnerTableController : BaseController
     {
-        // GET: DinnerDish
+        // GET: DinnerTable
         public ActionResult Index()
         {
             return View();
@@ -22,12 +22,10 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="groupName">分组名称 - 搜索项</param>
-        /// <param name="keyValue">键值 - 搜索项</param>
         /// <returns></returns>
-        public JsonResult GetPageList(int pageIndex, int pageSize, string name,string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        public JsonResult GetPageList(int pageIndex, int pageSize, string name)
         {
-            var pagelist = WebService.Get_DinnerDishPageList(pageIndex, pageSize, name, categoryId, createdTimeStart, createdTimeEnd);
+            var pagelist = WebService.Get_DinnerTablePageList(pageIndex, pageSize, name);
             return JResult(pagelist);
         }
 
@@ -36,9 +34,9 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
-        public JsonResult Add(DinnerDish model)
+        public JsonResult Add(DinnerTable model)
         {
-            var result = WebService.Add_DinnerDish(model);
+            var result = WebService.Add_DinnerTable(model);
             return JResult(result);
         }
 
@@ -48,9 +46,9 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
-        public JsonResult Update(DinnerDish model, string unid)
+        public JsonResult Update(DinnerTable model, string unid)
         {
-            var result = WebService.Update_DinnerDish(model, unid);
+            var result = WebService.Update_DinnerTable(model, unid);
             return JResult(result);
         }
 
@@ -61,7 +59,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public JsonResult Find(string unid)
         {
-            var result = WebService.Find_DinnerDish(unid);
+            var result = WebService.Find_DinnerTable(unid);
             return JResult(result);
         }
     
@@ -72,7 +70,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public ActionResult Delete(string unids)
         {
-            var model = WebService.Delete_DinnerDish(unids);
+            var model = WebService.Delete_DinnerTable(unids);
             return JResult(model);
         }
     }

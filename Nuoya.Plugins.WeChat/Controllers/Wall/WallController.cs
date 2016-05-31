@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nuoya.Plugins.WeChat.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
     /// <summary>
     /// 微信墙
     /// </summary>
+    [LoginFilter]
     public class WallController : BaseController
     {
         // GET: Wall

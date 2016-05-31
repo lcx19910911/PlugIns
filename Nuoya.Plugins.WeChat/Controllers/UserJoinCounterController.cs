@@ -1,4 +1,5 @@
-﻿using  EnumPro;
+﻿using EnumPro;
+using Nuoya.Plugins.WeChat.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
+    [LoginFilter]
     public class UserJoinCounterController : BaseController
     {
         // GET: Prize

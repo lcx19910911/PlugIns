@@ -22,9 +22,9 @@ namespace Repository
         public decimal Price { get; set; }
         public string Label { get; set; }
         public string Image { get; set; }
+        public int State { get; set; }
         public string Description { get; set; }
         public System.DateTime UpdatedTime { get; set; }
-        public Nullable<long> Flag { get; set; }
         public System.DateTime CreatedTime { get; set; }
     }
 }

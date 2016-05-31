@@ -36,8 +36,11 @@ namespace Repository
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<DinnerShop> DinnerShop { get; set; }
-        public virtual DbSet<DinnerCategory> DinnerCategory { get; set; }
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<DinnerCategory> DinnerCategory { get; set; }
         public virtual DbSet<DinnerDish> DinnerDish { get; set; }
+        public virtual DbSet<DinnerOrder> DinnerOrder { get; set; }
+        public virtual DbSet<DinnerTable> DinnerTable { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
     }
 }

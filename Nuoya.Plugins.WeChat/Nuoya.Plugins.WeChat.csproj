@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="HtmlTemplates\DinnerTable\Update.html" />
     <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />
     <Content Include="HtmlTemplates\DinnerShop\Update.html" />
@@ -185,6 +186,9 @@
     <Content Include="Scripts\activity\wall\jquery_flexslider.js" />
     <Content Include="Scripts\activity\wall\main.js" />
     <Content Include="Scripts\activity\wall\msgScroll.js" />
+    <Content Include="Scripts\dinner\handle.js" />
+    <Content Include="Scripts\dinner\iscroll.js" />
+    <Content Include="Scripts\dinner\jquery.cookie.js" />
     <Content Include="Scripts\My97DatePicker\calendar.js" />
     <Content Include="Scripts\My97DatePicker\config.js" />
     <Content Include="Scripts\My97DatePicker\lang\en.js" />
@@ -264,6 +268,8 @@
     <Content Include="Styles\css\amazeui.datetimepicker.css" />
     <Content Include="Styles\css\amazeui.min.css" />
     <Content Include="Styles\datetimepicker\jquery-ui.css" />
+    <Content Include="Styles\dinner\index.css" />
+    <Content Include="Styles\dinner\mobile-modal.css" />
     <Content Include="Styles\fonts\fontawesome-webfont.svg" />
     <Content Include="Styles\img\remove-icon-small.png" />
     <Content Include="Styles\zTreeStyle\img\diy\1_close.png" />
@@ -295,8 +301,9 @@
     <Compile Include="App_Start\Filters\TimerAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
+    <Compile Include="Controllers\Dinner\DinnerTableController.cs" />
     <Compile Include="Controllers\Dinner\DinnerDishController.cs" />
-    <Compile Include="Controllers\Dinner\DinnerCustomerController.cs" />
+    <Compile Include="Controllers\Dinner\DinnerMenuController.cs" />
     <Compile Include="Controllers\Dinner\DinnerCategoryController.cs" />
     <Compile Include="Controllers\Dinner\DinnerShopController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -345,6 +352,11 @@
     <Content Include="Views\DinnerShop\Index.cshtml" />
     <Content Include="Views\DinnerCategory\Index.cshtml" />
     <Content Include="Views\DinnerDish\Index.cshtml" />
+    <Content Include="Views\DinnerTable\Index.cshtml" />
+    <Content Include="Views\DinnerMenu\Index.cshtml" />
+    <Content Include="Views\DinnerMenu\Details.cshtml" />
+    <Content Include="Views\DinnerMenu\Haves.cshtml" />
+    <Content Include="Views\DinnerMenu\OrderList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

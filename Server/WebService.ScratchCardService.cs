@@ -223,7 +223,7 @@ namespace Server
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        public Domain.ScratchCard.Update Show_ScratchCard(string unid)
+        public Domain.ScratchCard.Update Show_ScratchCard(string unid, string openId)
         {
             if (!unid.IsNotNullOrEmpty())
                 return null;
@@ -242,7 +242,7 @@ namespace Server
                 var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
 
-                string openId = CacheHelper.Get<string>("openId");
+                //string openId = CacheHelper.Get<string>("openId");
 
                 //当前用户的参与状况
                 var hadJoinEntity = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid));

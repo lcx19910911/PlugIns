@@ -11,16 +11,14 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("DinnerCategory")]
-    public partial class DinnerCategory
+    
+    public partial class OrderDetails
     {
         public string UNID { get; set; }
-        public string Name { get; set; }
-        public string ShopId { get; set; }
-        public int Sort { get; set; }
-        public System.DateTime CreatedTime { get; set; }
-        public System.DateTime UpdatedTime { get; set; }
+        public string OrderId { get; set; }
+        public string DishId { get; set; }
+        public string DishName { get; set; }
+        public decimal Price { get; set; }
+        public int Number { get; set; }
     }
 }

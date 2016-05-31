@@ -1,0 +1,147 @@
+﻿.am-modal::before {
+    content: "​";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.am-modal.am-modal-active {
+    opacity: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transform: scale(1);
+    transition-duration: 300ms;
+}
+
+.am-modal {
+    backface-visibility: hidden;
+    bottom: 0;
+    display: none;
+    left: 0;
+    opacity: 0;
+    outline: 0 none;
+    perspective: 1000px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: 0;
+    transform: scale(1.185);
+    transition-property: transform, opacity, -webkit-transform;
+    z-index: 1110;
+    font-weight: normal;
+    line-height: 1.6;
+}
+
+
+
+.am-modal-dialog {
+    background: #f8f8f8 none repeat scroll 0 0;
+    border-radius: 0;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    position: relative;
+    vertical-align: middle;
+    width: 270px;
+}
+
+
+
+.am-modal {
+    text-align: center;
+}
+
+.amz-sidebar, .doc-content {
+    font-size: 1.4rem;
+}
+.doc-content {
+    word-wrap: break-word;
+}
+
+.am-modal-hd {
+    font-size: 1.8rem;
+    font-weight: 500;
+    padding: 15px 10px 5px;
+}
+
+.am-modal-bd {
+    border-bottom: 1px solid #dedede;
+    border-radius: 2px 2px 0 0;
+    padding: 15px 10px;
+    text-align: center;
+}
+
+.am-modal-hd + .am-modal-bd {
+    padding-top: 0;
+}
+
+.am-modal-footer {
+    border-collapse: collapse;
+    display: table;
+    height: 44px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.am-modal-btn:first-child {
+    border-radius: 0;
+}
+.am-modal-btn {
+    border-right: 1px solid #dedede;
+    box-sizing: border-box !important;
+    color: #0e90d2;
+    cursor: pointer;
+    display: table-cell !important;
+    font-size: 1.6rem;
+    height: 44px;
+    line-height: 44px;
+    overflow: hidden;
+    padding: 0 5px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.am-modal-btn + .am-modal-btn {
+    border-left: 1px solid #dedede;
+}
+.am-modal-btn:last-child {
+    border-radius: 0;
+    border-right: medium none;
+}
+.am-modal-btn {
+    border-right: 1px solid #dedede;
+    box-sizing: border-box !important;
+    color: #0e90d2;
+    cursor: pointer;
+    display: table-cell !important;
+    font-size: 1.6rem;
+    height: 44px;
+    line-height: 44px;
+    overflow: hidden;
+    padding: 0 5px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.am-dimmer.am-active {
+    opacity: 1;
+}
+
+.am-dimmer {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1100;
+}

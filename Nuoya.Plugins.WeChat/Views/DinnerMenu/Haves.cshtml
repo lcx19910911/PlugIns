@@ -1,0 +1,43 @@
+﻿
+@model Domain.Dinner.OrderModel
+@{
+    ViewBag.Title = "预点清单";
+    ViewBag.TotalNum = 0;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>预点清单</title>
+    <link href="~/Styles/dinner/index.css" rel="stylesheet" />
+</head>
+<body id="preorder-page">
+    <div class="head-section">
+        <span class="poi-name">预点清单</span>
+    </div>
+    <div id="dishList" class="dish-list">
+        @foreach (OrderDetails d in Model.Details)
+        {
+            <div class="dish-item clearfix">
+                <div class="dish-item__order">
+                    <div class="dish-item__price">￥@(d.Number * d.Price)</div>
+                    <div class="dish-item__number">x@(d.Number)</div>
+                </div>
+                <div class="dish-item__name">@d.DishName</div>
+            </div>
+            
+            ViewBag.TotalNum += d.Number;
+        }
+        <div class="dish-item total-item">
+            <span class="total-text">@ViewBag.TotalNum份菜品，总价：</span><span class="total-price">￥@Model.Order.TotalPrice</span>
+        </div>
+    </div>
+    <div class="opt-section">
+        <input type="button" value="返回" class="btn btn-block btn-large" onclick="window.history.back(-1)">
+    </div>
+</body>
+</html>
+
+

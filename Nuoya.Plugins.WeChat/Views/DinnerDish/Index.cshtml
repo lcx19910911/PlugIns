@@ -77,7 +77,7 @@
             });
         }
         $(function () {
-            $("select[name='CategoryId']").append("<option >不限</option>");
+            $("select[name='CategoryId']").append("<option value='0'>不限</option>");
             $.Nuoya.action("/DinnerCategory/GetSelectItem", {}, function (json) {
                 $(json).each(function () {
                     $("select[name='CategoryId']").append("<option  value='" + this.Value + "'>" + this.Text + "</option>");
@@ -87,8 +87,13 @@
 
         function formInit(dataitem) {
 
-            if (dataitem!=null&&dataitem.Image != null) {
-                $("#imageDiv").show().find("img").attr("src", dataitem.Image);
+            if (dataitem != null) {
+                if (dataitem.Image != null) {
+                    $("#imageDiv").show().find("img").attr("src", dataitem.Image);
+                }
+                if (dataitem.State == 1) {
+                    $("input[name='State']").attr("checked", "checked");
+                }
             }
             $.Nuoya.action("/DinnerCategory/GetSelectItem", { cid: dataitem ? dataitem.DinnerDishId : "" }, function (json) {
                 $(json).each(function () {
@@ -187,6 +192,13 @@
                     label: "保存",
                     callback: function (e) {
 
+                        if (document.getElementById('chk_state').checked) {
+                            document.forms[0].State.value = "1";
+                        }
+                        else {
+                            document.forms[0].State.value = "0";
+                        }
+
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/DinnerDish/Add",
                             callback: function (data) {
@@ -238,6 +250,13 @@
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
+
+                                    if (document.getElementById('chk_state').checked) {
+                                        document.forms[0].State.value = "1";
+                                    }
+                                    else {
+                                        document.forms[0].State.value = "0";
+                                    }
 
                                     $.Nuoya.form("form").ajaxSubmit({
                                         ajaxUrl: "/DinnerDish/Update",

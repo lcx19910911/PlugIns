@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapperExtension.cs" />
+    <Compile Include="Dinner\WebService.DinnerOrderService.cs" />
+    <Compile Include="Dinner\WebService.DinnerTableService.cs" />
     <Compile Include="Dinner\WebService.DinnerDishService.cs" />
     <Compile Include="Dinner\WebService.DinnerCategoryService.cs" />
     <Compile Include="WebService.MenuService.cs" />

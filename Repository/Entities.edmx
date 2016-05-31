@@ -22,7 +22,6 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ShopId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="Sort" Type="int" Nullable="false" />
-          <Property Name="Flag" Type="bigint" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -38,9 +37,24 @@
           <Property Name="Price" Type="numeric" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Label" Type="varchar" MaxLength="100" />
           <Property Name="Image" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
-          <Property Name="Flag" Type="bigint" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DinnerOrder">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="ShopId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="OpenId" Type="varchar" MaxLength="50" />
+          <Property Name="TableId" Type="varchar" MaxLength="50" />
+          <Property Name="TotalPrice" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Remark" Type="varchar" MaxLength="500" />
+          <Property Name="Details" Type="varchar" MaxLength="1000" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DinnerShop">
@@ -62,6 +76,20 @@
           <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
           <Property Name="Flag" Type="bigint" />
         </EntityType>
+        <EntityType Name="DinnerTable">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShopId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="Sort" Type="int" Nullable="false" />
+          <Property Name="MinNum" Type="int" Nullable="false" />
+          <Property Name="MaxNum" Type="int" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="UNID" />
@@ -76,6 +104,24 @@
           <Property Name="Flag" Type="bigint" Nullable="false" />
           <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“PlugIns.dbo.OrderDetails”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="UNID" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="DishId" />
+            <PropertyRef Name="DishName" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="UNID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="DishId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="DishName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -239,7 +285,9 @@
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerCategory" EntityType="Self.DinnerCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerDish" EntityType="Self.DinnerDish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DinnerOrder" EntityType="Self.DinnerOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerShop" EntityType="Self.DinnerShop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DinnerTable" EntityType="Self.DinnerTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
@@ -249,6 +297,16 @@
           <EntitySet Name="UserJoinCounter" EntityType="Self.UserJoinCounter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wall" EntityType="Self.Wall" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WallMessage" EntityType="Self.WallMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrderDetails].[UNID] AS [UNID], 
+    [OrderDetails].[OrderId] AS [OrderId], 
+    [OrderDetails].[DishId] AS [DishId], 
+    [OrderDetails].[DishName] AS [DishName], 
+    [OrderDetails].[Price] AS [Price], 
+    [OrderDetails].[Number] AS [Number]
+    FROM [dbo].[OrderDetails] AS [OrderDetails]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="WallImage" EntityType="Self.WallImage" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [WallImage].[UNID] AS [UNID], 
@@ -274,9 +332,12 @@
           <EntitySet Name="Menu" EntityType="PlugInsModel.Menu" />
           <EntitySet Name="Role" EntityType="PlugInsModel.Role" />
           <EntitySet Name="DinnerShop" EntityType="PlugInsModel.DinnerShop" />
-          <EntitySet Name="DinnerCategory" EntityType="PlugInsModel.DinnerCategory" />
           <EntitySet Name="Person" EntityType="PlugInsModel.Person" />
+          <EntitySet Name="DinnerCategory" EntityType="PlugInsModel.DinnerCategory" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
+          <EntitySet Name="DinnerOrder" EntityType="PlugInsModel.DinnerOrder" />
+          <EntitySet Name="DinnerTable" EntityType="PlugInsModel.DinnerTable" />
+          <EntitySet Name="OrderDetails" EntityType="PlugInsModel.OrderDetails" />
           </EntityContainer>
         <EntityType Name="Admin">
           <Key>
@@ -460,18 +521,6 @@
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Flag" Type="Int64" />
         </EntityType>
-        <EntityType Name="DinnerCategory">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ShopId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Sort" Type="Int32" Nullable="false" />
-          <Property Name="Flag" Type="Int64" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="UNID" />
@@ -489,6 +538,17 @@
           <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TargetCode" Type="Int32" />
         </EntityType>
+        <EntityType Name="DinnerCategory">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShopId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="DinnerDish">
           <Key>
             <PropertyRef Name="UNID" />
@@ -501,10 +561,55 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="Label" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Flag" Type="Int64" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="DinnerOrder">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="ShopId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="OpenId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Details" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="DinnerTable">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShopId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="MinNum" Type="Int32" Nullable="false" />
+          <Property Name="MaxNum" Type="Int32" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="UNID" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="DishId" />
+            <PropertyRef Name="DishName" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="DishId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="DishName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -704,19 +809,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DinnerCategory">
-            <EntityTypeMapping TypeName="PlugInsModel.DinnerCategory">
-              <MappingFragment StoreEntitySet="DinnerCategory">
-                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Person">
             <EntityTypeMapping TypeName="PlugInsModel.Person">
               <MappingFragment StoreEntitySet="Person">
@@ -735,13 +827,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DinnerCategory">
+            <EntityTypeMapping TypeName="PlugInsModel.DinnerCategory">
+              <MappingFragment StoreEntitySet="DinnerCategory">
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DinnerDish">
             <EntityTypeMapping TypeName="PlugInsModel.DinnerDish">
               <MappingFragment StoreEntitySet="DinnerDish">
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
                 <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Label" ColumnName="Label" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -749,6 +853,49 @@
                 <ScalarProperty Name="DinnerCategoryId" ColumnName="DinnerCategoryId" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DinnerOrder">
+            <EntityTypeMapping TypeName="PlugInsModel.DinnerOrder">
+              <MappingFragment StoreEntitySet="DinnerOrder">
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DinnerTable">
+            <EntityTypeMapping TypeName="PlugInsModel.DinnerTable">
+              <MappingFragment StoreEntitySet="DinnerTable">
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="MaxNum" ColumnName="MaxNum" />
+                <ScalarProperty Name="MinNum" ColumnName="MinNum" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="PlugInsModel.OrderDetails">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="DishName" ColumnName="DishName" />
+                <ScalarProperty Name="DishId" ColumnName="DishId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -72,11 +72,15 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        [OAuthFilter]
-        public ActionResult Details(string unid)
+        //[OAuthFilter]
+        public ActionResult Details(string unid,string openId)
         {
             //保存openid
-            var model = WebService.Show_ScratchCard(unid);
+            CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () => {
+                return openId;
+                //return "12345678";
+            });
+            var model = WebService.Show_ScratchCard(unid, openId);
             return View(model);
         }
 

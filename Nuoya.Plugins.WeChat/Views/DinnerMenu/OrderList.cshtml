@@ -1,0 +1,126 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>预点确认</title>
+
+    <link href="~/Styles/dinner/mobile-modal.css" rel="stylesheet" />
+    <link href="~/Styles/dinner/index.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/dinner/iscroll.js"></script>
+    <script src="~/Scripts/amazeui.js"></script>
+    <script src="~/Scripts/dinner/jquery.cookie.js"></script>
+</head>
+<body id="preorder-page">
+    <div class="head-section">
+        <span class="poi-name">我的点菜单</span>
+        <a class="btn hollow-btn edit-button" href="Index">
+            <i class="glyphicon glyphicon-pencil edit-icon"></i><span class="edit-text">修改菜单</span>
+        </a>
+    </div>
+    <div id="dishList" class="dish-list">
+
+    </div>
+    <div class="opt-section">
+        <input type="button" value="确认菜单" class="btn btn-block btn-large" onclick="orderSubmit()">
+    </div>
+
+    <div class="am-modal am-modal-alert" tabindex="-1" id="alert">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">系统提示</div>
+            <div class="am-modal-bd">错误内容</div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var totalnum = 0;
+    var totalprice = 0;
+
+    function initCartList() {
+        var list = getCart();
+
+        var listObj = $("#dishList");
+        listObj.html("");
+
+
+        for (var d in list) {
+            var da = d.split("_");
+            totalnum += list[d]["num"];
+            totalprice += list[d]["num"] * list[d]["price"];
+            var o = listObj.append(' <div class="dish-item clearfix">\
+                                        <div class="dish-item__order">\
+                                            <div class="dish-item__price">￥' + (list[d]["num"] * list[d]["price"]) + '</div>\
+                                            <div class="dish-item__number">x' + list[d]["num"] + '</div>\
+                                        </div>\
+                                        <div class="dish-item__name">' + list[d]["name"] + '</div>\
+                                    </div>');
+        }
+
+        if (listObj.children().length > 0) {
+            listObj.append('<div class="dish-item total-item">\
+                                <span class="total-text">' + totalnum + '份菜品，总价：</span><span class="total-price">￥' + totalprice + '</span>\
+                            </div>');
+        }
+    }
+
+    function getCart() {
+        var cart = null;
+        try {
+            cart = $.cookie('cart');
+            if (!cart) window.location.href = 'index';
+            else cart = JSON.parse(cart);
+        } catch (e) {
+            window.location.href = 'index';
+        }
+
+        return cart;
+    }
+
+    function orderSubmit() {
+        debugger
+        var cart = getCart();
+        var orderDetails = [];
+      
+        var order = { "TotalPrice": totalprice };
+        for (var p in cart) {
+            var o = { "DishId": p.split("_")[0], "Number": cart[p]["num"], "Price": cart[p]["price"], "DishName": cart[p]["name"] };
+            orderDetails.push(o);
+        }
+
+        var data = { "Order": order, "Details": orderDetails };
+
+        $.ajax({
+            url: "OrderSubmit",
+            type: "post",
+            data: { "info": JSON.stringify(data) },
+            success: function(rv) {
+                if (rv.Code==0) {
+                    $.cookie('cart', "");
+
+                    $("#alert .am-modal-bd").text("已经提交到后台")
+                    $("#alert").modal({
+                        onConfirm: function () {
+                            window.location.href = "Index";
+                        }
+                    })
+                    
+                } else {
+                    $("#alert .am-modal-bd").text(rv.Message)
+                    $("#alert").modal()
+                }
+            }
+        });
+    }
+
+    initCartList();
+</script>
