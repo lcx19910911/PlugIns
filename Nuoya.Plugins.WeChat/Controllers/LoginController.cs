@@ -43,7 +43,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         public ActionResult Quit()
         {
             Client.LoginUser = null;
-            return RedirectToAction("/login");
+            return View("Index");
         }
     }
 }

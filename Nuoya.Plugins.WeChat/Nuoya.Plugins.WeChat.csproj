@@ -179,6 +179,7 @@
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
     <Content Include="HtmlTemplates\Wall\Update.html" />
+    <Content Include="Images\404Pic.png" />
     <Content Include="Images\ScratchCard\ongoing.png" />
     <Content Include="Images\ScratchCard\over.jpg" />
     <Content Include="Images\ScratchCard\preheating.jpg" />

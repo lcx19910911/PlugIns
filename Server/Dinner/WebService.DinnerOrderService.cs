@@ -118,12 +118,14 @@ namespace Server
 
                 var model =new Domain.Dinner.OrderModel();
                 //15分钟内有效订单
-                var order = entities.DinnerOrder.FirstOrDefault(x => x.OpenId.Equals(openId) && x.ShopId.Equals(shopId) && x.CreatedTime > DateTime.Now.AddMinutes(-15));
+                var limitTime = DateTime.Now.AddHours(-2);
+                var order = entities.DinnerOrder.OrderByDescending(x=>x.CreatedTime).FirstOrDefault(x => x.OpenId.Equals(openId) && x.ShopId.Equals(shopId) && x.CreatedTime > limitTime);
 
                 if(order != null)
                 {
                     model.Order = order;
                     model.Details = entities.OrderDetails.Where(x => x.OrderId.Equals(order.UNID)).ToList();
+                    model.Remark = model.Order.Remark;
                 }
 
                 return model;

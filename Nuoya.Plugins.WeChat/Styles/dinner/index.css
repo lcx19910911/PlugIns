@@ -806,6 +806,19 @@ img {
     width: 100%;
 }
 
+#preorder-page .opt-remark {
+    bottom: 47px;
+    height: 1rem;
+    left: 0;
+    position: fixed;
+    width: 100%;
+}
+
+#preorder-page .opt-remark input{
+    height:40px;
+    width: 100%;
+}
+
 
 
 /*排队*/

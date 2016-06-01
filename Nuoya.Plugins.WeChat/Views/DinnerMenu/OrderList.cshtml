@@ -27,6 +27,9 @@
     <div id="dishList" class="dish-list">
 
     </div>
+    <div class="opt-remark">
+        <input type="text" placeholder="餐桌和其他要求" id="remark"/>
+    </div>
     <div class="opt-section">
         <input type="button" value="确认菜单" class="btn btn-block btn-large" onclick="orderSubmit()">
     </div>
@@ -90,13 +93,14 @@
         var cart = getCart();
         var orderDetails = [];
       
-        var order = { "TotalPrice": totalprice };
+        var remark=$("#remark").val();
+        var order = { "TotalPrice": totalprice};
         for (var p in cart) {
             var o = { "DishId": p.split("_")[0], "Number": cart[p]["num"], "Price": cart[p]["price"], "DishName": cart[p]["name"] };
             orderDetails.push(o);
         }
 
-        var data = { "Order": order, "Details": orderDetails };
+        var data = { "Order": order, "Details": orderDetails, "Remark": remark };
 
         $.ajax({
             url: "OrderSubmit",
@@ -105,13 +109,14 @@
             success: function (rv) {
                 if (rv.Result=="") {
                     $.cookie('cart', "");
+                    $.cookie('had', "1");
 
                     $("#alert .am-modal-bd").text("已经提交到后台")
                     $("#alert").modal({
                         onConfirm: function () {
                             window.location.href = "Index";
                         }
-                    })
+                    });
                     
                 }
                 else {
