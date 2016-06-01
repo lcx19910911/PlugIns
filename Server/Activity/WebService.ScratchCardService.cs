@@ -242,8 +242,6 @@ namespace Server
                 var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
 
-                //string openId = CacheHelper.Get<string>("openId");
-
                 //当前用户的参与状况
                 var hadJoinEntity = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid));
 
@@ -297,7 +295,7 @@ namespace Server
                 }
 
                 //当前的微信 openid
-                string openId = CacheHelper.Get<string>("openId");
+                string openId = CacheHelper.Get<string>("scra-openId");
                 if (!openId.IsNotNullOrEmpty())
                 {
                     result.Result = "身份授权已过期，请重新刷新页面授权";

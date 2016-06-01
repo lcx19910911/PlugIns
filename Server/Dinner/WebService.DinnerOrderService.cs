@@ -20,35 +20,37 @@ namespace Server
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="name">标题 - 搜索项</param>
+        /// <param name="title">标题 - 搜索项</param>
         /// <returns></returns>
-        //public PageList<DinnerOrder> Get_DinnerOrderPageList(int pageIndex, int pageSize, string name)
-        //{
-        //    using (DbRepository entities = new DbRepository())
-        //    {
-        //        var query = entities.DinnerOrder.AsQueryable();
+        public PageList<Domain.Dinner.Order.List> Get_DinnerOrderPageList(int pageIndex, int pageSize, int state, string orderNum, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var query = entities.DinnerOrder.AsQueryable();
+                if (state!=-1)
+                {
+                    query = query.Where(x => x.State==state);
+                }
+                if (orderNum.IsNotNullOrEmpty())
+                {
+                    query = query.Where(x => x.OrderNum.Contains(orderNum));
+                }
+                if (createdTimeStart != null)
+                {
+                    query = query.Where(x => x.CreatedTime >= createdTimeStart);
+                }
+                if (createdTimeEnd != null)
+                {
+                    createdTimeEnd = createdTimeEnd.Value.AddDays(1);
+                    query = query.Where(x => x.CreatedTime < createdTimeEnd);
+                }
+                var count = query.Count();
+                var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().AutoMap<DinnerOrder, Domain.Dinner.Order.List>();     
+                     
+                return CreatePageList(list, pageIndex, pageSize, count);
+            }
+        }
 
-        //        var list = new List<DinnerOrder>();
-        //        var count = query.Count();
-        //        query.OrderBy(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
-        //        {
-        //            if (x != null)
-        //            {
-        //                list.Add(new DinnerOrder()
-        //                {
-        //                    UNID = x.UNID,
-        //                    CreatedTime = x.CreatedTime,
-        //                    Name = x.Name,
-        //                    MinNum=x.MinNum,
-        //                    MaxNum=x.MaxNum,
-        //                    Sort = x.Sort                  
-        //                });
-        //            }
-        //        });
-
-        //        return CreatePageList(list, pageIndex, pageSize, count);
-        //    }
-        //}
 
 
         /// <summary>
@@ -90,10 +92,10 @@ namespace Server
                     totalPrice += (x.Price * x.Number);
                     addEntity.Details = string.Format("{0} {1}X{2}份 ", addEntity.Details, x.DishName, x.Number);
                 });
-
+                addEntity.OrderNum = string.Format("DC{0}-{1}", DateTime.Now.ToString("yyMMddhhmmss"), addEntity.UNID.SubString(4));
                 addEntity.TotalPrice = totalPrice;
                 addEntity.CreatedTime = DateTime.Now;
-                addEntity.UpdatedTime = DateTime.Now;
+                addEntity.UpdatedTime = DateTime.Now; 
                 addEntity.State = (int)DinnerOrderState.Audting;
                 addEntity.ShopId = shopId;
                 addEntity.Remark = model.Remark;
@@ -104,7 +106,10 @@ namespace Server
 
         }
 
-
+        /// <summary>
+        /// 获取2两小时内的订单
+        /// </summary>
+        /// <returns></returns>
         public Domain.Dinner.OrderModel Get_CurrentOrder()
         {
             using (DbRepository entities = new DbRepository())
@@ -132,6 +137,51 @@ namespace Server
 
             }
 
+        }
+
+
+        /// <summary>
+        /// 确认订单
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        public bool Confirm_DinnerOrder(string unid)
+        {
+            if (!unid.IsNotNullOrEmpty())
+            {
+                return false;
+            }
+            using (DbRepository entities = new DbRepository())
+            {
+                //找到实体
+                var order=entities.DinnerOrder.Find(unid);
+                if (order == null || order.State != (int)DinnerOrderState.Audting)
+                    return false;
+                order.State = (int)DinnerOrderState.Complate;
+                return entities.SaveChanges() > 0 ? true : false;
+            }
+        }
+
+        /// <summary>
+        /// 订单无效
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        public bool Invalid_DinnerOrder(string unid)
+        {
+            if (!unid.IsNotNullOrEmpty())
+            {
+                return false;
+            }
+            using (DbRepository entities = new DbRepository())
+            {
+                //找到实体
+                var order = entities.DinnerOrder.Find(unid);
+                if (order == null || order.State != (int)DinnerOrderState.Audting)
+                    return false;
+                order.State = (int)DinnerOrderState.Invalid;
+                return entities.SaveChanges() > 0 ? true : false;
+            }
         }
     }
 }

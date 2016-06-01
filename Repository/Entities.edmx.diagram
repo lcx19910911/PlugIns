@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d607267f418742b9b1f9bb870bf1f7e7" Name="Diagram1">
-        <EntityTypeShape EntityType="PlugInsModel.Admin" Width="1.5" PointX="3.75" PointY="0.75" />
         <EntityTypeShape EntityType="PlugInsModel.User" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="PlugInsModel.UserJoinCounter" Width="1.5" PointX="3.375" PointY="6.75" />
         <EntityTypeShape EntityType="PlugInsModel.WallMessage" Width="1.5" PointX="0.75" PointY="0.75" />
@@ -19,9 +18,9 @@
         <EntityTypeShape EntityType="PlugInsModel.Person" Width="1.5" PointX="11.375" PointY="4.75" />
         <EntityTypeShape EntityType="PlugInsModel.DinnerCategory" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="PlugInsModel.DinnerDish" Width="1.5" PointX="10.375" PointY="0.75" />
-        <EntityTypeShape EntityType="PlugInsModel.DinnerOrder" Width="1.5" PointX="11.375" PointY="8.75" />
         <EntityTypeShape EntityType="PlugInsModel.DinnerTable" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="PlugInsModel.OrderDetails" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="PlugInsModel.DinnerOrder" Width="1.5" PointX="11.375" PointY="8.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

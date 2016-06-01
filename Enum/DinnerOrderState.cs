@@ -19,7 +19,7 @@ namespace EnumPro
         [Description("完成")]
         Complate = 1,
 
-        [Description("失败")]
-        Fail = 2,
+        [Description("无效")]
+        Invalid = 2,
     }
 }

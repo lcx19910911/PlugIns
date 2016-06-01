@@ -301,7 +301,9 @@
     <Compile Include="App_Start\Filters\LoginFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\TimerAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\UserController.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
+    <Compile Include="Controllers\Dinner\DinnerOrderController.cs" />
     <Compile Include="Controllers\Dinner\DinnerTableController.cs" />
     <Compile Include="Controllers\Dinner\DinnerDishController.cs" />
     <Compile Include="Controllers\Dinner\DinnerMenuController.cs" />
@@ -315,7 +317,6 @@
     <Compile Include="Controllers\Base\UploadController.cs" />
     <Compile Include="Controllers\UserJoinCounterController.cs" />
     <Compile Include="Controllers\ScratchCard\ScratchCardController.cs" />
-    <Compile Include="Controllers\Base\UserController.cs" />
     <Compile Include="Controllers\Wall\WallController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -349,7 +350,6 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\PartialMenu.cshtml" />
     <Content Include="Views\Person\Index.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\DinnerShop\Index.cshtml" />
     <Content Include="Views\DinnerCategory\Index.cshtml" />
     <Content Include="Views\DinnerDish\Index.cshtml" />
@@ -358,6 +358,8 @@
     <Content Include="Views\DinnerMenu\Details.cshtml" />
     <Content Include="Views\DinnerMenu\Haves.cshtml" />
     <Content Include="Views\DinnerMenu\OrderList.cshtml" />
+    <Content Include="Views\DinnerOrder\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -372,7 +374,6 @@
     <Folder Include="Styles\datetimepicker\images\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Prize\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

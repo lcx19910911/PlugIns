@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "微信用户管理";
+}
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">人员管理</strong></div>
+</div>
+<div class="am-g" id="searchDomain">
+    <div class="am-u-lg-12">
+        <div class="am-input-group am-input-group-sm">
+            <span class="am-input-group-label">昵称</span>
+            <input type="text" class="am-form-field" name="name" placeholder="按昵称搜索" style="width:auto" />
+            <span class="am-input-group-label am-margin-left-sm">openId</span>
+            <input type="text" class="am-form-field" name="openId" placeholder="按昵称搜索" style="width:auto" />
+            <span class="am-input-group-label  am-margin-left-sm">创建日期</span>
+            <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
+            <span class="am-input-group-label"> - </span>
+            <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
+            <span class="am-input-group-btn">
+                <button class="am-btn am-btn-default" type="button" id="btnSearch">搜索</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="OpenId">OpenId</th>
+                <th dataname="NickName">账号</th>
+                <th render="showImg">头像</th>
+                <th dataname="Province">省份</th>
+                <th dataname="City">城市</th>
+                <th render="showSex">性别</th>
+                <th dataname="MobilePhone">手机</th>
+                <th dataname="CreatedTime" datatype="jsondate">创建时间</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+
+        function showImg(item)
+        {
+            if (item.HeadImgUrl != "")
+                return '<img src="' + item.HeadImgUrl + '" style="width:60px;height:40px;"/>';
+        }
+        function showSex(item) {
+            if (item.Sex == 0)
+                return "未知";
+            else if (item.Sex == 1)
+                return "男";
+            else if (item.Sex == 2)
+                    return "女";
+        }
+
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/User/GetPageList",
+            //数据请求地址
+            pageSize: 10,
+            events: []
+        });
+    </script>
+}

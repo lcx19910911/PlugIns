@@ -64,7 +64,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var result = WebService.Find_DinnerCategory(unid);
             return JResult(result);
         }
-    
+
         /// <summary>
         /// 删除
         /// </summary>

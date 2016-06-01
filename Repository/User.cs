@@ -11,7 +11,8 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    [Table("User")]
     public partial class User
     {
         public string OpenID { get; set; }

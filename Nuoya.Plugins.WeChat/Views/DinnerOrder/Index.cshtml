@@ -1,0 +1,163 @@
+﻿
+
+@{
+    ViewBag.Title = "未处理订单";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">未处理订单</strong></div>
+</div>
+<div id="searchDomain">
+    <input type="hidden" name="state" value="@(Request["state"])" />
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">订单号</span>
+                <input type="text" class="am-form-field " placeholder="按订单号搜索" name="orderNum" ;>
+                <span class="am-input-group-label  am-margin-left-sm">下单日期</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
+                <span class="am-input-group-label"> - </span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="UNID" type="checkbox"></th>
+                <th dataname="OrderNum">订单号</th>
+                <th dataname="NickName">顾客昵称</th>
+                <th dataname="TotalPrice">总价</th>
+                <th dataname="Details">明细</th>
+                <th render="showState">状态</th>
+                <th dataname="Remark">备注</th>
+                <th dataname="CreatedTime" datatype="jsondate">下单日期</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $('[name=createdTimeStart]').datepicker({ format: 'yyyy-mm-dd' });
+        $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
+
+
+        function ClearFilter() {
+            $("#searchDomain .am-g input").val("");
+        }
+
+        function showState(item) {
+            if (item.State == 0)
+                return "未确认";
+            else if (item.State == 1)
+                return "已确认";
+            else if (item.State == 2)
+                return "无效";
+        }
+
+        //批量删除
+        function batchDelete() {
+            grid.del({
+                ajaxUrl: "/DinnerOrder/Delete",
+                callback: function (json) {
+                    grid.reload();
+                }
+            });
+        }
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/DinnerOrder/GetPageList",
+            //数据请求地址
+            pageSize: 10,
+            events: [
+                {
+                    className: "am-text-secondary",
+                    icon: "icon-pencil-square-o",
+                    name: "确认",
+                    formula: function (item) {
+                        if (item.State == 0) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    },
+                    click: function (item) {
+                        $.Nuoya.confirm("将该订单标记为“处理”吗？", function () {
+                            $.Nuoya.action("/DinnerOrder/Confirm", {
+                                unid: item.UNID
+                            },
+                            function (data) {
+                                if (data != "") {
+                                    $.Nuoya.alert(date);
+                                }
+                                else {
+                                    grid.reload();
+                                }
+                            });
+                        });
+                    }
+                },
+                {
+                    className: "am-text-danger",
+                    icon: "icon-trash-o",
+                    name: "无效",
+                    formula: function (item) {
+                        if (item.State == 0) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    },
+                    click: function (item) {
+                        $.Nuoya.confirm("将该订单标记为“无效”吗？", function () {
+                            $.Nuoya.action("/DinnerOrder/Invalid", {
+                                unid: item.UNID
+                            },
+                            function (data) {
+                                if (data != "") {
+                                    $.Nuoya.alert(date);
+                                }
+                                else {
+                                    grid.reload();
+                                }
+                            });
+                        });
+                    }
+                }
+            ]
+        });
+    </script>
+    
+    @if (!string.IsNullOrEmpty(Request["state"]) && Request["state"] == "0")
+    {
+        //刷新未确认订单
+        <script type="text/javascript">
+            setTimeout("reload()", 120000)
+
+            var num = 0;
+            function reload() {
+                num = num + 1;
+                console.debug(num);
+                grid.reload();
+                setTimeout("reload()", 120000);
+            }
+        </script>
+    }
+}

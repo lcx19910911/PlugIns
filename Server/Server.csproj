@@ -79,19 +79,18 @@
     <Compile Include="Dinner\WebService.DinnerTableService.cs" />
     <Compile Include="Dinner\WebService.DinnerDishService.cs" />
     <Compile Include="Dinner\WebService.DinnerCategoryService.cs" />
-    <Compile Include="WebService.MenuService.cs" />
-    <Compile Include="WebService.PersonService.cs" />
+    <Compile Include="Admin\WebService.MenuService.cs" />
+    <Compile Include="Admin\WebService.PersonService.cs" />
     <Compile Include="Dinner\WebService.DinnerShopService.cs" />
-    <Compile Include="WebService.RoleService.cs" />
-    <Compile Include="WebService.WallService.cs" />
+    <Compile Include="Admin\WebService.RoleService.cs" />
+    <Compile Include="Activity\WebService.WallService.cs" />
     <Compile Include="WebService.cs" />
     <Compile Include="DictionaryExtensions.cs" />
-    <Compile Include="WebService.AdminService.cs" />
     <Compile Include="WebService.PrizeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebService.ScratchCardService.cs" />
+    <Compile Include="Activity\WebService.ScratchCardService.cs" />
     <Compile Include="WebService.UserJoinCounterService.cs" />
-    <Compile Include="WebService.UserService.cs" />
+    <Compile Include="Admin\WebService.UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

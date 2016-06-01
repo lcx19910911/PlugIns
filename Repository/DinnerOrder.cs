@@ -11,10 +11,13 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("DinnerOrder")]
     public partial class DinnerOrder
     {
         public string UNID { get; set; }
+        public string OrderNum { get; set; }
         public string ShopId { get; set; }
         public string OpenId { get; set; }
         public string TableId { get; set; }

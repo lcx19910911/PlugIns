@@ -106,6 +106,7 @@ namespace Server
                     TargetID= addEntity.UNID
                 };
 
+                addEntity.Name = model.Name;
                 addEntity.CreatedTime = DateTime.Now;
                 addEntity.UpdatedTime = DateTime.Now;
                 addEntity.Flag = (long)GlobalFlag.Normal;

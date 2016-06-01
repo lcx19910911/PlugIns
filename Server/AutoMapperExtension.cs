@@ -172,7 +172,7 @@ namespace Extension
 
                         foreach (var item in keyValue)
                         {
-                            dictionary.Add(item.Key, item.Value);
+                            dictionary.Add(item.Key.Trim(), item.Value);
                         }
                     }
                     entities.Dispose();

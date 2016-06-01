@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PlugInsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Admin">
-          <Key>
-            <PropertyRef Name="AppId" />
-          </Key>
-          <Property Name="AppId" Type="char" MaxLength="32" Nullable="false" />
-          <Property Name="AppSecret" Type="varchar" MaxLength="200" />
-          <Property Name="LoginAccount" Type="varchar" MaxLength="50" />
-          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="DinnerCategory">
           <Key>
             <PropertyRef Name="UNID" />
@@ -47,6 +38,7 @@
             <PropertyRef Name="UNID" />
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="OrderNum" Type="char" MaxLength="32" />
           <Property Name="ShopId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="OpenId" Type="varchar" MaxLength="50" />
           <Property Name="TableId" Type="varchar" MaxLength="50" />
@@ -275,7 +267,6 @@
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PlugInsModelStoreContainer">
-          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerCategory" EntityType="Self.DinnerCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerDish" EntityType="Self.DinnerDish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerOrder" EntityType="Self.DinnerOrder" Schema="dbo" store:Type="Tables" />
@@ -305,7 +296,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="PlugInsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PlugInsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Admin" EntityType="PlugInsModel.Admin" />
           <EntitySet Name="User" EntityType="PlugInsModel.User" />
           <EntitySet Name="UserJoinCounter" EntityType="PlugInsModel.UserJoinCounter" />
           <EntitySet Name="WallMessage" EntityType="PlugInsModel.WallMessage" />
@@ -319,19 +309,10 @@
           <EntitySet Name="Person" EntityType="PlugInsModel.Person" />
           <EntitySet Name="DinnerCategory" EntityType="PlugInsModel.DinnerCategory" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
-          <EntitySet Name="DinnerOrder" EntityType="PlugInsModel.DinnerOrder" />
           <EntitySet Name="DinnerTable" EntityType="PlugInsModel.DinnerTable" />
           <EntitySet Name="OrderDetails" EntityType="PlugInsModel.OrderDetails" />
+          <EntitySet Name="DinnerOrder" EntityType="PlugInsModel.DinnerOrder" />
           </EntityContainer>
-        <EntityType Name="Admin">
-          <Key>
-            <PropertyRef Name="AppId" />
-          </Key>
-          <Property Name="AppId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="AppSecret" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="LoginAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedTime" Type="DateTime" Precision="3" Nullable="false" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="OpenID" />
@@ -550,21 +531,6 @@
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="DinnerOrder">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="ShopId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="OpenId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TableId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Details" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="Int32" Nullable="false" />
-          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="DinnerTable">
           <Key>
             <PropertyRef Name="UNID" />
@@ -590,22 +556,28 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="Number" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="DinnerOrder">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="OrderNum" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="ShopId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="OpenId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Details" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PlugInsModelStoreContainer" CdmEntityContainer="PlugInsEntities">
-          <EntitySetMapping Name="Admin">
-            <EntityTypeMapping TypeName="PlugInsModel.Admin">
-              <MappingFragment StoreEntitySet="Admin">
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="LoginAccount" ColumnName="LoginAccount" />
-                <ScalarProperty Name="AppSecret" ColumnName="AppSecret" />
-                <ScalarProperty Name="AppId" ColumnName="AppId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="PlugInsModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -836,22 +808,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DinnerOrder">
-            <EntityTypeMapping TypeName="PlugInsModel.DinnerOrder">
-              <MappingFragment StoreEntitySet="DinnerOrder">
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Details" ColumnName="Details" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="TableId" ColumnName="TableId" />
-                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DinnerTable">
             <EntityTypeMapping TypeName="PlugInsModel.DinnerTable">
               <MappingFragment StoreEntitySet="DinnerTable">
@@ -875,6 +831,23 @@
                 <ScalarProperty Name="DishName" ColumnName="DishName" />
                 <ScalarProperty Name="DishId" ColumnName="DishId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DinnerOrder">
+            <EntityTypeMapping TypeName="PlugInsModel.DinnerOrder">
+              <MappingFragment StoreEntitySet="DinnerOrder">
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>

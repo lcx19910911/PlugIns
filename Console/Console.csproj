@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C11F259A-56D2-4A64-BD34-E613F43212D8}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{43B211DB-D385-405D-99F1-A70E4B6377FF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain</RootNamespace>
-    <AssemblyName>Domain</AssemblyName>
+    <RootNamespace>Console</RootNamespace>
+    <AssemblyName>Console</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,7 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -41,34 +57,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dinner\DinnerCategory\Update.cs" />
-    <Compile Include="Dinner\DinnerDish\List.cs" />
-    <Compile Include="Dinner\DinnerShop\List.cs" />
-    <Compile Include="Dinner\DinnerShop\Update.cs" />
-    <Compile Include="Dinner\Order\List.cs" />
-    <Compile Include="Dinner\Order\OrderModel.cs" />
-    <Compile Include="Menu\Add.cs" />
-    <Compile Include="Menu\Item.cs" />
-    <Compile Include="Menu\List.cs" />
-    <Compile Include="Menu\Update.cs" />
-    <Compile Include="Person\Add.cs" />
-    <Compile Include="Person\List.cs" />
-    <Compile Include="Person\Update.cs" />
-    <Compile Include="PrizeResult.cs" />
-    <Compile Include="Role\Add.cs" />
-    <Compile Include="Role\List.cs" />
-    <Compile Include="Role\Update.cs" />
-    <Compile Include="UserJoinCounter\UserJoinCounterModel.cs" />
-    <Compile Include="Prize\Update.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScratchCard\Update.cs" />
-    <Compile Include="ScratchCard\ScratchCardModel.cs" />
-    <Compile Include="Wall\WallModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{54f62fcf-237f-4071-8d89-2b3a4ac8a2af}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{c11f259a-56d2-4a64-bd34-e613f43212d8}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Enum\Enum.csproj">
       <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
@@ -77,6 +80,10 @@
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>
       <Name>Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server\Server.csproj">
+      <Project>{12313533-d223-457e-be2c-5ca8d3f5898d}</Project>
+      <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

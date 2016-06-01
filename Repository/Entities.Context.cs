@@ -25,7 +25,6 @@ namespace Repository
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserJoinCounter> UserJoinCounter { get; set; }
         public virtual DbSet<WallMessage> WallMessage { get; set; }
@@ -39,8 +38,8 @@ namespace Repository
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<DinnerCategory> DinnerCategory { get; set; }
         public virtual DbSet<DinnerDish> DinnerDish { get; set; }
-        public virtual DbSet<DinnerOrder> DinnerOrder { get; set; }
         public virtual DbSet<DinnerTable> DinnerTable { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
+        public virtual DbSet<DinnerOrder> DinnerOrder { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Core;
+using Core.Extensions;
 using Core.Web;
 using Nuoya.Plugins.WeChat.Filters;
+using Repository;
 using Server;
 using System;
 using System.Collections.Generic;
@@ -73,15 +75,33 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <param name="unid"></param>
         /// <returns></returns>
         //[OAuthFilter]
-        public ActionResult Details(string unid,string openId)
+        public ActionResult Details(string unid, string info)
         {
-            //保存openid
-            CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () => {
-                return openId;
-                //return "12345678";
-            });
-            var model = WebService.Show_ScratchCard(unid, openId);
-            return View(model);
+            string openId = string.Empty;
+            //接收微信用户数据
+            if (!string.IsNullOrEmpty(info))
+            {
+                User model = info.DeserializeJson<User>();
+                if (model != null)
+                {
+                    //更新数据
+                    WebService.Update_User(model);
+                    CacheHelper.Get<string>("scra-openId", CacheTimeOption.TwoHour, () =>
+                    {
+                        openId = model.OpenID;
+                        return model.OpenID;
+                    });
+                }
+            }
+            if (string.IsNullOrEmpty(openId))
+            {
+                return View("/base/Error");
+            }
+            else
+            {
+                var item = WebService.Show_ScratchCard(unid, openId);
+                return View(item);
+            }
         }
 
         /// <summary>
