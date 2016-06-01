@@ -6,9 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using Extension;
 using Repository;
+using Nuoya.Plugins.WeChat.Filters;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
+    [LoginFilter]
     public class RoleController : BaseController
     {
 

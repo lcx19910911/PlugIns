@@ -27,6 +27,7 @@
     <table id="dataTable" class="am-table am-table-striped am-table-hover table-main">
         <thead>
             <tr>
+                <th dataname="OpenId" type="checkbox"></th>
                 <th dataname="OpenId">OpenId</th>
                 <th dataname="NickName">账号</th>
                 <th render="showImg">头像</th>
@@ -48,7 +49,7 @@
         function showImg(item)
         {
             if (item.HeadImgUrl != "")
-                return '<img src="' + item.HeadImgUrl + '" style="width:60px;height:40px;"/>';
+                return '<img src="' + item.HeadImgUrl + '" style="width:30px;height:45px;"/>';
         }
         function showSex(item) {
             if (item.Sex == 0)

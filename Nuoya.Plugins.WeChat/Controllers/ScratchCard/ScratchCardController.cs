@@ -14,7 +14,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
 {
     public class ScratchCardController : BaseController
     {
-        // GET: ScratchCard
+        [LoginFilter]
         public ActionResult Index()
         {
             return View();
@@ -28,6 +28,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <param name="groupName">分组名称 - 搜索项</param>
         /// <param name="keyValue">键值 - 搜索项</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult GetPageList(int pageIndex, int pageSize, string title, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
             var pagelist = WebService.Get_ScratchCardPageList(pageIndex, pageSize, title, createdTimeStart, createdTimeEnd);
@@ -39,6 +40,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult Add(Domain.ScratchCard.Update model)
         {
             var result = WebService.Add_ScratchCard(model);
@@ -51,6 +53,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult Update(Domain.ScratchCard.Update model,string unid)
         {
             var result = WebService.Update_ScratchCard(model, unid);
@@ -62,6 +65,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult Find(string unid)
         {
             var result = WebService.Find_ScratchCard(unid);
@@ -88,8 +92,8 @@ namespace Nuoya.Plugins.WeChat.Controllers
                     WebService.Update_User(model);
                     CacheHelper.Get<string>("scra-openId", CacheTimeOption.TwoHour, () =>
                     {
-                        openId = model.OpenID;
-                        return model.OpenID;
+                        openId = model.OpenId;
+                        return model.OpenId;
                     });
                 }
             }
@@ -121,6 +125,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
+        [LoginFilter]
         public ActionResult Delete(string unids)
         {
             var model = WebService.Delete_ScratchCard(unids);

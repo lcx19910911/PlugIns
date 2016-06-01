@@ -15,7 +15,7 @@ namespace Repository
     [Table("User")]
     public partial class User
     {
-        public string OpenID { get; set; }
+        public string OpenId { get; set; }
         public string NickName { get; set; }
         public string HeadImgUrl { get; set; }
         public string Country { get; set; }

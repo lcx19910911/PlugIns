@@ -75,7 +75,7 @@ namespace Server
                 return false;
             using (DbRepository entities = new DbRepository())
             {
-                var user = entities.User.Find(model.OpenID);
+                var user = entities.User.Find(model.OpenId);
 
                 if (user == null)
                 {
@@ -115,7 +115,7 @@ namespace Server
                 }
                 if (openId.IsNotNullOrEmpty())
                 {
-                    query = query.Where(x => x.OpenID.Contains(openId));
+                    query = query.Where(x => x.OpenId.Contains(openId));
                 }
                 if (createdTimeStart != null)
                 {

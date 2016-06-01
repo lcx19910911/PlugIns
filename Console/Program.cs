@@ -19,7 +19,7 @@ namespace Console
             User entity = new User()
             {
                 CreatedTime = DateTime.Now,
-                OpenID = "1112dsdsdsdsdsd",
+                OpenId = "1112dsdsdsdsdsd",
                 NickName = "哈哈啊查询查询",
                 City = "福州",
                 Country = "中国",

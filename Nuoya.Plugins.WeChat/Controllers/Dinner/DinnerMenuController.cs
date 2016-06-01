@@ -24,7 +24,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
                     WebService.Update_User(model);
                     CacheHelper.Get<string>("dinner-openId", CacheTimeOption.TwoHour, () =>
                     {
-                        return model.OpenID;
+                        return model.OpenId;
                     });
                 }
             }

@@ -6,13 +6,15 @@ using System.Web;
 using System.Web.Mvc;
 using Extension;
 using Repository;
+using Nuoya.Plugins.WeChat.Filters;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
+
     public class UserController : BaseController
     {
 
-
+        [LoginFilter]
         public ViewResult Index()
         {
             return View();
@@ -26,6 +28,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <param name="groupName">分组名称 - 搜索项</param>
         /// <param name="keyValue">键值 - 搜索项</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult GetPageList(int pageIndex, int pageSize, string name, string openId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
             var pagelist = WebService.Get_UserPageList(pageIndex, pageSize, name, openId, createdTimeStart, createdTimeEnd);

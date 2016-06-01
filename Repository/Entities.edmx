@@ -188,9 +188,9 @@
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="OpenID" />
+            <PropertyRef Name="OpenId" />
           </Key>
-          <Property Name="OpenID" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="OpenId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="NickName" Type="varchar" MaxLength="50" />
           <Property Name="HeadImgUrl" Type="varchar" MaxLength="200" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
@@ -296,7 +296,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="PlugInsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PlugInsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="User" EntityType="PlugInsModel.User" />
           <EntitySet Name="UserJoinCounter" EntityType="PlugInsModel.UserJoinCounter" />
           <EntitySet Name="WallMessage" EntityType="PlugInsModel.WallMessage" />
           <EntitySet Name="Wall" EntityType="PlugInsModel.Wall" />
@@ -312,21 +311,8 @@
           <EntitySet Name="DinnerTable" EntityType="PlugInsModel.DinnerTable" />
           <EntitySet Name="OrderDetails" EntityType="PlugInsModel.OrderDetails" />
           <EntitySet Name="DinnerOrder" EntityType="PlugInsModel.DinnerOrder" />
+          <EntitySet Name="User" EntityType="PlugInsModel.User" />
           </EntityContainer>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="OpenID" />
-          </Key>
-          <Property Name="OpenID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HeadImgUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Sex" Type="Int32" />
-          <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedTime" Type="DateTime" Precision="3" Nullable="false" />
-        </EntityType>
         <EntityType Name="UserJoinCounter">
           <Key>
             <PropertyRef Name="UNID" />
@@ -572,27 +558,26 @@
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="OpenId" />
+          </Key>
+          <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PlugInsModelStoreContainer" CdmEntityContainer="PlugInsEntities">
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="PlugInsModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserJoinCounter">
             <EntityTypeMapping TypeName="PlugInsModel.UserJoinCounter">
               <MappingFragment StoreEntitySet="UserJoinCounter">
@@ -849,6 +834,21 @@
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="PlugInsModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
