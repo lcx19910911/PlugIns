@@ -115,8 +115,8 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public ActionResult Do(string unid)
         {         
-            var model = WebService.Do_ScratchCard(unid);
-            return JResult(model);
+            var result = WebService.Do_ScratchCard(unid);
+            return JResult(result);
         }
 
 
@@ -128,8 +128,8 @@ namespace Nuoya.Plugins.WeChat.Controllers
         [LoginFilter]
         public ActionResult Delete(string unids)
         {
-            var model = WebService.Delete_ScratchCard(unids);
-            return JResult(model);
+            var effect = WebService.Delete_ScratchCard(unids);
+            return JResult(effect);
         }
     }
 }

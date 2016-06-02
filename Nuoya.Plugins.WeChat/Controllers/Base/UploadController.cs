@@ -15,7 +15,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             HttpPostedFileBase file = Request.Files[0];
             if (file != null)
             {
-                string path = UploadHelper.Save(file, "ScratchCard");
+                string path = UploadHelper.Save(file, mark);
                 return JResult(path);
             }
             else

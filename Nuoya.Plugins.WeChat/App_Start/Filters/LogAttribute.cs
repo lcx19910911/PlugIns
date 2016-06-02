@@ -26,8 +26,7 @@ namespace Nuoya.Plugins.WeChat.Filters
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            //var webController = filterContext.Controller as BaseController;
-            //webController.WebService.WriteLog();
+
         }
     }
 }

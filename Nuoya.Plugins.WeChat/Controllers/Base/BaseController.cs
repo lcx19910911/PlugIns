@@ -28,6 +28,12 @@ namespace Nuoya.Plugins.WeChat.Controllers
             return View("Error");
         }
 
+        public ActionResult _505()
+        {
+            return View();
+        }
+
+
         /// <summary>
         /// 返回部分视图的错误页
         /// </summary>

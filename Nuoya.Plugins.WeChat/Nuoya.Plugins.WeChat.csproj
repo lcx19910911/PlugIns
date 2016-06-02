@@ -296,6 +296,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\LogAttribute.cs" />
     <Compile Include="App_Start\Filters\OAuthFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\LoginFilterAttribute.cs" />
@@ -360,6 +361,7 @@
     <Content Include="Views\DinnerMenu\OrderList.cshtml" />
     <Content Include="Views\DinnerOrder\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Base\_505.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -373,7 +375,6 @@
     <Folder Include="Styles\activity\images\wall\template1\" />
     <Folder Include="Styles\datetimepicker\images\" />
     <Folder Include="Upload\" />
-    <Folder Include="Views\Prize\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

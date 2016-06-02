@@ -61,9 +61,8 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public JsonResult GetPageList(int pageIndex, int pageSize, string name)
         {
-            var pagelist = WebService.Get_MenuPageList(pageIndex, pageSize, name).AutoMap<Menu, Domain.Menu.List>();
-           
-            return JResult(pagelist);
+            var wr = WebService.Get_MenuPageList(pageIndex, pageSize, name);
+            return JResult(wr);
         }
 
         /// <summary>
@@ -107,6 +106,11 @@ namespace Nuoya.Plugins.WeChat.Controllers
             return JResult(ztreeNodes);
         }
 
+        /// <summary>
+        /// 菜单
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration =20*60)]
         public PartialViewResult PartialMenu()
         {
             var list = WebService.GetAll<Menu>().OrderBy(x => x.Sort);

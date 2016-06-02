@@ -17,7 +17,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         public ActionResult Index()
         {
             return View();
-        }
+        } 
 
         /// <summary>
         /// 获取分页列表

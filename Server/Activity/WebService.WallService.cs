@@ -22,7 +22,7 @@ namespace Server
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
-        public PageList<WallModel> Get_WallPageList(int pageIndex, int pageSize, string name, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        public WebResult<PageList<WallModel>> Get_WallPageList(int pageIndex, int pageSize, string name, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -60,7 +60,7 @@ namespace Server
                         });
                     }
                 });
-                return CreatePageList(list, pageIndex, pageSize, count);
+                return ResultPageList(list, pageIndex, pageSize, count);
             }
         }
 
