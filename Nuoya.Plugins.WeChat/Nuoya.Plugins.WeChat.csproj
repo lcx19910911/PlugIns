@@ -175,6 +175,7 @@
     <Content Include="HtmlTemplates\DinnerShop\Update.html" />
     <Content Include="HtmlTemplates\Menu\Update.html" />
     <Content Include="HtmlTemplates\Person\Update.html" />
+    <Content Include="HtmlTemplates\Person\UpdatePassword.html" />
     <Content Include="HtmlTemplates\Role\Update.html" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />

@@ -31,5 +31,11 @@ namespace Nuoya.Plugins.WeChat.Controllers
             return JResult(true);
         }
 
+
+        public ActionResult UpdatePassword(string oldPassword, string newPassword, string confirmPassword)
+        {
+            var result=WebService.UpdatePassword(oldPassword, newPassword, confirmPassword);
+            return JResult(result);
+        }
     }
 }

@@ -90,6 +90,37 @@ namespace Server
         }
 
         /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldPassword"></param>
+        /// <param name="newPassword"></param>
+        /// <param name="confirmPassword"></param>
+        /// <returns></returns>
+        public string UpdatePassword(string oldPassword, string newPassword, string confirmPassword)
+        {
+            if (string.IsNullOrEmpty(oldPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+                return "数据为空";
+            if (!newPassword.Equals(confirmPassword))
+                return "确认密码输入不一致";
+            if (Client.LoginUser == null)
+                return "数据异常";
+            using (DbRepository entities = new DbRepository())
+            {
+                var user = entities.Person.Find(Client.LoginUser.UNID);
+                if (user == null)
+                    return "数据异常";
+                string md5Password = Core.Util.CryptoHelper.MD5_Encrypt(oldPassword);
+                if (!user.Password.Equals(md5Password))
+                    return "旧密码不对";
+
+                user.Password= Core.Util.CryptoHelper.MD5_Encrypt(newPassword);
+
+                return entities.SaveChanges() > 0 ? "" : "保存错误";
+            }
+        }
+
+
+        /// <summary>
         /// 登录
         /// </summary>
         /// <param name="cardNo">工号</param>

@@ -22,6 +22,7 @@
                 <li><a href="javascript:;"><span>@(Session["LoginUser"] != null ? (Session["LoginUser"] as Core.Code.LoginUser)?.Name : "登入用户名")</span></a></li>
                 <li><a href="javascript:;" class="admin-clear-cache"><span class="am-icon-close"></span> <span>清除缓存</span></a></li>
                 <li><a href="/login/Quit" class="admin-quit"><span class="am-icon-sign-out"></span> <span>注销</span></a></li>
+                <li><a href="javascript:;" class="admin-update-password"><span class="am-icon-cog"></span> 修改密码</a></li>
             </ul>
         </div>
     </header>
@@ -30,7 +31,7 @@
         <div class="admin-sidebar">
             <ul class="am-list admin-sidebar-list">
                 @Html.Action("PartialMenu", "Menu")
-              @*@Html.Partial("PartialMenu")*@
+                @*@Html.Partial("PartialMenu")*@
             </ul>
         </div>
         <!-- sidebar end -->
@@ -52,8 +53,79 @@
                     $.Nuoya.alert("清除缓存成功");
                 });
             });
+
+            $(".admin-update-password").click(function () {
+
+                $.Nuoya.ajaxDialog({
+                    closeViaDimmer: false,
+                    ajaxUrl: "/HtmlTemplates/Person/UpdatePassword.html",
+                    title: "编辑餐台",
+                    callback: function (e) {
+                        $.Nuoya.form("form").validate({
+                            rules: {
+                                OldPassword: {
+                                    required: true,
+                                    maxlength: 15,
+                                    minlength: 6
+                                },
+                                NewPassword: {
+                                    required: true,
+                                    maxlength: 15,
+                                    minlength: 6
+                                },
+                                ConfirmPassword: {
+                                    required: true,
+                                    maxlength: 15,
+                                    minlength: 6
+                                }
+                            },
+                            messages: {
+                                OldPassword: {
+                                    required: "不允许为空",
+                                    maxlength: "最多{0}个字符",
+                                    minlength: "最小{0}个字符"
+                                },
+                                NewPassword: {
+                                    required: "不允许为空",
+                                    maxlength: "最多{0}个字符",
+                                    minlength: "最小{0}个字符"
+                                },
+                                ConfirmPassword: {
+                                    required: "不允许为空",
+                                    maxlength: "最多{0}个字符",
+                                    minlength: "最小{0}个字符"
+                                }
+                            }
+                        });
+                    },
+                    buttons: [{
+                        label: "保存",
+                        callback: function (e) {
+
+                            if (document.forms[0].NewPassword.value != document.forms[0].ConfirmPassword.value) {
+                                $.Nuoya.alert("确认密码输入不一致");
+                                return false;
+                            }
+
+                            $.Nuoya.form("form").ajaxSubmit({
+                                ajaxUrl: "/home/updatepassword",
+                                callback: function (data) {
+                                    if (data.Result == "") {
+                                        $.Nuoya.alert("密码修改成功");
+                                    }
+                                    else
+                                        $.Nuoya.alert(data.Result);
+                                }
+                            });
+                        }
+                    }]
+                })
+            });
         });
     </script>
     @RenderSection("scripts", false)
 </body>
 </html>
+
+
+
