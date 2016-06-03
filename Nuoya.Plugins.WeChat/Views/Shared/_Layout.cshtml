@@ -59,13 +59,13 @@
                 $.Nuoya.ajaxDialog({
                     closeViaDimmer: false,
                     ajaxUrl: "/HtmlTemplates/Person/UpdatePassword.html",
-                    title: "编辑餐台",
+                    title: "修改密码",
                     callback: function (e) {
                         $.Nuoya.form("form").validate({
                             rules: {
                                 OldPassword: {
                                     required: true,
-                                    maxlength: 15,
+                                    maxlength: 15, 
                                     minlength: 6
                                 },
                                 NewPassword: {
