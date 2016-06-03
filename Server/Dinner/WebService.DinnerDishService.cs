@@ -47,11 +47,9 @@ namespace Server
                 }
 
                 var count = query.Count();
-                var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().AutoMap<DinnerDish, Domain.DinnerDish.List>();
 
-                var returnList = list.AutoMap<DinnerDish, Domain.DinnerDish.List>();
-
-                return CreatePageList(returnList, pageIndex, pageSize, count);
+                return CreatePageList(list, pageIndex, pageSize, count);
             }
         }
 
