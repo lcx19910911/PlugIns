@@ -67,7 +67,10 @@ namespace Server
             using (DbRepository entities = new DbRepository())
             {
                 var query = entities.DinnerCategory.AsQueryable();
-                if (query.Where(x => x.Name.Equals(model.Name) &&x.ShopId.Equals(Client.LoginUser.TargetID)).Count() != 0)
+                var shop = entities.DinnerShop.Find(model.ShopId);
+                if (shop == null)
+                    return "店铺不存在";
+                if (query.Where(x => x.Name.Equals(model.Name) &&x.ShopId.Equals(shop.UNID)).Count() != 0)
                     return "分类名称已存在";
 
                 var addEntity =new DinnerCategory();
@@ -76,7 +79,7 @@ namespace Server
                 addEntity.Name = model.Name;
                 addEntity.CreatedTime = DateTime.Now;
                 addEntity.UpdatedTime = DateTime.Now;
-                addEntity.ShopId = Client.LoginUser.TargetID;
+                addEntity.ShopId = shop.UNID;
 
                 entities.DinnerCategory.Add(addEntity);
                 return entities.SaveChanges() > 0 ? "" : "保存出错";
@@ -102,7 +105,7 @@ namespace Server
                 if (oldEntity != null)
                 {
                     var query = entities.DinnerCategory.AsQueryable();
-                    if (query.Where(x => x.Name.Equals(model.Name)&&!x.UNID.Equals(unid)&& x.ShopId.Equals(Client.LoginUser.TargetID)).Count() != 0)
+                    if (query.Where(x => x.Name.Equals(model.Name)&&!x.UNID.Equals(unid)&& x.ShopId.Equals(oldEntity.UNID)).Count() != 0)
                         return "分类名称已存在";
 
                     oldEntity.Sort = model.Sort;

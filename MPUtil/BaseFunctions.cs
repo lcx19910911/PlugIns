@@ -44,6 +44,34 @@ namespace MPUtil
         }
         #endregion
 
+
+        #region 获取AccessToken
+        /// <summary>
+        /// 获取AccessToken
+        /// 返回Hashtable对象：{"access_token":"ACCESS_TOKEN","expires_in":7200} 或者 {"errcode":40013,"errmsg":"invalid appid"}
+        /// </summary>
+        /// <param name="appid"></param>
+        /// <param name="secret"></param>
+        /// <returns></returns>
+        public static Hashtable GetAccessToken(string code,string appid, string secret)
+        {
+            try
+            {
+                string url = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code=CODE&grant_type=authorization_code", appid, secret);
+                string result = HttpHelper.GetReponseText(url);
+                Hashtable resHash = result.DeserializeJson<Hashtable>();
+                return resHash;
+            }
+            catch (Exception ex)
+            {
+                Hashtable retHash = new Hashtable();
+                retHash.Add("errcode", "-1");
+                retHash.Add("errmsg", "系统错误");
+                return retHash;
+            }
+        }
+        #endregion
+
         #region 获取jsapi_ticket
         /// <summary>
         /// 获取jsapi_ticket

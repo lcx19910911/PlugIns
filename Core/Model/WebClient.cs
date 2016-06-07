@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 using System.Web;
 using Core.Code;
 using Core.Extensions;
+using System.Web.SessionState;
 
 namespace Core.Model
 {
     public class WebClient
     {
-        public WebClient(HttpContextBase httpContext)
+        public WebClient(HttpContext httpContext)
         {
             this.HttpContext = httpContext;
         }
-        public HttpContextBase HttpContext { get; set; }
-        public HttpRequestBase Request
+        public HttpContext HttpContext { get; set; }
+        public HttpRequest Request
         {
             get
             {
@@ -25,7 +26,7 @@ namespace Core.Model
 
         }
 
-        public HttpSessionStateBase Session
+        public HttpSessionState Session
         {
             get
             {
@@ -52,30 +53,6 @@ namespace Core.Model
                 Session["LoginUser"] = value;
             }
         }
-
-        /// <summary>
-        /// 当前登录AppSecret
-        /// </summary>
-        public string AppId
-        {
-            get
-            {
-                return LoginUser?.AppId;
-            }
-        }
-
-        /// <summary>
-        /// 当前登录用户AppSecret
-        /// </summary>
-        public string AppSecret
-        {
-            get
-            {
-                return LoginUser?.AppSecret;
-            }
-        }
-
-
         private string _postData = null;
 
         /// <summary>

@@ -98,12 +98,10 @@ namespace Server
                     CreatedTime = DateTime.Now,
                     UpdatedTime = DateTime.Now,
                     Flag = (long)GlobalFlag.Normal,
-                    Mobile = model.ContactPhone,
                     Password = password,
-                    RoleFlag = model.RoleFlag,
                     Remark = "店铺",
-                    TargetCode= (int)TargetCode.Dinner,
-                    TargetID= addEntity.UNID
+                    IsChildren = (int)YesOrNoCode.Yes,
+                    ShopId=addEntity.UNID,                   
                 };
 
                 addEntity.Name = model.Name;
@@ -259,7 +257,6 @@ namespace Server
                 if (personEntity != null)
                 {
                     model.Account = personEntity.Account;
-                    model.RoleFlag = (long)personEntity.RoleFlag;
                 }
                 else
                     return null;

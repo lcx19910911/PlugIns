@@ -1,14 +1,24 @@
-﻿using  EnumPro;
+﻿using Core.AuthAPI;
+using EnumPro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IService;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
     public class LoginController : BaseController
     {
+
+        public IPersonService IPersonService;
+
+        public LoginController(IPersonService _IPersonService)
+        {
+            this.IPersonService = _IPersonService;
+        }
+
         // GET: Login
         public ActionResult Index()
         {
@@ -22,16 +32,24 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <param name="password">密码</param> 
         /// <returns></returns>
         public JsonResult Submit(string account, string password)
-        {         
-            var user = WebService.Login(account, password);
+        {
+            var user = IPersonService.Login(account, password);
             if (user != null)
             {
-                Client.LoginUser = new Core.Code.LoginUser(user.UNID, user.Account, user.Name, user.Mobile, WebService.Get_UserMenuLimit((long)user.RoleFlag),(TargetCode)user.TargetCode,user.TargetID);
-                return JResult(true);
+                    this.LoginUser = new Core.Code.LoginUser(user.UNID, user.Account, user.Name, "", user.ShopId, true);
+                    return JResult(true);
             }
             else
             {
-                return JResult(false);
+                var result = AuthAPI4Fun.Login(account, password);
+                if (result != null && result.data != null)
+                {
+                    var entity = IPersonService.Manager_Person(result.data, account, password);
+                    this.LoginUser = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
+                    return JResult(true);
+                }
+                else
+                    return JResult(false);
             }
         }
 
@@ -42,7 +60,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public ActionResult Quit()
         {
-            Client.LoginUser = null;
+            this.LoginUser = null;
             return View("Index");
         }
     }

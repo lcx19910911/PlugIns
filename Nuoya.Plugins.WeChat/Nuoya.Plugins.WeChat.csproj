@@ -99,6 +99,30 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Interception.4.0.1\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Interception.4.0.1\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.4.0.1\lib\net45\Microsoft.Practices.Unity.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MiniProfiler, Version=3.2.0.157, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
       <HintPath>..\packages\MiniProfiler.3.2.0.157\lib\net40\MiniProfiler.dll</HintPath>
       <Private>True</Private>
@@ -169,17 +193,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="HtmlTemplates\DinnerTable\Update.html" />
     <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />
     <Content Include="HtmlTemplates\DinnerShop\Update.html" />
-    <Content Include="HtmlTemplates\Menu\Update.html" />
-    <Content Include="HtmlTemplates\Person\Update.html" />
-    <Content Include="HtmlTemplates\Person\UpdatePassword.html" />
-    <Content Include="HtmlTemplates\Role\Update.html" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
-    <Content Include="HtmlTemplates\Wall\Update.html" />
     <Content Include="Images\404Pic.png" />
     <Content Include="Images\ScratchCard\ongoing.png" />
     <Content Include="Images\ScratchCard\over.jpg" />
@@ -303,23 +321,22 @@
     <Compile Include="App_Start\Filters\LoginFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\TimerAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Admin\UserController.cs" />
-    <Compile Include="Controllers\Base\BaseController.cs" />
-    <Compile Include="Controllers\Dinner\DinnerOrderController.cs" />
-    <Compile Include="Controllers\Dinner\DinnerTableController.cs" />
-    <Compile Include="Controllers\Dinner\DinnerDishController.cs" />
-    <Compile Include="Controllers\Dinner\DinnerMenuController.cs" />
-    <Compile Include="Controllers\Dinner\DinnerCategoryController.cs" />
-    <Compile Include="Controllers\Dinner\DinnerShopController.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Areas\Dinner\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Dinner\Controllers\DishController.cs" />
+    <Compile Include="Areas\Dinner\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Dinner\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Dinner\Controllers\ShopController.cs" />
+    <Compile Include="Areas\Dinner\DinnerAreaRegistration.cs" />
+    <Compile Include="Areas\Scratchcard\Controllers\ShomeController.cs" />
+    <Compile Include="Areas\Scratchcard\ScratchcardAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\Admin\MenuController.cs" />
-    <Compile Include="Controllers\Admin\PersonController.cs" />
-    <Compile Include="Controllers\Admin\RoleController.cs" />
-    <Compile Include="Controllers\Base\UploadController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserJoinCounterController.cs" />
-    <Compile Include="Controllers\ScratchCard\ScratchCardController.cs" />
-    <Compile Include="Controllers\Wall\WallController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -336,33 +353,31 @@
     <Content Include="Styles\fonts\fontawesome-webfont.woff" />
     <Content Include="Styles\fonts\fontawesome-webfont.woff2" />
     <Content Include="Styles\fonts\FontAwesome.otf" />
-    <Content Include="Views\ScratchCard\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\PartialMenu.cshtml" />
-    <Content Include="Views\ScratchCard\Details.cshtml" />
     <Content Include="Views\UserJoinCounter\Index.cshtml" />
-    <Content Include="Views\Wall\Index.cshtml" />
     <Content Include="Scripts\uploadify\check-exists.php" />
     <Content Include="Scripts\uploadify\index.php" />
     <Content Include="Scripts\uploadify\uploadify.php" />
-    <Content Include="Views\Wall\Detials.cshtml" />
+    <Content Include="Areas\Scratchcard\Views\web.config" />
+    <Content Include="Areas\Dinner\Views\web.config" />
+    <Content Include="Areas\Dinner\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Dinner\Views\Dish\Index.cshtml" />
+    <Content Include="Areas\Dinner\Views\Menu\Details.cshtml" />
+    <Content Include="Areas\Dinner\Views\Menu\Haves.cshtml" />
+    <Content Include="Areas\Dinner\Views\Menu\Index.cshtml" />
+    <Content Include="Areas\Dinner\Views\Menu\OrderList.cshtml" />
+    <Content Include="Areas\Dinner\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Dinner\Views\Shop\Index.cshtml" />
+    <Content Include="Areas\Scratchcard\Views\Shome\Details.cshtml" />
+    <Content Include="Areas\Scratchcard\Views\Shome\Index.cshtml" />
+    <Content Include="Areas\Dinner\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Scratchcard\Views\Shared\_Layout.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
-    <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
-    <Content Include="Views\Menu\PartialMenu.cshtml" />
-    <Content Include="Views\Person\Index.cshtml" />
-    <Content Include="Views\DinnerShop\Index.cshtml" />
-    <Content Include="Views\DinnerCategory\Index.cshtml" />
-    <Content Include="Views\DinnerDish\Index.cshtml" />
-    <Content Include="Views\DinnerTable\Index.cshtml" />
-    <Content Include="Views\DinnerMenu\Index.cshtml" />
-    <Content Include="Views\DinnerMenu\Details.cshtml" />
-    <Content Include="Views\DinnerMenu\Haves.cshtml" />
-    <Content Include="Views\DinnerMenu\OrderList.cshtml" />
-    <Content Include="Views\DinnerOrder\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
+    <Content Include="Views\Base\TokenNotAvailable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -372,6 +387,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Dinner\Models\" />
+    <Folder Include="Areas\Scratchcard\Models\" />
+    <Folder Include="Areas\Scratchcard\Views\sds\" />
     <Folder Include="Models\" />
     <Folder Include="Styles\activity\images\wall\template1\" />
     <Folder Include="Styles\datetimepicker\images\" />
@@ -390,6 +408,10 @@
       <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
       <Name>Enum</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IService\IService.csproj">
+      <Project>{7f5a4474-b443-45bb-9493-d74c828893fb}</Project>
+      <Name>IService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MPUtil\MPUtil.csproj">
       <Project>{3bbc72d2-fb0d-4490-acfa-c62b31a95ab5}</Project>
       <Name>MPUtil</Name>
@@ -398,9 +420,9 @@
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>
       <Name>Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Server\Server.csproj">
-      <Project>{12313533-d223-457e-be2c-5ca8d3f5898d}</Project>
-      <Name>Server</Name>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{037fb642-136e-474a-9d35-3b28b8aa7d2f}</Project>
+      <Name>Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

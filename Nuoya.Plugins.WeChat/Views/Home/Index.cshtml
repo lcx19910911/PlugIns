@@ -1,118 +1,146 @@
 ﻿
 @{
+    Layout = null;
     ViewBag.Title = "活动后台首页";
 }
 
-@*<form action="/home/upload" method="post" enctype="multipart/form-data">
-    <input type="file"  class="file" name="image" />
-    <input type="submit" />
-</form>*@
-    <div class="am-cf am-padding">
-        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>一些常用模块</small></div>
-    </div>
 
-    @*<ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
-        <li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br>参与记录<br>2300</a></li>
-        <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br>成交订单<br>308</a></li>
-        <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br>昨日访问<br>80082</a></li>
-        <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br>在线用户<br>3000</a></li>
-    </ul>
 
-    <div class="am-g">
-        <div class="am-u-sm-12">
-            <table class="am-table am-table-bd am-table-striped admin-content-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>用户名</th>
-                        <th>最后成交任务</th>
-                        <th>成交订单</th>
-                        <th>管理</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>John Clark</td>
-                        <td><a href="#">Business management</a></td>
-                        <td><span class="am-badge am-badge-success">+20</span></td>
-                        <td>
-                            <div class="am-dropdown" data-am-dropdown="">
-                                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle=""><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                                <ul class="am-dropdown-content">
-                                    <li><a href="#">1. 编辑</a></li>
-                                    <li><a href="#">2. 下载</a></li>
-                                    <li><a href="#">3. 删除</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>风清扬</td>
-                        <td><a href="#">公司LOGO设计</a> </td>
-                        <td><span class="am-badge am-badge-danger">+2</span></td>
-                        <td>
-                            <div class="am-dropdown" data-am-dropdown="">
-                                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle=""><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                                <ul class="am-dropdown-content">
-                                    <li><a href="#">1. 编辑</a></li>
-                                    <li><a href="#">2. 下载</a></li>
-                                    <li><a href="#">3. 删除</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>詹姆斯</td>
-                        <td><a href="#">开发一款业务数据软件</a></td>
-                        <td><span class="am-badge am-badge-warning">+10</span></td>
-                        <td>
-                            <div class="am-dropdown" data-am-dropdown="">
-                                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle=""><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                                <ul class="am-dropdown-content">
-                                    <li><a href="#">1. 编辑</a></li>
-                                    <li><a href="#">2. 下载</a></li>
-                                    <li><a href="#">3. 删除</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>云适配</td>
-                        <td><a href="#">适配所有网站</a></td>
-                        <td><span class="am-badge am-badge-secondary">+50</span></td>
-                        <td>
-                            <div class="am-dropdown" data-am-dropdown="">
-                                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle=""><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                                <ul class="am-dropdown-content">
-                                    <li><a href="#">1. 编辑</a></li>
-                                    <li><a href="#">2. 下载</a></li>
-                                    <li><a href="#">3. 删除</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>5</td>
-                        <td>呵呵呵</td>
-                        <td><a href="#">基兰会获得BUFF</a></td>
-                        <td><span class="am-badge">+22</span></td>
-                        <td>
-                            <div class="am-dropdown" data-am-dropdown="">
-                                <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle=""><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
-                                <ul class="am-dropdown-content">
-                                    <li><a href="#">1. 编辑</a></li>
-                                    <li><a href="#">2. 下载</a></li>
-                                    <li><a href="#">3. 删除</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <title>活动后台 - @ViewBag.Title</title>
+    @Styles.Render("~/Content/Admin")
+</head>
+<body>
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <strong>活动后台</strong>
         </div>
-    </div>*@
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                @if (Session["LoginUser"] != null)
+                {
+                    <li><a href="javascript:;"><span>@((Session["LoginUser"] as Core.Code.LoginUser).Name)</span></a></li>
+                    <li><a href="javascript:;" class="admin-clear-cache"><span class="am-icon-close"></span> <span>清除缓存</span></a></li>
+                    <li><a href="/login/Quit" class="admin-quit"><span class="am-icon-sign-out"></span> <span>注销</span></a></li>
+                }
+            </ul>
+        </div>
+    </header>
+    <div class="am-cf admin-main am-text-left">
+        <!-- sidebar start -->
+        <!-- sidebar end -->
+        <!-- content start -->
+        <div class="admin-content">
+            <div>
+
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>请选择相对应入口</small></div>
+                </div>
+
+                <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+
+                    <li><a href="/dinner/dish" class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br>微点餐门店管理员页面<br></a></li>
+                    <li><a href="/dinner/shop" class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br>微点餐后台管理员<br></a></li>
+                    <li><a href="/scratchcard/shome" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br>刮刮卡<br></a></li>
+                    <li><a href="/userJoinCounter" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br>参与记录、兑奖<br></a></li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- content end -->
+    </div>
+    <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+
+    @Scripts.Render("~/Scripts/Admin")
+    <script type="text/javascript">
+        $(function () {
+            $(".admin-clear-cache").click(function () {
+                $.Nuoya.action("/home/ClearCache", function (json) {
+                    $.Nuoya.alert("清除缓存成功");
+                });
+            });
+
+            $(".admin-update-password").click(function () {
+
+                $.Nuoya.ajaxDialog({
+                    closeViaDimmer: false,
+                    ajaxUrl: "/HtmlTemplates/Person/UpdatePassword.html",
+                    title: "修改密码",
+                    callback: function (e) {
+                        $.Nuoya.form("form").validate({
+                            rules: {
+                                OldPassword: {
+                                    required: true,
+                                    maxlength: 15,
+                                    minlength: 6
+                                },
+                                NewPassword: {
+                                    required: true,
+                                    maxlength: 15,
+                                    minlength: 6
+                                },
+                                ConfirmPassword: {
+                                    required: true,
+                                    maxlength: 15,
+                                    minlength: 6
+                                }
+                            },
+                            messages: {
+                                OldPassword: {
+                                    required: "不允许为空",
+                                    maxlength: "最多{0}个字符",
+                                    minlength: "最小{0}个字符"
+                                },
+                                NewPassword: {
+                                    required: "不允许为空",
+                                    maxlength: "最多{0}个字符",
+                                    minlength: "最小{0}个字符"
+                                },
+                                ConfirmPassword: {
+                                    required: "不允许为空",
+                                    maxlength: "最多{0}个字符",
+                                    minlength: "最小{0}个字符"
+                                }
+                            }
+                        });
+                    },
+                    buttons: [{
+                        label: "保存",
+                        callback: function (e) {
+
+                            if (document.forms[0].NewPassword.value != document.forms[0].ConfirmPassword.value) {
+                                $.Nuoya.alert("确认密码输入不一致");
+                                return false;
+                            }
+
+                            $.Nuoya.form("form").ajaxSubmit({
+                                ajaxUrl: "/home/updatepassword",
+                                callback: function (data) {
+                                    if (data.Result == "") {
+                                        $.Nuoya.alert("密码修改成功");
+                                    }
+                                    else
+                                        $.Nuoya.alert(data.Result);
+                                }
+                            });
+                        }
+                    }]
+                })
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+

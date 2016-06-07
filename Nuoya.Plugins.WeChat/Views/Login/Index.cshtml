@@ -53,7 +53,6 @@
             <p>版权信息</p>
         </div>
     </div>
-
     @Scripts.Render("~/Scripts/Login")
 
     <script type="text/javascript">
@@ -70,7 +69,7 @@
             { e.preventDefault(); }
             $.Nuoya.action("/Login/Submit", { password: document.forms[0].password.value, account: document.forms[0].account.value }, function (data) {
                 if (data) {
-                    window.location.href = "/";
+                    window.location.href = "@(string.IsNullOrEmpty(Request["redirecturl"])?"/home/index": Request["redirecturl"])";
                 }
                 else {
                     $.Nuoya.alert("账号或密码错误");

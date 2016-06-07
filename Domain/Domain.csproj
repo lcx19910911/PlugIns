@@ -47,23 +47,15 @@
     <Compile Include="Dinner\DinnerShop\Update.cs" />
     <Compile Include="Dinner\Order\List.cs" />
     <Compile Include="Dinner\Order\OrderModel.cs" />
-    <Compile Include="Menu\Add.cs" />
-    <Compile Include="Menu\Item.cs" />
-    <Compile Include="Menu\List.cs" />
-    <Compile Include="Menu\Update.cs" />
     <Compile Include="Person\Add.cs" />
     <Compile Include="Person\List.cs" />
     <Compile Include="Person\Update.cs" />
     <Compile Include="PrizeResult.cs" />
-    <Compile Include="Role\Add.cs" />
-    <Compile Include="Role\List.cs" />
-    <Compile Include="Role\Update.cs" />
     <Compile Include="UserJoinCounter\UserJoinCounterModel.cs" />
     <Compile Include="Prize\Update.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScratchCard\Update.cs" />
     <Compile Include="ScratchCard\ScratchCardModel.cs" />
-    <Compile Include="Wall\WallModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

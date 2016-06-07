@@ -64,9 +64,6 @@
     <Compile Include="DinnerShop.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DinnerTable.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,9 +79,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Menu.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="OrderDetails.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -95,9 +89,6 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="ScratchCard.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -105,15 +96,6 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="UserJoinCounter.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Wall.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WallImage.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WallMessage.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
   </ItemGroup>

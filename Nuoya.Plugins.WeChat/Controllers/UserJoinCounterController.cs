@@ -5,12 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IService;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
     [LoginFilter]
     public class UserJoinCounterController : BaseController
     {
+
+        
+        public IUserJoinCounterService IUserJoinCounterService;
+
+        public UserJoinCounterController(IUserJoinCounterService _IUserJoinCounterService)
+        {
+            this.IUserJoinCounterService = _IUserJoinCounterService;
+        }
+
+
         // GET: Prize
         public ActionResult Index()
         {
@@ -31,7 +42,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public JsonResult GetPageList(int pageIndex, int pageSize, string name, string openId,int targetCode, string targetId,string sn,int prizeType, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
-            var pagelist = WebService.Get_UserJoinCounterPageList(pageIndex, pageSize, name, openId, targetCode, targetId, sn, prizeType, createdTimeStart, createdTimeEnd);
+            var pagelist = IUserJoinCounterService.Get_UserJoinCounterPageList(pageIndex, pageSize, name, openId, targetCode, targetId, sn, prizeType, createdTimeStart, createdTimeEnd);
             return JResult(pagelist);
         }
 
@@ -42,7 +53,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public JsonResult Cash(string unid)
         {
-            var effect = WebService.Cash(unid);
+            var effect = IUserJoinCounterService.Cash(unid);
             return JResult(effect);
         }
     }

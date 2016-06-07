@@ -12,31 +12,15 @@ namespace Core.Code
     /// </summary>
     public class LoginUser
     {
-        public LoginUser(string UNID, string Account, string Name, string Mobile, long MenuLimitFlag, TargetCode targetCode,string TargetID)
+        public LoginUser(string UNID, string Account, string Name, string ComId,string ShopId,bool IsChildren)
         {
             this.UNID = UNID;
             this.Account = Account;
             this.Name = Name;
-            this.Mobile = Mobile;
-            this.MenuLimitFlag = MenuLimitFlag;
-            this.TargetCode = targetCode;
-            this.TargetID = TargetID;
+            this.ComId = ComId;
+            this.ShopId = ShopId;
+            this.IsChildren = IsChildren;
         }
-
-        public TargetCode TargetCode { get; set; }
-
-
-        public string TargetID { get; set; }
-
-        /// <summary>
-        /// 公众号appid
-        /// </summary>
-        public string AppId { get; set; }
-
-        /// <summary>
-        /// AppSecret
-        /// </summary>
-        public string AppSecret { get; set; }
 
         /// <summary>
         /// 
@@ -54,13 +38,15 @@ namespace Core.Code
         public string Name { get; set; }
 
         /// <summary>
-        /// 手机号
+        /// 外链Id
         /// </summary>
-        public string Mobile { get; set; }
+        public string ComId { get; set; }
 
         /// <summary>
-        /// 菜单权限集合
+        /// 店家Id
         /// </summary>
-        public long MenuLimitFlag { get; set; }
+        public string ShopId { get; set; }
+
+        public bool IsChildren { get; set; }
     }
 }

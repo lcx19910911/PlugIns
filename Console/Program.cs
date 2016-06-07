@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Repository;
-using Server;
 using Core.Extensions;
 using Domain;
 using System.Web;
@@ -27,7 +26,7 @@ namespace Console
                 Province = "福建",
                 Sex = 1
             };
-            string dd ="?info="+HttpUtility.UrlEncode(entity.ToJson())+ "&shopid=db1ee9837af0478c8b56e1da99fe8c9e";
+            string dd = "?info=" + HttpUtility.UrlEncode(entity.ToJson()) + "&shopid=9f3726004c63406aa4cfa7ae73a3f53a";
             string ss = "";
         }
     }

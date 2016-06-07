@@ -1,5 +1,6 @@
-﻿using Core.Model;
-using  EnumPro;
+﻿using Core.AuthAPI;
+using Core.Model;
+using EnumPro;
 using Extension;
 using Repository;
 using System;
@@ -12,82 +13,38 @@ namespace Server
 {
     public partial class WebService
     {
+
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="source">实体</param>
         /// <param name="password">密码</param>
         /// <returns>影响条数</returns>
-        public string Add_Person(Domain.Person.Add source, string password)
+        public Person Manager_Person(ResultData source)
         {
             using (DbRepository entities = new DbRepository())
             {
-                var addEntity = source.AutoMap<Domain.Person.Add, Person>();
-                if (password != null)
+
+                var entity = entities.Person.FirstOrDefault(x => x.ComId.Equals(source.comid));
+
+                if (entity == null)
                 {
-                    addEntity.Password = Core.Util.CryptoHelper.MD5_Encrypt(password);
+                    entity = new Person();
+                    entity.UNID = Guid.NewGuid().ToString("N");
+                    entity.CreatedTime = DateTime.Now;
+                    entity.UpdatedTime = DateTime.Now;
+                    entity.Flag = (long)GlobalFlag.Normal;
+                    entity.ComId = source.comid;
+                    entity.IsChildren = 0;
+                    entities.Person.Add(entity);
+
+                    entities.SaveChanges();
                 }
 
-                entities.Entry(addEntity).State = System.Data.Entity.EntityState.Added;
-
-                addEntity.UNID = Guid.NewGuid().ToString("N");
-                addEntity.CreatedTime = DateTime.Now;
-                addEntity.UpdatedTime = DateTime.Now;
-                addEntity.Flag = (long)GlobalFlag.Normal;
-                addEntity.TargetCode = (int)TargetCode.Admin;
-
-                entities.Person.Add(addEntity);
-                return entities.SaveChanges() > 0 ? "" : "保存出错";
+                return entity;
             }
         }
 
-        /// <summary>
-        /// 添加
-        /// </summary>
-        /// <param name="unid">主键</param>
-        /// <param name="source">实体</param>
-        /// <param name="password">密码</param>
-        /// <returns>影响条数</returns>
-        public void Update_Person(string unid, Domain.Person.Update source, string password)
-        {
-
-            using (DbRepository entities = new DbRepository())
-            {
-                var dbSet = entities.Set<Person>();
-                var sourceEntity = dbSet.Find(unid);
-                if (sourceEntity != null)
-                {
-                    source.AutoMap<Domain.Person.Update, Person>(sourceEntity);
-                    if (!string.IsNullOrEmpty(password))
-                    {
-                        sourceEntity.Password = Core.Util.CryptoHelper.MD5_Encrypt(password);
-                    }
-                }
-                entities.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// 获取分页列表
-        /// </summary>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="keyword">关键字 - 搜索项</param>
-        /// <returns></returns>
-        public PageList<Person> Get_PersonPageList(int pageIndex, int pageSize, string keyword)
-        {
-            using (DbRepository entities = new DbRepository())
-            {
-                var query = entities.Person.AsQueryable();
-
-                if (!string.IsNullOrEmpty(keyword))
-                {
-                    query = query.Where(x => x.Name.Contains(keyword)|| x.Mobile.Contains(keyword));
-                }
-
-                return CreatePageList(query.OrderByDescending(x => x.CreatedTime), pageIndex, pageSize);
-            }
-        }
 
         /// <summary>
         /// 修改密码
@@ -131,7 +88,7 @@ namespace Server
             using (DbRepository entities = new DbRepository())
             {
                 string md5Password = Core.Util.CryptoHelper.MD5_Encrypt(password);
-                var person = entities.Person.Where(x => x.Flag == (long)GlobalFlag.Normal).FirstOrDefault(x => x.Password == md5Password && x.Account.Equals(account));
+                var person = entities.Person.Where(x => x.Flag == (long)GlobalFlag.Normal).FirstOrDefault(x => x.Password == md5Password && x.Account.Equals(account)&&x.IsChildren==1);
                 return person;
             }
         }

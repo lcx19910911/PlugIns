@@ -71,13 +71,16 @@ namespace Server
             using (DbRepository entities = new DbRepository())
             {
                 var query = entities.DinnerDish.AsQueryable();
+                var category = entities.DinnerCategory.Find(model.DinnerCategoryId);
+                if (category == null)
+                    return "分类不存在";
                 if (query.Where(x => x.Name.Equals(model.Name) &&x.DinnerCategoryId.Equals(model.DinnerCategoryId)).Count() != 0)
                     return "菜品名称已存在";
 
                 model.UNID = Guid.NewGuid().ToString("N");
                 model.CreatedTime = DateTime.Now;
                 model.UpdatedTime = DateTime.Now;
-                model.ShopId = Client.LoginUser.TargetID;
+                model.ShopId = category.UNID;
 
                 entities.DinnerDish.Add(model);
                 return entities.SaveChanges() > 0 ?"": "保存错误";

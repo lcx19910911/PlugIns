@@ -20,8 +20,8 @@ namespace Nuoya.Plugins.WeChat.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var controller = filterContext.Controller as BaseController;
-            controller.Client.LogCode = logCode;
+            //var controller = filterContext.Controller as BaseController;
+            //controller.Client.LogCode = logCode;
         }
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)

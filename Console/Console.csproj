@@ -81,10 +81,6 @@
       <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>
       <Name>Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Server\Server.csproj">
-      <Project>{12313533-d223-457e-be2c-5ca8d3f5898d}</Project>
-      <Name>Server</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

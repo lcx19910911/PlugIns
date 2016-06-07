@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Domain.DinnerCategory
+namespace Domain.Category
 {
     public class Update
     {

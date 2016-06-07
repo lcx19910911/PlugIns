@@ -76,14 +76,10 @@
   <ItemGroup>
     <Compile Include="AutoMapperExtension.cs" />
     <Compile Include="Dinner\WebService.DinnerOrderService.cs" />
-    <Compile Include="Dinner\WebService.DinnerTableService.cs" />
     <Compile Include="Dinner\WebService.DinnerDishService.cs" />
     <Compile Include="Dinner\WebService.DinnerCategoryService.cs" />
-    <Compile Include="Admin\WebService.MenuService.cs" />
     <Compile Include="Admin\WebService.PersonService.cs" />
     <Compile Include="Dinner\WebService.DinnerShopService.cs" />
-    <Compile Include="Admin\WebService.RoleService.cs" />
-    <Compile Include="Activity\WebService.WallService.cs" />
     <Compile Include="WebService.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="WebService.PrizeService.cs" />

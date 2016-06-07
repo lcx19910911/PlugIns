@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Nuoya.Plugins.WeChat.Controllers;
 
 namespace Nuoya.Plugins.WeChat
 {
@@ -75,11 +76,7 @@ namespace Nuoya.Plugins.WeChat
             }
             Server.ClearError();
             Response.Clear();
-            Response.RedirectToRoute(new
-            {
-                Controller = "base",
-                Action = "Error"
-            });
+            Response.Redirect("/base/Error");
         }
 
         protected void Application_BeginRequest()

@@ -142,13 +142,6 @@ namespace Server
             }
         }
 
-
-
-        public bool IsLoginUser()
-        {
-            return !this.Client.AppId.IsNullOrEmpty();
-        }
-
         public WebResult<T> Result<T>(T model)
         {
             return Result(model, ErrorCode.sys_success);

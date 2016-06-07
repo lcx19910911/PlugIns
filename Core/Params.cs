@@ -23,5 +23,22 @@ namespace Core
         /// 域名
         /// </summary>
         public static readonly string DomianName = ConfigurationManager.AppSettings["DomianName"];
+
+        /// <summary>
+        /// 时间戳有效时间c
+        /// </summary>
+        public const int TimspanExpiredMinutes = 60;
+        /// <summary>
+        /// token失效时间
+        /// </summary>
+        public const int ExpiredDays = 7;
+        /// <summary>
+        /// 跟平台通信密钥
+        /// </summary>
+        public static readonly string SecretKey = ConfigurationManager.AppSettings["Com_SharedKey"];
+        /// <summary>
+        /// 平台请求登陆接口
+        /// </summary>
+        public static readonly string LoginUrl = ConfigurationManager.AppSettings["Com_LoginUrl"];
     }
 }

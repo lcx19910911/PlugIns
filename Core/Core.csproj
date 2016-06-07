@@ -86,6 +86,11 @@
   <ItemGroup>
     <Compile Include="Attribute\DataAutoMapperAttribute.cs" />
     <Compile Include="Attribute\EnumAutoMapperAttribute.cs" />
+    <Compile Include="AuthAPI\APIResult.cs" />
+    <Compile Include="AuthAPI\AuthAPI4Fun.cs" />
+    <Compile Include="AuthAPI\CheckResult.cs" />
+    <Compile Include="AuthAPI\JsonWebToken.cs" />
+    <Compile Include="AuthAPI\TokenInfo.cs" />
     <Compile Include="Code\ErrorCode.cs" />
     <Compile Include="Code\LogCode.cs" />
     <Compile Include="Code\SourceCode.cs" />

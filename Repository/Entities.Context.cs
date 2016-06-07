@@ -26,20 +26,14 @@ namespace Repository
         }
     
         public virtual DbSet<UserJoinCounter> UserJoinCounter { get; set; }
-        public virtual DbSet<WallMessage> WallMessage { get; set; }
-        public virtual DbSet<Wall> Wall { get; set; }
-        public virtual DbSet<WallImage> WallImage { get; set; }
         public virtual DbSet<ScratchCard> ScratchCard { get; set; }
         public virtual DbSet<Prize> Prize { get; set; }
-        public virtual DbSet<Menu> Menu { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<DinnerShop> DinnerShop { get; set; }
-        public virtual DbSet<Person> Person { get; set; }
-        public virtual DbSet<DinnerCategory> DinnerCategory { get; set; }
         public virtual DbSet<DinnerDish> DinnerDish { get; set; }
-        public virtual DbSet<DinnerTable> DinnerTable { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<DinnerOrder> DinnerOrder { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<DinnerCategory> DinnerCategory { get; set; }
     }
 }

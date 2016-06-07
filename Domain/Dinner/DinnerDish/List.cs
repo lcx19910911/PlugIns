@@ -13,7 +13,7 @@ namespace Domain.DinnerDish
         public string UNID { get; set; }
         public string Name { get; set; }
         [DataAutoMapper("DinnerCategoryId", typeof(Repository.DinnerCategory), "UNID", "Name")]
-        public string DinnerCategoryName { get; set; }
+        public string CategoryName { get; set; }
         public int Sort { get; set; }
         public decimal Price { get; set; }
         public string Label { get; set; }

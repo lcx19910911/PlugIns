@@ -19,7 +19,8 @@ namespace Nuoya.Plugins.WeChat.Filters
             filterContext.ExceptionHandled = true;
             
             Core.Util.LogHelper.WriteException(ex);
-            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "base" }, { "action", "_505" } });
+            RedirectResult redirectResult = new RedirectResult("/base/_505");
+            filterContext.Result = redirectResult;
         }
     }
 }
