@@ -50,7 +50,7 @@ namespace Nuoya.Plugins.WeChat
                 "~/Scripts/avalon.js"
                ));
             #endregion
-
+            BundleTable.EnableOptimizations = false;
         }
     }
 }
