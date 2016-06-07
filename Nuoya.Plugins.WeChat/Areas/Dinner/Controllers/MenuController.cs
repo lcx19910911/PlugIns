@@ -9,6 +9,7 @@ using Repository;
 using IService;
 using Nuoya.Plugins.WeChat.Controllers;
 using Nuoya.Plugins.WeChat.Filters;
+using MPUtil.UserMng;
 
 namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 {
@@ -34,9 +35,24 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// </summary>
         /// <param name="shopId"></param>
         /// <returns></returns>
-        [OAuthFilter]
-        public ActionResult Index(string shopId)
+        //[OAuthFilter]
+        public ActionResult Index(string shopId,string info)
         {
+            //接收微信用户数据
+            if (!string.IsNullOrEmpty(info))
+            {
+                WXUser model = info.DeserializeJson<WXUser>();
+                if (model != null)
+                {
+                    //更新数据
+                    IUserService.Update_User(model);
+                    CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () =>
+                    {
+                        return model.openid;
+                    });
+                }
+            }
+
             //判断是否已有订单
             ViewBag.ExistsOrder = this.Request.Cookies["had"] == null ? false : (string.IsNullOrEmpty(this.Request.Cookies["had"].Value) ? false : true);
             //店铺id

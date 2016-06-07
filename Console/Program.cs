@@ -7,7 +7,7 @@ using Repository;
 using Core.Extensions;
 using Domain;
 using System.Web;
-
+using MPUtil.UserMng;
 
 namespace Console
 {
@@ -15,18 +15,17 @@ namespace Console
     {
         static void Main(string[] args)
         {
-            User entity = new User()
+            WXUser entity = new WXUser()
             {
-                CreatedTime = DateTime.Now,
-                OpenId = "1112dsdsdsdsdsd",
-                NickName = "哈哈啊查询查询",
-                City = "福州",
-                Country = "中国",
-                HeadImgUrl = "/Upload/ScratchCard/4b426174f4134a868920e957be691f7b.jpg",
-                Province = "福建",
-                Sex = 1
+                openid = "1112dsds31sd",
+                nickname = "哈哈啊查询查询",
+                city = "福州",
+                country = "中国",
+                headimgurl = "/Upload/ScratchCard/4b426174f4134a868920e957be691f7b.jpg",
+                province = "福建",
+                sex = "1"
             };
-            string dd = "?info=" + HttpUtility.UrlEncode(entity.ToJson()) + "&shopid=9f3726004c63406aa4cfa7ae73a3f53a";
+            string dd = "?info=" + HttpUtility.UrlEncode(entity.ToJson()) + "&unid=9f3726004c63406aa4cfa7ae73a3f53a";
             string ss = "";
         }
     }

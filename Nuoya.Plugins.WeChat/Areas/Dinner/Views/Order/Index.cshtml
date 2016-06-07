@@ -104,8 +104,8 @@
                                 unid: item.UNID
                             },
                             function (data) {
-                                if (data != "") {
-                                    $.Nuoya.alert(date);
+                                if (!data) {
+                                    $.Nuoya.alert("标记为“处理”失败");
                                 }
                                 else {
                                     grid.reload();
@@ -132,8 +132,8 @@
                                 unid: item.UNID
                             },
                             function (data) {
-                                if (data != "") {
-                                    $.Nuoya.alert(date);
+                                if (!data) {
+                                    $.Nuoya.alert("标记为“无效”失败");
                                 }
                                 else {
                                     grid.reload();

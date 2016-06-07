@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.AuthAPI;
+using MPUtil.UserMng;
 
 namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
 {
@@ -93,9 +94,23 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        [OAuthFilter]
-        public ActionResult Details(string unid)
+        //[OAuthFilter]
+        public ActionResult Details(string unid,string info)
         {
+            //接收微信用户数据
+            if (!string.IsNullOrEmpty(info))
+            {
+                WXUser model = info.DeserializeJson<WXUser>();
+                if (model != null)
+                {
+                    //更新数据
+                    IUserService.Update_User(model);
+                    CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () =>
+                    {
+                        return model.openid;
+                    });
+                }
+            }
             var item = IScratchCardService.Show_ScratchCard(unid);
             return View(item);
         }

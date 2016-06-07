@@ -44,42 +44,42 @@ namespace Nuoya.Plugins.WeChat.Controllers
             return JResult(pagelist);
         }
 
-        /// <summary>
-        /// 授权保存code
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="state">原来请求地址</param>
-        /// <returns></returns>
-        public ActionResult DoAuth(string code, string state)
-        {
-            Core.Util.LogHelper.WriteInfo(code);
-            Core.Util.LogHelper.WriteInfo(state);
-            CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () =>
-            {
-                //获取access-token
-                var access_tokenHash=BaseFunctions.GetAccessToken(code, Params.AppId, Params.AppSecret);
-                if (access_tokenHash != null&&access_tokenHash["access_token"]!=null)
-                {
-                    string access_token = access_tokenHash["access_token"].ToString();
-                    Core.Util.LogHelper.WriteInfo(access_token);
-                    string openId = access_tokenHash["openid"].ToString();
-                    //获取用户信息
-                    Core.Util.LogHelper.WriteInfo(openId);
-                    var userInfo = UserFunction.GetInfo(access_token, openId);
-                    if (userInfo != null && userInfo["user"] != null)
-                    {
-                        //保存下来
-                        WXUser user = (WXUser)userInfo["user"];
-                        IUserService.Update_User(user);
-                        return openId;
-                    }
-                    else
-                        return "";
-                }
-                return  "";
-            });
-            return Redirect(state);
-        }
+        ///// <summary>
+        ///// 授权保存code
+        ///// </summary>
+        ///// <param name="code"></param>
+        ///// <param name="state">原来请求地址</param>
+        ///// <returns></returns>
+        //public ActionResult DoAuth(string code, string state)
+        //{
+        //    Core.Util.LogHelper.WriteInfo(code);
+        //    Core.Util.LogHelper.WriteInfo(state);
+        //    CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () =>
+        //    {
+        //        //获取access-token
+        //        var access_tokenHash=BaseFunctions.GetAccessToken(code, Params.AppId, Params.AppSecret);
+        //        if (access_tokenHash != null&&access_tokenHash["access_token"]!=null)
+        //        {
+        //            string access_token = access_tokenHash["access_token"].ToString();
+        //            Core.Util.LogHelper.WriteInfo(access_token);
+        //            string openId = access_tokenHash["openid"].ToString();
+        //            //获取用户信息
+        //            Core.Util.LogHelper.WriteInfo(openId);
+        //            var userInfo = UserFunction.GetInfo(access_token, openId);
+        //            if (userInfo != null && userInfo["user"] != null)
+        //            {
+        //                //保存下来
+        //                WXUser user = (WXUser)userInfo["user"];
+        //                IUserService.Update_User(user);
+        //                return openId;
+        //            }
+        //            else
+        //                return "";
+        //        }
+        //        return  "";
+        //    });
+        //    return Redirect(state);
+        //}
 
     }
 }

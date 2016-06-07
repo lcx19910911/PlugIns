@@ -47,7 +47,8 @@ namespace Service
                         Province = model.province,
                         City = model.city,
                         Sex = model.sex.GetInt(),
-                        HeadImgUrl = model.headimgurl
+                        HeadImgUrl = model.headimgurl,
+                        CreatedTime=DateTime.Now
                     };
 
                     entities.User.Add(addEntity);
