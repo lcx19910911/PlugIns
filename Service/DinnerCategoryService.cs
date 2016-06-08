@@ -14,7 +14,10 @@ using System.Web;
 
 namespace Service
 {
-    public  class DinnerCategoryService: BaseService, IDinnerCategoryService
+    /// <summary>
+    /// 菜品分类
+    /// </summary>
+    public class DinnerCategoryService: BaseService, IDinnerCategoryService
     {
         public DinnerCategoryService()
         {
@@ -26,7 +29,7 @@ namespace Service
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="title">标题 - 搜索项</param>
+        /// <param name="name">分类名 - 搜索项</param>
         /// <returns></returns>
         public PageList<DinnerCategory> Get_DinnerCategoryPageList(int pageIndex, int pageSize, string name)
         {
@@ -61,7 +64,7 @@ namespace Service
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 增加
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -93,7 +96,7 @@ namespace Service
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 修改
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -124,7 +127,7 @@ namespace Service
 
         }
         /// <summary>
-        /// 
+        /// 删除分类
         /// </summary>
         /// <param name="unids"></param>
         /// <returns></returns>
@@ -150,7 +153,7 @@ namespace Service
 
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 查找实体
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
@@ -167,9 +170,9 @@ namespace Service
 
 
         /// <summary>
-        /// 获取选择项
+        /// 获取分类下拉框集合
         /// </summary>
-        /// <param name="dinnerCategoryId"></param>
+        /// <param name="dinnerCategoryId">分类id</param>
         /// <returns></returns>
         public List<SelectItem> Get_DinnerCategorySelectItem(string dinnerCategoryId)
         {
@@ -191,7 +194,7 @@ namespace Service
         }
 
         /// <summary>
-        /// 获取选择项
+        /// 获取店家的分类
         /// </summary>
         /// <param name="dinnerCategoryId"></param>
         /// <returns></returns>

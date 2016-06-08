@@ -11,6 +11,9 @@ using Nuoya.Plugins.WeChat.Controllers;
 
 namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 {
+    /// <summary>
+    /// 订单
+    /// </summary>
     [LoginFilter]
     public class OrderController : BaseController
     {
@@ -22,7 +25,10 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         }
 
 
-        // GET: DinnerOrder
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             if (!this.LoginUser.IsChildren)
@@ -36,8 +42,10 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="groupName">分组名称 - 搜索项</param>
-        /// <param name="keyValue">键值 - 搜索项</param>
+        /// <param name="state">状态 - 搜索项</param>
+        /// <param name="orderNum">订单号 - 搜索项</param>
+        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
+        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         public JsonResult GetPageList(int pageIndex, int pageSize, int state, string orderNum, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {

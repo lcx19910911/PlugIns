@@ -10,6 +10,9 @@ using Nuoya.Plugins.WeChat.Controllers;
 
 namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 {
+    /// <summary>
+    /// 菜品控制器
+    /// </summary>
     [LoginFilter]
     public class DishController : BaseController
     {
@@ -21,7 +24,10 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
             this.IDinnerDishService = _IDinnerDishService;          
         }
 
-        // GET: DinnerDish
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             if (!this.LoginUser.IsChildren)
@@ -35,8 +41,10 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="groupName">分组名称 - 搜索项</param>
-        /// <param name="keyValue">键值 - 搜索项</param>
+        /// <param name="name">菜品名 - 搜索项</param>
+        /// <param name="categoryId">分类id - 搜索项</param>
+        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
+        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         public JsonResult GetPageList(int pageIndex, int pageSize, string name,string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {

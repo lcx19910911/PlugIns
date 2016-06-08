@@ -15,7 +15,10 @@ using System.Web;
 
 namespace Service
 {
-    public  class PersonService : BaseService, IPersonService
+    /// <summary>
+    /// 人员
+    /// </summary>
+    public class PersonService : BaseService, IPersonService
     {
         public PersonService()
         {
@@ -25,11 +28,11 @@ namespace Service
 
 
         /// <summary>
-        /// 登录
+        /// 登陆
         /// </summary>
-        /// <param name="cardNo">工号</param>
+        /// <param name="account">账号</param>
         /// <param name="password">密码</param>
-        /// <returns>返回登录的用户对象，如果登录失败则为null</returns>
+        /// <returns></returns>
         public Person Login(string account, string password)
         {
             using (DbRepository entities = new DbRepository())
@@ -41,11 +44,12 @@ namespace Service
         }
 
         /// <summary>
-        /// 添加
+        /// 管理人员信息
         /// </summary>
-        /// <param name="source">实体</param>
+        /// <param name="data">接口返回对象</param>
+        /// <param name="account">账号</param>
         /// <param name="password">密码</param>
-        /// <returns>影响条数</returns>
+        /// <returns></returns>
         public Person Manager_Person(ResultData source, string account, string password)
         {
             using (DbRepository entities = new DbRepository())
@@ -75,11 +79,10 @@ namespace Service
 
 
         /// <summary>
-        /// 登录
+        /// 根据平台id登陆
         /// </summary>
-        /// <param name="cardNo">工号</param>
-        /// <param name="password">密码</param>
-        /// <returns>返回登录的用户对象，如果登录失败则为null</returns>
+        /// <param name="comId">平台id</param>
+        /// <returns></returns>
         public Person LoginByComId(int comId)
         {
             using (DbRepository entities = new DbRepository())

@@ -5,6 +5,9 @@ using System;
 
 namespace IService
 {
+    /// <summary>
+    /// 刮刮卡接口
+    /// </summary>
     public interface IScratchCardService
     {
         /// <summary>
@@ -19,7 +22,7 @@ namespace IService
         PageList<ScratchCardModel> Get_ScratchCardPageList(int pageIndex, int pageSize, string title, DateTime? createdTimeStart, DateTime? createdTimeEnd);
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 增加
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -27,7 +30,7 @@ namespace IService
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 编辑
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -43,7 +46,7 @@ namespace IService
 
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 显示活动和奖品情况
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
@@ -58,7 +61,7 @@ namespace IService
 
 
         /// <summary>
-        /// 参与刮刮卡活动
+        /// 删除刮刮卡
         /// </summary>
         /// <param name="unids"></param>
         /// <returns></returns>

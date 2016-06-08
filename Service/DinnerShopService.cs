@@ -14,7 +14,10 @@ using System.Web;
 
 namespace Service
 {
-    public  class DinnerShopService : BaseService, IDinnerShopService
+    /// <summary>
+    /// 门店
+    /// </summary>
+    public class DinnerShopService : BaseService, IDinnerShopService
     {
 
         public DinnerShopService()
@@ -27,7 +30,7 @@ namespace Service
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="title">标题 - 搜索项</param>
+        /// <param name="name">门店名 - 搜索项</param>
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
@@ -75,7 +78,7 @@ namespace Service
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 增加
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -129,7 +132,7 @@ namespace Service
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 修改
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -221,7 +224,7 @@ namespace Service
         }
 
         /// <summary>
-        /// 
+        /// 删除
         /// </summary>
         /// <param name="unids"></param>
         /// <returns></returns>
@@ -243,7 +246,7 @@ namespace Service
 
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 查找实体
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>

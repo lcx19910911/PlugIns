@@ -14,7 +14,7 @@ namespace Nuoya.Plugins.WeChat
                 "~/Styles/css/amazeui.css",
                 "~/Scripts/tipso/css/tipso.min.css",
                 "~/Styles/admin.css",
-                "~/Scripts/My97DatePicker/WdatePicker.css",
+                "~/Scripts/My97DatePicker/skin/WdatePicker.css",
                 "~/Scripts/uploadify/uploadify.css"));
             #endregion
 

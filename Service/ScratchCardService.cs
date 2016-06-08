@@ -17,6 +17,9 @@ using System.Web;
 
 namespace Service
 {
+    /// <summary>
+    /// 呱呱啦
+    /// </summary>
     public  class ScratchCardService: BaseService, IScratchCardService
     {
         public ScratchCardService()
@@ -78,7 +81,7 @@ namespace Service
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 增加
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -133,7 +136,7 @@ namespace Service
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 编辑
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -224,7 +227,7 @@ namespace Service
         }
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 显示活动和奖品情况
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
@@ -411,7 +414,7 @@ namespace Service
         }
 
         /// <summary>
-        /// 参与刮刮卡活动
+        /// 删除刮刮卡
         /// </summary>
         /// <param name="unids"></param>
         /// <returns></returns>

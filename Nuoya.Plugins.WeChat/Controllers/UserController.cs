@@ -13,7 +13,9 @@ using MPUtil.UserMng;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
-
+    /// <summary>
+    /// 微信用户控制器
+    /// </summary>
     public class UserController : BaseController
     {
         public IUserService IUserService;
@@ -34,8 +36,10 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="groupName">分组名称 - 搜索项</param>
-        /// <param name="keyValue">键值 - 搜索项</param>
+        /// <param name="name">昵称</param>
+        /// <param name="openId"></param>
+        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
+        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         [LoginFilter]
         public JsonResult GetPageList(int pageIndex, int pageSize, string name, string openId, DateTime? createdTimeStart, DateTime? createdTimeEnd)

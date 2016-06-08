@@ -9,6 +9,9 @@ using IService;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
+    /// <summary>
+    /// 用户参与记录控制器
+    /// </summary>
     [LoginFilter]
     public class UserJoinCounterController : BaseController
     {
@@ -22,7 +25,10 @@ namespace Nuoya.Plugins.WeChat.Controllers
         }
 
 
-        // GET: Prize
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -33,12 +39,14 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="name">活动名</param>
-        /// <param name="openId">微信openid</param>
-        /// <param name="code">活动类型</param>
-        /// <param name="SN">中奖码</param>
-        /// <param name="createdTimeStart">中奖时间开始</param>
-        /// <param name="createdTimeEnd">中奖时间结束</param>
+        /// <param name="name">活动名 - 搜索项</param>
+        /// <param name="openId">微信openid - 搜索项</param>
+        /// <param name="targetCode">活动类型 - 搜索项</param>
+        /// <param name="targetId">活动id - 搜索项</param>
+        /// <param name="SN">sn吗 - 搜索项</param>
+        /// <param name="prizeType">奖品等级 - 搜索项</param>
+        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
+        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         public JsonResult GetPageList(int pageIndex, int pageSize, string name, string openId,int targetCode, string targetId,string sn,int prizeType, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {

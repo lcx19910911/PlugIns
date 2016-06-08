@@ -16,6 +16,9 @@ using System.Web;
 
 namespace Service
 {
+    /// <summary>
+    /// 微信用户
+    /// </summary>
     public  class UserService : BaseService, IUserService
     {
 
@@ -25,9 +28,9 @@ namespace Service
         }
 
         /// <summary>
-        /// 
+        /// 编辑管理用户
         /// </summary>
-        /// <param name="unid"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         public bool Update_User(WXUser model)
         {
@@ -72,7 +75,8 @@ namespace Service
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="title">标题 - 搜索项</param>
+        /// <param name="name">昵称</param>
+        /// <param name="openId"></param>
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>

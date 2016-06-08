@@ -10,6 +10,9 @@ using EnumPro;
 
 namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 {
+    /// <summary>
+    /// 店铺控制器
+    /// </summary>
     [LoginFilter]
     public class ShopController : BaseController
     {
@@ -22,7 +25,10 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         }
         
 
-        // GET: DinnerShop
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             if (this.LoginUser.IsChildren)
@@ -36,8 +42,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="groupName">分组名称 - 搜索项</param>
-        /// <param name="keyValue">键值 - 搜索项</param>
+        /// <param name="name">门店名 - 搜索项</param>
+        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
+        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         public JsonResult GetPageList(int pageIndex, int pageSize, string name, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {

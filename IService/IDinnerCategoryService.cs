@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace IService
 {
+    /// <summary>
+    /// 菜品分类
+    /// </summary>
     public interface IDinnerCategoryService
     {
         /// <summary>
@@ -14,14 +17,12 @@ namespace IService
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="title">标题 - 搜索项</param>
-        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
-        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
+        /// <param name="name">分类名 - 搜索项</param>
         /// <returns></returns>
         PageList<DinnerCategory> Get_DinnerCategoryPageList(int pageIndex, int pageSize, string name);
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 增加
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -29,7 +30,7 @@ namespace IService
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 修改
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -37,7 +38,7 @@ namespace IService
 
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 删除分类
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
@@ -45,14 +46,14 @@ namespace IService
 
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 查找实体
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
         DinnerCategory Find_DinnerCategory(string unid);
 
         /// <summary>
-        /// 参与刮刮卡活动
+        /// 获取分类下拉框集合
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
@@ -60,7 +61,7 @@ namespace IService
 
 
         /// <summary>
-        /// 参与刮刮卡活动
+        /// 获取店家的分类
         /// </summary>
         /// <param name="unids"></param>
         /// <returns></returns>

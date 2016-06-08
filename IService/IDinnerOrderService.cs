@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace IService
 {
+    /// <summary>
+    /// 点餐订单
+    /// </summary>
     public interface IDinnerOrderService
     {
         /// <summary>
@@ -14,14 +17,15 @@ namespace IService
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="title">标题 - 搜索项</param>
+        /// <param name="state">状态 - 搜索项</param>
+        /// <param name="orderNum">订单号 - 搜索项</param>
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         PageList<Domain.Dinner.Order.List> Get_DinnerOrderPageList(int pageIndex, int pageSize, int state, string orderNum, DateTime? createdTimeStart, DateTime? createdTimeEnd);
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 增加订单
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -29,7 +33,7 @@ namespace IService
 
 
         /// <summary>
-        /// 增加刮刮卡
+        /// 获取2两小时内的订单
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -37,7 +41,7 @@ namespace IService
 
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 确认订单
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
@@ -45,7 +49,7 @@ namespace IService
 
 
         /// <summary>
-        /// 查找活动和奖品情况
+        /// 订单无效
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>

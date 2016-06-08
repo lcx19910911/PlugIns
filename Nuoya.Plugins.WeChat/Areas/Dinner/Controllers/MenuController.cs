@@ -13,10 +13,11 @@ using MPUtil.UserMng;
 
 namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 {
+    /// <summary>
+    /// 点餐微信展示页面
+    /// </summary>
     public class MenuController : BaseController
     {
-
-
         public IDinnerCategoryService IDinnerCategoryService;
         public IDinnerDishService IDinnerDishService;
         public IDinnerOrderService IDinnerOrderService;
@@ -31,12 +32,13 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 首页
         /// </summary>
-        /// <param name="shopId"></param>
+        /// <param name="unid">店铺id</param>
+        /// <param name="info">微信用户信息json化字符串</param>
         /// <returns></returns>
         //[OAuthFilter]
-        public ActionResult Index(string shopId,string info)
+        public ActionResult Index(string unid,string info)
         {
             //接收微信用户数据
             if (!string.IsNullOrEmpty(info))
@@ -56,18 +58,18 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
             //判断是否已有订单
             ViewBag.ExistsOrder = this.Request.Cookies["had"] == null ? false : (string.IsNullOrEmpty(this.Request.Cookies["had"].Value) ? false : true);
             //店铺id
-            shopId = CacheHelper.Get<string>("dinner-shopId", CacheTimeOption.TwoHour, () =>
+            unid = CacheHelper.Get<string>("dinner-shopId", CacheTimeOption.TwoHour, () =>
             {
-                return shopId;
+                return unid;
             });
 
-            if (string.IsNullOrEmpty(shopId))
+            if (string.IsNullOrEmpty(unid))
             {
                 return View("/base/Error");
             }
             else
             {
-                var item = IDinnerCategoryService.Get_ItemByShopId(shopId);
+                var item = IDinnerCategoryService.Get_ItemByShopId(unid);
                 return View(item);
             }
         }

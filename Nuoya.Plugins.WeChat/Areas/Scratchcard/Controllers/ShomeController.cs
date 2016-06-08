@@ -15,6 +15,9 @@ using MPUtil.UserMng;
 
 namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
 {
+    /// <summary>
+    /// 刮刮卡
+    /// </summary>
     public class ShomeController : BaseController
     {
         public IScratchCardService IScratchCardService;
@@ -27,6 +30,10 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
         }
 
 
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
         [LoginFilter]
         public ActionResult Index()
         {
@@ -41,8 +48,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="groupName">分组名称 - 搜索项</param>
-        /// <param name="keyValue">键值 - 搜索项</param>
+        /// <param name="title">标题 - 搜索项</param>
+        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
+        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         [LoginFilter]
         public JsonResult GetPageList(int pageIndex, int pageSize, string title, DateTime? createdTimeStart, DateTime? createdTimeEnd)
@@ -90,9 +98,10 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
 
 
         /// <summary>
-        /// 明细(接收openid)
+        /// 明细(info)
         /// </summary>
-        /// <param name="unid"></param>
+        /// <param name="unid"></param
+        /// <param name="info">用户信息</param>
         /// <returns></returns>
         //[OAuthFilter]
         public ActionResult Details(string unid,string info)
