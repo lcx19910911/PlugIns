@@ -89,11 +89,11 @@ namespace Service
         /// <returns></returns>
         public Person Add_Person(string name, int uid)
         {
-            if (!name.IsNotNullOrEmpty())
-                return null;
+            //if (!name.IsNotNullOrEmpty())
+            //    return null;
             using (DbRepository entities = new DbRepository())
             {
-                var entity = entities.Person.FirstOrDefault(x => x.ComId.Equals(uid));
+                var entity = entities.Person.FirstOrDefault(x => x.ComId.Equals(uid.ToString()));
                 if (entity == null)
                 {
                     entity = new Person()

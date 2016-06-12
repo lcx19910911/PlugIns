@@ -8,6 +8,7 @@ using Core.Extensions;
 using Domain;
 using System.Web;
 using MPUtil.UserMng;
+using Service;
 
 namespace Console
 {
@@ -15,6 +16,9 @@ namespace Console
     {
         static void Main(string[] args)
         {
+
+            new PersonService().Add_Person("11", 111);
+
             WXUser entity = new WXUser()
             {
                 openid = "1112dsds31sd",
