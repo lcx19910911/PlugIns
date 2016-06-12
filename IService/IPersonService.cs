@@ -35,5 +35,13 @@ namespace IService
         /// <param name="comId">平台id</param>
         /// <returns></returns>
         Person LoginByComId(int comId);
+
+        /// <summary>
+        /// 新增平台人员信息
+        /// </summary>
+        /// <param name="name">name</param>
+        /// <param name="uid">uid</param>
+        /// <returns></returns>
+        Person Add_Person(string name, int uid);
     }
 }

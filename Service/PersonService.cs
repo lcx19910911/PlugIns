@@ -52,6 +52,8 @@ namespace Service
         /// <returns></returns>
         public Person Manager_Person(ResultData source, string account, string password)
         {
+            if (source == null || !account.IsNotNullOrEmpty() || !password.IsNotNullOrEmpty())
+                return null;
             using (DbRepository entities = new DbRepository())
             {
                 var entity = entities.Person.FirstOrDefault(x => x.ComId.Equals(source.comid));
@@ -69,6 +71,40 @@ namespace Service
                         Name = source.name,
                         Account= account,
                         Password= md5Password,
+                        Remark = "平台用户"
+                    };
+                    entities.Person.Add(entity);
+                }
+                return entity;
+            }
+        }
+
+
+
+        /// <summary>
+        /// 新增平台人员信息
+        /// </summary>
+        /// <param name="name">name</param>
+        /// <param name="uid">uid</param>
+        /// <returns></returns>
+        public Person Add_Person(string name, int uid)
+        {
+            if (!name.IsNotNullOrEmpty())
+                return null;
+            using (DbRepository entities = new DbRepository())
+            {
+                var entity = entities.Person.FirstOrDefault(x => x.ComId.Equals(uid));
+                if (entity == null)
+                {
+                    entity = new Person()
+                    {
+                        UNID = Guid.NewGuid().ToString("N"),
+                        ComId = uid.ToString(),
+                        CreatedTime = DateTime.Now,
+                        UpdatedTime = DateTime.Now,
+                        Flag = (long)GlobalFlag.Normal,
+                        IsChildren = (int)YesOrNoCode.No,
+                        Name = name,
                         Remark = "平台用户"
                     };
                     entities.Person.Add(entity);

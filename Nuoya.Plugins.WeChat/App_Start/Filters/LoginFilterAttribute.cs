@@ -52,8 +52,14 @@ namespace Nuoya.Plugins.WeChat.Filters
                         CheckResult result = AuthAPI4Fun.ValidateToken(token);
                         if (result.code == 100)
                         {
+
                             var entity = PersonService.LoginByComId(result.tokenInfo.UID);
-                            filterContext.HttpContext.Session["LoginUser"]=new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
+                            if (entity == null)
+                            {
+                                entity=PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);
+                            }
+                            if(entity!=null)
+                                filterContext.HttpContext.Session["LoginUser"] = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
                         }
                     }
                     else

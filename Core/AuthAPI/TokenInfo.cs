@@ -6,5 +6,7 @@ namespace Core.AuthAPI
         public int AccountID;//登录帐号ID
 
         public int UID;//ID
+
+        public string Name;
     }
 }
