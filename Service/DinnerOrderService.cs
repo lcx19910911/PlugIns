@@ -137,7 +137,7 @@ namespace Service
                     return null;
 
                 var model = new Domain.Dinner.OrderModel();
-                //15分钟内有效订单
+                //2小时有效订单
                 var limitTime = DateTime.Now.AddHours(-2);
                 var order = entities.DinnerOrder.OrderByDescending(x => x.CreatedTime).FirstOrDefault(x => x.OpenId.Equals(openId) && x.ShopId.Equals(shopId) && x.CreatedTime > limitTime);
 

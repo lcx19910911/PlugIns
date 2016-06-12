@@ -25,7 +25,7 @@
                 <li><a href="javascript:;"><span>@(Session["LoginUser"] != null ? (Session["LoginUser"] as Core.Code.LoginUser)?.Name : "登入用户名")</span></a></li>
                 <li><a href="javascript:;" class="admin-clear-cache"><span class="am-icon-close"></span> <span>清除缓存</span></a></li>
                 <li><a href="/login/Quit" class="admin-quit"><span class="am-icon-sign-out"></span> <span>注销</span></a></li>
-                @*<li><a href="javascript:;" class="admin-update-password"><span class="am-icon-cog"></span> 修改密码</a></li>*@
+                <li><a href="/dinner/menu/index?unid=@(Session["LoginUser"] != null ? (Session["LoginUser"] as Core.Code.LoginUser)?.ShopId : "")" class="admin-update-password"><span class="am-icon-cog"></span>浏览器预览效果</a></li>
             </ul>
         </div>
     </header>
@@ -33,7 +33,7 @@
         <!-- sidebar start -->
         <div class="admin-sidebar">
             <ul class="am-list admin-sidebar-list">
-                @if ((Session["LoginUser"] as Core.Code.LoginUser).IsChildren)
+                @if (Session["LoginUser"] != null&&(Session["LoginUser"] as Core.Code.LoginUser).IsChildren)
                 {
                     <li><a href="/Dinner/Category"><span class="am-icon-lemon-o"></span>菜品分类</a></li>
                     <li><a href="/Dinner/Dish"><span class="am-icon-ioxhost"></span>菜品管理</a></li>

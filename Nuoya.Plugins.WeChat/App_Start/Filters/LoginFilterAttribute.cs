@@ -42,7 +42,7 @@ namespace Nuoya.Plugins.WeChat.Filters
             string token = filterContext.HttpContext.Request["token"];
 
             //判断页面是否需要登录
-            if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName.ToLower()) && x.Item2.Equals(actionName.ToLower())) == null)
+            if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName, StringComparison.OrdinalIgnoreCase) && x.Item2.Equals(actionName, StringComparison.OrdinalIgnoreCase)) == null)
             {
                 //判断用户token是否有效
                 if (controller.LoginUser == null)
@@ -58,7 +58,7 @@ namespace Nuoya.Plugins.WeChat.Filters
                     }
                     else
                     {
-                        if (!controllerName.ToLower().Equals("login"))
+                        if (!controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))
                         {
                             var actionMethod = actionMethodList.FirstOrDefault(x => x.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase));
                             if (actionMethod != null)
