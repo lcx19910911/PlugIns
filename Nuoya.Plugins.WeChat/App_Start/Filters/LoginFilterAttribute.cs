@@ -40,50 +40,50 @@ namespace Nuoya.Plugins.WeChat.Filters
             var actionMethodList = filterContext.Controller.GetType().GetMethods();
             string requestUrl = filterContext.HttpContext.Request.Url.ToString();
             string token = filterContext.HttpContext.Request["token"];
-
             //判断页面是否需要登录
             if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName, StringComparison.OrdinalIgnoreCase) && x.Item2.Equals(actionName, StringComparison.OrdinalIgnoreCase)) == null)
             {
                 //判断用户token是否有效
+                if (!string.IsNullOrEmpty(token))
+                {
+                    CheckResult result = AuthAPI4Fun.ValidateToken(token);
+                    if (result.code == 100)
+                    {
+
+                        var entity = PersonService.LoginByComId(result.tokenInfo.UID);
+                        if (entity == null)
+                        {
+                            entity = PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);
+                        }
+                        if (entity != null)
+                        {
+                            filterContext.HttpContext.Session["LoginUser"] = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
+                        }
+                    }
+                }
+
                 if (controller.LoginUser == null)
                 {
-                    if (!string.IsNullOrEmpty(token))
+                    if (!controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))
                     {
-                        CheckResult result = AuthAPI4Fun.ValidateToken(token);
-                        if (result.code == 100)
+                        var actionMethod = actionMethodList.FirstOrDefault(x => x.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase));
+                        if (actionMethod != null)
                         {
+                            if (actionMethod.ReturnType.Name == "ViewResult" || actionMethod.ReturnType.Name == "ActionResult")
+                            {
+                                RedirectResult redirectResult = new RedirectResult("/login/index?redirecturl=" + requestUrl);
+                                filterContext.Result = redirectResult;
+                            }
+                            else if (actionMethod.ReturnType.Name == "JsonResult")
+                            {
+                                JsonResult jsonResult = new JsonResult();
+                                jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                                filterContext.RequestContext.HttpContext.Response.StatusCode = 9999;
+                                filterContext.Result = jsonResult;
+                            }
+                        }
+                    }
 
-                            var entity = PersonService.LoginByComId(result.tokenInfo.UID);
-                            if (entity == null)
-                            {
-                                entity=PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);
-                            }
-                            if(entity!=null)
-                                filterContext.HttpContext.Session["LoginUser"] = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
-                        }
-                    }
-                    else
-                    {
-                        if (!controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))
-                        {
-                            var actionMethod = actionMethodList.FirstOrDefault(x => x.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase));
-                            if (actionMethod != null)
-                            {
-                                if (actionMethod.ReturnType.Name == "ViewResult" || actionMethod.ReturnType.Name == "ActionResult")
-                                {
-                                    RedirectResult redirectResult = new RedirectResult("/login/index?redirecturl=" + requestUrl);
-                                    filterContext.Result = redirectResult;
-                                }
-                                else if (actionMethod.ReturnType.Name == "JsonResult")
-                                {
-                                    JsonResult jsonResult = new JsonResult();
-                                    jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                                    filterContext.RequestContext.HttpContext.Response.StatusCode = 9999;
-                                    filterContext.Result = jsonResult;
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }

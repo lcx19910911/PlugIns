@@ -38,7 +38,7 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.DinnerShop.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0);
+                var query = entities.DinnerShop.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0).Where(x=>x.PersonId.Equals(this.Client.LoginUser.UNID));
                 if (name.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(name));
