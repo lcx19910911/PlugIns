@@ -74,6 +74,7 @@ namespace Service
                         Remark = "平台用户"
                     };
                     entities.Person.Add(entity);
+                    entities.SaveChanges();
                 }
                 return entity;
             }
@@ -108,6 +109,7 @@ namespace Service
                         Remark = "平台用户"
                     };
                     entities.Person.Add(entity);
+                    entities.SaveChanges();
                 }
                 return entity;
             }

@@ -120,7 +120,7 @@ namespace Service
                 addEntity.CreatedTime = DateTime.Now;
                 addEntity.UpdatedTime = DateTime.Now;
                 addEntity.Flag = (long)GlobalFlag.Normal;
-                addEntity.PersonId = addPerson.UNID;
+                addEntity.PersonId = this.Client.LoginUser.UNID;
 
 
                 entities.DinnerShop.Add(addEntity);

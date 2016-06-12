@@ -26,7 +26,6 @@ namespace Repository
         }
     
         public virtual DbSet<UserJoinCounter> UserJoinCounter { get; set; }
-        public virtual DbSet<ScratchCard> ScratchCard { get; set; }
         public virtual DbSet<Prize> Prize { get; set; }
         public virtual DbSet<DinnerShop> DinnerShop { get; set; }
         public virtual DbSet<DinnerDish> DinnerDish { get; set; }
@@ -35,5 +34,6 @@ namespace Repository
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<DinnerCategory> DinnerCategory { get; set; }
+        public virtual DbSet<ScratchCard> ScratchCard { get; set; }
     }
 }

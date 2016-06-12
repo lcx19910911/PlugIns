@@ -15,7 +15,7 @@ namespace Repository
     public partial class ScratchCard
     {
         public string UNID { get; set; }
-        public string AppId { get; set; }
+        public string PersonId { get; set; }
         public string Name { get; set; }
         public string KeyWord { get; set; }
         public System.DateTime OngoingTime { get; set; }

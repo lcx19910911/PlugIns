@@ -72,10 +72,10 @@
           <Key>
             <PropertyRef Name="UNID" />
           </Key>
-          <Property Name="UNID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="OrderId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="DishId" Type="char" MaxLength="32" Nullable="false" />
-          <Property Name="DishName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DishName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="numeric" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
@@ -124,7 +124,7 @@
             <PropertyRef Name="UNID" />
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
-          <Property Name="AppId" Type="varchar" MaxLength="50" />
+          <Property Name="PersonId" Type="varchar" MaxLength="50" />
           <Property Name="Name" Type="varchar" MaxLength="64" />
           <Property Name="KeyWord" Type="varchar" MaxLength="64" />
           <Property Name="OngoingTime" Type="datetime" Nullable="false" />
@@ -149,13 +149,13 @@
           </Key>
           <Property Name="OpenId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="NickName" Type="varchar" MaxLength="50" />
-          <Property Name="HeadImgUrl" Type="varchar" MaxLength="200" />
+          <Property Name="HeadImgUrl" Type="varchar" MaxLength="500" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="Province" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="Sex" Type="int" />
-          <Property Name="MobilePhone" Type="varchar" MaxLength="50" />
-          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="MobilePhone" Type="varchar" MaxLength="11" />
+          <Property Name="CreatedTime" Type="datetime" />
         </EntityType>
         <EntityType Name="UserJoinCounter">
           <Key>
@@ -191,7 +191,6 @@
       <Schema Namespace="PlugInsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PlugInsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserJoinCounter" EntityType="PlugInsModel.UserJoinCounter" />
-          <EntitySet Name="ScratchCard" EntityType="PlugInsModel.ScratchCard" />
           <EntitySet Name="Prize" EntityType="PlugInsModel.Prize" />
           <EntitySet Name="DinnerShop" EntityType="PlugInsModel.DinnerShop" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
@@ -200,6 +199,7 @@
           <EntitySet Name="User" EntityType="PlugInsModel.User" />
           <EntitySet Name="Person" EntityType="PlugInsModel.Person" />
           <EntitySet Name="DinnerCategory" EntityType="PlugInsModel.DinnerCategory" />
+          <EntitySet Name="ScratchCard" EntityType="PlugInsModel.ScratchCard" />
           </EntityContainer>
         <EntityType Name="UserJoinCounter">
           <Key>
@@ -216,30 +216,6 @@
           <Property Name="SN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsCach" Type="Int32" Nullable="false" />
           <Property Name="CachTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="ScratchCard">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="AppId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="KeyWord" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RepeatNotice" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="PreheatingTitle" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="PreheatingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="PreheatingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="OngoingTitle" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="OngoingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="OngoingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="OverTitle" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="OverImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="OverDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Flag" Type="Int64" />
         </EntityType>
         <EntityType Name="Prize">
           <Key>
@@ -305,10 +281,10 @@
           <Key>
             <PropertyRef Name="UNID" />
           </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="OrderId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="DishId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="DishName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DishName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="Number" Type="Int32" Nullable="false" />
         </EntityType>
@@ -334,13 +310,13 @@
           </Key>
           <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HeadImgUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sex" Type="Int32" />
-          <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MobilePhone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -369,6 +345,30 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="ScratchCard">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="PersonId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="KeyWord" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RepeatNotice" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="PreheatingTitle" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="PreheatingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PreheatingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingTitle" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OngoingDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="OverTitle" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="OverImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OverDescribe" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Flag" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -388,31 +388,6 @@
                 <ScalarProperty Name="AppId" ColumnName="AppId" />
                 <ScalarProperty Name="TargetID" ColumnName="TargetID" />
                 <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ScratchCard">
-            <EntityTypeMapping TypeName="PlugInsModel.ScratchCard">
-              <MappingFragment StoreEntitySet="ScratchCard">
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="OverDescribe" ColumnName="OverDescribe" />
-                <ScalarProperty Name="OverImage" ColumnName="OverImage" />
-                <ScalarProperty Name="OverTitle" ColumnName="OverTitle" />
-                <ScalarProperty Name="OngoingDescribe" ColumnName="OngoingDescribe" />
-                <ScalarProperty Name="OngoingImage" ColumnName="OngoingImage" />
-                <ScalarProperty Name="OngoingTitle" ColumnName="OngoingTitle" />
-                <ScalarProperty Name="PreheatingDescribe" ColumnName="PreheatingDescribe" />
-                <ScalarProperty Name="PreheatingImage" ColumnName="PreheatingImage" />
-                <ScalarProperty Name="PreheatingTitle" ColumnName="PreheatingTitle" />
-                <ScalarProperty Name="RepeatNotice" ColumnName="RepeatNotice" />
-                <ScalarProperty Name="OverTime" ColumnName="OverTime" />
-                <ScalarProperty Name="OngoingTime" ColumnName="OngoingTime" />
-                <ScalarProperty Name="KeyWord" ColumnName="KeyWord" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AppId" ColumnName="AppId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -549,6 +524,31 @@
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScratchCard">
+            <EntityTypeMapping TypeName="PlugInsModel.ScratchCard">
+              <MappingFragment StoreEntitySet="ScratchCard">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="OverDescribe" ColumnName="OverDescribe" />
+                <ScalarProperty Name="OverImage" ColumnName="OverImage" />
+                <ScalarProperty Name="OverTitle" ColumnName="OverTitle" />
+                <ScalarProperty Name="OngoingDescribe" ColumnName="OngoingDescribe" />
+                <ScalarProperty Name="OngoingImage" ColumnName="OngoingImage" />
+                <ScalarProperty Name="OngoingTitle" ColumnName="OngoingTitle" />
+                <ScalarProperty Name="PreheatingDescribe" ColumnName="PreheatingDescribe" />
+                <ScalarProperty Name="PreheatingImage" ColumnName="PreheatingImage" />
+                <ScalarProperty Name="PreheatingTitle" ColumnName="PreheatingTitle" />
+                <ScalarProperty Name="RepeatNotice" ColumnName="RepeatNotice" />
+                <ScalarProperty Name="OverTime" ColumnName="OverTime" />
+                <ScalarProperty Name="OngoingTime" ColumnName="OngoingTime" />
+                <ScalarProperty Name="KeyWord" ColumnName="KeyWord" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>

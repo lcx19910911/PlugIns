@@ -378,6 +378,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
     <Content Include="Views\Base\TokenNotAvailable.cshtml" />
+    <Content Include="Views\Shared\_AreaLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

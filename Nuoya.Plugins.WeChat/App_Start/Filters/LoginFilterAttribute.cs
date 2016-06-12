@@ -44,8 +44,8 @@ namespace Nuoya.Plugins.WeChat.Filters
             if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName, StringComparison.OrdinalIgnoreCase) && x.Item2.Equals(actionName, StringComparison.OrdinalIgnoreCase)) == null)
             {
                 //判断用户token是否有效
-                if (!string.IsNullOrEmpty(token))
-                {
+                if (!string.IsNullOrEmpty(token)&& controller.LoginUser == null)
+                {                  
                     CheckResult result = AuthAPI4Fun.ValidateToken(token);
                     if (result.code == 100)
                     {

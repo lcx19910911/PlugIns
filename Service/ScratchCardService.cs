@@ -45,7 +45,7 @@ namespace Service
                 {
                     query = query.Where(x => x.Name.Contains(title));
                 }
-                //query = query.Where(x => x.AppId.Equals(this.Client.AppId));
+                query = query.Where(x => x.PersonId.Equals(this.Client.LoginUser.UNID));
                 if (createdTimeStart != null)
                 {
                     query = query.Where(x => x.OngoingTime >= createdTimeStart);
@@ -113,7 +113,7 @@ namespace Service
                 addEntity.CreatedTime = DateTime.Now;
                 addEntity.UpdatedTime = DateTime.Now;
                 addEntity.Flag = (long)GlobalFlag.Normal;
-                //addEntity.AppId = this.Client.AppId;
+                addEntity.PersonId = this.Client.LoginUser.UNID;
                 entities.ScratchCard.Add(addEntity);
 
                 var addPrizeEntity = model.AutoMap<Domain.ScratchCard.Update, Prize>();
