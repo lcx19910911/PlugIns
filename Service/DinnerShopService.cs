@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -286,7 +287,8 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var personId = (HttpContext.Current.User.Identity as UserIdentity<string>)?.PersonId;
+                
+                var personId = (Thread.CurrentPrincipal as UserIdentity<string>)?.PersonId;
                 var query = entities.DinnerShop.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
                 var list = new List<ApiDinnerShopModel>();
                 var prizeModel = new Prize();

@@ -15,6 +15,7 @@ using IService;
 using Extension;
 using System.Web;
 using Domain.API;
+using System.Threading;
 
 namespace Service
 {
@@ -89,7 +90,7 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var personId = (HttpContext.Current.User.Identity as UserIdentity<string>)?.PersonId;
+                var personId = (Thread.CurrentPrincipal as UserIdentity<string>)?.PersonId;
                 var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
                 var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
                 var list = new List<ScratchCardResult>();

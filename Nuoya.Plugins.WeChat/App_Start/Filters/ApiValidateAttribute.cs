@@ -24,7 +24,7 @@ namespace Nuoya.Plugins.WeChat.Filters
         {
             var qs = HttpUtility.ParseQueryString(filterContext.Request.RequestUri.Query);
             string token = qs[TokenName];
-
+            bool isValidate = false;
             //判断用户token是否有效
             if (!string.IsNullOrEmpty(token))
             {
@@ -40,12 +40,14 @@ namespace Nuoya.Plugins.WeChat.Filters
                     {
                         filterContext.ControllerContext.RouteData.Values[LogonUserName] = entity;
                         SetPrincipal(new UserPrincipal<string>(new ApiLoginUsere() { ShopId = entity.ShopId, PersonId = entity.UNID, LoginName = entity.Name }));
+                        isValidate = true;
                     }
                 }
             }
-            else
+
+            if (!isValidate)
             {
-                filterContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+                filterContext.Request.CreateResponse(HttpStatusCode.Unauthorized);                    
             }          
         }
 

@@ -15,7 +15,7 @@ namespace Core.Model
                 IsAuthenticated = true;
                 PersonId = user.PersonId;
                 ShopId = user.ShopId;
-                Name = user.LoginName.ToString();
+                Name = user.LoginName;
             }
         }
 
