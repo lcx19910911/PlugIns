@@ -16,18 +16,13 @@ namespace Nuoya.Plugins.WeChat.Api
     /// <summary>
     /// 活动接口
     /// </summary>
-    [LoginFilter]
+    [ApiValidate]
     public class ActivityController : ApiBaseController
     {
 
-        public ScratchCardService IScratchCardService=new ScratchCardService();
-        public DinnerShopService IDinnerShopService = new DinnerShopService();
+        public ScratchCardService ScratchCardService=new ScratchCardService();
+        public DinnerShopService DinnerShopService = new DinnerShopService();
 
-        //public ActivityController(IScratchCardService _IScratchCardService, IDinnerShopService _IDinnerShopService)
-        //{
-        //    this.IScratchCardService = _IScratchCardService;
-        //    this.IDinnerShopService = _IDinnerShopService;
-        //}
 
         /// <summary>
         /// 获取用户所有的刮刮卡
@@ -38,7 +33,7 @@ namespace Nuoya.Plugins.WeChat.Api
         {
             return await Task.Run(() =>
             {
-                return Result(IScratchCardService.Get_AllScratchCardList());
+                return Result(ScratchCardService.Get_AllScratchCardList());
             });               
         }
 
@@ -47,9 +42,12 @@ namespace Nuoya.Plugins.WeChat.Api
         /// </summary>
         /// <returns></returns>
         [ActionName("GetDinnerShopList")]
-        public WebResult<List<ApiDinnerShopModel>> GetDinnerShopList()
+        public async Task<WebResult<List<ApiDinnerShopModel>>> GetDinnerShopList()
         {
-            return Result(IDinnerShopService.Get_DinnerShopList());
+            return await Task.Run(() =>
+            {
+                return Result(DinnerShopService.Get_DinnerShopList());
+            });
         }
     }
 }

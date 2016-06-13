@@ -89,7 +89,8 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(this.Client.LoginUser.UNID));
+                var personId = (HttpContext.Current.User.Identity as UserIdentity<string>)?.PersonId;
+                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
                 var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
                 var list = new List<ScratchCardResult>();
                 var prizeModel = new Prize();

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Code
+namespace Core.Model
 {
     /// <summary>
     /// 登录用户

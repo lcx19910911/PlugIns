@@ -18,14 +18,14 @@ namespace Nuoya.Plugins.WeChat
             LogHelper.WriteCustom(string.Format("Application_Start At {0} \r\n", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss")), @"Application\", false);
             AreaRegistration.RegisterAllAreas();
 
-            //GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //脚本资源注册
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
-            //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }
 
         /// <summary>

@@ -36,7 +36,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var user = IPersonService.Login(account, password);
             if (user != null)
             {
-                    this.LoginUser = new Core.Code.LoginUser(user.UNID, user.Account, user.Name, "", user.ShopId, true);
+                    this.LoginUser = new Core.Model.LoginUser(user.UNID, user.Account, user.Name, "", user.ShopId, true);
                     return JResult(true);
             }
             else
@@ -45,7 +45,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
                 if (result != null && result.code == 100)
                 {
                     var entity = IPersonService.Manager_Person(result.data, account, password);
-                    this.LoginUser = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
+                    this.LoginUser = new Core.Model.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
                     return JResult(true);
                 }
                 else
