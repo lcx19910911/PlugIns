@@ -259,7 +259,7 @@ namespace Service
                 Domain.DinnerShop.Update model = new Domain.DinnerShop.Update();
 
                 var entity = entities.DinnerShop.Find(unid);
-                var personEntity = entities.Person.Where(x => x.UNID.Equals(entity.PersonId)).FirstOrDefault();
+                var personEntity = entities.Person.Where(x => x.ShopId.Equals(unid)).FirstOrDefault();
                 if (entity != null)
                 {
                     entity.AutoMap<DinnerShop, Domain.DinnerShop.Update>(model);

@@ -187,7 +187,7 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                return entities.DinnerDish.Where(x => x.DinnerCategoryId.Equals(cId)).ToList();
+                return entities.DinnerDish.Where(x => x.DinnerCategoryId.Equals(cId)&&x.State==1).ToList();
             }
         }
     }

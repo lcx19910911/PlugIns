@@ -40,28 +40,29 @@ namespace Nuoya.Plugins.WeChat.Filters
             var actionMethodList = filterContext.Controller.GetType().GetMethods();
             string requestUrl = filterContext.HttpContext.Request.Url.ToString();
             string token = filterContext.HttpContext.Request["token"];
+
+            //判断用户token是否有效
+            if (!string.IsNullOrEmpty(token) && controller.LoginUser == null)
+            {
+                CheckResult result = AuthAPI4Fun.ValidateToken(token);
+                if (result.code == 100)
+                {
+
+                    var entity = PersonService.LoginByComId(result.tokenInfo.UID);
+                    if (entity == null)
+                    {
+                        entity = PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);
+                    }
+                    if (entity != null)
+                    {
+                        filterContext.HttpContext.Session["LoginUser"] = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
+                    }
+                }
+            }
+
             //判断页面是否需要登录
             if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName, StringComparison.OrdinalIgnoreCase) && x.Item2.Equals(actionName, StringComparison.OrdinalIgnoreCase)) == null)
             {
-                //判断用户token是否有效
-                if (!string.IsNullOrEmpty(token)&& controller.LoginUser == null)
-                {                  
-                    CheckResult result = AuthAPI4Fun.ValidateToken(token);
-                    if (result.code == 100)
-                    {
-
-                        var entity = PersonService.LoginByComId(result.tokenInfo.UID);
-                        if (entity == null)
-                        {
-                            entity = PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);
-                        }
-                        if (entity != null)
-                        {
-                            filterContext.HttpContext.Session["LoginUser"] = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
-                        }
-                    }
-                }
-
                 if (controller.LoginUser == null)
                 {
                     if (!controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))

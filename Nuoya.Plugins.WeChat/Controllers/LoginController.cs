@@ -42,7 +42,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             else
             {
                 var result = AuthAPI4Fun.Login(account, password);
-                if (result != null && result.data != null)
+                if (result != null && result.code == 100)
                 {
                     var entity = IPersonService.Manager_Person(result.data, account, password);
                     this.LoginUser = new Core.Code.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
