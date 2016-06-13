@@ -42,6 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\ApiPrizeModel.cs" />
+    <Compile Include="API\ApiDinnerShopModel.cs" />
+    <Compile Include="API\ApiScratchCardModel.cs" />
+    <Compile Include="API\ApiUserJoinCounterModel.cs" />
+    <Compile Include="API\ApiUserModel.cs" />
     <Compile Include="Dinner\DinnerCategory\Update.cs" />
     <Compile Include="Dinner\DinnerDish\List.cs" />
     <Compile Include="Dinner\DinnerShop\List.cs" />
@@ -52,6 +57,7 @@
     <Compile Include="Person\List.cs" />
     <Compile Include="Person\Update.cs" />
     <Compile Include="PrizeResult.cs" />
+    <Compile Include="API\ScratchCardResult.cs" />
     <Compile Include="UserJoinCounter\UserJoinCounterModel.cs" />
     <Compile Include="Prize\Update.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

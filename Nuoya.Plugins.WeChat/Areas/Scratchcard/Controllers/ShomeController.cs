@@ -59,6 +59,18 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
             return JResult(pagelist);
         }
 
+
+        /// <summary>
+        /// 获取刮刮卡信息
+        /// </summary>
+        /// <returns></returns>
+        [LoginFilter]
+        public JsonResult GetScratchCardList()
+        {
+            var pagelist = IScratchCardService.Get_AllScratchCardList();
+            return JResult(pagelist);
+        }
+
         /// <summary>
         /// 增加
         /// </summary>

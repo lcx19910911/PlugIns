@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Nuoya.Plugins.WeChat.Controllers;
+using System.Web.Http;
 
 namespace Nuoya.Plugins.WeChat
 {
@@ -41,6 +41,8 @@ namespace Nuoya.Plugins.WeChat
             auditConfiguration.LoadRelationships = false;
             auditConfiguration.DefaultAuditable = true;
 
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }
 
         protected void Application_End(object sender, EventArgs e)

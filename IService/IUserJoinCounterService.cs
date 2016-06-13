@@ -35,5 +35,15 @@ namespace IService
         /// <param name="unid"></param>
         /// <returns></returns>
         string Cash(string unid);
+
+
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <param name="targetCode">活动类型 - 搜索项</param>
+        /// <param name="targetId">活动id - 搜索项</param>
+        /// <returns></returns>
+        //List<UserJoinCounterModel> Get_UserJoinCounterPageList(int targetCode, string targetId);
+
     }
 }

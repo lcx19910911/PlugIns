@@ -14,6 +14,7 @@ using Core.Web;
 using IService;
 using Extension;
 using System.Web;
+using Domain.API;
 
 namespace Service
 {
@@ -79,6 +80,39 @@ namespace Service
             }
         }
 
+
+        /// <summary>
+        /// 获取用户所有的刮刮卡
+        /// </summary>
+        /// <returns></returns>
+        public List<ScratchCardResult> Get_AllScratchCardList()
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(this.Client.LoginUser.UNID));
+                var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
+                var list = new List<ScratchCardResult>();
+                var prizeModel = new Prize();
+                query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
+                {
+                    if (x != null)
+                    {
+                        prizeDic.TryGetValue(x.UNID, out prizeModel);
+                        ScratchCardResult model = new ScratchCardResult()
+                        {
+                            ScratchCard = x.AutoMap<ScratchCard, ApiScratchCardModel>(),
+                            Prize = prizeModel.AutoMap<Prize, ApiPrizeModel>()
+                        };
+                        model.ScratchCard.OngoingImage = UrlHelper.GetFullPath(model.ScratchCard.OngoingImage);
+                        model.ScratchCard.PreheatingImage = UrlHelper.GetFullPath(model.ScratchCard.PreheatingImage);
+                        model.ScratchCard.OverImage = UrlHelper.GetFullPath(model.ScratchCard.OverImage);
+                        list.Add(model);
+                    }
+                });
+
+                return list;
+            }
+        }
 
         /// <summary>
         /// 增加

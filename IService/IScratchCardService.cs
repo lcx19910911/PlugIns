@@ -1,7 +1,9 @@
 ﻿using Core.Model;
 using Domain;
+using Domain.API;
 using Domain.ScratchCard;
 using System;
+using System.Collections.Generic;
 
 namespace IService
 {
@@ -20,6 +22,14 @@ namespace IService
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         PageList<ScratchCardModel> Get_ScratchCardPageList(int pageIndex, int pageSize, string title, DateTime? createdTimeStart, DateTime? createdTimeEnd);
+
+
+
+        /// <summary>
+        /// 获取用户所有的刮刮卡
+        /// </summary>
+        /// <returns></returns>
+        List<ScratchCardResult> Get_AllScratchCardList();
 
         /// <summary>
         /// 增加

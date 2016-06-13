@@ -110,6 +110,7 @@
     <Compile Include="Helper\EntityHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\UploadHelper.cs" />
+    <Compile Include="Helper\UrlHelper.cs" />
     <Compile Include="Model\LoginUser.cs" />
     <Compile Include="Model\PageList.cs" />
     <Compile Include="Model\QueryKeyValue.cs" />

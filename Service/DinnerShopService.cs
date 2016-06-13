@@ -1,6 +1,7 @@
 ﻿using Core.Extensions;
 using Core.Helper;
 using Core.Model;
+using Domain.API;
 using EnumPro;
 using Extension;
 using IService;
@@ -273,6 +274,30 @@ namespace Service
                 else
                     return null;
                 return model;
+            }
+        }
+
+
+        /// <summary>
+        /// 获取当前用户的店铺
+        /// </summary>
+        /// <returns></returns>
+        public List<ApiDinnerShopModel> Get_DinnerShopList()
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var query = entities.DinnerShop.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(this.Client.LoginUser.UNID));
+                var list = new List<ApiDinnerShopModel>();
+                var prizeModel = new Prize();
+                query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
+                {
+                    if (x != null)
+                    {
+                        list.Add(x.AutoMap<DinnerShop, ApiDinnerShopModel>());
+                    }
+                });
+
+                return list;
             }
         }
     }

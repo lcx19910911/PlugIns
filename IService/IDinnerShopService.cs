@@ -1,5 +1,6 @@
 ﻿using Core.Model;
 using Domain;
+using Domain.API;
 using Domain.ScratchCard;
 using Repository;
 using System;
@@ -68,5 +69,11 @@ namespace IService
         /// <param name="unids"></param>
         /// <returns></returns>
         Domain.DinnerShop.Update Find_DinnerShop(string unid);
+
+        /// <summary>
+        /// 获取当前用户的店铺
+        /// </summary>
+        /// <returns></returns>
+        List<ApiDinnerShopModel> Get_DinnerShopList();
     }
 }
