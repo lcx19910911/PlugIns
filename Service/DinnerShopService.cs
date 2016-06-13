@@ -293,8 +293,11 @@ namespace Service
                 {
                     if (x != null)
                     {
-                        list.Add(x.AutoMap<DinnerShop, ApiDinnerShopModel>());
+                        ApiDinnerShopModel model = x.AutoMap<DinnerShop, ApiDinnerShopModel>();
+                        model.Image= UrlHelper.GetFullPath(model.Image);
+                        list.Add(model);
                     }
+
                 });
 
                 return list;

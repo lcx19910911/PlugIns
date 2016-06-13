@@ -54,6 +54,17 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         }
 
         /// <summary>
+        /// 获取店铺
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetDinnerShopList()
+        {
+
+            var pagelist = IDinnerShopService.Get_DinnerShopList();
+            return JResult(pagelist);
+        }
+
+        /// <summary>
         /// 增加
         /// </summary>
         /// <param name="model"</param>

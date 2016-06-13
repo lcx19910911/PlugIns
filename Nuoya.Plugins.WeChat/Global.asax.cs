@@ -1,6 +1,4 @@
 ﻿using Core.Util;
-using EntityFramework.Audit;
-using StackExchange.Profiling;
 using System;
 using System.Reflection;
 using System.Threading;
@@ -9,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
+using System.Web.SessionState;
 
 namespace Nuoya.Plugins.WeChat
 {
@@ -19,30 +18,23 @@ namespace Nuoya.Plugins.WeChat
             LogHelper.WriteCustom(string.Format("Application_Start At {0} \r\n", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss")), @"Application\", false);
             AreaRegistration.RegisterAllAreas();
 
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //脚本资源注册
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            MiniProfiler.Settings.Results_Authorize = Request =>
-            {
-                //string name = Request.Cookies["name"] == null ? "" : Request.Cookies["name"].Value;
-                //if (name.Equals("admin"))
-                //    return true;
-                //else
-                //    return false;
-                return true;
-            };
 
-            StackExchange.Profiling.EntityFramework6.MiniProfilerEF6.Initialize();
-
-            var auditConfiguration = AuditConfiguration.Default;
-            auditConfiguration.IncludeRelationships = true;
-            auditConfiguration.LoadRelationships = false;
-            auditConfiguration.DefaultAuditable = true;
-
-            //WebApiConfig.Register(GlobalConfiguration.Configuration);
             //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+        }
+
+        /// <summary>
+        /// 开启api的seesion功能
+        /// </summary>
+        public override void Init()
+        {
+            this.PostAuthenticateRequest += (sender, e) => HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            base.Init();
         }
 
         protected void Application_End(object sender, EventArgs e)
@@ -83,16 +75,11 @@ namespace Nuoya.Plugins.WeChat
 
         protected void Application_BeginRequest()
         {
-            if (Request.IsLocal)//这里是允许本地访问启动监控,可不写
-            {
-                MiniProfiler.Start();
-
-            }
+           
         }
 
         protected void Application_EndRequest()
         {
-            MiniProfiler.Stop();
         }
     }
 }
