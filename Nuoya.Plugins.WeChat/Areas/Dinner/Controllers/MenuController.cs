@@ -58,7 +58,13 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
             //判断是否已有订单
             ViewBag.ExistsOrder = this.Request.Cookies["had"] == null ? false : (string.IsNullOrEmpty(this.Request.Cookies["had"].Value) ? false : true);
             //店铺id
-            unid = CacheHelper.Get<string>("dinner-shopId");
+            if (string.IsNullOrEmpty(unid))
+                unid = CacheHelper.Get<string>("dinner-shopId");
+            else
+                CacheHelper.Get<string>("dinner-shopId", CacheTimeOption.TwoHour, () =>
+                {
+                    return unid;
+                });
 
             if (string.IsNullOrEmpty(unid))
             {

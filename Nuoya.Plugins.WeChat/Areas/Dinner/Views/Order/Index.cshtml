@@ -1,12 +1,12 @@
 ﻿
 
 @{
-    ViewBag.Title = "未处理订单";
+    ViewBag.Title = "订单";
     Layout = "~/Areas/Dinner/Views/Shared/_Layout.cshtml";
 }
 
 <div class="am-cf am-padding">
-    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">未处理订单</strong></div>
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">@(Request["state"]=="0"?"未处理":(Request["state"] == "1" ?"确认":"无效"))订单</strong></div>
 </div>
 <div id="searchDomain">
     <input type="hidden" name="state" value="@(Request["state"])" />

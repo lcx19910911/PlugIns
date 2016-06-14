@@ -232,7 +232,7 @@
                 _createContent(json.List);//创建内容
                 _createPaginate(json);//创建页码
                 $.Nuoya.callFunction(options.drawCallback, json);
-                $.Nuoya.setOperateHideByClass();
+                //$.Nuoya.setOperateHideByClass();
                 tableObj.find("thead input:checkbox").prop("checked", false);
             });
         }

@@ -24,31 +24,29 @@ namespace Nuoya.Plugins.WeChat.App_Start.Filters
             string token = qs[TokenName];
             bool isValidate = false;
             //判断用户token是否有效
-            if (HttpContext.Current.Session[LogonUserName] == null)
+
+            if (!string.IsNullOrEmpty(token))
             {
-                if (!string.IsNullOrEmpty(token))
+                CheckResult result = AuthAPI4Fun.ValidateToken(token);
+                if (result.code == 100)
                 {
-                    CheckResult result = AuthAPI4Fun.ValidateToken(token);
-                    if (result.code == 100)
+                    var entity = PersonService.LoginByComId(result.tokenInfo.UID);
+                    if (entity == null)
                     {
-                        var entity = PersonService.LoginByComId(result.tokenInfo.UID);
-                        if (entity == null)
-                        {
-                            entity = PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);
-                        }
-                        if (entity != null)
-                        {
-                            isValidate = true;
-                            HttpContext.Current.Session.Add(LogonUserName, new Core.Model.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false));
-                        }
+                        entity = PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);
+                    }
+                    if (entity != null)
+                    {
+                        isValidate = true;
+                        HttpContext.Current.Session.Add(LogonUserName, new Core.Model.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false));
                     }
                 }
+            }
 
 
-                if (!isValidate)
-                {
-                    base.HandleUnauthorizedRequest(filterContext);
-                }
+            if (!isValidate)
+            {
+                base.HandleUnauthorizedRequest(filterContext);
             }
         }
 

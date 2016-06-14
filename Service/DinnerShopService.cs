@@ -97,7 +97,7 @@ namespace Service
                 if (query.Where(x => x.Name.Equals(model.Name) && ((x.Flag & (long)GlobalFlag.Removed) != 0)).Count() != 0)
                     return "店铺名称已存在";
 
-                if (entities.Person.Where(x => x.Account.Equals(model.Account) && ((x.Flag & (long)GlobalFlag.Removed) != 0)).Count() != 0)
+                if (entities.Person.Where(x => x.Account.Equals(model.Account)).Count() != 0)
                     return "店铺登陆账号已存在";
                 string password = Core.Util.CryptoHelper.MD5_Encrypt(model.Password);
 
@@ -154,19 +154,21 @@ namespace Service
                     if (query.Where(x => x.Name.Equals(model.Name) && !x.UNID.Equals(unid) && ((x.Flag & (long)GlobalFlag.Removed) != 0)).Count() != 0)
                         return "店铺名称已存在";
 
-                    var personEntity = entities.Person.Where(x => x.UNID.Equals(oldEntity.PersonId) && ((x.Flag & (long)GlobalFlag.Removed) != 0)).FirstOrDefault();
+                    var personEntity = entities.Person.Where(x => x.ShopId.Equals(oldEntity.UNID)).FirstOrDefault();
                     if (personEntity == null)
                         return "店铺登陆账号不存在";
-                    string password = Core.Util.CryptoHelper.MD5_Encrypt(model.Password);
-                    if (personEntity.Account != model.Account || personEntity.Password != password)
+
+                    if (personEntity.Account != model.Account)
                     {
-                        if (entities.Person.Where(x => x.Account.Equals(model.Account) && !x.UNID.Equals(oldEntity.PersonId) && ((x.Flag & (long)GlobalFlag.Removed) != 0)).Count() != 0)
+                        if (entities.Person.Where(x => x.Account.Equals(model.Account)).Count() != 0)
                             return "账号已存在";
                         personEntity.Account = model.Account;
-                        if (!string.IsNullOrEmpty(model.Password))
-                            personEntity.Password = password;
                     }
-
+                    if (!string.IsNullOrEmpty(model.Password))
+                    {
+                        string password = Core.Util.CryptoHelper.MD5_Encrypt(model.Password);
+                        personEntity.Password = password;
+                    }
                     model.AutoMap<Domain.DinnerShop.Update, DinnerShop>(oldEntity);
                     oldEntity.UpdatedTime = DateTime.Now;
                 }

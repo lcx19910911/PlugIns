@@ -65,8 +65,6 @@
                 $.Nuoya.alert("请输入密码");
                 return false;
             }
-            if (e)
-            { e.preventDefault(); }
             $.Nuoya.action("/Login/Submit", { password: document.forms[0].password.value, account: document.forms[0].account.value }, function (data) {
                 if (data) {
                     window.location.href = "@(string.IsNullOrEmpty(Request["redirecturl"])?"/home/index": Request["redirecturl"])";
