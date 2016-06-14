@@ -90,34 +90,29 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var personId = (Thread.CurrentPrincipal.Identity as UserIdentity<string>)?.PersonId;
-                if (personId.IsNotNullOrEmpty())
-                {
-                    var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
-                    var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
-                    var list = new List<ScratchCardResult>();
-                    var prizeModel = new Prize();
-                    query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
-                    {
-                        if (x != null)
-                        {
-                            prizeDic.TryGetValue(x.UNID, out prizeModel);
-                            ScratchCardResult model = new ScratchCardResult()
-                            {
-                                ScratchCard = x.AutoMap<ScratchCard, ApiScratchCardModel>(),
-                                Prize = prizeModel.AutoMap<Prize, ApiPrizeModel>()
-                            };
-                            model.ScratchCard.OngoingImage = UrlHelper.GetFullPath(model.ScratchCard.OngoingImage);
-                            model.ScratchCard.PreheatingImage = UrlHelper.GetFullPath(model.ScratchCard.PreheatingImage);
-                            model.ScratchCard.OverImage = UrlHelper.GetFullPath(model.ScratchCard.OverImage);
-                            list.Add(model);
-                        }
-                    });
 
-                    return list;
-                }
-                else
-                    return null;
+                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(Client.LoginUser.UNID));
+                var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
+                var list = new List<ScratchCardResult>();
+                var prizeModel = new Prize();
+                query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
+                {
+                    if (x != null)
+                    {
+                        prizeDic.TryGetValue(x.UNID, out prizeModel);
+                        ScratchCardResult model = new ScratchCardResult()
+                        {
+                            ScratchCard = x.AutoMap<ScratchCard, ApiScratchCardModel>(),
+                            Prize = prizeModel.AutoMap<Prize, ApiPrizeModel>()
+                        };
+                        model.ScratchCard.OngoingImage = UrlHelper.GetFullPath(model.ScratchCard.OngoingImage);
+                        model.ScratchCard.PreheatingImage = UrlHelper.GetFullPath(model.ScratchCard.PreheatingImage);
+                        model.ScratchCard.OverImage = UrlHelper.GetFullPath(model.ScratchCard.OverImage);
+                        list.Add(model);
+                    }
+                });
+
+                return list;
             }
         }
 

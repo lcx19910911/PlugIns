@@ -13,6 +13,9 @@ namespace Nuoya.Plugins.WeChat
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private const string WebApiPrefix = "APi";
+        private static string WebApiExecutePath = string.Format("~/{0}", WebApiPrefix);
+
         protected void Application_Start()
         {
             LogHelper.WriteCustom(string.Format("Application_Start At {0} \r\n", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss")), @"Application\", false);
