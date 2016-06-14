@@ -287,23 +287,29 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                
-                var personId = (Thread.CurrentPrincipal as UserIdentity<string>)?.PersonId;
-                var query = entities.DinnerShop.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
-                var list = new List<ApiDinnerShopModel>();
-                var prizeModel = new Prize();
-                query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
+
+                var personId = (Thread.CurrentPrincipal.Identity as UserIdentity<string>)?.PersonId;
+
+                if (personId.IsNotNullOrEmpty())
                 {
-                    if (x != null)
+                    var query = entities.DinnerShop.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
+                    var list = new List<ApiDinnerShopModel>();
+                    var prizeModel = new Prize();
+                    query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
                     {
-                        ApiDinnerShopModel model = x.AutoMap<DinnerShop, ApiDinnerShopModel>();
-                        model.Image= UrlHelper.GetFullPath(model.Image);
-                        list.Add(model);
-                    }
+                        if (x != null)
+                        {
+                            ApiDinnerShopModel model = x.AutoMap<DinnerShop, ApiDinnerShopModel>();
+                            model.Image = UrlHelper.GetFullPath(model.Image);
+                            list.Add(model);
+                        }
 
-                });
+                    });
 
-                return list;
+                    return list;
+                }
+                else
+                    return null;
             }
         }
     }

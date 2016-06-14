@@ -22,7 +22,7 @@ namespace Service
     /// <summary>
     /// 呱呱啦
     /// </summary>
-    public  class ScratchCardService: BaseService, IScratchCardService
+    public class ScratchCardService : BaseService, IScratchCardService
     {
         public ScratchCardService()
         {
@@ -42,7 +42,7 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag&(long)GlobalFlag.Removed)==0);
+                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0);
                 if (title.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(title));
@@ -90,29 +90,34 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var personId = (Thread.CurrentPrincipal as UserIdentity<string>)?.PersonId;
-                var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
-                var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
-                var list = new List<ScratchCardResult>();
-                var prizeModel = new Prize();
-                query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
+                var personId = (Thread.CurrentPrincipal.Identity as UserIdentity<string>)?.PersonId;
+                if (personId.IsNotNullOrEmpty())
                 {
-                    if (x != null)
+                    var query = entities.ScratchCard.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(personId));
+                    var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
+                    var list = new List<ScratchCardResult>();
+                    var prizeModel = new Prize();
+                    query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
                     {
-                        prizeDic.TryGetValue(x.UNID, out prizeModel);
-                        ScratchCardResult model = new ScratchCardResult()
+                        if (x != null)
                         {
-                            ScratchCard = x.AutoMap<ScratchCard, ApiScratchCardModel>(),
-                            Prize = prizeModel.AutoMap<Prize, ApiPrizeModel>()
-                        };
-                        model.ScratchCard.OngoingImage = UrlHelper.GetFullPath(model.ScratchCard.OngoingImage);
-                        model.ScratchCard.PreheatingImage = UrlHelper.GetFullPath(model.ScratchCard.PreheatingImage);
-                        model.ScratchCard.OverImage = UrlHelper.GetFullPath(model.ScratchCard.OverImage);
-                        list.Add(model);
-                    }
-                });
+                            prizeDic.TryGetValue(x.UNID, out prizeModel);
+                            ScratchCardResult model = new ScratchCardResult()
+                            {
+                                ScratchCard = x.AutoMap<ScratchCard, ApiScratchCardModel>(),
+                                Prize = prizeModel.AutoMap<Prize, ApiPrizeModel>()
+                            };
+                            model.ScratchCard.OngoingImage = UrlHelper.GetFullPath(model.ScratchCard.OngoingImage);
+                            model.ScratchCard.PreheatingImage = UrlHelper.GetFullPath(model.ScratchCard.PreheatingImage);
+                            model.ScratchCard.OverImage = UrlHelper.GetFullPath(model.ScratchCard.OverImage);
+                            list.Add(model);
+                        }
+                    });
 
-                return list;
+                    return list;
+                }
+                else
+                    return null;
             }
         }
 
@@ -156,7 +161,7 @@ namespace Service
                 if (model.AllCountLimt < model.DayLimt)
                     return "个人抽奖次数总计要大于或等于每天次数限制";
 
-                if (model.ExpectedPeopleCount < (model.OnePrizeCount+model.TwoPrizeCount+model.ThreePrizeCount))
+                if (model.ExpectedPeopleCount < (model.OnePrizeCount + model.TwoPrizeCount + model.ThreePrizeCount))
                     return "预计参与人数须大于奖品的总数";
 
                 addPrizeEntity.UNID = Guid.NewGuid().ToString("N");
@@ -243,7 +248,7 @@ namespace Service
             if (!unid.IsNotNullOrEmpty())
                 return null;
             using (DbRepository entities = new DbRepository())
-            {             
+            {
                 Domain.ScratchCard.Update model = new Update();
                 var scratchScardEntity = entities.ScratchCard.Find(unid);
                 var prizeEntity = entities.Prize.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).FirstOrDefault();
@@ -256,7 +261,7 @@ namespace Service
 
                 var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
-                var hadJoinList = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)&& x.CreatedTime >= startDate && x.CreatedTime < endDate).ToList();
+                var hadJoinList = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid) && x.CreatedTime >= startDate && x.CreatedTime < endDate).ToList();
 
                 return model;
             }
@@ -365,15 +370,15 @@ namespace Service
                 var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
                 //当天参与情况
-                if (hadPrizeList.Where(x => x.OpenID.Equals(openId)&& x.CreatedTime >= startDate && x.CreatedTime < endDate).Count() >= prizeEntity.DayLimt)
+                if (hadPrizeList.Where(x => x.OpenID.Equals(openId) && x.CreatedTime >= startDate && x.CreatedTime < endDate).Count() >= prizeEntity.DayLimt)
                 {
-                    result.Result =scratchScardEntity.RepeatNotice;
+                    result.Result = scratchScardEntity.RepeatNotice;
                     return result;
                 }
 
                 //随机概率
                 Random randow = new Random();
-                int num = randow.Next(1, prizeEntity.ExpectedPeopleCount-onePrizeNum-twoPrizeNum-threePrizeNum);
+                int num = randow.Next(1, prizeEntity.ExpectedPeopleCount - onePrizeNum - twoPrizeNum - threePrizeNum);
 
                 //保存的参与抽奖情况
                 var userJoin = new UserJoinCounter();
@@ -387,21 +392,21 @@ namespace Service
                 userJoin.IsCach = 0;
 
                 //减去已中奖个数
-                if (num <= prizeEntity.OnePrizeCount- onePrizeNum)
+                if (num <= prizeEntity.OnePrizeCount - onePrizeNum)
                 {
                     userJoin.IsPrize = 1;
                     userJoin.PrizeGrade = 1;
                     result.Result = "一等奖";
                     result.IsPrize = true;
                 }
-                else if (prizeEntity.OnePrizeCount- onePrizeNum < num && num <= (prizeEntity.OnePrizeCount- onePrizeNum + prizeEntity.TwoPrizeCount-twoPrizeNum))
+                else if (prizeEntity.OnePrizeCount - onePrizeNum < num && num <= (prizeEntity.OnePrizeCount - onePrizeNum + prizeEntity.TwoPrizeCount - twoPrizeNum))
                 {
                     userJoin.IsPrize = 1;
                     userJoin.PrizeGrade = 2;
                     result.Result = "二等奖";
                     result.IsPrize = true;
                 }
-                else if ((prizeEntity.OnePrizeCount - onePrizeNum + prizeEntity.TwoPrizeCount-twoPrizeNum) < num && num <= (prizeEntity.AllCount - onePrizeNum - twoPrizeNum - threePrizeNum))
+                else if ((prizeEntity.OnePrizeCount - onePrizeNum + prizeEntity.TwoPrizeCount - twoPrizeNum) < num && num <= (prizeEntity.AllCount - onePrizeNum - twoPrizeNum - threePrizeNum))
                 {
                     userJoin.IsPrize = 1;
                     userJoin.PrizeGrade = 3;
@@ -463,10 +468,11 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 //找到实体
-                entities.ScratchCard.Where(x=>unids.Contains(x.UNID)).ToList().ForEach(x=> {
-                    x.Flag = (x.Flag|(long)GlobalFlag.Removed);
+                entities.ScratchCard.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x =>
+                {
+                    x.Flag = (x.Flag | (long)GlobalFlag.Removed);
                 });
-                return entities.SaveChanges() > 0 ? true : false;             
+                return entities.SaveChanges() > 0 ? true : false;
             }
         }
     }

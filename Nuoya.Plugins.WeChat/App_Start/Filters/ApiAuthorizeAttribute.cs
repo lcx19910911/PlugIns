@@ -1,26 +1,24 @@
-﻿
-using Core.AuthAPI;
+﻿using Core.AuthAPI;
 using Core.Model;
 using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
 using System.Web.Http.Controllers;
 
-namespace Nuoya.Plugins.WeChat.Filters
+namespace Nuoya.Plugins.WeChat.App_Start.Filters
 {
-    public class ApiValidateAttribute : System.Web.Http.Filters.ActionFilterAttribute
+    public class ApiAuthorizeAttribute : System.Web.Http.AuthorizeAttribute
     {
         public const string TokenName = "token";
         public const string LogonUserName = "LoginUser";
         private PersonService PersonService = new PersonService();
 
-        public override void OnActionExecuting(HttpActionContext filterContext)
+        public override void OnAuthorization(HttpActionContext filterContext)
         {
             var qs = HttpUtility.ParseQueryString(filterContext.Request.RequestUri.Query);
             string token = qs[TokenName];
@@ -47,8 +45,8 @@ namespace Nuoya.Plugins.WeChat.Filters
 
             if (!isValidate)
             {
-                filterContext.Request.CreateResponse(HttpStatusCode.Unauthorized);                    
-            }          
+                base.HandleUnauthorizedRequest(filterContext);
+            }
         }
 
         private void SetPrincipal(IPrincipal principal)
@@ -59,5 +57,6 @@ namespace Nuoya.Plugins.WeChat.Filters
                 HttpContext.Current.User = principal;
             }
         }
+
     }
 }

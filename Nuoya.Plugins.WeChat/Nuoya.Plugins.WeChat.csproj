@@ -317,11 +317,11 @@
     <Compile Include="Api\ApiBaseController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Filters\ApiAuthorizeAttribute.cs" />
     <Compile Include="App_Start\Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\LogAttribute.cs" />
     <Compile Include="App_Start\Filters\OAuthFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\LoginFilterAttribute.cs" />
-    <Compile Include="App_Start\Filters\ApiValidateAttribute.cs" />
     <Compile Include="App_Start\Filters\TimerAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />

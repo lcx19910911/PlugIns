@@ -1,6 +1,7 @@
 ﻿using Core.Model;
 using Domain.API;
 using IService;
+using Nuoya.Plugins.WeChat.App_Start.Filters;
 using Nuoya.Plugins.WeChat.Filters;
 using Service;
 using System;
@@ -16,7 +17,7 @@ namespace Nuoya.Plugins.WeChat.Api
     /// <summary>
     /// 活动接口
     /// </summary>
-    [ApiValidate]
+    [ApiAuthorize]
     public class ActivityController : ApiBaseController
     {
 
