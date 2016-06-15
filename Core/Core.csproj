@@ -145,6 +145,10 @@
       <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
       <Name>Enum</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

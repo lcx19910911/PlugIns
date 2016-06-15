@@ -33,19 +33,19 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public JsonResult Submit(string account, string password)
         {
-            var user = IPersonService.Login(account, password);
-            if (user != null)
+            var person = IPersonService.Login(account, password);
+            if (person != null)
             {
-                    this.LoginUser = new Core.Model.LoginUser(user.UNID, user.Account, user.Name, "", user.ShopId, true);
-                    return JResult(true);
+                this.LoginUser = new Core.Model.LoginUser(person);
+                return JResult(true);
             }
             else
             {
                 var result = AuthAPI4Fun.Login(account, password);
                 if (result != null && result.code == 100)
                 {
-                    var entity = IPersonService.Manager_Person(result.data, account, password);
-                    this.LoginUser = new Core.Model.LoginUser(entity.UNID, entity.Account, entity.Name, entity.ComId, null, false);
+                    person = IPersonService.Manager_Person(result.data, account, password);
+                    this.LoginUser = new Core.Model.LoginUser(person);
                     return JResult(true);
                 }
                 else

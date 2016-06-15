@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Repository;
 
 namespace Core.Model
 {
@@ -12,14 +13,14 @@ namespace Core.Model
     /// </summary>
     public class LoginUser
     {
-        public LoginUser(string UNID, string Account, string Name, string ComId,string ShopId,bool IsChildren)
+        public LoginUser(Person person)
         {
-            this.UNID = UNID;
-            this.Account = Account;
-            this.Name = Name;
-            this.ComId = ComId;
-            this.ShopId = ShopId;
-            this.IsChildren = IsChildren;
+            this.UNID = person.UNID;
+            this.Account = person.Account;
+            this.Name = person.Name;
+            this.ComId = person.ComId;
+            this.ShopId = person.ShopId;
+            this.IsChildren = person.IsChildren == 1 ? true : false;
         }
 
         /// <summary>

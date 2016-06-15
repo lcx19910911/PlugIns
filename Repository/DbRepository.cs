@@ -45,7 +45,6 @@ namespace Repository
                 {
                     return -1;
                 }
-                Core.Util.LogHelper.WriteException(ex);
                 return 0;
             }
            

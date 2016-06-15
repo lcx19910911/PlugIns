@@ -36,7 +36,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// </summary>
         /// <param name="unid">店铺id</param>
         /// <param name="info">微信用户信息json化字符串</param>
-        /// <returns></returns>
+        /// <returns>页面缓存1小时</returns>
         //[OAuthFilter]
         public ActionResult Index(string unid,string info)
         {
