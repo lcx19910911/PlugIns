@@ -18,12 +18,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
     /// <summary>
     /// 刮刮卡
     /// </summary>
-    public class ShomeController : BaseController
+    public class HomeController : ScratchcardBaseController
     {
         public IScratchCardService IScratchCardService;
         public IUserService IUserService;
 
-        public ShomeController(IScratchCardService _IScratchCardService, IUserService _IUserService)
+        public HomeController(IScratchCardService _IScratchCardService, IUserService _IUserService)
         {
             this.IScratchCardService = _IScratchCardService;
             this.IUserService = _IUserService;

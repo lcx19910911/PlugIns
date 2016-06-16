@@ -45,7 +45,7 @@ namespace Service
                 }
                 if (categoryId.IsNotNullOrEmpty() && !categoryId.Equals("0"))
                 {
-                    query = query.Where(x => x.DinnerCategoryId.Contains(categoryId));
+                    query = query.Where(x => x.CategoryId.Contains(categoryId));
                 }
                 if (createdTimeStart != null)
                 {
@@ -59,6 +59,8 @@ namespace Service
 
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+                var categpryList = entities.Category.ToDictionary(x => x.UNID);
 
                 var returnList = list.AutoMap<DinnerDish, Domain.DinnerDish.List>();
 
@@ -76,7 +78,7 @@ namespace Service
         {
             if (model == null
                 || !model.Name.IsNotNullOrEmpty()
-                || !model.DinnerCategoryId.IsNotNullOrEmpty()
+                || !model.CategoryId.IsNotNullOrEmpty()
                 || model.Price == 0
                 || !model.Image.IsNotNullOrEmpty()
                 )
@@ -84,7 +86,7 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 var query = entities.DinnerDish.AsQueryable();
-                if (query.Where(x => x.Name.Equals(model.Name) && x.DinnerCategoryId.Equals(model.DinnerCategoryId)).Count() != 0)
+                if (query.Where(x => x.Name.Equals(model.Name) && x.CategoryId.Equals(model.CategoryId)).Count() != 0)
                     return "菜品名称已存在";
 
                 model.UNID = Guid.NewGuid().ToString("N");
@@ -108,7 +110,7 @@ namespace Service
         {
             if (model == null
                 || !model.Name.IsNotNullOrEmpty()
-                || !model.DinnerCategoryId.IsNotNullOrEmpty()
+                || !model.CategoryId.IsNotNullOrEmpty()
                 || model.Price == 0
                 || !model.Image.IsNotNullOrEmpty()
                 )
@@ -119,13 +121,13 @@ namespace Service
                 if (oldEntity != null)
                 {
                     var query = entities.DinnerDish.AsQueryable();
-                    if (query.Where(x => x.Name.Equals(model.Name) && !x.UNID.Equals(unid) && x.DinnerCategoryId.Equals(model.DinnerCategoryId)).Count() != 0)
+                    if (query.Where(x => x.Name.Equals(model.Name) && !x.UNID.Equals(unid) && x.CategoryId.Equals(model.CategoryId)).Count() != 0)
                         return "菜品名称已存在";
 
                     oldEntity.Name = model.Name;
                     oldEntity.Sort = model.Sort;
                     oldEntity.State = model.State;
-                    oldEntity.DinnerCategoryId = model.DinnerCategoryId;
+                    oldEntity.CategoryId = model.CategoryId;
                     oldEntity.Image = model.Image;
                     oldEntity.Price = model.Price;
                     oldEntity.Label = model.Label;
@@ -187,7 +189,7 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                return entities.DinnerDish.Where(x => x.DinnerCategoryId.Equals(cId)&&x.State==1).ToList();
+                return entities.DinnerDish.Where(x => x.CategoryId.Equals(cId)&&x.State==1).ToList();
             }
         }
     }

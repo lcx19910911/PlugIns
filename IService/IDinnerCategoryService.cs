@@ -19,14 +19,14 @@ namespace IService
         /// <param name="pageSize">分页大小</param>
         /// <param name="name">分类名 - 搜索项</param>
         /// <returns></returns>
-        PageList<DinnerCategory> Get_DinnerCategoryPageList(int pageIndex, int pageSize, string name);
+        PageList<Category> Get_DinnerCategoryPageList(int pageIndex, int pageSize, string name);
 
         /// <summary>
         /// 增加
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        string Add_DinnerCategory(DinnerCategory model);
+        string Add_DinnerCategory(Category model);
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace IService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        string Update_DinnerCategory(DinnerCategory model, string unid);
+        string Update_DinnerCategory(Category model, string unid);
 
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace IService
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        DinnerCategory Find_DinnerCategory(string unid);
+        Category Find_DinnerCategory(string unid);
 
         /// <summary>
         /// 获取分类下拉框集合

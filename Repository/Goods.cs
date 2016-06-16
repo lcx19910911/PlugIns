@@ -11,23 +11,21 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("DinnerDish")]
-    public partial class DinnerDish
+    
+    public partial class Goods
     {
         public string UNID { get; set; }
         public string Name { get; set; }
-        public string ShopId { get; set; }
         public string CategoryId { get; set; }
-        public int Sort { get; set; }
-        public decimal Price { get; set; }
-        public string Label { get; set; }
-        public string Image { get; set; }
-        public int State { get; set; }
-        public string Description { get; set; }
+        public int StockNum { get; set; }
+        public int SurplusNum { get; set; }
+        public System.DateTime OverTime { get; set; }
+        public System.DateTime OngoingTime { get; set; }
+        public Nullable<decimal> OriginalPrice { get; set; }
+        public Nullable<decimal> SellingPrice { get; set; }
+        public Nullable<int> ScoreNum { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
         public System.DateTime UpdatedTime { get; set; }
-        public System.DateTime CreatedTime { get; set; }
+        public Nullable<long> Flag { get; set; }
     }
 }

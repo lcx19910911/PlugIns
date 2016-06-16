@@ -20,8 +20,8 @@ namespace Nuoya.Plugins.WeChat.Filters
             get
             {
                 List<Tuple<string, string, string>> allowAction = new List<Tuple<string, string, string>>();
-                allowAction.Add(new Tuple<string, string, string>("scratchcard", "shome", "details"));
-                allowAction.Add(new Tuple<string, string, string>("scratchcard", "shome", "do"));
+                allowAction.Add(new Tuple<string, string, string>("scratchcard", "home", "details"));
+                allowAction.Add(new Tuple<string, string, string>("scratchcard", "home", "do"));
                 allowAction.Add(new Tuple<string, string, string>("dinner", "menu", "index"));
                 allowAction.Add(new Tuple<string, string, string>("dinner", "menu", "getdish"));
                 return allowAction;

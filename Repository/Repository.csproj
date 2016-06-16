@@ -52,10 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbRepository.cs" />
-    <Compile Include="DinnerCategory.cs">
+    <Compile Include="Category.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbRepository.cs" />
     <Compile Include="DinnerDish.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -80,6 +80,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Goods.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GoodsDetails.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetails.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -90,6 +96,9 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreDetails.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ScratchCard.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -97,6 +106,9 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="UserJoinCounter.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserSign.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
   </ItemGroup>

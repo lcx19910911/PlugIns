@@ -12,6 +12,7 @@ namespace Repository
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
+
     [Table("User")]
     public partial class User
     {
@@ -24,5 +25,6 @@ namespace Repository
         public Nullable<int> Sex { get; set; }
         public string MobilePhone { get; set; }
         public System.DateTime CreatedTime { get; set; }
+        public int Score { get; set; }
     }
 }

@@ -193,6 +193,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />
@@ -282,8 +283,6 @@
     <Content Include="Styles\activity\images\wall\icons.png" />
     <Content Include="Styles\activity\images\wall\icons2.png" />
     <Content Include="Styles\activity\scratchcard\scratchcard.css" />
-    <Content Include="Styles\activity\wall\core.css" />
-    <Content Include="Styles\activity\wall\wall.css" />
     <Content Include="Styles\admin.css" />
     <Content Include="Styles\css\amazeui.css" />
     <Content Include="Styles\css\amazeui.datetimepicker.css" />
@@ -293,6 +292,8 @@
     <Content Include="Styles\dinner\mobile-modal.css" />
     <Content Include="Styles\fonts\fontawesome-webfont.svg" />
     <Content Include="Styles\img\remove-icon-small.png" />
+    <Content Include="Styles\sign\common_pc.css" />
+    <Content Include="Styles\sign\m-index.css" />
     <Content Include="Styles\zTreeStyle\img\diy\1_close.png" />
     <Content Include="Styles\zTreeStyle\img\diy\1_open.png" />
     <Content Include="Styles\zTreeStyle\img\diy\2.png" />
@@ -327,14 +328,19 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Dinner\Controllers\DinnerBaseController.cs" />
     <Compile Include="Areas\Dinner\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Dinner\Controllers\DishController.cs" />
     <Compile Include="Areas\Dinner\Controllers\MenuController.cs" />
     <Compile Include="Areas\Dinner\Controllers\OrderController.cs" />
     <Compile Include="Areas\Dinner\Controllers\ShopController.cs" />
     <Compile Include="Areas\Dinner\DinnerAreaRegistration.cs" />
-    <Compile Include="Areas\Scratchcard\Controllers\ShomeController.cs" />
+    <Compile Include="Areas\Scratchcard\Controllers\ScratchcardBaseController.cs" />
+    <Compile Include="Areas\Scratchcard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Scratchcard\ScratchcardAreaRegistration.cs" />
+    <Compile Include="Areas\Sign\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Sign\Controllers\SignBaseController.cs" />
+    <Compile Include="Areas\Sign\SignAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Api\ActivityController.cs" />
@@ -375,10 +381,12 @@
     <Content Include="Areas\Dinner\Views\Menu\OrderList.cshtml" />
     <Content Include="Areas\Dinner\Views\Order\Index.cshtml" />
     <Content Include="Areas\Dinner\Views\Shop\Index.cshtml" />
-    <Content Include="Areas\Scratchcard\Views\Shome\Details.cshtml" />
-    <Content Include="Areas\Scratchcard\Views\Shome\Index.cshtml" />
-    <Content Include="Areas\Dinner\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Scratchcard\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Scratchcard\Views\Home\Details.cshtml" />
+    <Content Include="Areas\Scratchcard\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Sign\Views\web.config" />
+    <Content Include="Areas\Sign\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Sign\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Sign\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
@@ -394,8 +402,10 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dinner\Models\" />
+    <Folder Include="Areas\Dinner\Views\Shared\" />
     <Folder Include="Areas\Scratchcard\Models\" />
-    <Folder Include="Areas\Scratchcard\Views\sds\" />
+    <Folder Include="Areas\Scratchcard\Views\Shared\" />
+    <Folder Include="Areas\Sign\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Styles\activity\images\wall\template1\" />
     <Folder Include="Styles\datetimepicker\images\" />

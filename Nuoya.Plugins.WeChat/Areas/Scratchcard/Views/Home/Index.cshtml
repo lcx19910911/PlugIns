@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "刮刮卡管理";
-    Layout = "~/Areas/Scratchcard/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
 }
 
 <div class="am-cf am-padding">
@@ -399,7 +399,7 @@
                         }
 
                         $.Nuoya.form("form").ajaxSubmit({
-                            ajaxUrl: "/ScratchCard/Shome/Add",
+                            ajaxUrl: "/ScratchCard/home/Add",
                             afterValid: function () {
                                 $("#tab1,#tab2").removeClass("am-in").removeClass("am-active");
                                 $("#selectTabUl li").removeClass("am-active");
@@ -435,7 +435,7 @@
                 domainId: "searchDomain",
                 subId: "btnSearch"
             },
-            ajaxUrl: "/ScratchCard/Shome/GetPageList",
+            ajaxUrl: "/ScratchCard/home/GetPageList",
             //数据请求地址
             pageSize: 10,
             events: [
@@ -451,7 +451,7 @@
                             ajaxUrl: "/HtmlTemplates/ScratchCard/Update.html",
                             title: "编辑刮刮卡",
                             callback: function (e) {
-                                $.Nuoya.action("/ScratchCard/Shome/Find", { unid: item.UNID }, function (model) {
+                                $.Nuoya.action("/ScratchCard/home/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
                                         data: model
@@ -499,7 +499,7 @@
                                         return false;
                                     }
                                     $.Nuoya.form("form").ajaxSubmit({
-                                        ajaxUrl: "/ScratchCard/Shome/Update",
+                                        ajaxUrl: "/ScratchCard/home/Update",
                                         params: {
                                             UNID: item.UNID
                                         },
@@ -522,7 +522,7 @@
                     icon: "icon-trash-o",
                     name: "删除",
                     click: function (item) {
-                        $.Nuoya.deleteAction("/ScratchCard/Shome/Delete", {
+                        $.Nuoya.deleteAction("/ScratchCard/home/Delete", {
                             unids: item.UNID
                         },
                         function () {
@@ -535,7 +535,7 @@
                     icon: "icon-firefox",
                     name: "预览",
                     click: function (item) {
-                        window.open("/ScratchCard/Shome/Details?unid=" + item.UNID);
+                        window.open("/ScratchCard/home/Details?unid=" + item.UNID);
                     }
                 },
                 {

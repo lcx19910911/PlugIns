@@ -14,7 +14,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
     /// 分类控制器
     /// </summary>
     [LoginFilter]
-    public class CategoryController : BaseController
+    public class CategoryController : DinnerBaseController
     {
         
         public IDinnerCategoryService IDinnerCategoryService;
@@ -54,7 +54,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
-        public JsonResult Add(DinnerCategory model)
+        public JsonResult Add(Category model)
         {
             var result = IDinnerCategoryService.Add_DinnerCategory(model);
             return JResult(result);
@@ -66,7 +66,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
-        public JsonResult Update(DinnerCategory model, string unid)
+        public JsonResult Update(Category model, string unid)
         {
             var result = IDinnerCategoryService.Update_DinnerCategory(model, unid);
             return JResult(result);

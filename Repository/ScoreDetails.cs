@@ -12,17 +12,13 @@ namespace Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class UserJoinCounter
+    public partial class ScoreDetails
     {
         public string UNID { get; set; }
-        public int TargetCode { get; set; }
-        public string TargetID { get; set; }
-        public string OpenID { get; set; }
+        public string OpenId { get; set; }
+        public string Description { get; set; }
         public System.DateTime CreatedTime { get; set; }
-        public int IsPrize { get; set; }
-        public int PrizeGrade { get; set; }
-        public string SN { get; set; }
-        public int IsCach { get; set; }
-        public Nullable<System.DateTime> CachTime { get; set; }
+        public Nullable<int> Value { get; set; }
+        public Nullable<int> IsAdd { get; set; }
     }
 }

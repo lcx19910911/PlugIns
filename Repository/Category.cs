@@ -11,18 +11,18 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class UserJoinCounter
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("Category")]
+    public partial class Category
     {
         public string UNID { get; set; }
-        public int TargetCode { get; set; }
-        public string TargetID { get; set; }
-        public string OpenID { get; set; }
+        public string Name { get; set; }
+        public string ShopId { get; set; }
+        public string PersonId { get; set; }
+        public string Image { get; set; }
+        public int Sort { get; set; }
         public System.DateTime CreatedTime { get; set; }
-        public int IsPrize { get; set; }
-        public int PrizeGrade { get; set; }
-        public string SN { get; set; }
-        public int IsCach { get; set; }
-        public Nullable<System.DateTime> CachTime { get; set; }
+        public System.DateTime UpdatedTime { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Nuoya.Plugins.WeChat.Areas.scratchcard
             context.MapRoute(
                 "Scratchcard_default",
                 "Scratchcard/{controller}/{action}/{id}",
-                new { action = "Index", controller = "Shome", id = UrlParameter.Optional }
+                new { action = "Index", controller = "Home", id = UrlParameter.Optional }
             );
         }
     }

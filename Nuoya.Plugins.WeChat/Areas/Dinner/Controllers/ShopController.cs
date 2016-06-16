@@ -14,7 +14,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
     /// 店铺控制器
     /// </summary>
     [LoginFilter]
-    public class ShopController : BaseController
+    public class ShopController : DinnerBaseController
     {
 
         public IDinnerShopService IDinnerShopService;

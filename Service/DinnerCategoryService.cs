@@ -31,23 +31,23 @@ namespace Service
         /// <param name="pageSize">分页大小</param>
         /// <param name="name">分类名 - 搜索项</param>
         /// <returns></returns>
-        public PageList<DinnerCategory> Get_DinnerCategoryPageList(int pageIndex, int pageSize, string name)
+        public PageList<Category> Get_DinnerCategoryPageList(int pageIndex, int pageSize, string name)
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.DinnerCategory.AsQueryable().Where(x=>x.ShopId.Equals(Client.LoginUser.ShopId));
+                var query = entities.Category.AsQueryable().Where(x=>x.ShopId.Equals(Client.LoginUser.ShopId));
                 if (name.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(name));
                 }
 
-                var list = new List<DinnerCategory>();
+                var list = new List<Category>();
                 var count = query.Count();
                 query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
                     {
-                        list.Add(new DinnerCategory()
+                        list.Add(new Category()
                         {
                             UNID = x.UNID,
                             CreatedTime = x.CreatedTime,
@@ -68,7 +68,7 @@ namespace Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string Add_DinnerCategory(DinnerCategory model)
+        public string Add_DinnerCategory(Category model)
         {
             if (model == null
                 || !model.Name.IsNotNullOrEmpty()
@@ -76,11 +76,11 @@ namespace Service
                 return "数据为空";
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.DinnerCategory.AsQueryable();
+                var query = entities.Category.AsQueryable();
                 if (query.Where(x => x.Name.Equals(model.Name) &&x.ShopId.Equals(Client.LoginUser.ShopId)).Count() != 0)
                     return "分类名称已存在";
 
-                var addEntity =new DinnerCategory();
+                var addEntity =new Category();
                 addEntity.UNID = Guid.NewGuid().ToString("N");
                 addEntity.Sort = model.Sort;
                 addEntity.Name = model.Name;
@@ -88,7 +88,7 @@ namespace Service
                 addEntity.UpdatedTime = DateTime.Now;
                 addEntity.ShopId = Client.LoginUser.ShopId;
 
-                entities.DinnerCategory.Add(addEntity);
+                entities.Category.Add(addEntity);
                 return entities.SaveChanges() > 0 ? "" : "保存出错";
             }
 
@@ -100,7 +100,7 @@ namespace Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string Update_DinnerCategory(DinnerCategory model, string unid)
+        public string Update_DinnerCategory(Category model, string unid)
         {
             if (model == null
                  || !model.Name.IsNotNullOrEmpty()
@@ -108,10 +108,10 @@ namespace Service
                 return "数据为空";
             using (DbRepository entities = new DbRepository())
             {
-                var oldEntity = entities.DinnerCategory.Find(unid);
+                var oldEntity = entities.Category.Find(unid);
                 if (oldEntity != null)
                 {
-                    var query = entities.DinnerCategory.AsQueryable();
+                    var query = entities.Category.AsQueryable();
                     if (query.Where(x => x.Name.Equals(model.Name)&&!x.UNID.Equals(unid)&& x.ShopId.Equals(Client.LoginUser.ShopId)).Count() != 0)
                         return "分类名称已存在";
 
@@ -140,9 +140,9 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 //找到实体
-                entities.DinnerCategory.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x =>
+                entities.Category.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x =>
                 {
-                    entities.DinnerDish.Where(y => y.DinnerCategoryId.Equals(x.UNID)).ToList().ForEach(y =>
+                    entities.DinnerDish.Where(y => y.CategoryId.Equals(x.UNID)).ToList().ForEach(y =>
                     {
                         entities.DinnerDish.Remove(y);
                     });
@@ -157,13 +157,13 @@ namespace Service
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        public DinnerCategory Find_DinnerCategory(string unid)
+        public Category Find_DinnerCategory(string unid)
         {
             if (!unid.IsNotNullOrEmpty())
                 return null;
             using (DbRepository entities = new DbRepository())
             {
-                var entity = entities.DinnerCategory.Find(unid);
+                var entity = entities.Category.Find(unid);
                 return entity;
             }
         }
@@ -179,7 +179,7 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 List<SelectItem> list = new List<SelectItem>();
-                entities.DinnerCategory.Where(x=>x.ShopId.Equals(Client.LoginUser.ShopId)).ToList().ForEach(x =>
+                entities.Category.Where(x=>x.ShopId.Equals(Client.LoginUser.ShopId)).ToList().ForEach(x =>
                 {
                     list.Add(new SelectItem()
                     {
@@ -203,7 +203,7 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 List<SelectItem> list = new List<SelectItem>();
-                entities.DinnerCategory.Where(x =>x.ShopId.Equals(shopId)).ToList().ForEach(x =>
+                entities.Category.Where(x =>x.ShopId.Equals(shopId)).ToList().ForEach(x =>
                 {
                     list.Add(new SelectItem()
                     {

@@ -16,7 +16,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
     /// <summary>
     /// 点餐微信展示页面
     /// </summary>
-    public class MenuController : BaseController
+    public class MenuController : DinnerBaseController
     {
         public IDinnerCategoryService IDinnerCategoryService;
         public IDinnerDishService IDinnerDishService;
