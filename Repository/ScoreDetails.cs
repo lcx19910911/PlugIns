@@ -18,7 +18,8 @@ namespace Repository
         public string OpenId { get; set; }
         public string Description { get; set; }
         public System.DateTime CreatedTime { get; set; }
-        public Nullable<int> Value { get; set; }
-        public Nullable<int> IsAdd { get; set; }
+        public int Value { get; set; }
+        public int IsAdd { get; set; }
+        public int Type { get; set; }
     }
 }

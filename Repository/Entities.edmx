@@ -161,6 +161,7 @@
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="Value" Type="int" />
           <Property Name="IsAdd" Type="int" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="ScratchCard">
           <Key>
@@ -259,7 +260,6 @@
           <EntitySet Name="DinnerOrder" EntityType="PlugInsModel.DinnerOrder" />
           <EntitySet Name="Person" EntityType="PlugInsModel.Person" />
           <EntitySet Name="ScratchCard" EntityType="PlugInsModel.ScratchCard" />
-          <EntitySet Name="ScoreDetails" EntityType="PlugInsModel.ScoreDetails" />
           <EntitySet Name="User" EntityType="PlugInsModel.User" />
           <EntitySet Name="UserSign" EntityType="PlugInsModel.UserSign" />
           <EntitySet Name="Category" EntityType="PlugInsModel.Category" />
@@ -267,6 +267,7 @@
           <EntitySet Name="UserJoinCounter" EntityType="PlugInsModel.UserJoinCounter" />
           <EntitySet Name="GoodsDetails" EntityType="PlugInsModel.GoodsDetails" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
+          <EntitySet Name="ScoreDetails" EntityType="PlugInsModel.ScoreDetails" />
           </EntityContainer>
         <EntityType Name="Prize">
           <Key>
@@ -378,17 +379,6 @@
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Flag" Type="Int64" />
         </EntityType>
-        <EntityType Name="ScoreDetails">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Value" Type="Int32" />
-          <Property Name="IsAdd" Type="Int32" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="OpenId" />
@@ -485,6 +475,18 @@
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ScoreDetails">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Value" Type="Int32" />
+          <Property Name="IsAdd" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -608,18 +610,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ScoreDetails">
-            <EntityTypeMapping TypeName="PlugInsModel.ScoreDetails">
-              <MappingFragment StoreEntitySet="ScoreDetails">
-                <ScalarProperty Name="IsAdd" ColumnName="IsAdd" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="PlugInsModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -719,6 +709,19 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScoreDetails">
+            <EntityTypeMapping TypeName="PlugInsModel.ScoreDetails">
+              <MappingFragment StoreEntitySet="ScoreDetails">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsAdd" ColumnName="IsAdd" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -17,19 +17,19 @@ namespace Console
         static void Main(string[] args)
         {
 
-            new PersonService().Add_Person("11", 111);
+            var dsd = DateTime.Today;
 
             WXUser entity = new WXUser()
             {
-                openid = "1112dsds31sd",
+                openid = "1112dsdsdsdsdsd",
                 nickname = "哈哈啊查询查询",
                 city = "福州",
                 country = "中国",
-                headimgurl = "/Upload/ScratchCard/4b426174f4134a868920e957be691f7b.jpg",
+                headimgurl = "http://wx.qlogo.cn/mmopen/PYEBjepVt4IW6ibsc3I8NVLN7CSIEzlsngoKK1Rka4nfUh6ia961qEUWSBTFH5OaRaf5qxpicz2bPnictCQ0fV8Sh5sLlLoVhibF9/0",
                 province = "福建",
                 sex = "1"
             };
-            string dd = "?info=" + HttpUtility.UrlEncode(entity.ToJson()) + "&unid=9f3726004c63406aa4cfa7ae73a3f53a";
+            string dd = "?info=" + HttpUtility.UrlEncode(entity.ToJson());
             string ss = "";
         }
     }

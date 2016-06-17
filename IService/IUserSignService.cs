@@ -22,6 +22,13 @@ namespace IService
         bool User_Sign(string openId);
 
         /// <summary>
+        /// 最近十天的签到
+        /// </summary>
+        /// <param name="openId">微信openId</param>
+        /// <returns></returns>
+        Dictionary<string, bool> Get_LastelyTenDaySign(string openId);
+
+        /// <summary>
         /// 最近的一个签到
         /// </summary>
         /// <param name="openId">微信openId</param>

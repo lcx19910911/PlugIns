@@ -15,7 +15,7 @@ using Domain.User;
 namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
 {
     /// <summary>
-    /// 签到
+    /// 微信用户中心
     /// </summary>
     public class HomeController : UserBaseController
     {
@@ -43,9 +43,14 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                 {
                     //更新数据
                     IUserService.Update_User(entity);
-                    CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () =>
+                    CacheHelper.Get<Repository.User>("user", CacheTimeOption.TwoHour, () =>
                     {
-                        return entity.openid;
+                        return new Repository.User()
+                        {
+                            OpenId = entity.openid,
+                            HeadImgUrl = entity.headimgurl,
+                            NickName = entity.nickname
+                        };
                     });
 
                     UserCenterModel model = new UserCenterModel();
@@ -54,8 +59,10 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                         NickName = entity.nickname,
                         HeadImgUrl = entity.headimgurl
                     };
-                    model.Score = (int)IUserService.Find_User(entity.openid)?.Score;
-                    model.SignNum = (int)IUserSignService.Get_LastSign(entity.openid)?.SignNum;
+                    var scoreModel = IUserService.Find_User(entity.openid);
+                    model.Score = scoreModel == null?0: scoreModel.Score;
+                    var signModel = IUserSignService.Get_LastSign(entity.openid);
+                    model.SignNum = signModel==null?0: signModel.SignNum;
 
                     return View(model);
                 }

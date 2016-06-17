@@ -17,6 +17,6 @@ namespace Repository
         public string UNID { get; set; }
         public string OpenId { get; set; }
         public Nullable<System.DateTime> SignDate { get; set; }
-        public Nullable<int> SignNum { get; set; }
+        public int SignNum { get; set; }
     }
 }

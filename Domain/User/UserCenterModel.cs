@@ -14,5 +14,7 @@ namespace Domain.User
         public int SignNum { get; set; }
 
         public int Score { get; set; }
+
+        public Dictionary<string, bool> SignDic { get; set; }
     }
 }

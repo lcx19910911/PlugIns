@@ -63,7 +63,8 @@ namespace Service
                             CreatedTime = DateTime.Now,
                             Description = "连续签到10天获得积分",
                             IsAdd = (int)YesOrNoCode.Yes,
-                            Value = Params.TendayScore
+                            Value = Params.TendayScore,
+                            Type= (int)ScoreType.Sign
                         };
                         entities.ScoreDetails.Add(tenScoreDetials);
                     }
@@ -88,7 +89,8 @@ namespace Service
                     CreatedTime = DateTime.Now,
                     Description = "签到获得积分",
                     IsAdd = (int)YesOrNoCode.Yes,
-                    Value = Params.SignScore
+                    Value = Params.SignScore,
+                    Type = (int)ScoreType.Sign
                 };
                 entities.ScoreDetails.Add(scoreDetials);
 
@@ -96,6 +98,32 @@ namespace Service
             }
         }
 
+
+        /// <summary>
+        /// 最近十天的签到
+        /// </summary>
+        /// <param name="openId">微信openId</param>
+        /// <returns></returns>
+        public Dictionary<string,bool> Get_LastelyTenDaySign(string openId)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var dayStar = DateTime.Parse(DateTime.Now.AddDays(-10).ToString("yyyy-MM-dd"));
+                var dayEnd= DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
+                var lastSignList = entities.UserSign.Where(x => x.OpenId.Equals(openId)&&x.SignDate>dayStar&&x.SignDate< dayEnd).OrderBy(x => x.SignDate).ToList();
+                Dictionary<string, bool> dic = new Dictionary<string, bool>();
+                while (dayStar < dayEnd)
+                {
+                    var model=lastSignList.Where(x => x.SignDate == dayStar).FirstOrDefault();
+                    if (model != null)
+                        dic.Add(dayStar.ToString("yyyy-MM-dd"), true);
+                    else
+                        dic.Add(dayStar.ToString("yyyy-MM-dd"), false);
+                    dayStar = dayStar.AddDays(1);
+                }
+                return dic;
+            }
+        }
 
         /// <summary>
         /// 最近的一个签到

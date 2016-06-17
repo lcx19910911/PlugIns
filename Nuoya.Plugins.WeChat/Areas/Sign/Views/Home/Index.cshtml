@@ -32,6 +32,22 @@
 </head>
 <body>
     <div id="op-wrap">
+        <div id="op-content">
+            <header class="op-top-header header">
+                <div class="op-top-box">
+                    <h1 id="op-logo">
+                        我前积分：100
+                    </h1>
+
+                    <div class="op-r-btns">
+                        <div class="icon i-user" onclick="_opq.push(['trackEvent','onepluscn_A004','个人头相'])">
+                            <span><a>签到规则</a>    </span>
+</div>
+                        <div class="icon i-menu" id="op-btn-menu"></div>
+                    </div>                 
+                </div>
+            </header>
+        </div>
         <div class="user-hd">
             <div class="my-avatar">
                 <a href="#填写个人修改头像地址">
@@ -41,47 +57,32 @@
             </div>
             <div class="my-nickname">
                 <span>
-                    <a href="#"><em>@(Model.User?.NickName)</em></a>
+                    <a href="#">@(Model.User?.NickName)</a>
                 </span>
-            </div>
-            <ul class="my-stuffs">
-                <li>
-                    <a href="#">
-                        <span>>@(Model.SignNum)</span>
-                        <em>连续签到</em>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span class="my-point">@(Model.Score)</span>
-                        <em>积分</em>
-                    </a>
-                </li>
-            </ul>
+            </div>          
         </div>
 
-        <div class="user-bd">
-            <div class="user-aside">
-                <dl class="user-menu">
-                    <dt>个人中心</dt>
-                    <dd><a href=""><i class="i-my-order"></i>我的兑换</a></dd>
-                    <dd><a href="/sign/home/index"><i class="i-my-cunpon"></i>我的签到</a></dd>
-                    <dd><a href=""><i class="i-my-prize"></i>我的积分</a></dd>
-                </dl>
-                <dl class="user-menu">
-                    <dt>活动在线</dt>
-                    <dd><a href=""><i class="i-my-account"></i>拼图</a></dd>
-                    @*<dd><a href=""><i class="i-my-imei"></i>产品认证</a></dd>*@
-                </dl>
-                <dl class="user-menu">
-                    <dt>更多</dt>
-                    <dd><a href=""><i class="i-my-insure"></i>积分商城</a></dd>
-                    @*<dd><a href=""><i class="i-my-return"></i>退货单</a></dd>
-                        <dd><a href=""><i class="i-my-change"></i>换货单</a></dd>
-                        <dd><a href=""><i class="i-my-repair"></i>维修单</a></dd>*@
-                </dl>
+ 
 
+        <div class="user-bd">
+
+            <div class="sign-date-list">
+                <ul id="uls">
+                    @foreach (var item in Model.SignDic.OrderByDescending(x=>x.Key))
+                    {
+                        if (item.Value)
+                        {
+                            <li class="active"> <div> <span class="time">@item.Key</span> <span class="span">已签到</span> </div> </li>
+                        }
+                        else
+                        {
+                            <li> <div> <span class="time">@item.Key</span> <span class="span">未签到</span> </div> </li>
+                        }
+                    } 
+                </ul>
             </div>
+ 
+                                   
 
         </div>
     </div>
