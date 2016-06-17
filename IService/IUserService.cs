@@ -22,6 +22,13 @@ namespace IService
         bool Update_User(WXUser model);
 
         /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        User Find_User(string openId);
+
+        /// <summary>
         /// 获取分页列表
         /// </summary>
         /// <param name="pageIndex">页码</param>

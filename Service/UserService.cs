@@ -27,6 +27,22 @@ namespace Service
             base.ContextCurrent = HttpContext.Current;
         }
 
+
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public User Find_User(string openId)
+        {
+            if (string.IsNullOrEmpty(openId))
+                return null;
+            using (DbRepository entities = new DbRepository())
+            {
+                return entities.User.Find(openId);
+            }
+        }
+
         /// <summary>
         /// 编辑管理用户
         /// </summary>

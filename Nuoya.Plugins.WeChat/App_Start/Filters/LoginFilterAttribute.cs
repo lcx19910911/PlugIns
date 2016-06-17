@@ -42,7 +42,7 @@ namespace Nuoya.Plugins.WeChat.Filters
             string token = filterContext.HttpContext.Request["token"];
 
             //判断用户token是否有效
-            if (!string.IsNullOrEmpty(token) && controller.LoginUser == null)
+            if (!string.IsNullOrEmpty(token))
             {
                 CheckResult result = AuthAPI4Fun.ValidateToken(token);
                 if (result.code == 100)
@@ -77,7 +77,7 @@ namespace Nuoya.Plugins.WeChat.Filters
                             }
                             else if (actionMethod.ReturnType.Name == "JsonResult")
                             {
-                                JsonResult jsonResult = new JsonResult();
+                                JsonResult jsonResult = new JsonResult(); 
                                 jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
                                 filterContext.RequestContext.HttpContext.Response.StatusCode = 9999;
                                 filterContext.Result = jsonResult;

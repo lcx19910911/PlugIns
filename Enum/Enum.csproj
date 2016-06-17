@@ -46,6 +46,7 @@
     <Compile Include="ResultCode.cs" />
     <Compile Include="TargetCode.cs" />
     <Compile Include="DinnerOrderState.cs" />
+    <Compile Include="ScoreType.cs" />
     <Compile Include="YesOrNo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

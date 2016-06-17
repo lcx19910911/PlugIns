@@ -62,6 +62,7 @@
     <Compile Include="AutoMapperExtension.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="UserSignService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="UserJoinCounterService.cs" />
     <Compile Include="PersonService.cs" />

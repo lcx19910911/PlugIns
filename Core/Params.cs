@@ -40,5 +40,15 @@ namespace Core
         /// 平台请求登陆接口
         /// </summary>
         public static readonly string LoginUrl = ConfigurationManager.AppSettings["Com_LoginUrl"];
+
+        /// <summary>
+        /// 每天签到积分
+        /// </summary>
+        public static readonly int SignScore = 10;
+
+        /// <summary>
+        /// 连续十天签到积分
+        /// </summary>
+        public static readonly int TendayScore = 30;
     }
 }

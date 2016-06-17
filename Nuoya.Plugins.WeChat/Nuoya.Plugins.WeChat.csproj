@@ -201,6 +201,7 @@
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
     <Content Include="Images\404Pic.png" />
+    <Content Include="Styles\sign\img\icons-userinfo.png" />
     <Content Include="Images\ScratchCard\ongoing.png" />
     <Content Include="Images\ScratchCard\over.jpg" />
     <Content Include="Images\ScratchCard\preheating.jpg" />
@@ -341,6 +342,9 @@
     <Compile Include="Areas\Sign\Controllers\HomeController.cs" />
     <Compile Include="Areas\Sign\Controllers\SignBaseController.cs" />
     <Compile Include="Areas\Sign\SignAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\HomeController.cs" />
+    <Compile Include="Areas\User\Controllers\UserBaseController.cs" />
+    <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Api\ActivityController.cs" />
@@ -387,6 +391,10 @@
     <Content Include="Areas\Sign\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Sign\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Sign\Views\Home\Index.cshtml" />
+    <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\User\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\User\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\User\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
@@ -406,6 +414,7 @@
     <Folder Include="Areas\Scratchcard\Models\" />
     <Folder Include="Areas\Scratchcard\Views\Shared\" />
     <Folder Include="Areas\Sign\Models\" />
+    <Folder Include="Areas\User\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Styles\activity\images\wall\template1\" />
     <Folder Include="Styles\datetimepicker\images\" />
