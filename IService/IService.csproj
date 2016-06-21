@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPersonService.cs" />
+    <Compile Include="IPuzzleService.cs" />
     <Compile Include="IUserJoinCounterService.cs" />
     <Compile Include="IUserSignService.cs" />
     <Compile Include="IUserService.cs" />

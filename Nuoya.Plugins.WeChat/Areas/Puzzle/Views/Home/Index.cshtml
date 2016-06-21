@@ -20,7 +20,7 @@
     <meta name="MobileOptimized" content="320">
     <meta name="screen-orientation" content="portrait">
     <meta name="x5-orientation" content="portrait">
-    <meta name="full-screen" content="no">
+    <meta name="full-screen" content="yes">
     <meta name="x5-fullscreen" content="true">
     <meta name="x5-page-mode" content="app">
     <meta name="msapplication-tap-highlight" content="no">
@@ -30,34 +30,51 @@
     <link href="~/Styles/sign/m-index.css" rel="stylesheet" />
 
     <style>
+        body {
+        
+            background-color:#e3e3e3;
+        }
         a {
             color: #fff;
         }
-        ul {
-            padding-top:20px;
+        ul 
+        {
+            padding:10px;
         }
         ul li {
             float:left;
-            width:33%;
+            width:25%;
+            height:40px;
             font-size:18px;
         }
+        ul li  a
+        {
+            display:inline;
+            line-height:10px;
+            height:100%;
+            text-align:center;
+         }
 
         /* 右侧图片 */
         .ImagDiv {
             width: 100%;
             height: 300px;
         }
-
-        .ImageCompare {
-            width: 160px;
+        
+        .Description {
+            width: 100%;
             margin: 0 auto;
-            padding: 40px 0px 10px 0px;
+            padding: 16px 0px 10px 0px;
         }
+        .Description h1{
+            color: #ee5729;
+            font-size:14px;
+            margin-left:20px;
+            padding:6px;
+        }     
 
-            .ImageCompare img {
-                width: 160px;
-            }
-
+        .imgFieldSet {
+        }
         #imgArea {
             width: 300px;
             height: 300px;
@@ -89,15 +106,15 @@
     </style>
 </head>
 
-<body style="background:#ee5729;">
-
-    <div id="op-content">          
+<body >
+    <div id="op-content" style="background:#ee5729;">          
         <header class="op-top-header header">
             <div class="op-top-box">
                 <ul>
-                    <li><span><a id="start">开始游戏</a></span></li>
-                    <li><span><a id="rule">游戏规则</a></span></li>
-                    <li><span><a id="level">游戏难度</a></span></li>
+                    <li><a id="start">开始</a></li>
+                    <li><a id="rule">游戏规则</a></li>
+                    <li><a id="level">难度</a></li>
+                    <li><a id="compareImg">原图</a></li>
                 </ul>
             </div>
         </header>
@@ -105,7 +122,28 @@
 
 
     <div id="op-wrap">
-        <div class="dialog-alert-layer" style="display: none;">
+
+       
+        <div class="ImagDiv">
+            <fieldset class="imgFieldSet">
+                <div id="imgArea"></div>
+            </fieldset>
+        </div>
+        <div class="Description">
+            <h1>图片介绍：</h1>
+            <fieldset class="imgFieldSet">
+                <p>　　学习了那么多机器学习模型，一切都是为了实践，动手自己写写这些模型的实现对自己很有帮助的，坚持，共勉。本文主要致力于总结贝叶斯实战中程序代码的实现（python）及朴素贝叶斯模型原理的总结。python的<span style="background-color: #ff0000;">numpy</span>包简化了很多计算，另外本人推荐使用<span style="background-color: #ff0000;">pandas</span>做数据统计。</p>
+                <p><strong>一 引言</strong></p>
+                <p>　　让你猜测一个身高2.16的人的职业，你一般会猜测他是篮球运动员。这个原理就是朴素贝叶斯原理，因为篮球运动员大多身高很高，所以这个人具有篮球运动员的条件，则猜测他是篮球运动员。</p>
+                <p>　　同理，另一个升高1.58的人，你应该不会猜他是篮球运动员。</p>
+                <p>　　学习了那么多机器学习模型，一切都是为了实践，动手自己写写这些模型的实现对自己很有帮助的，坚持，共勉。本文主要致力于总结贝叶斯实战中程序代码的实现（python）及朴素贝叶斯模型原理的总结。python的<span style="background-color: #ff0000;">numpy</span>包简化了很多计算，另外本人推荐使用<span style="background-color: #ff0000;">pandas</span>做数据统计。</p>
+                <p><strong>一 引言</strong></p>
+                <p>　　让你猜测一个身高2.16的人的职业，你一般会猜测他是篮球运动员。这个原理就是朴素贝叶斯原理，因为篮球运动员大多身高很高，所以这个人具有篮球运动员的条件，则猜测他是篮球运动员。</p>
+                <p>　　同理，另一个升高1.58的人，你应该不会猜他是篮球运动员。</p>            
+            </fieldset>
+        </div>
+
+        <div class="dialog-alert-layer" style="display: none;" id="ruleDescription">
             <table>
                 <tbody>
                     <tr>
@@ -122,12 +160,23 @@
                 </tbody>
             </table>
         </div>
-        <div class="ImagDiv">
-            <div id="imgArea"></div>
-        </div>
 
-        <div class="ImageCompare">
-            <img src="/Upload/man.jpg" />
+        <div class="dialog-alert-layer" style="display: none;" id="compareImgAlert">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="alert-main">
+                                <close class="close">×</close>
+                                <div class="title">原图</div>
+                                <div class="content">
+                                    <img src="/Upload/man.jpg"  style="width:250px;"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -140,11 +189,19 @@
             var pg = new puzzleGame({ 'img': '/Upload/man.jpg' });
 
             $("#rule").click(function () {
-                $(".dialog-alert-layer").show();
+                $("#ruleDescription").show();
             });
 
-            $(".close").click(function () {
-                $(".dialog-alert-layer").hide();
+            $("#ruleDescription .close").click(function () {
+                $("#ruleDescription").hide();
+            });
+
+            $("#compareImg").click(function () {
+                $("#compareImgAlert").show();
+            });
+
+            $("#compareImgAlert .close").click(function () {
+                $("#compareImgAlert").hide();
             });
 
             $("#sign-btn").click(function () {

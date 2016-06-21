@@ -477,70 +477,8 @@ figure{position:absolute;left:0;right:0;top:0;bottom:0;border-radius:50%;border:
     }
 }
 
-.user-bd .user-aside .user-menu {
-    margin-bottom: 10px;
-    background: #fbfafa;
-}
 
-    .user-bd .user-aside .user-menu dt {
-        padding-left: 12px;
-    }
 
-    .user-bd .user-aside .user-menu dd {
-        border-bottom: 1px solid #ededed;
-    }
-
-    .user-bd .user-aside .user-menu a {
-        padding: 10px 0;
-        color: #333;
-        font-size: 12px;
-    }
-
-        .user-bd .user-aside .user-menu a:hover {
-            background: 0 0;
-        }
-
-    .user-bd .user-aside .user-menu i {
-        margin-left: 12px;
-        opacity: .5;
-        filter: alpha(opacity=50);
-    }
-
-    .user-bd .user-aside .user-menu .active {
-        border-left: none;
-        background: 0 0;
-        color: #333;
-    }
-
-        .user-bd .user-aside .user-menu .active i {
-            margin-left: 12px;
-            opacity: .5;
-            filter: alpha(opacity=50);
-        }
-
-.user-bd .logout {
-    padding: 0 10px 20px;
-    text-align: center;
-    font-size: 14px;
-}
-
-    .user-bd .logout a {
-        display: block;
-        height: 50px;
-        line-height: 50px;
-        background: #ccc;
-    }
-
-    .user-bd .logout i {
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 5px;
-        background-image: url(img/icons-userinfo.png);
-        background-repeat: no-repeat;
-        background-position: 0 -71px;
-        width: 14px;
-        height: 14px;
-    }
 
 .signBtn{ background:#fff; padding:20px 0; text-align:center; border-bottom:1px solid #ccc;}
 .signBtn a{ display:inline-block; background:#ee5729; border-bottom:3px solid #B43F1B; color:#fff; font-size:17px; line-height:2.5em; border-radius:2.3em; width:50%; max-width:200px;}

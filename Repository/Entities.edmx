@@ -151,6 +151,26 @@
           <Property Name="IsShowCount" Type="int" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" />
         </EntityType>
+        <EntityType Name="Puzzle">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="PersonId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PuzzleDate" Type="date" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
+          <Property Name="Flag" Type="bigint" />
+          <Property Name="DifficultyFlag" Type="bigint" />
+          <Property Name="IsShowCompare" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IsBindScore" Type="int" Nullable="false" />
+          <Property Name="BindUrl" Type="varchar" MaxLength="500" />
+          <Property Name="OverTime" Type="datetime" Nullable="false" />
+          <Property Name="OngoingTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="ScoreDetails">
           <Key>
             <PropertyRef Name="UNID" />
@@ -159,9 +179,9 @@
           <Property Name="OpenId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
-          <Property Name="Value" Type="int" />
-          <Property Name="IsAdd" Type="int" />
-          <Property Name="Type" Type="int" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="IsAdd" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ScratchCard">
           <Key>
@@ -235,6 +255,7 @@
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Puzzle" EntityType="Self.Puzzle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScoreDetails" EntityType="Self.ScoreDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScratchCard" EntityType="Self.ScratchCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -268,6 +289,7 @@
           <EntitySet Name="GoodsDetails" EntityType="PlugInsModel.GoodsDetails" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
           <EntitySet Name="ScoreDetails" EntityType="PlugInsModel.ScoreDetails" />
+          <EntitySet Name="Puzzle" EntityType="PlugInsModel.Puzzle" />
           </EntityContainer>
         <EntityType Name="Prize">
           <Key>
@@ -484,9 +506,29 @@
           <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Value" Type="Int32" />
-          <Property Name="IsAdd" Type="Int32" />
-          <Property Name="Type" Type="Int32" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="IsAdd" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Puzzle">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="PersonId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PuzzleDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Flag" Type="Int64" />
+          <Property Name="DifficultyFlag" Type="Int64" />
+          <Property Name="IsShowCompare" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsBindScore" Type="Int32" Nullable="false" />
+          <Property Name="BindUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -722,6 +764,27 @@
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Puzzle">
+            <EntityTypeMapping TypeName="PlugInsModel.Puzzle">
+              <MappingFragment StoreEntitySet="Puzzle">
+                <ScalarProperty Name="OngoingTime" ColumnName="OngoingTime" />
+                <ScalarProperty Name="OverTime" ColumnName="OverTime" />
+                <ScalarProperty Name="BindUrl" ColumnName="BindUrl" />
+                <ScalarProperty Name="IsBindScore" ColumnName="IsBindScore" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsShowCompare" ColumnName="IsShowCompare" />
+                <ScalarProperty Name="DifficultyFlag" ColumnName="DifficultyFlag" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="PuzzleDate" ColumnName="PuzzleDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>
