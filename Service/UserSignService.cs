@@ -3,6 +3,7 @@ using Core.AuthAPI;
 using Core.Extensions;
 using Core.Helper;
 using Core.Model;
+using Core.Web;
 using EnumPro;
 using Extension;
 using IService;
@@ -33,18 +34,18 @@ namespace Service
         /// </summary>
         /// <param name="openId">微信openId</param>
         /// <returns></returns>
-        public bool User_Sign(string openId)
+        public bool User_Sign()
         {
-            if (string.IsNullOrEmpty(openId))
+            Repository.User user = CacheHelper.Get<Repository.User>("user");
+            if (user==null||string.IsNullOrEmpty(user.OpenId))
                 return false;
             using (DbRepository entities = new DbRepository())
             {
-                var user = entities.User.Find(openId);
-                if (user == null)
+                var userEntity = entities.User.Find(user.OpenId);
+                if (userEntity == null)
                     return false;
-
                 var yesterday =DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
-                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(openId)&&x.SignDate> yesterday).OrderByDescending(x => x.SignDate).FirstOrDefault();
+                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.OpenId) &&x.SignDate> yesterday).OrderByDescending(x => x.SignDate).FirstOrDefault();
                 if (lastSign != null)
                 {
                     var todaySign = new UserSign()
@@ -52,14 +53,14 @@ namespace Service
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
                         SignNum = lastSign.SignNum++,
-                        OpenId = openId
+                        OpenId = user.OpenId
                     };
                     if (todaySign.SignNum / 10 == 0)
                     {                     
                         var tenScoreDetials = new ScoreDetails()
                         {
                             UNID = Guid.NewGuid().ToString("N"),
-                            OpenId = openId,
+                            OpenId = user.OpenId,
                             CreatedTime = DateTime.Now,
                             Description = "连续签到10天获得积分",
                             IsAdd = (int)YesOrNoCode.Yes,
@@ -67,6 +68,7 @@ namespace Service
                             Type= (int)ScoreType.Sign
                         };
                         entities.ScoreDetails.Add(tenScoreDetials);
+                        userEntity.Score += Params.TendayScore;
                     }
                     entities.UserSign.Add(todaySign);
                 }
@@ -77,7 +79,7 @@ namespace Service
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
                         SignNum = 0,
-                        OpenId = openId
+                        OpenId = user.OpenId
                     };
                     entities.UserSign.Add(todaySign);
                 }
@@ -85,13 +87,14 @@ namespace Service
                 var scoreDetials = new ScoreDetails()
                 {
                     UNID = Guid.NewGuid().ToString("N"),
-                    OpenId = openId,
+                    OpenId = user.OpenId,
                     CreatedTime = DateTime.Now,
                     Description = "签到获得积分",
                     IsAdd = (int)YesOrNoCode.Yes,
                     Value = Params.SignScore,
                     Type = (int)ScoreType.Sign
                 };
+                userEntity.Score += Params.SignScore;
                 entities.ScoreDetails.Add(scoreDetials);
 
                 return entities.SaveChanges() > 0 ? true : false;

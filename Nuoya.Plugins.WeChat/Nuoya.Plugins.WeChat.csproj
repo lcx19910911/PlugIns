@@ -201,14 +201,12 @@
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
     <Content Include="Images\404Pic.png" />
+    <Content Include="Scripts\activity\puzzle\gameobject.js" />
+    <Content Include="Styles\activity\puzzle\puzzleGame.css" />
     <Content Include="Styles\sign\img\icons-userinfo.png" />
     <Content Include="Images\ScratchCard\ongoing.png" />
     <Content Include="Images\ScratchCard\over.jpg" />
     <Content Include="Images\ScratchCard\preheating.jpg" />
-    <Content Include="Scripts\activity\wall\helper_min.js" />
-    <Content Include="Scripts\activity\wall\jquery_flexslider.js" />
-    <Content Include="Scripts\activity\wall\main.js" />
-    <Content Include="Scripts\activity\wall\msgScroll.js" />
     <Content Include="Scripts\dinner\handle.js" />
     <Content Include="Scripts\dinner\iscroll.js" />
     <Content Include="Scripts\dinner\jquery.cookie.js" />
@@ -336,6 +334,9 @@
     <Compile Include="Areas\Dinner\Controllers\OrderController.cs" />
     <Compile Include="Areas\Dinner\Controllers\ShopController.cs" />
     <Compile Include="Areas\Dinner\DinnerAreaRegistration.cs" />
+    <Compile Include="Areas\Puzzle\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Puzzle\Controllers\PuzzleBaseController.cs" />
+    <Compile Include="Areas\Puzzle\PuzzleAreaRegistration.cs" />
     <Compile Include="Areas\Scratchcard\Controllers\ScratchcardBaseController.cs" />
     <Compile Include="Areas\Scratchcard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Scratchcard\ScratchcardAreaRegistration.cs" />
@@ -395,6 +396,10 @@
     <Content Include="Areas\User\Views\_ViewStart.cshtml" />
     <Content Include="Areas\User\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\User\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Puzzle\Views\web.config" />
+    <Content Include="Areas\Puzzle\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Puzzle\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Puzzle\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
@@ -411,6 +416,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dinner\Models\" />
     <Folder Include="Areas\Dinner\Views\Shared\" />
+    <Folder Include="Areas\Puzzle\Models\" />
     <Folder Include="Areas\Scratchcard\Models\" />
     <Folder Include="Areas\Scratchcard\Views\Shared\" />
     <Folder Include="Areas\Sign\Models\" />

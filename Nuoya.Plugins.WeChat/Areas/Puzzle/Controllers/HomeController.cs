@@ -12,12 +12,12 @@ using System.Web.Mvc;
 using MPUtil.UserMng;
 using Domain.User;
 
-namespace Nuoya.Plugins.WeChat.Areas.Sign.Controllers
+namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
 {
     /// <summary>
-    /// 签到
+    /// 拼图
     /// </summary>
-    public class HomeController : SignBaseController
+    public class HomeController : PuzzleBaseController
     {
         public IUserSignService IUserSignService;
         public IUserService IUserService;
@@ -35,19 +35,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Sign.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            Repository.User user=CacheHelper.Get<Repository.User>("user");
-            if (user==null)
-                return Error();
-            UserCenterModel model = new UserCenterModel();
-            model.User = user;
-            var scoreModel = IUserService.Find_User(user.OpenId);
-            model.Score = scoreModel == null ? 0 : scoreModel.Score;
-            var signModel = IUserSignService.Get_LastSign(user.OpenId);
-            if (signModel != null && signModel.SignDate == DateTime.Now.Date)
-                model.TodayHadSign = true;
-            model.SignNum = signModel == null ? 0 : (model.TodayHadSign?signModel.SignNum:0);
-            model.SignDic = IUserSignService.Get_LastelyTenDaySign(user.OpenId);
-            return View(model);
+            return View();
         }
 
         /// <summary>

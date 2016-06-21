@@ -16,5 +16,7 @@ namespace Domain.User
         public int Score { get; set; }
 
         public Dictionary<string, bool> SignDic { get; set; }
+
+        public bool TodayHadSign { get; set; } = false;
     }
 }

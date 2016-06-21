@@ -17,9 +17,8 @@ namespace IService
         /// <summary>
         /// 签到
         /// </summary>
-        /// <param name="openId">微信openId</param>
         /// <returns></returns>
-        bool User_Sign(string openId);
+        bool User_Sign();
 
         /// <summary>
         /// 最近十天的签到

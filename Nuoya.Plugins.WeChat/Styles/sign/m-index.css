@@ -353,6 +353,7 @@ body {
     }
 }
 
+figure{position:absolute;left:0;right:0;top:0;bottom:0;border-radius:50%;border:4px solid #fff;overflow:hidden;}
 .page-nav {
     font-family: lato;
     text-align: center;
@@ -541,6 +542,9 @@ body {
         height: 14px;
     }
 
+.signBtn{ background:#fff; padding:20px 0; text-align:center; border-bottom:1px solid #ccc;}
+.signBtn a{ display:inline-block; background:#ee5729; border-bottom:3px solid #B43F1B; color:#fff; font-size:17px; line-height:2.5em; border-radius:2.3em; width:50%; max-width:200px;}
+.signBtn a.off{ background:#B43F1B; color:#999;}
 
 .sign-date-list{ padding-left:30px; background-color:#fbfafa}
 .sign-date-list ul{ border-left:1px solid #ccc;}
@@ -551,3 +555,18 @@ body {
 .sign-date-list li div .span{ display:block; padding:10px 0; color:#c5c5c5;}
 .sign-date-list li.active .time{ color:#ee5729;}
 .sign-date-list li.active:after{ border-color:#ee5729; background:#fff;}
+
+
+.dialog-alert-layer{ position:fixed; left:0; right:0; top:0; bottom:0; background:rgba(0,0,0,0.6); z-index:99; display:none;}
+.dialog-alert-layer > table,
+.dialog-alert-layer > table > tr > td{ width:100%; height:100%; border-collapse:collapse;}
+.dialog-alert-layer .alert-main{ width:70%; max-width:300px; margin:0 auto; min-height:50px; background:#fff; position:relative; padding:0 3%;}
+.dialog-alert-layer .alert-main .close{ position:absolute; display:block; width:25px; height:25px; border-radius:50%; background:#ee5729; color:#fff; font-size:20px; text-align:center; line-height:25px; right:-13px; top:-13px;}
+.dialog-alert-layer .alert-main > .title{ font-size:16px; color:#ee5729; line-height:3em; border-bottom:1px solid #ccc;}
+.dialog-alert-layer .alert-main > .content{ font-size:14px; color:#333; line-height:1.6em; padding:18px 0;}
+
+
+.sign-button {height:60px;background:#fff;border:1px solid #ccc;}
+#op-logo span {
+    font-size:16px;
+}

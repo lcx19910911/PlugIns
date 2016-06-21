@@ -36,38 +36,43 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
         public ActionResult Index(string info)
         {
             //接收微信用户数据
-            if (!string.IsNullOrEmpty(info))
+            var userInfoCache = CacheHelper.Get<Repository.User>("user");
+            UserCenterModel model = new UserCenterModel();
+            if (!string.IsNullOrEmpty(info)&& userInfoCache==null)
             {
                 WXUser entity = info.DeserializeJson<WXUser>();
                 if (entity != null)
                 {
+                    model.User = new Repository.User()
+                    {
+                        NickName = entity.nickname,
+                        HeadImgUrl = entity.headimgurl
+                    };
                     //更新数据
                     IUserService.Update_User(entity);
                     CacheHelper.Get<Repository.User>("user", CacheTimeOption.TwoHour, () =>
                     {
-                        return new Repository.User()
+                        return userInfoCache=new Repository.User()
                         {
                             OpenId = entity.openid,
                             HeadImgUrl = entity.headimgurl,
                             NickName = entity.nickname
                         };
                     });
-
-                    UserCenterModel model = new UserCenterModel();
-                    model.User = new Repository.User()
-                    {
-                        NickName = entity.nickname,
-                        HeadImgUrl = entity.headimgurl
-                    };
-                    var scoreModel = IUserService.Find_User(entity.openid);
-                    model.Score = scoreModel == null?0: scoreModel.Score;
-                    var signModel = IUserSignService.Get_LastSign(entity.openid);
-                    model.SignNum = signModel==null?0: signModel.SignNum;
-
-                    return View(model);
                 }
             }
-            return Error();
+            if (userInfoCache == null)
+                return Error();
+            else
+            {
+                model.User = userInfoCache;
+                var scoreModel = IUserService.Find_User(userInfoCache.OpenId);
+                model.Score = scoreModel == null ? 0 : scoreModel.Score;
+                var signModel = IUserSignService.Get_LastSign(userInfoCache.OpenId);
+                model.SignNum = signModel == null ? 0 : (signModel.SignDate == DateTime.Now.Date ? signModel.SignNum : 0);
+
+                return View(model);
+            }
         }
     }
 }

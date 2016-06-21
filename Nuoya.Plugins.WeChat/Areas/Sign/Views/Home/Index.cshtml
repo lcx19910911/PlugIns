@@ -29,29 +29,37 @@
     <link rel="shortcut icon" href="http://statics.oneplus.cn/img/oneplus.ico" type="image/x-icon">
     <link href="~/Styles/sign/common_pc.css" rel="stylesheet" />
     <link href="~/Styles/sign/m-index.css" rel="stylesheet" />
+    <style>
+        a {
+            color:#fff;
+        }
+    </style>
 </head>
-<body>
-    <div id="op-wrap">
-        <div id="op-content">
-            <header class="op-top-header header">
-                <div class="op-top-box">
-                    <h1 id="op-logo">
-                        我前积分：100
-                    </h1>
+<body style="background:#ee5729;">
+    <div id="op-content">
+        <header class="op-top-header header">
+            <div class="op-top-box">
 
-                    <div class="op-r-btns">
-                        <div class="icon i-user" onclick="_opq.push(['trackEvent','onepluscn_A004','个人头相'])">
-                            <span><a>签到规则</a>    </span>
-</div>
-                        <div class="icon i-menu" id="op-btn-menu"></div>
-                    </div>                 
-                </div>
-            </header>
-        </div>
+                <h1 id="op-logo">
+                    <span><a>我的积分：@(Model.Score)</a></span>
+                </h1>
+                <h1 id="op-logo" style="float:right">
+                    <span><a id="i-user">签到规则</a></span>
+                </h1>
+
+            </div>
+        </header>
+    </div>
+
+   
+
+    <div id="op-wrap">
         <div class="user-hd">
             <div class="my-avatar">
                 <a href="#填写个人修改头像地址">
-                    <img src="@(Model.User?.HeadImgUrl)" alt="">
+                    <figure>
+                        <img src="@(Model.User?.HeadImgUrl)" alt="">
+                    </figure>
                     <span class="update-tip"><i class="i-update-avatar"></i></span>
                 </a>
             </div>
@@ -59,16 +67,44 @@
                 <span>
                     <a href="#">@(Model.User?.NickName)</a>
                 </span>
-            </div>          
+
+            </div>        
         </div>
 
+        <div class="dialog-alert-layer" style="display: none;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="alert-main">
+                                <close class="close">×</close>
+                                <div class="title">签到规则</div>
+                                <div class="content">
+                                    1、每天的签到分数为10分。<br>2、连续签到天数累计到10天，额外赠送20分。<br>3、例如：一个月30天，如果设置连续签到10天赠送积分，那么一个月可以获得赠送三次积分；跨月不影响连续的天数，连续天数完成后重新开始累计计算。
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
  
 
+        <div class="signBtn">
+            @if (Model.TodayHadSign)
+            {
+                <a class="off">今日已签到</a>
+            }
+            else
+            {
+                <a id="sign-btn">签到</a>
+            }
+        </div>
         <div class="user-bd">
 
             <div class="sign-date-list">
                 <ul id="uls">
-                    @foreach (var item in Model.SignDic.OrderByDescending(x=>x.Key))
+                    @foreach (var item in Model.SignDic.OrderByDescending(x => x.Key))
                     {
                         if (item.Value)
                         {
@@ -77,8 +113,8 @@
                         else
                         {
                             <li> <div> <span class="time">@item.Key</span> <span class="span">未签到</span> </div> </li>
-                        }
-                    } 
+                            }
+                        } 
                 </ul>
             </div>
  
@@ -86,5 +122,32 @@
 
         </div>
     </div>
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#i-user").click(function () {
+                $(".dialog-alert-layer").show();
+            });
+
+            $(".close").click(function () {
+                $(".dialog-alert-layer").hide();
+            });
+
+            $("#sign-btn").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "Sign",
+                    success: function (result) {
+                        if (result) {
+                            window.location.reload();
+                        }
+                        else {
+                            alert("签到失败");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

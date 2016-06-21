@@ -92,7 +92,7 @@ body,html{width:100%}
      -webkit-transition:all .3s ease;transition:all .3s ease}
 
 .op-top-header.disappear{top:-500px}
-.op-top-box{height:80px;margin:0 auto;background:rgba(255,255,255,.95);text-align:center;position:relative}
+.op-top-box{height:40px;margin:0 auto;text-align:center;position:relative}
 .op-top-box.shadow{-moz-box-shadow:0 0 10px #aaa;-webkit-box-shadow:0 0 10px #aaa;box-shadow:0 0 10px #aaa}
 
  #op-logo{width:44px;height:44px;display:block;float:left;margin:17px 0 0 23px}
@@ -107,10 +107,7 @@ body,html{width:100%}
 @media screen and (max-height:800px),screen and (max-width:1000px){
     #op-logo{margin-top:7px;margin-left:13px}
     .op-r-btns .icon{margin-top:18px!important;margin-bottom:0!important;margin-left:30px;margin-right:10px}
-    .op-top-box{height:60px}#op-nav-box{top:60px}.op-top-nav{top:-60px}
-    .op-top-search{height:60px}.op-search-input{padding:20px 8% 20px 0;text-indent:13px}
-    .op-search-submit{height:62px;right:7px}}
-@media screen and (max-height:800px) and (min-width:1001px){.op-top-menu{height:60px}.op-top-menu li{width:60px;height:60px}.op-top-menu .op-top-menu-lia{line-height:60px}}
+    .op-top-box{height:40px}}
 @media screen and (min-width:1001px) and (max-width:1200px) and (min-height:801px){.op-top-nav{left:43%}.op-r-btns .icon{margin-left:15px;margin-right:15px}}
 @media screen and (max-width:1000px){
     .op-top-nav{display:none}
@@ -118,7 +115,7 @@ body,html{width:100%}
     .op-r-btns .i-menu{display:inline-block}
     .mobile .op-r-btns .i-user{display:none}}
 @media screen and (max-width:500px)
-{#op-logo{width:100px; line-height:32px;height:32px;margin:13px 0 0 15px}
+{#op-logo{width:110px; line-height:32px;height:32px;margin:13px 0 0 15px}
  .op-r-btns .icon{margin-left:8px;margin-right:8px}
  #op-wrap.aside-active #op-content{left:-80%}
  #op-wrap.aside-active #op-wrap-mask{right:80%}
@@ -126,10 +123,10 @@ body,html{width:100%}
 
 button{padding:0;border:0 none}
 
-.user-hd{margin:30px auto;text-align:center;max-width:1200px}
-@media screen and (max-width:500px){.user-hd{margin:20px auto}}
+.user-hd{text-align:center;max-width:1200px}
+@media screen and (max-width:500px){.user-hd{margin:0px  0px 10px 0px }}
 .user-hd .my-avatar{width:110px;height:110px;margin:auto;position:relative}
-@media screen and (max-width:786px){.user-hd .my-avatar{width:60px;height:60px}}
+@media screen and (max-width:786px){.user-hd .my-avatar{width:90px;height:90px}}
 .user-hd .my-avatar img{-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;width:100%}
 .user-hd .my-avatar .update-tip
 {display:block;width:100%;height:100%;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;
@@ -139,7 +136,7 @@ button{padding:0;border:0 none}
 .user-hd .my-avatar:hover .update-tip{
     opacity:1;filter:alpha(opacity=100);filter:alpha(opacity=80);
     -moz-transition:all .2s;-o-transition:all .2s;-webkit-transition:all .2s;transition:all .2s}
-.user-hd .my-nickname{padding:20px 0;font-size:16px}
+.user-hd .my-nickname{padding:20px 0px 0px 0px;font-size:16px}
 .user-hd .my-nickname em{display:inline-block;padding-right:10px}
 @media screen and (max-width:768px){.user-hd .my-nickname em{font-size:14px}}
 .user-hd .my-nickname em::after{content:'';display:block;width:20px;height:14px;border-bottom:1px solid #333;margin:auto}
