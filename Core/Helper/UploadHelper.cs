@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Core.Code;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,6 +22,39 @@ namespace Core.Helper
             string path= Path.Combine(phicyPath, fileName);
             file.SaveAs(path);
             return string.Format("/{0}/{1}",root,fileName);
+        }
+
+        public static string Save(HttpPostedFile file, string mark)
+        {
+            var root = @"Upload/" + mark;
+            string phicyPath = Path.Combine(HttpRuntime.AppDomainAppPath, root);
+            Directory.CreateDirectory(phicyPath);
+            var fileName = Guid.NewGuid().ToString("N") + file.FileName.Substring(file.FileName.LastIndexOf('.'));
+            string path = Path.Combine(phicyPath, fileName);
+            file.SaveAs(path);
+            return string.Format("/{0}/{1}", root, fileName);
+        }
+
+        public static string SaveImageStream(Stream stream, string suffix)
+        {
+            var root = @"Upload/Image";
+            string phicyPath = Path.Combine(HttpRuntime.AppDomainAppPath, root);
+            Directory.CreateDirectory(phicyPath);
+            var fileName = Guid.NewGuid().ToString("N") + suffix;
+            string path = Path.Combine(phicyPath, fileName);
+
+            using (Stream localFile =new FileStream(path, FileMode.OpenOrCreate))
+            {
+                byte[] b = new byte[5000];
+                int getByteSize = stream.Read(b, 0, b.Length);
+                while (getByteSize > 0)
+                {
+                    localFile.Write(b, 0, getByteSize);
+                    getByteSize = stream.Read(b, 0, b.Length);
+                }
+            }
+
+            return string.Format("/{0}/{1}", root, fileName);
         }
     }
 }

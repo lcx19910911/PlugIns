@@ -17,15 +17,16 @@ namespace Repository
         public string UNID { get; set; }
         public string PersonId { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> PuzzleDate { get; set; }
         public System.DateTime CreatedTime { get; set; }
         public string Image { get; set; }
         public System.DateTime UpdatedTime { get; set; }
-        public Nullable<long> Flag { get; set; }
-        public Nullable<long> DifficultyFlag { get; set; }
-        public int IsShowCompare { get; set; }
+        public long Flag { get; set; }
+        public int DifficultyType { get; set; }
         public string Description { get; set; }
         public int IsBindScore { get; set; }
+        public int Score { get; set; }
+        public string BindTitle { get; set; }
+        public string BindName { get; set; }
         public string BindUrl { get; set; }
         public System.DateTime OverTime { get; set; }
         public System.DateTime OngoingTime { get; set; }

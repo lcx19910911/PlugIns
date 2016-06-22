@@ -1,0 +1,153 @@
+﻿<div class="admin-content-body">
+    <form id="form" class="am-form  am-form-inline">
+        <input type="hidden" name="UNID" />
+        <div class="am-tabs am-margin" data-am-tabs="">
+            <ul class="am-tabs-nav am-nav am-nav-tabs" id="selectTabUl">
+                <li class="am-active"><a href="#tab1">基本信息</a></li>
+                <li class=""><a href="#tab2">积分奖品设置</a></li>
+            </ul>
+            <div class="am-tabs-bd" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);overflow-x:hidden">
+                <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-md-3 am-text-right">
+                            拼图名称
+                        </div>
+                        <div class="am-u-md-5">
+                            <input type="text" name="Name" class="am-input-sm">
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过64个字</div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-md-3">
+                        </div>
+                        <div class="am-u-md-9 am-text-left">
+                            <small><strong class="am-text-danger am-text-sm">*</strong>必填，活动期间内用户可以参与该拼图</small>
+                        </div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-md-3 am-text-right">
+                            活动时间
+                        </div>
+                        <div class="am-u-md-6">
+                            <input type="text" name="OngoingTime" style="width:170px;float:left;" readonly onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" datatype="jsondate" />
+                            <label class="am-u-md-1 am-text-left">-</label>
+                            <input type="text" name="OverTime" style="width:170px;float:left;" readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" datatype="jsondate" />
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-3 am-text-left"></div>
+                    </div>
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-md-3 am-text-right">
+                            难度选择
+                        </div>
+                        <div class="am-u-md-5">
+                            <div style="text-align:left;">
+                                <select name="DifficultyType">
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必选，拼图将会分割成 难度*难度 个格子</div>
+                    </div>
+
+                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+
+                    <div class="am-g am-margin-top am-panel am-panel-default" style="height:534px;">
+                        <div class="am-u-md-2">
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-md-6 am-text-left">
+                                    <label for="user-name" class="am-form-label">拼图图片</label>
+                                </div>
+                            </div>
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-md-9 am-text-left">
+
+                                </div>
+                            </div>
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-md-12 am-text-left" id="div_imageShow">
+                                    <img class="am-img-circle am-img-thumbnail" style="max-width:320px;max-height:320px;" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="am-u-md-10">
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-md-3 am-text-right">
+                                    图片
+                                </div>
+                                <div class="am-u-md-5">
+                                    <input type="file" class="file" id="imageFile" />
+                                    <input type="hidden" name="Image" />
+                                </div>
+                                <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>参考尺寸：320*320</div>
+                            </div>
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-md-3 am-text-right">
+                                    图片描述
+                                </div>
+                                <div class="am-u-md-9 am-text-left">
+                                    <input type="hidden" name="Description" />
+                                    <script class="txtContent" type="text/plain" style="height:300px;">
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="am-tab-panel am-fade" id="tab2" style="height:534px;">
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-md-3 am-text-right">
+                            奖品是否是积分
+                        </div>
+                        <div class="am-u-md-3 am-text-left">
+                            <input type="checkbox" name="IsBindScore" id="chk_isBindScore" />
+
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>可以绑定积分和平台的其他活动</div>
+                    </div>
+
+                    <div class="am-g am-margin-top" id="bindScore"  style="display:none;">
+                        <div class="am-u-md-3 am-text-right">
+                            个人积分
+                        </div>
+                        <div class="am-u-md-3">
+                            <input type="number" name="Score" class="am-input-sm" />
+                        </div>
+                        <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填 ，积分必须是大于1且小于100000</div>
+                    </div>
+                    <div id="bindSystem" >
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-md-3 am-text-right">
+                                拼图完毕提示
+                            </div>
+                            <div class="am-u-md-3">
+                                <input type="text" name="BindTitle" class="am-input-sm" />
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填 ，拼图完成时，弹出提示</div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-md-3 am-text-right">
+                                绑定平台活动
+                            </div>
+                            <div class="am-u-md-3">
+                                <button id="bindSystemBtn">选择</button>
+                                <input type="hidden" name="BindUrl"/>
+                                <input type="text" name="BindName" class="am-input-sm"  readonly/>
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填 ，拼图完成时，跳转到所选的平台活动</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

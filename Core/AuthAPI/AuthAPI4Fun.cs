@@ -155,12 +155,12 @@ namespace Core.AuthAPI
 
                 long timestamp = GetCurrentTimeMillis();
                 string nonce = new Random().NextDouble().ToString();
-                string signature = SignatureString("IbeaconPTCompany", timestamp.ToString(), nonce);
+                string signature = SignatureString(Params.SecretKey, timestamp.ToString(), nonce);
 
                 Dictionary<string, string> postParameters = new Dictionary<string, string>();
                 postParameters.Add("username", username);
                 postParameters.Add("password", password);
-                postParameters.Add("timestamp", timestamp.ToString());
+                postParameters.Add("timestamp", timestamp.ToString()); 
                 postParameters.Add("nonce", nonce);
                 postParameters.Add("signature", signature);
 

@@ -1,0 +1,446 @@
+﻿
+@{
+    ViewBag.Title = "拼图管理";
+    Layout = "~/Areas/Puzzle/Views/Shared/_Layout.cshtml";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">拼图管理</strong></div>
+</div>
+<div id="searchDomain">
+
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">名称</span>
+                <input type="text" class="am-form-field" placeholder="按名称搜索" name="title" ;>
+                <span class="am-input-group-label  am-margin-left-sm">活动日期</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
+                <span class="am-input-group-label"> - </span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="am-g am-margin-top-sm">
+        <div class="am-u-lg-4">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-sm">
+                    <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+                    <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="UNID" type="checkbox"></th>
+                <th dataname="Name">拼图名称</th>
+                <th dataname="OngoingTime" datatype="jsondate">开始时间</th>
+                <th dataname="OverTime" datatype="jsondate">结束时间</th>
+                <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+<script src="~/Scripts/UEditor/ueditor.config.js"></script>
+<script src="~/Scripts/UEditor/ueditor.all.js"></script>
+<script src="~/Scripts/UEditor/ueditor.parse.js"></script>
+<script src="~/Scripts/UEditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript">
+        $('[name=createdTimeStart]').datepicker({ format: 'yyyy-mm-dd' });
+        $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
+
+        var ue;
+        function ClearFilter() {
+            $("#searchDomain input").val("");
+        }
+
+        function formInit(dataitem) {
+            var txtContentId = $.AMUI.utils.generateGUID("txtContent");
+            $(".txtContent").attr("id", txtContentId)
+            ue = UE. getEditor(txtContentId);
+
+            if (dataitem != null)
+            {
+                if (dataitem.Image != null) {
+                    $("#div_imageShow").find("img").attr("src", dataitem.Image);
+                }
+                if (dataitem.Description != null)
+                {
+                    ue.addListener("ready", function () {
+                        // editor准备好之后才可以使用
+                        ue.setContent(dataitem.Description);
+                    });
+                }
+            }
+            //添加表单验证
+            $.Nuoya.form("form").validate({
+                rules: {
+                    Name: {
+                        required: true,
+                        maxlength: 64
+                    },
+                    OngoingTime: {
+                        required: true
+                    },
+                    OverTime: {
+                        required: true
+                    },
+                    Image: {
+                        required: true
+                    },
+                    Description: {
+                        maxlength: 500
+                    },
+                   
+                    IsShowCompare: {
+                        required: true
+                    },
+                    DifficultyFlag: {
+                        required: true
+                    },
+                    IsBindScore: {
+                        required: true
+                    },
+                    Score: {
+                        digits: true,
+                        max: 100000,
+                        min: 1
+                    },
+                    BindTitle: {
+                        maxlength: 64
+                    }
+                },
+                messages: {
+                    Name: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    OngoingTime: {
+                        required: "不允许为空"
+                    },
+                    Image: {
+                        required: "不允许为空"
+                    },
+                    Description: {
+                        maxlength: "最多{0}个字符"
+                    },
+                    IsShowCompare: {
+                        required: "不允许为空"
+                    },
+                    DifficultyFlag: {
+                        required: "不允许为空"
+                    },
+                    IsBindScore: {
+                        maxlength: "最多{0}个字符"
+                    },
+                    Score: {
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    },
+                    BindTitle: {
+                        maxlength: "最多{0}个字符"
+                    }
+                }
+            });
+
+            $("#imageFile").uploadify({
+                'formData': { mark: 'Puzzle' },
+                'swf': '/Scripts/uploadify/uploadify.swf',
+                'uploader': '/upload/uploadimage',
+                'buttonText': '选择图片',
+                'auto': true,
+                'multi': false,
+                'removeCompleted': true,
+                'fileSizeLimit': '2048KB',
+                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
+                'onUploadSuccess': function (file, data, response) {
+                    var data = JSON.parse(data);
+                    if (data.Code == 0) {
+                        $("[name='Image']").val(data.Result);
+                        $("#div_imageShow").find("img").attr("src", data.Result);
+
+                    } else {
+                        $.Nuoya.alert("上传错误");
+                    }
+                }
+            });
+
+            $("#chk_isBindScore").change(function () {
+                if ($(this).checked)
+                {
+                    $("#bindScore").show();
+                    $("#bindSystem").hide();
+                }
+                else
+                {
+                    $("#bindSystem").show();
+                    $("#bindScore").hide();
+                }
+            });
+
+
+            $("#bindSystemBtn").click(function () {
+                $.palmv.ajaxDialog({
+                    width: ($(window).width() - 200) + "px",
+                    ajaxUrl: "/HtmlTemplates/Recommend/NewsSearchMulit.html",
+                    title: "添加资讯推荐",
+                    callback: function (e) {
+                        searchMulitGrid = $.palmv.grid({
+                            params: { excludeRecommendCode: 10 },
+                            search: {
+                                domainId: "newsSearchMulitDomain",
+                                subId: "newsSearchMulit"
+                            },
+                            tableId: "newsSearchMulitDataTable",
+                            ajaxUrl: "/News/GetPageList",
+                            pageSize: 10,
+                            drawCallback: function () {
+                                $.palmv.resetModalPosition(e.dialog);
+                            }
+                        });
+                    },
+                    buttons: [{
+                        label: "选择",
+                        callback: function (e) {
+                            var ids = searchMulitGrid.getCheckIds();
+                            var url = "";
+                            if (title == "资讯推荐") {
+                                url = "/Recommend/NewsHomeTopReferralAddByUnids";
+                            }
+                            else if (title == "最新资讯") {
+                                url = "/Recommend/NewsDetailsLatestAddByUnids";
+                            }
+                            else if (title == "跟投帮助") {
+                                url = "/Recommend/UserJoinProjectNewsHelpAddByUnids";
+                            }
+                            $.palmv.action(url, { unidList: ids }, function () {
+                                e.hide();
+                                grid.reload();
+                            });
+                        }
+                    }]
+                });
+            });
+        }
+
+        //新增
+        function add() {
+            $.Nuoya.ajaxDialog({
+                closeViaDimmer: false,
+                width: ($(window).width() - 100) + "px",
+                height: ($(window).height() - 100) + "px",
+                ajaxUrl: "/HtmlTemplates/Puzzle/Update.html",
+                title: "添加拼图",
+                callback: function (e) {
+                    formInit();//表单初始化
+                },
+                buttons: [{
+                    label: "保存",
+                    callback: function (e) {
+
+                        var ongoingTime = document.forms[0].OngoingTime.value;
+                        var overTime = document.forms[0].OverTime.value;
+                        if (ongoingTime > overTime) {
+                            $.Nuoya.alert("开始时间必须小于结束时间");
+                            return false;
+                        }
+
+                        if (document.getElementById('chk_isBindScore').checked)
+                        {
+                            document.forms[0].IsBindScore.value = "1";
+                            if (document.forms[0].Score.value == "" || document.forms[0].Score.value == 0)
+                            {
+                                $.Nuoya.alert("奖励积分不能为空");
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if (document.forms[0].BindTitle.value =="" )
+                            {
+                                $.Nuoya.alert("拼图完毕提示不能为空");
+                                return false;
+                            }
+                            else if (document.forms[0].BindTitle.value.length > 64) {
+                                $.Nuoya.alert("拼图完毕提示长度不能超过64个字符");
+                                return false;
+                            }
+
+                            if (document.forms[0].BindUrl.value == "") {
+                                $.Nuoya.alert("请选择平台活动");
+                                return false;
+                            }
+
+                            document.forms[0].IsBindScore.value = "0";
+                        }
+
+                        $("[name=Description]").val(ue.getContent());
+
+                        $.Nuoya.form("form").ajaxSubmit({
+                            ajaxUrl: "/Puzzle/Admin/Add",
+                            afterValid: function () {
+                                $("#tab1,#tab2").removeClass("am-in").removeClass("am-active");
+                                $("#selectTabUl li").removeClass("am-active");
+                                if ($("#tab1 .tipso_content").length != 0)
+                                {
+                                    $("#selectTabUl li").eq(0).addClass("am-active");
+                                    $("#tab1").addClass("am-in").addClass("am-active");
+                                }
+                                else
+                                {
+                                    $("#selectTabUl li").eq(1).addClass("am-active");
+                                    $("#tab2").addClass("am-in").addClass("am-active");
+                                }
+                            },
+                            callback: function (data) {
+                                if (data.Result == "") {
+                                    e.hide();
+                                    grid.reload();
+                                }
+                                else
+                                    $.Nuoya.alert(data.Result);
+                            }
+                        });
+                    }
+                }]
+            })
+        }
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/Puzzle/Admin/GetPageList",
+            //数据请求地址
+            pageSize: 10,
+            events: [
+                {
+                    className: "am-text-secondary",
+                    icon: "icon-pencil-square-o",
+                    name: "编辑",
+                    click: function (item) {
+                        $.Nuoya.ajaxDialog({
+                            closeViaDimmer: false,
+                            width: ($(window).width() - 100) + "px",
+                            height: ($(window).height() - 100) + "px",
+                            ajaxUrl: "/HtmlTemplates/Puzzle/Update.html",
+                            title: "编辑拼图",
+                            callback: function (e) {
+                                $.Nuoya.action("/Puzzle/Admin//Find", { unid: item.UNID }, function (model) {
+                                    //载入数据
+                                    $.Nuoya.form("form").dataLoad({
+                                        data: model
+                                    });
+                                    formInit(model);//表单初始化
+                                    document.forms[0].UNID.value = item.UNID;
+                                    if (model.IsBindScore == 1) {
+                                        document.getElementById('chk_isBindScore').checked = true;
+                                        $("#bindSystem").hide();
+                                        $("#bindScore").show();
+                                    }
+                                    else
+                                    {
+                                        $("#bindSystem").show();
+                                        $("#bindScore").hide();
+                                    }
+                                });
+                            },
+                            buttons: [{
+                                label: "保存",
+                                callback: function (e) {
+                                    
+                                    var ongoingTime = document.forms[0].OngoingTime.value;
+                                    var overTime = document.forms[0].OverTime.value;
+                                    if (ongoingTime > overTime) {
+                                        $.Nuoya.alert("开始时间必须小于结束时间");
+                                        return false;
+                                    }
+
+                                    if (document.getElementById('chk_isBindScore').checked) {
+                                        document.forms[0].IsBindScore.value = "1";
+                                        if (document.forms[0].Score.value == "" || document.forms[0].Score.value == 0) {
+                                            $.Nuoya.alert("奖励积分不能为空");
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        if (document.forms[0].BindTitle.value == "") {
+                                            $.Nuoya.alert("拼图完毕提示不能为空");
+                                            return false;
+                                        }
+                                        else if (document.forms[0].BindTitle.value.length > 64) {
+                                            $.Nuoya.alert("拼图完毕提示长度不能超过64个字符");
+                                            return false;
+                                        }
+
+                                        if (document.forms[0].BindUrl.value == "") {
+                                            $.Nuoya.alert("请选择平台活动");
+                                            return false;
+                                        }
+
+                                        document.forms[0].IsBindScore.value = "0";
+                                    }
+
+                                    $("[name=Description]").val(ue.getContent());
+
+                                    $.Nuoya.form("form").ajaxSubmit({
+                                        ajaxUrl: "/Puzzle/Admin/Update",
+                                        params: {
+                                            UNID: item.UNID
+                                        },
+                                        callback: function (data) {
+                                            if (data.Result == "") {
+                                                e.hide();
+                                                grid.reload();
+                                            }
+                                            else
+                                                $.Nuoya.alert(data.Result);
+                                        }
+                                    });
+                                }
+                            }]
+                        })
+                    }
+                },
+                {
+                    className: "am-text-danger",
+                    icon: "icon-trash-o",
+                    name: "删除",
+                    click: function (item) {
+                        $.Nuoya.deleteAction("/Puzzle/Admin/Delete", {
+                            unids: item.UNID
+                        },
+                        function () {
+                            grid.reload();
+                        });
+                    }
+                },
+                {
+                    className: "am-text-secondary",
+                    icon: "icon-firefox",
+                    name: "预览",
+                    click: function (item) {
+                        window.open("/Puzzle/home/index?unid=" + item.UNID);
+                    }
+                }
+            ]
+        });
+    </script>
+}

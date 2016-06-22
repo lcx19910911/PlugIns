@@ -63,6 +63,7 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="PuzzleService.cs" />
+    <Compile Include="UEditorService.cs" />
     <Compile Include="UserSignService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="UserJoinCounterService.cs" />

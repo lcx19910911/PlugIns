@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <title>微点餐后台 - @ViewBag.Title</title>
+    @Styles.Render("~/Content/Admin")
+    @RenderSection("linkcss", required: false)
+</head>
+<body>
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <strong>微点餐后台</strong>
+        </div>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                <li><a href="javascript:;"><span>@(Session["LoginUser"] != null ? (Session["LoginUser"] as Core.Model.LoginUser)?.Name : "登入用户名")</span></a></li>
+                <li><a href="javascript:;" class="admin-clear-cache"><span class="am-icon-close"></span> <span>清除缓存</span></a></li>
+                <li><a href="/login/Quit" class="admin-quit"><span class="am-icon-sign-out"></span> <span>注销</span></a></li>
+                @if (Session["LoginUser"] != null && (Session["LoginUser"] as Core.Model.LoginUser).IsChildren)
+                {
+                    <li><a href="/dinner/menu/index?unid=@(Session["LoginUser"] != null ? (Session["LoginUser"] as Core.Model.LoginUser)?.ShopId : "")" class="admin-update-password" target="_blank"><span class="am-icon-cog"></span>浏览器预览效果</a></li>
+                }
+            </ul>
+        </div>
+    </header>
+    <div class="am-cf admin-main am-text-left">
+        <!-- sidebar start -->
+        <div class="admin-sidebar">
+            <ul class="am-list admin-sidebar-list">
+                @if (Session["LoginUser"] != null && (Session["LoginUser"] as Core.Model.LoginUser).IsChildren)
+                {
+                    <li><a href="/Dinner/Category"><span class="am-icon-lemon-o"></span>菜品分类</a></li>
+                    <li><a href="/Dinner/Dish"><span class="am-icon-ioxhost"></span>菜品管理</a></li>
+                    <li><a href="/Dinner/Order/Index?state=0"><span class="am-icon-cutlery"></span>未处理订单</a></li>
+                    <li><a href="/Dinner/Order/Index?state=1"><span class="am-icon-align-center"></span>确认订单</a></li>
+                    <li><a href="/Dinner/Order/Index?state=2"><span class="am-icon-repeat"></span>无效订单</a></li>
+                }
+                else
+                {
+                    <li><a href="/dinner/shop"><span class="am-icon-briefcase"></span>微点餐后台管理员</a></li>
+                }
+
+            </ul>
+        </div>
+        <!-- sidebar end -->
+        <!-- content start -->
+        <div class="admin-content">
+            <div>@RenderBody()</div>
+        </div>
+        <!-- content end -->
+    </div>
+    <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+
+    @Scripts.Render("~/Scripts/Admin")
+    <script type="text/javascript">
+        $(function () {
+            $(".admin-clear-cache").click(function () {
+                $.Nuoya.action("/home/ClearCache", function (json) {
+                    $.Nuoya.alert("清除缓存成功");
+                });
+            });
+
+        });
+    </script>
+    @RenderSection("scripts", false)
+</body>
+</html>

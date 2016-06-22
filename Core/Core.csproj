@@ -94,7 +94,9 @@
     <Compile Include="AuthAPI\TokenInfo.cs" />
     <Compile Include="Code\ErrorCode.cs" />
     <Compile Include="Code\LogCode.cs" />
+    <Compile Include="Code\OSSFileCode.cs" />
     <Compile Include="Code\SourceCode.cs" />
+    <Compile Include="Code\UploadStateCode.cs" />
     <Compile Include="Code\ValidResultType.cs" />
     <Compile Include="Config\UploadPathConfig.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Extensions\ProtobufExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
+    <Compile Include="Helper\EditorHelper.cs" />
     <Compile Include="Helper\EntityHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\UploadHelper.cs" />

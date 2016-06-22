@@ -157,16 +157,17 @@
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="PersonId" Type="char" MaxLength="32" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PuzzleDate" Type="date" />
+          <Property Name="Name" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="Image" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
-          <Property Name="Flag" Type="bigint" />
-          <Property Name="DifficultyFlag" Type="bigint" />
-          <Property Name="IsShowCompare" Type="int" Nullable="false" />
+          <Property Name="Flag" Type="bigint" Nullable="false" />
+          <Property Name="DifficultyType" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="IsBindScore" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="BindTitle" Type="varchar" MaxLength="64" />
+          <Property Name="BindName" Type="varchar" MaxLength="500" />
           <Property Name="BindUrl" Type="varchar" MaxLength="500" />
           <Property Name="OverTime" Type="datetime" Nullable="false" />
           <Property Name="OngoingTime" Type="datetime" Nullable="false" />
@@ -244,7 +245,7 @@
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="OpenId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="SignDate" Type="date" />
-          <Property Name="SignNum" Type="int" />
+          <Property Name="SignNum" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PlugInsModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -423,7 +424,7 @@
           <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="SignDate" Type="DateTime" Precision="0" />
-          <Property Name="SignNum" Type="Int32" />
+          <Property Name="SignNum" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -516,16 +517,17 @@
           </Key>
           <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="PersonId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PuzzleDate" Type="DateTime" Precision="0" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Image" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Flag" Type="Int64" />
-          <Property Name="DifficultyFlag" Type="Int64" />
-          <Property Name="IsShowCompare" Type="Int32" Nullable="false" />
+          <Property Name="Flag" Type="Int64" Nullable="false" />
+          <Property Name="DifficultyType" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IsBindScore" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="BindTitle" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="BindName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="BindUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -774,15 +776,16 @@
                 <ScalarProperty Name="OngoingTime" ColumnName="OngoingTime" />
                 <ScalarProperty Name="OverTime" ColumnName="OverTime" />
                 <ScalarProperty Name="BindUrl" ColumnName="BindUrl" />
+                <ScalarProperty Name="BindName" ColumnName="BindName" />
+                <ScalarProperty Name="BindTitle" ColumnName="BindTitle" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
                 <ScalarProperty Name="IsBindScore" ColumnName="IsBindScore" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsShowCompare" ColumnName="IsShowCompare" />
-                <ScalarProperty Name="DifficultyFlag" ColumnName="DifficultyFlag" />
+                <ScalarProperty Name="DifficultyType" ColumnName="DifficultyType" />
                 <ScalarProperty Name="Flag" ColumnName="Flag" />
                 <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="PuzzleDate" ColumnName="PuzzleDate" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />

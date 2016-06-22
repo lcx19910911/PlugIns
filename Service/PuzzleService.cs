@@ -156,9 +156,8 @@ namespace Service
                     oldEntity.UpdatedTime = DateTime.Now;
                     oldEntity.Name = model.Name;
                     oldEntity.Image = model.Image;
-                    oldEntity.DifficultyFlag = model.DifficultyFlag;
+                    oldEntity.DifficultyType = model.DifficultyType;
                     oldEntity.IsBindScore = model.IsBindScore;
-                    oldEntity.IsShowCompare = model.IsShowCompare;
                     oldEntity.Description = model.Description;
                     oldEntity.BindUrl = model.BindUrl;
                     oldEntity.OngoingTime = model.OngoingTime;

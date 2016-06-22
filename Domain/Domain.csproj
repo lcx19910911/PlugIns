@@ -59,6 +59,11 @@
     <Compile Include="PrizeResult.cs" />
     <Compile Include="API\ScratchCardResult.cs" />
     <Compile Include="Sign\SignModel.cs" />
+    <Compile Include="UEditor\CatchImageResponseDTO.cs" />
+    <Compile Include="UEditor\ConfigDTO.cs" />
+    <Compile Include="UEditor\ImageUrlDTO.cs" />
+    <Compile Include="UEditor\ListResponseDTO.cs" />
+    <Compile Include="UEditor\UploadResponseDTO.cs" />
     <Compile Include="UserJoinCounter\UserJoinCounterModel.cs" />
     <Compile Include="Prize\Update.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
