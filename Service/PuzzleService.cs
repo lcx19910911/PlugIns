@@ -64,40 +64,6 @@ namespace Service
 
 
         /// <summary>
-        /// 获取用户所有的拼图
-        /// </summary>
-        /// <returns></returns>
-        public List<Puzzle> Get_AllPuzzleList()
-        {
-            using (DbRepository entities = new DbRepository())
-            {
-
-                var query = entities.Puzzle.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0 && x.PersonId.Equals(Client.LoginUser.UNID));
-                var prizeDic = entities.Prize.ToDictionary(x => x.TargetID);
-                var list = new List<ScratchCardResult>();
-                var prizeModel = new Prize();
-                //query.OrderByDescending(x => x.CreatedTime).ToList().ForEach(x =>
-                //{
-                //    if (x != null)
-                //    {
-                //        prizeDic.TryGetValue(x.UNID, out prizeModel);
-                //        ScratchCardResult model = new ScratchCardResult()
-                //        {
-                //            ScratchCard = x.AutoMap<ScratchCard, ApiScratchCardModel>(),
-                //            Prize = prizeModel.AutoMap<Prize, ApiPrizeModel>()
-                //        };
-                //        model.ScratchCard.OngoingImage = UrlHelper.GetFullPath(model.ScratchCard.OngoingImage);
-                //        model.ScratchCard.PreheatingImage = UrlHelper.GetFullPath(model.ScratchCard.PreheatingImage);
-                //        model.ScratchCard.OverImage = UrlHelper.GetFullPath(model.ScratchCard.OverImage);
-                //        list.Add(model);
-                //    }
-                //});
-
-                return null;
-            }
-        }
-
-        /// <summary>
         /// 增加
         /// </summary>
         /// <param name="model"></param>
@@ -207,6 +173,124 @@ namespace Service
                     x.Flag = (x.Flag | (long)GlobalFlag.Removed);
                 });
                 return entities.SaveChanges() > 0 ? true : false;
+            }
+        }
+
+        /// <summary>
+        /// 获取下一个拼图
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        public Puzzle Get_NextPuzzle(string unid, string openId, string personId)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var ongingList = Get_OngingPuzzleList(entities, openId, personId);
+                if (ongingList == null)
+                    return null;
+                if (unid.IsNotNullOrEmpty())
+                {
+                    int index = ongingList.FindIndex(x => x.UNID.Equals(unid));
+                    if (ongingList.Count > index + 1)
+                        return ongingList[index + 1];
+                    else
+                        return ongingList[0];
+                }
+                else
+                {
+                    Random rd = new Random();
+                    int index = rd.Next(0, ongingList.Count);
+                    return ongingList[index];
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取用户正在活动内的拼图活动
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="openId">用户openid</param>
+        /// <returns></returns>
+        private List<Puzzle> Get_OngingPuzzleList(DbRepository entities, string openId, string personId)
+        {
+            var query = entities.Puzzle.AsQueryable().Where(x => (x.Flag & (long)GlobalFlag.Removed) == 0);
+            query = query.Where(x => x.PersonId.Equals(personId));
+
+            var dateTimeNow = DateTime.Now.Date;
+            query = query.Where(x => x.OngoingTime <= dateTimeNow && x.OverTime > dateTimeNow);
+
+            var hadPuzzleIdList = entities.UserPuzzle.Where(x => x.OpenId.Equals(openId) && x.PuzzleDate == dateTimeNow).Select(x => x.PuzzleId).ToList();
+            query = query.Where(x => !hadPuzzleIdList.Contains(x.UNID));
+
+            return query.OrderBy(x => x.OngoingTime).ToList();
+        }
+
+
+        /// <summary>
+        /// 完成拼图结果
+        /// </summary>
+        /// <returns>操作结果  提示语句   绑定地址</returns>
+        public Tuple<bool, string, string> Complete(string unid)
+        {
+            var user = CacheHelper.Get<Repository.User>("user");
+            var person = CacheHelper.Get<Person>("person");
+            if (user == null || person == null)
+                return new Tuple<bool, string, string>(false,"身份过期","");
+            using (DbRepository entities = new DbRepository())
+            {
+                var puzzle = entities.Puzzle.Find(unid);
+                if(puzzle==null)
+                    return new Tuple<bool, string, string>(false, "参数错误", "");
+                var dateTime = DateTime.Now.Date;
+
+                if (entities.UserPuzzle.FirstOrDefault(x => x.PuzzleId.Equals(unid) && x.PuzzleDate == dateTime) != null)
+                {
+                    return new Tuple<bool, string, string>(false, "该拼图已玩过", "");
+                }
+                var userPuzzle = new UserPuzzle()
+                {
+                    UNID = Guid.NewGuid().ToString("N"),
+                    OpenId = user.OpenId,
+                    PuzzleDate = dateTime,
+                    PuzzleId = unid
+                };
+                entities.UserPuzzle.Add(userPuzzle);
+
+                if (puzzle.IsBindScore==(int)YesOrNoCode.Yes)
+                {
+
+                    //日常签到积分
+                    var scoreDetials = new ScoreDetails()
+                    {
+                        UNID = Guid.NewGuid().ToString("N"),
+                        OpenId = user.OpenId,
+                        CreatedTime = DateTime.Now,
+                        Description = "完成拼图获得积分",
+                        IsAdd = (int)YesOrNoCode.Yes,
+                        Value = puzzle.Score,
+                        Type = (int)ScoreType.Sign,
+                        PersonId = person.UNID
+                    };
+                    //用户积分增加
+                    var updateUserScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                    if (updateUserScore == null)
+                    {
+                        var addUserScore = new UserScore()
+                        {
+                            UNID = Guid.NewGuid().ToString("N"),
+                            OpenId = user.OpenId,
+                            PersonId = person.UNID,
+                            Score = puzzle.Score
+                        };
+                        entities.UserScore.Add(addUserScore);
+                    }
+                    else
+                    {
+                        updateUserScore.Score += puzzle.Score;
+                    }
+                    entities.ScoreDetails.Add(scoreDetials);
+
+                }
             }
         }
     }

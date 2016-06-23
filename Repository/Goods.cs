@@ -27,5 +27,6 @@ namespace Repository
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public System.DateTime UpdatedTime { get; set; }
         public Nullable<long> Flag { get; set; }
+        public string OpenId { get; set; }
     }
 }

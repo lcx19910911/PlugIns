@@ -24,7 +24,6 @@ namespace Repository
         public string City { get; set; }
         public Nullable<int> Sex { get; set; }
         public string MobilePhone { get; set; }
-        public System.DateTime CreatedTime { get; set; }
-        public int Score { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
     }
 }

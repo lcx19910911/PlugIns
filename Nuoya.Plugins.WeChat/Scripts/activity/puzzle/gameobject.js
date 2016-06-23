@@ -25,7 +25,7 @@ var puzzleGame = function(param){
 	this.imgOrigArr = [];//图片拆分后，存储正确排序的数组
 	this.imgRandArr = [];//图片打乱顺序后，存储当前排序的数组
 
-	this.levelArr = [[3,3],[4,4],[6,6],[8,8]];//存储难度等级的数组
+	this.levelArr = param.levelArr;//存储难度等级的数组
 	this.levelNow = 0;//表示当前难度等级的变量，与难度数组结合使用
 
 	//图片整体的宽高
@@ -349,6 +349,20 @@ puzzleGame.prototype = {
 		this.imgCells.unbind('mousedown').unbind('mouseover').unbind('mouseout');
 		this.btnStart.text('开始');
 		this.hasStart = 0;
+
+		    $.ajax({
+		        type: "POST",
+		        url: "Sign",
+		        success: function (result) {
+		            if (result) {
+		                window.location.reload();
+		            }
+		            else {
+		                alert("签到失败");
+		            }
+		        }
+		    });
+
 		alert('恭喜您，成功完成本次游戏！');
 	}
 }

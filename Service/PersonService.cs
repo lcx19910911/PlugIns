@@ -121,7 +121,7 @@ namespace Service
         /// </summary>
         /// <param name="comId">平台id</param>
         /// <returns></returns>
-        public Person LoginByComId(int comId)
+        public Person Get_ByComId(int comId)
         {
             using (DbRepository entities = new DbRepository())
             {

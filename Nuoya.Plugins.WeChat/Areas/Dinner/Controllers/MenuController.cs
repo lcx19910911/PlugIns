@@ -68,7 +68,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 
             if (string.IsNullOrEmpty(unid))
             {
-                return Redirect("/base/_505");
+                return Error();
             }
             else
             {

@@ -22,11 +22,20 @@ namespace IService
         bool Update_User(WXUser model);
 
         /// <summary>
-        /// 获取用户
+        /// 获取用户在公司里面的积分
         /// </summary>
         /// <param name="openId"></param>
         /// <returns></returns>
         User Find_User(string openId);
+
+
+
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        int Find_PersonUserScore(string personId, string openId);
 
         /// <summary>
         /// 获取分页列表

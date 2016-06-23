@@ -1,4 +1,4 @@
-﻿
+﻿@model Repository.Puzzle
 @{
     Layout = null;
 }
@@ -73,7 +73,8 @@
             padding:6px;
         }     
 
-        .imgFieldSet {
+        .imgFieldSet {           
+            min-height: 200px;
         }
         #imgArea {
             width: 300px;
@@ -111,35 +112,33 @@
         <header class="op-top-header header">
             <div class="op-top-box">
                 <ul>
-                    <li><a id="start">开始</a></li>
-                    <li><a id="rule">游戏规则</a></li>
-                    <li><a id="level">难度</a></li>
-                    <li><a id="compareImg">原图</a></li>
+                    <li><a id="start" href="#">开始</a></li>
+                    <li><a id="rule" href="#">游戏规则</a></li>
+                    <li><a id="compareImg" href="#">原图</a></li>
+                    @if(!(bool)ViewData["LastOne"])
+                    {
+                        <li><a href="/puzzle/home/index?unid=@(Model.UNID)">下一个</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="#">最后一个</a></li>
+                    }
                 </ul>
             </div>
         </header>
     </div>
 
 
-    <div id="op-wrap">
-
-       
+    <div id="op-wrap">      
         <div class="ImagDiv">
-            <fieldset class="imgFieldSet">
+            <fieldset>
                 <div id="imgArea"></div>
             </fieldset>
         </div>
         <div class="Description">
             <h1>图片介绍：</h1>
             <fieldset class="imgFieldSet">
-                <p>　　学习了那么多机器学习模型，一切都是为了实践，动手自己写写这些模型的实现对自己很有帮助的，坚持，共勉。本文主要致力于总结贝叶斯实战中程序代码的实现（python）及朴素贝叶斯模型原理的总结。python的<span style="background-color: #ff0000;">numpy</span>包简化了很多计算，另外本人推荐使用<span style="background-color: #ff0000;">pandas</span>做数据统计。</p>
-                <p><strong>一 引言</strong></p>
-                <p>　　让你猜测一个身高2.16的人的职业，你一般会猜测他是篮球运动员。这个原理就是朴素贝叶斯原理，因为篮球运动员大多身高很高，所以这个人具有篮球运动员的条件，则猜测他是篮球运动员。</p>
-                <p>　　同理，另一个升高1.58的人，你应该不会猜他是篮球运动员。</p>
-                <p>　　学习了那么多机器学习模型，一切都是为了实践，动手自己写写这些模型的实现对自己很有帮助的，坚持，共勉。本文主要致力于总结贝叶斯实战中程序代码的实现（python）及朴素贝叶斯模型原理的总结。python的<span style="background-color: #ff0000;">numpy</span>包简化了很多计算，另外本人推荐使用<span style="background-color: #ff0000;">pandas</span>做数据统计。</p>
-                <p><strong>一 引言</strong></p>
-                <p>　　让你猜测一个身高2.16的人的职业，你一般会猜测他是篮球运动员。这个原理就是朴素贝叶斯原理，因为篮球运动员大多身高很高，所以这个人具有篮球运动员的条件，则猜测他是篮球运动员。</p>
-                <p>　　同理，另一个升高1.58的人，你应该不会猜他是篮球运动员。</p>            
+                @Html.Raw(Model.Description)       
             </fieldset>
         </div>
 
@@ -170,7 +169,7 @@
                                 <close class="close">×</close>
                                 <div class="title">原图</div>
                                 <div class="content">
-                                    <img src="/Upload/man.jpg"  style="width:250px;"/>
+                                    <img src="@(Model.Image)"  style="width:250px;"/>
                                 </div>
                             </div>
                         </td>
@@ -186,7 +185,11 @@
     <script type="text/javascript">
         /* 加入图片，运行代码 */
         $(function () {
-            var pg = new puzzleGame({ 'img': '/Upload/man.jpg' });
+            var pg = new puzzleGame(
+                {
+                    'img': '@(Model.Image)',
+                    'levelArr': [[@(Model.DifficultyType),@(Model.DifficultyType)]]  //存储难度等级的数组
+                });
 
             $("#rule").click(function () {
                 $("#ruleDescription").show();
@@ -202,21 +205,6 @@
 
             $("#compareImgAlert .close").click(function () {
                 $("#compareImgAlert").hide();
-            });
-
-            $("#sign-btn").click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "Sign",
-                    success: function (result) {
-                        if (result) {
-                            window.location.reload();
-                        }
-                        else {
-                            alert("签到失败");
-                        }
-                    }
-                });
             });
         });
     </script>

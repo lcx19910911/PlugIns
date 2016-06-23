@@ -25,13 +25,13 @@ namespace IService
         /// </summary>
         /// <param name="openId">微信openId</param>
         /// <returns></returns>
-        Dictionary<string, bool> Get_LastelyTenDaySign(string openId);
+        Dictionary<string, bool> Get_LastelyTenDaySign(string openId, string personId);
 
         /// <summary>
         /// 最近的一个签到
         /// </summary>
         /// <param name="openId">微信openId</param>
         /// <returns></returns>
-        UserSign Get_LastSign(string openId);
+        UserSign Get_LastSign(string openId, string personId);
     }
 }

@@ -30,11 +30,11 @@ namespace IService
         Person Login(string account, string password);
 
         /// <summary>
-        /// 根据平台id登陆
+        /// 根据平台id
         /// </summary>
         /// <param name="comId">平台id</param>
         /// <returns></returns>
-        Person LoginByComId(int comId);
+        Person Get_ByComId(int comId);
 
         /// <summary>
         /// 新增平台人员信息

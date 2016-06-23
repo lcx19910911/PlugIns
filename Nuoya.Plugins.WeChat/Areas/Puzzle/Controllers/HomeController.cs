@@ -19,13 +19,11 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
     /// </summary>
     public class HomeController : PuzzleBaseController
     {
-        public IUserSignService IUserSignService;
-        public IUserService IUserService;
+        public IPuzzleService IPuzzleService;
 
-        public HomeController(IUserSignService _IUserSignService, IUserService _IUserService)
+        public HomeController(IPuzzleService _IPuzzleService)
         {
-            this.IUserSignService = _IUserSignService;
-            this.IUserService = _IUserService;
+            this.IPuzzleService = _IPuzzleService;
         }
 
 
@@ -33,9 +31,21 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(string unid)
         {
-            return View();
+            var user = CacheHelper.Get<Repository.User>("user");
+            var person = CacheHelper.Get<Person>("person");
+            if (user == null|| person==null)
+                return Error();
+
+            var model = IPuzzleService.Get_NextPuzzle(unid, user.OpenId,person.UNID) ;
+            ViewData["LastOne"] = false;
+            if (model == null)
+                return Error();
+            else if (model.UNID.Equals(unid))
+                ViewData["LastOne"] = true;
+
+            return View(model);
         }
 
         /// <summary>
@@ -43,9 +53,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// </summary>
         /// <param name="openId"></param>
         /// <returns></returns>
-        public ActionResult Sign()
+        public ActionResult Complete()
         {
-            var result = IUserSignService.User_Sign();
+            var result = IPuzzleService.Complete();
             return JResult(result);
         }
     }

@@ -111,6 +111,12 @@
     <Compile Include="UserJoinCounter.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserPuzzle.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserScore.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserSign.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

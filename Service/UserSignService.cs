@@ -36,8 +36,9 @@ namespace Service
         /// <returns></returns>
         public bool User_Sign()
         {
-            Repository.User user = CacheHelper.Get<Repository.User>("user");
-            if (user==null||string.IsNullOrEmpty(user.OpenId))
+            var user = CacheHelper.Get<Repository.User>("user");
+            var person = CacheHelper.Get<Person>("person");
+            if (user == null || person == null)
                 return false;
             using (DbRepository entities = new DbRepository())
             {
@@ -46,6 +47,7 @@ namespace Service
                     return false;
                 var yesterday =DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
                 var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.OpenId) &&x.SignDate> yesterday).OrderByDescending(x => x.SignDate).FirstOrDefault();
+                //判断是否连续签到
                 if (lastSign != null)
                 {
                     var todaySign = new UserSign()
@@ -53,8 +55,10 @@ namespace Service
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
                         SignNum = lastSign.SignNum++,
-                        OpenId = user.OpenId
+                        OpenId = user.OpenId,
+                        PersonId=person.UNID
                     };
+                    //签到10天判断
                     if (todaySign.SignNum / 10 == 0)
                     {                     
                         var tenScoreDetials = new ScoreDetails()
@@ -65,10 +69,28 @@ namespace Service
                             Description = "连续签到10天获得积分",
                             IsAdd = (int)YesOrNoCode.Yes,
                             Value = Params.TendayScore,
-                            Type= (int)ScoreType.Sign
+                            Type= (int)ScoreType.Sign,
+                            PersonId=person.UNID
                         };
                         entities.ScoreDetails.Add(tenScoreDetials);
-                        userEntity.Score += Params.TendayScore;
+
+                        //是否初次签到
+                        var userScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                        if (userScore == null)
+                        {
+                            var addUserScore = new UserScore()
+                            {
+                                UNID = Guid.NewGuid().ToString("N"),
+                                OpenId = user.OpenId,
+                                PersonId = person.UNID,
+                                Score = Params.TendayScore
+                            };
+                            entities.UserScore.Add(addUserScore);
+                        }
+                        else
+                        {
+                            userScore.Score += Params.TendayScore;
+                        }
                     }
                     entities.UserSign.Add(todaySign);
                 }
@@ -78,12 +100,14 @@ namespace Service
                     {
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
-                        SignNum = 0,
-                        OpenId = user.OpenId
+                        SignNum = 1,
+                        OpenId = user.OpenId,
+                        PersonId = person.UNID
                     };
                     entities.UserSign.Add(todaySign);
                 }
 
+                //日常签到积分
                 var scoreDetials = new ScoreDetails()
                 {
                     UNID = Guid.NewGuid().ToString("N"),
@@ -92,9 +116,26 @@ namespace Service
                     Description = "签到获得积分",
                     IsAdd = (int)YesOrNoCode.Yes,
                     Value = Params.SignScore,
-                    Type = (int)ScoreType.Sign
+                    Type = (int)ScoreType.Sign,
+                    PersonId=person.UNID
                 };
-                userEntity.Score += Params.SignScore;
+                //用户积分增加
+                var updateUserScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                if (updateUserScore == null)
+                {
+                    var addUserScore = new UserScore()
+                    {
+                        UNID = Guid.NewGuid().ToString("N"),
+                        OpenId = user.OpenId,
+                        PersonId = person.UNID,
+                        Score = Params.SignScore
+                    };
+                    entities.UserScore.Add(addUserScore);
+                }
+                else
+                {
+                    updateUserScore.Score += Params.SignScore;
+                }
                 entities.ScoreDetails.Add(scoreDetials);
 
                 return entities.SaveChanges() > 0 ? true : false;
@@ -102,18 +143,20 @@ namespace Service
         }
 
 
+
+
         /// <summary>
         /// 最近十天的签到
         /// </summary>
         /// <param name="openId">微信openId</param>
         /// <returns></returns>
-        public Dictionary<string,bool> Get_LastelyTenDaySign(string openId)
+        public Dictionary<string,bool> Get_LastelyTenDaySign(string openId,string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
                 var dayStar = DateTime.Parse(DateTime.Now.AddDays(-10).ToString("yyyy-MM-dd"));
                 var dayEnd= DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
-                var lastSignList = entities.UserSign.Where(x => x.OpenId.Equals(openId)&&x.SignDate>dayStar&&x.SignDate< dayEnd).OrderBy(x => x.SignDate).ToList();
+                var lastSignList = entities.UserSign.Where(x => x.OpenId.Equals(openId)&&x.PersonId.Equals(personId) &&x.SignDate>dayStar&&x.SignDate< dayEnd).OrderBy(x => x.SignDate).ToList();
                 Dictionary<string, bool> dic = new Dictionary<string, bool>();
                 while (dayStar < dayEnd)
                 {
@@ -133,11 +176,11 @@ namespace Service
         /// </summary>
         /// <param name="openId">微信openId</param>
         /// <returns></returns>
-        public UserSign Get_LastSign(string openId)
+        public UserSign Get_LastSign(string openId, string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
-                var lastSign = entities.UserSign.Where(x => x.OpenId.Equals(openId)).OrderByDescending(x => x.SignDate).FirstOrDefault();
+                var lastSign = entities.UserSign.Where(x => x.OpenId.Equals(openId)&&x.PersonId.Equals(personId)).OrderByDescending(x => x.SignDate).FirstOrDefault();
                 return lastSign;
             }
         }

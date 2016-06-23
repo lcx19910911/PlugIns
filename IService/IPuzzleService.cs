@@ -26,12 +26,6 @@ namespace IService
 
 
         /// <summary>
-        /// 获取用户所有的拼图
-        /// </summary>
-        /// <returns></returns>
-        List<Puzzle> Get_AllPuzzleList();
-
-        /// <summary>
         /// 增加
         /// </summary>
         /// <param name="model"></param>
@@ -62,5 +56,18 @@ namespace IService
         /// <param name="unids"></param>
         /// <returns></returns>
         bool Delete_Puzzle(string unids);
+
+        /// <summary>
+        /// 获取下一个拼图
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        Puzzle Get_NextPuzzle(string unid,string openId,string personId);
+
+        /// <summary>
+        /// 完成拼图结果
+        /// </summary>
+        /// <returns></returns>
+        Tuple<bool, string, string> Complete(string unid);
     }
 }

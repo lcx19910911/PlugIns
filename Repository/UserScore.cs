@@ -12,12 +12,11 @@ namespace Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class UserSign
+    public partial class UserScore
     {
         public string UNID { get; set; }
         public string OpenId { get; set; }
-        public Nullable<System.DateTime> SignDate { get; set; }
-        public int SignNum { get; set; }
         public string PersonId { get; set; }
+        public int Score { get; set; }
     }
 }

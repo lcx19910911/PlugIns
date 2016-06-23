@@ -48,7 +48,7 @@ namespace Nuoya.Plugins.WeChat.Filters
                 if (result.code == 100)
                 {
 
-                    var entity = PersonService.LoginByComId(result.tokenInfo.UID);
+                    var entity = PersonService.Get_ByComId(result.tokenInfo.UID);
                     if (entity == null)
                     {
                         entity = PersonService.Add_Person(result.tokenInfo.Name, result.tokenInfo.UID);

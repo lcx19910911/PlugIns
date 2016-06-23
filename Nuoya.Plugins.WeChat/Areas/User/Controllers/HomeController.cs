@@ -22,21 +22,32 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
         public IUserService IUserService;
 
         public IUserSignService IUserSignService;
+        public IPersonService IPersonService;
 
-        public HomeController(IUserService _IUserService, IUserSignService _IUserSignService)
+        public HomeController(IUserService _IUserService, IUserSignService _IUserSignService, IPersonService _IPersonService)
         {
             this.IUserService = _IUserService;
             this.IUserSignService = _IUserSignService;
+            this.IPersonService = _IPersonService;
         }
 
         /// <summary>
         /// 首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string info)
+        public ActionResult Index(string info,int comId)
         {
             //接收微信用户数据
+
             var userInfoCache = CacheHelper.Get<Repository.User>("user");
+            var person = CacheHelper.Get<Person>("person");
+            if (person==null&&comId != 0)
+            {
+                CacheHelper.Get<Person>("person", CacheTimeOption.TwoHour, () =>
+                {
+                    return person=IPersonService.Get_ByComId(comId);
+                });
+            }
             UserCenterModel model = new UserCenterModel();
             if (!string.IsNullOrEmpty(info)&& userInfoCache==null)
             {
@@ -61,14 +72,13 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                     });
                 }
             }
-            if (userInfoCache == null)
+            if (userInfoCache == null|| person==null)
                 return Error();
             else
             {
                 model.User = userInfoCache;
-                var scoreModel = IUserService.Find_User(userInfoCache.OpenId);
-                model.Score = scoreModel == null ? 0 : scoreModel.Score;
-                var signModel = IUserSignService.Get_LastSign(userInfoCache.OpenId);
+                model.Score = IUserService.Find_PersonUserScore(person.UNID,userInfoCache.OpenId);
+                var signModel = IUserSignService.Get_LastSign(userInfoCache.OpenId,person.UNID);
                 model.SignNum = signModel == null ? 0 : (signModel.SignDate == DateTime.Now.Date ? signModel.SignNum : 0);
 
                 return View(model);

@@ -31,14 +31,16 @@ namespace Repository
         public virtual DbSet<DinnerOrder> DinnerOrder { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<ScratchCard> ScratchCard { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserSign> UserSign { get; set; }
         public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Goods> Goods { get; set; }
         public virtual DbSet<UserJoinCounter> UserJoinCounter { get; set; }
         public virtual DbSet<GoodsDetails> GoodsDetails { get; set; }
         public virtual DbSet<DinnerDish> DinnerDish { get; set; }
-        public virtual DbSet<ScoreDetails> ScoreDetails { get; set; }
         public virtual DbSet<Puzzle> Puzzle { get; set; }
+        public virtual DbSet<UserPuzzle> UserPuzzle { get; set; }
+        public virtual DbSet<Goods> Goods { get; set; }
+        public virtual DbSet<ScoreDetails> ScoreDetails { get; set; }
+        public virtual DbSet<UserScore> UserScore { get; set; }
+        public virtual DbSet<UserSign> UserSign { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

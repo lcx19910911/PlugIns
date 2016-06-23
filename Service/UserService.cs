@@ -44,6 +44,23 @@ namespace Service
         }
 
         /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public int Find_PersonUserScore(string personId,string openId)
+        {
+            if (string.IsNullOrEmpty(personId)|| string.IsNullOrEmpty(openId))
+                return 0;
+            using (DbRepository entities = new DbRepository())
+            {
+                var entity = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(openId) && x.PersonId.Equals(personId));
+                return entity==null?0: entity.Score;
+            }
+        }
+
+
+        /// <summary>
         /// 编辑管理用户
         /// </summary>
         /// <param name="model"></param>

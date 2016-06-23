@@ -16,6 +16,7 @@ namespace Repository
     {
         public string UNID { get; set; }
         public string OpenId { get; set; }
+        public string PersonId { get; set; }
         public string Description { get; set; }
         public System.DateTime CreatedTime { get; set; }
         public int Value { get; set; }
