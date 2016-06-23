@@ -68,6 +68,6 @@ namespace IService
         /// 完成拼图结果
         /// </summary>
         /// <returns></returns>
-        Tuple<bool, string, string> Complete(string unid);
+        Tuple<bool, string, bool, string, string> Complete(string unid);
     }
 }

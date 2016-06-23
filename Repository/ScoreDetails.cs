@@ -22,5 +22,6 @@ namespace Repository
         public int Value { get; set; }
         public int IsAdd { get; set; }
         public int Type { get; set; }
+        public string TargetId { get; set; }
     }
 }

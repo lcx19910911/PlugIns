@@ -229,23 +229,23 @@ namespace Service
         /// <summary>
         /// 完成拼图结果
         /// </summary>
-        /// <returns>操作结果  提示语句   绑定地址</returns>
-        public Tuple<bool, string, string> Complete(string unid)
+        /// <returns>操作结果  提示语句  是否绑定平台活动  平台活动名 绑定地址</returns>
+        public Tuple<bool, string, bool, string, string> Complete(string unid)
         {
             var user = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user == null || person == null)
-                return new Tuple<bool, string, string>(false,"身份过期","");
+                return new Tuple<bool, string, bool, string, string>(false,"身份过期", false, "", "");
             using (DbRepository entities = new DbRepository())
             {
                 var puzzle = entities.Puzzle.Find(unid);
                 if(puzzle==null)
-                    return new Tuple<bool, string, string>(false, "参数错误", "");
+                    return new Tuple<bool, string, bool, string, string>(false, "参数错误", false, "", "");
                 var dateTime = DateTime.Now.Date;
 
                 if (entities.UserPuzzle.FirstOrDefault(x => x.PuzzleId.Equals(unid) && x.PuzzleDate == dateTime) != null)
                 {
-                    return new Tuple<bool, string, string>(false, "该拼图已玩过", "");
+                    return new Tuple<bool, string, bool, string, string>(false, "该拼图已玩过",false, "", "");
                 }
                 var userPuzzle = new UserPuzzle()
                 {
@@ -258,7 +258,6 @@ namespace Service
 
                 if (puzzle.IsBindScore==(int)YesOrNoCode.Yes)
                 {
-
                     //日常签到积分
                     var scoreDetials = new ScoreDetails()
                     {
@@ -268,9 +267,12 @@ namespace Service
                         Description = "完成拼图获得积分",
                         IsAdd = (int)YesOrNoCode.Yes,
                         Value = puzzle.Score,
-                        Type = (int)ScoreType.Sign,
-                        PersonId = person.UNID
+                        Type = (int)ScoreType.Puzzle,
+                        PersonId = person.UNID,
+                        TargetId=unid
                     };
+
+                    entities.ScoreDetails.Add(scoreDetials);
                     //用户积分增加
                     var updateUserScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
                     if (updateUserScore == null)
@@ -288,8 +290,12 @@ namespace Service
                     {
                         updateUserScore.Score += puzzle.Score;
                     }
-                    entities.ScoreDetails.Add(scoreDetials);
 
+                    return entities.SaveChanges()>0?new Tuple<bool, string, bool, string, string>(true, string.Format("恭喜你获得：{0}积分",puzzle.Score),false, "", ""):new Tuple<bool, string, bool, string, string>(false, "保存出错", false, "", "");
+                }
+                else
+                {
+                    return entities.SaveChanges()>0?new Tuple<bool, string, bool, string, string>(true, puzzle.BindTitle, true, puzzle.BindName,puzzle.BindUrl): new Tuple<bool, string, bool, string, string>(false, "保存出错", false, "", "");
                 }
             }
         }

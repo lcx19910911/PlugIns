@@ -38,9 +38,9 @@ namespace Repository
         public virtual DbSet<Puzzle> Puzzle { get; set; }
         public virtual DbSet<UserPuzzle> UserPuzzle { get; set; }
         public virtual DbSet<Goods> Goods { get; set; }
-        public virtual DbSet<ScoreDetails> ScoreDetails { get; set; }
         public virtual DbSet<UserScore> UserScore { get; set; }
         public virtual DbSet<UserSign> UserSign { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<ScoreDetails> ScoreDetails { get; set; }
     }
 }

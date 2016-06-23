@@ -53,9 +53,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// </summary>
         /// <param name="openId"></param>
         /// <returns></returns>
-        public ActionResult Complete()
+        public ActionResult Complete(string unid)
         {
-            var result = IPuzzleService.Complete();
+            var result = IPuzzleService.Complete(unid);
             return JResult(result);
         }
     }

@@ -108,6 +108,8 @@
 </head>
 
 <body >
+@if (!(bool)ViewData["LastOne"])
+{
     <div id="op-content" style="background:#ee5729;">          
         <header class="op-top-header header">
             <div class="op-top-box">
@@ -115,14 +117,7 @@
                     <li><a id="start" href="#">开始</a></li>
                     <li><a id="rule" href="#">游戏规则</a></li>
                     <li><a id="compareImg" href="#">原图</a></li>
-                    @if(!(bool)ViewData["LastOne"])
-                    {
                         <li><a href="/puzzle/home/index?unid=@(Model.UNID)">下一个</a></li>
-                    }
-                    else
-                    {
-                        <li><a href="#">最后一个</a></li>
-                    }
                 </ul>
             </div>
         </header>
@@ -151,7 +146,28 @@
                                 <close class="close">×</close>
                                 <div class="title">游戏介绍</div>
                                 <div class="content">
-                                    1、点击游戏难度以更改。<br>2、点击开始游戏，打乱图片。<br>3、交换图片位置，复原图片。
+                                   1、点击游戏难度以更改。<br>2、点击开始游戏，打乱图片。<br>3、交换图片位置，复原图片。
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dialog-alert-layer" style="display: none;" id="bindCom">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="alert-main">
+                                <close class="close">×</close>
+                                <div class="title"></div>
+                                <div class="content">
+                                    <div id="bindName"></div>
+                                    <div class="signBtn">
+                                        <a id="sign-btn">签到</a>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -188,6 +204,7 @@
             var pg = new puzzleGame(
                 {
                     'img': '@(Model.Image)',
+                    'UNID':'@(Model.UNID)',
                     'levelArr': [[@(Model.DifficultyType),@(Model.DifficultyType)]]  //存储难度等级的数组
                 });
 
@@ -208,5 +225,12 @@
             });
         });
     </script>
+}
+else
+{
+    <script>
+        alert("你已经玩完所有的拼图");
+    </script>
+}
 </body>
 </html>

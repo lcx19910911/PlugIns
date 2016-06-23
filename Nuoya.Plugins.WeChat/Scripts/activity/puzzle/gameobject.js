@@ -37,7 +37,7 @@ var puzzleGame = function(param){
 
 	this.hasStart = 0;//记录有是否开始的变量，默认fasle，未开始
 	this.moveTime = 400;//记录animate动画的运动时间，默认400毫秒 
-
+	this.UNID = param.UNID;
 
 	this.moveDom = null; //移动的dom结构
 	//调用初始化函数，拆分图片,绑定按钮功能
@@ -350,12 +350,25 @@ puzzleGame.prototype = {
 		this.btnStart.text('开始');
 		this.hasStart = 0;
 
+		var data={ "unid":""+this.UNID+""};
+
 		    $.ajax({
 		        type: "POST",
-		        url: "Sign",
+		        url: "Complete",
+		        data:data,
 		        success: function (result) {
-		            if (result) {
-		                window.location.reload();
+                    //执行结果
+		            if (result.Result.Item1) {
+                        //是否绑定平台活动
+		                if (result.Result.Item3)
+		                {
+		                    $("#bindCom .title").text(result.Result.Item2);
+		                    $("#bindCom #bindName").text(result.Result.Item4);
+		                    $("#bindCom #sign-btn").attr("href", result.Result.Item5);
+		                    $("#bindCom").show();
+		                }
+		                else
+		                    alert(result.Result.Item2);
 		            }
 		            else {
 		                alert("签到失败");

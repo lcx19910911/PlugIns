@@ -18,10 +18,10 @@
         <EntityTypeShape EntityType="PlugInsModel.Puzzle" Width="1.5" PointX="6.75" PointY="5.125" />
         <EntityTypeShape EntityType="PlugInsModel.UserPuzzle" Width="1.5" PointX="4.375" PointY="0.875" />
         <EntityTypeShape EntityType="PlugInsModel.Goods" Width="1.5" PointX="9.75" PointY="9.75" />
-        <EntityTypeShape EntityType="PlugInsModel.ScoreDetails" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="PlugInsModel.UserScore" Width="1.5" PointX="4.75" PointY="10.75" />
         <EntityTypeShape EntityType="PlugInsModel.UserSign" Width="1.5" PointX="6.75" PointY="10.75" />
         <EntityTypeShape EntityType="PlugInsModel.User" Width="1.5" PointX="12.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PlugInsModel.ScoreDetails" Width="1.5" PointX="0.75" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
