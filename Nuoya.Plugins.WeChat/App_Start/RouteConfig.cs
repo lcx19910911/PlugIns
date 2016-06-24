@@ -17,7 +17,7 @@ namespace Nuoya.Plugins.WeChat
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new {controller = "home", action = "Index", id = UrlParameter.Optional },
-                namespaces:new string[] { "Nuoya.Plugins.WeChat.Controllers", "Nuoya.Plugins.WeChat.Api" }
+                namespaces:new string[] { "Nuoya.Plugins.WeChat.Controllers", "Nuoya.Plugins.WeChat.Api"}
             );
         }
     }

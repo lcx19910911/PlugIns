@@ -31,51 +31,54 @@
 
     <style>
         body {
-        
-            background-color:#e3e3e3;
+            background-color: #e3e3e3;
         }
+
         a {
             color: #fff;
         }
-        ul 
-        {
-            padding:10px;
+
+        ul {
+            padding: 10px;
         }
-        ul li {
-            float:left;
-            width:25%;
-            height:40px;
-            font-size:18px;
-        }
-        ul li  a
-        {
-            display:inline;
-            line-height:10px;
-            height:100%;
-            text-align:center;
-         }
+
+            ul li {
+                float: left;
+                width: 25%;
+                height: 40px;
+                font-size: 18px;
+            }
+
+                ul li a {
+                    display: inline;
+                    line-height: 10px;
+                    height: 100%;
+                    text-align: center;
+                }
 
         /* 右侧图片 */
         .ImagDiv {
             width: 100%;
             height: 300px;
         }
-        
+
         .Description {
             width: 100%;
             margin: 0 auto;
             padding: 16px 0px 10px 0px;
         }
-        .Description h1{
-            color: #ee5729;
-            font-size:14px;
-            margin-left:20px;
-            padding:6px;
-        }     
 
-        .imgFieldSet {           
+            .Description h1 {
+                color: #ee5729;
+                font-size: 14px;
+                margin-left: 20px;
+                padding: 6px;
+            }
+
+        .imgFieldSet {
             min-height: 200px;
         }
+
         #imgArea {
             width: 300px;
             height: 300px;
@@ -107,130 +110,153 @@
     </style>
 </head>
 
-<body >
-@if (!(bool)ViewData["LastOne"])
-{
-    <div id="op-content" style="background:#ee5729;">          
-        <header class="op-top-header header">
-            <div class="op-top-box">
-                <ul>
-                    <li><a id="start" href="#">开始</a></li>
-                    <li><a id="rule" href="#">游戏规则</a></li>
-                    <li><a id="compareImg" href="#">原图</a></li>
+<body>
+    @if (!(bool)ViewData["LastOne"])
+    {
+        <div id="op-content" style="background:#ee5729;">
+            <header class="op-top-header header">
+                <div class="op-top-box">
+                    <ul>
+                        <li><a id="start" href="#">开始</a></li>
+                        <li><a id="rule" href="#">游戏规则</a></li>
+                        <li><a id="compareImg" href="#">原图</a></li>
                         <li><a href="/puzzle/home/index?unid=@(Model.UNID)">下一个</a></li>
-                </ul>
+                    </ul>
+                </div>
+            </header>
+        </div>
+
+
+        <div id="op-wrap">
+            <div class="ImagDiv">
+                <fieldset>
+                    <div id="imgArea"></div>
+                </fieldset>
             </div>
-        </header>
-    </div>
+            <div class="Description">
+                <h1>图片介绍：</h1>
+                <fieldset class="imgFieldSet">
+                    @Html.Raw(Model.Description)
+                </fieldset>
+            </div>
 
-
-    <div id="op-wrap">      
-        <div class="ImagDiv">
-            <fieldset>
-                <div id="imgArea"></div>
-            </fieldset>
-        </div>
-        <div class="Description">
-            <h1>图片介绍：</h1>
-            <fieldset class="imgFieldSet">
-                @Html.Raw(Model.Description)       
-            </fieldset>
-        </div>
-
-        <div class="dialog-alert-layer" style="display: none;" id="ruleDescription">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="alert-main">
-                                <close class="close">×</close>
-                                <div class="title">游戏介绍</div>
-                                <div class="content">
-                                   1、点击游戏难度以更改。<br>2、点击开始游戏，打乱图片。<br>3、交换图片位置，复原图片。
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="dialog-alert-layer" style="display: none;" id="bindCom">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="alert-main">
-                                <close class="close">×</close>
-                                <div class="title"></div>
-                                <div class="content">
-                                    <div id="bindName"></div>
-                                    <div class="signBtn">
-                                        <a id="sign-btn">签到</a>
+            <div class="dialog-alert-layer" id="ruleDescription">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="alert-main">
+                                    <close class="close">×</close>
+                                    <div class="title">游戏介绍</div>
+                                    <div class="content">
+                                        1、点击游戏难度以更改。<br>2、点击开始游戏，打乱图片。<br>3、交换图片位置，复原图片。
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="dialog-alert-layer" style="display: none;" id="compareImgAlert">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="alert-main">
-                                <close class="close">×</close>
-                                <div class="title">原图</div>
-                                <div class="content">
-                                    <img src="@(Model.Image)"  style="width:250px;"/>
+            <div class="dialog-alert-layer"  id="bindCom">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="alert-main">
+                                    <close class="close">×</close>
+                                    <div class="title"></div>
+                                    <div class="content">
+                                        <div id="bindName"></div>
+                                        <div class="signBtn">
+                                            <a id="sign-btn">签到</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dialog-alert-layer"  id="compareImgAlert">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="alert-main">
+                                    <close class="close">×</close>
+                                    <div class="title">原图</div>
+                                    <div class="content">
+                                        <img src="@(Model.Image)" style="width:250px;" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
 
-    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
-    <script src="~/Scripts/activity/puzzle/gameobject.js"></script>
-    <script type="text/javascript">
-        /* 加入图片，运行代码 */
-        $(function () {
-            var pg = new puzzleGame(
-                {
-                    'img': '@(Model.Image)',
-                    'UNID':'@(Model.UNID)',
-                    'levelArr': [[@(Model.DifficultyType),@(Model.DifficultyType)]]  //存储难度等级的数组
+        <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+        <script src="~/Scripts/activity/puzzle/gameobject.js"></script>
+        <script type="text/javascript">
+            /* 加入图片，运行代码 */
+            $(function () {
+                var pg = new puzzleGame(
+                    {
+                        'img': '@(Model.Image)',
+                        'UNID': '@(Model.UNID)',
+                        'levelArr': [[@(Model.DifficultyType),@(Model.DifficultyType)]]  //存储难度等级的数组
+                    });
+
+                $("#rule").click(function () {
+                    $("#ruleDescription").show();
                 });
 
-            $("#rule").click(function () {
-                $("#ruleDescription").show();
-            });
+                $("#ruleDescription .close").click(function () {
+                    $("#ruleDescription").hide();
+                });
 
-            $("#ruleDescription .close").click(function () {
-                $("#ruleDescription").hide();
-            });
+                $("#compareImg").click(function () {
+                    $("#compareImgAlert").show();
+                });
 
-            $("#compareImg").click(function () {
-                $("#compareImgAlert").show();
+                $("#compareImgAlert .close").click(function () {
+                    $("#compareImgAlert").hide();
+                });
             });
+        </script>
+    }
+    else
+    {
+        <div id="op-wrap">
+            <div class="dialog-alert-layer" style="display:block;" id="warningTip">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="alert-main">
+                                    <close class="close">×</close>
+                                    <div class="title">很抱歉</div>
+                                    <div class="content">
+                                        当前无拼图活动或你已经玩完所有的拼图
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            $("#compareImgAlert .close").click(function () {
-                $("#compareImgAlert").hide();
+        <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript">
+            $("#warningTip .close").click(function () {
+                history.go(-1);
             });
-        });
-    </script>
-}
-else
-{
-    <script>
-        alert("你已经玩完所有的拼图");
-    </script>
-}
+        </script>
+    }
 </body>
 </html>

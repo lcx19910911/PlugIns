@@ -198,9 +198,14 @@ namespace Service
                 }
                 else
                 {
-                    Random rd = new Random();
-                    int index = rd.Next(0, ongingList.Count);
-                    return ongingList[index];
+                    if (ongingList.Count != 0)
+                    {
+                        Random rd = new Random();
+                        int index = rd.Next(0, ongingList.Count);
+                        return ongingList[index];
+                    }
+                    else
+                        return null;
                 }
             }
         }

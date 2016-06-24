@@ -115,7 +115,7 @@ body,html{width:100%}
     .op-r-btns .i-menu{display:inline-block}
     .mobile .op-r-btns .i-user{display:none}}
 @media screen and (max-width:500px)
-{#op-logo{width:110px; line-height:32px;height:32px;margin:13px 0 0 15px}
+{#op-logo{width:110px; line-height:32px;height:32px;margin:8px 0 0 15px}
  .op-r-btns .icon{margin-left:8px;margin-right:8px}
  #op-wrap.aside-active #op-content{left:-80%}
  #op-wrap.aside-active #op-wrap-mask{right:80%}
@@ -136,7 +136,7 @@ button{padding:0;border:0 none}
 .user-hd .my-avatar:hover .update-tip{
     opacity:1;filter:alpha(opacity=100);filter:alpha(opacity=80);
     -moz-transition:all .2s;-o-transition:all .2s;-webkit-transition:all .2s;transition:all .2s}
-.user-hd .my-nickname{padding:20px 0px 0px 0px;font-size:16px}
+.user-hd .my-nickname{padding:20px 0px 10px 0px;font-size:16px}
 .user-hd .my-nickname em{display:inline-block;padding-right:10px}
 @media screen and (max-width:768px){.user-hd .my-nickname em{font-size:14px}}
 .user-hd .my-nickname em::after{content:'';display:block;width:20px;height:14px;border-bottom:1px solid #333;margin:auto}

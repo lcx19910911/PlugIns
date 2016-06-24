@@ -17,12 +17,16 @@ namespace Service
     /// <summary>
     /// 菜品分类
     /// </summary>
-    public class DinnerCategoryService: BaseService, IDinnerCategoryService
+    public class CategoryService: BaseService, ICategoryService
     {
-        public DinnerCategoryService()
+        public CategoryService()
         {
             base.ContextCurrent = HttpContext.Current;
         }
+
+
+        #region 菜品分类
+
 
         /// <summary>
         /// 获取分页列表
@@ -215,5 +219,208 @@ namespace Service
 
             }
         }
+
+
+        #endregion
+
+        #region 商品分类
+
+
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <param name="name">分类名 - 搜索项</param>
+        /// <returns></returns>
+        public PageList<Category> Get_MallCategoryPageList(int pageIndex, int pageSize, string name)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var query = entities.Category.AsQueryable().Where(x => x.ShopId.Equals(Client.LoginUser.UNID));
+                if (name.IsNotNullOrEmpty())
+                {
+                    query = query.Where(x => x.Name.Contains(name));
+                }
+
+                var list = new List<Category>();
+                var count = query.Count();
+                query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
+                {
+                    if (x != null)
+                    {
+                        list.Add(new Category()
+                        {
+                            UNID = x.UNID,
+                            CreatedTime = x.CreatedTime,
+                            Name = x.Name,
+                            UpdatedTime = x.UpdatedTime,
+                            Sort = x.Sort
+                        });
+                    }
+                });
+
+                return CreatePageList(list, pageIndex, pageSize, count);
+            }
+        }
+
+
+        /// <summary>
+        /// 增加
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public string Add_MallCategory(Category model)
+        {
+            if (model == null
+                || !model.Name.IsNotNullOrEmpty()
+                )
+                return "数据为空";
+            using (DbRepository entities = new DbRepository())
+            {
+                var query = entities.Category.AsQueryable();
+                if (query.Where(x => x.Name.Equals(model.Name) && x.PersonId.Equals(Client.LoginUser.UNID)).Count() != 0)
+                    return "分类名称已存在";
+
+                var addEntity = new Category();
+                addEntity.UNID = Guid.NewGuid().ToString("N");
+                addEntity.Sort = model.Sort;
+                addEntity.Name = model.Name;
+                addEntity.CreatedTime = DateTime.Now;
+                addEntity.UpdatedTime = DateTime.Now;
+                addEntity.Image = model.Image;
+                addEntity.PersonId = Client.LoginUser.UNID;
+
+                entities.Category.Add(addEntity);
+                return entities.SaveChanges() > 0 ? "" : "保存出错";
+            }
+
+        }
+
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public string Update_MallCategory(Category model, string unid)
+        {
+            if (model == null
+                 || !model.Name.IsNotNullOrEmpty()
+                )
+                return "数据为空";
+            using (DbRepository entities = new DbRepository())
+            {
+                var oldEntity = entities.Category.Find(unid);
+                if (oldEntity != null)
+                {
+                    var query = entities.Category.AsQueryable();
+                    if (query.Where(x => x.Name.Equals(model.Name) && !x.UNID.Equals(unid) && x.PersonId.Equals(Client.LoginUser.UNID)).Count() != 0)
+                        return "分类名称已存在";
+
+                    oldEntity.Sort = model.Sort;
+                    oldEntity.Name = model.Name;
+                    oldEntity.Image = model.Image;
+                    oldEntity.UpdatedTime = DateTime.Now;
+                }
+                else
+                    return "数据为空";
+
+                return entities.SaveChanges() > 0 ? "" : "保存出错";
+            }
+
+        }
+        /// <summary>
+        /// 删除分类
+        /// </summary>
+        /// <param name="unids"></param>
+        /// <returns></returns>
+        public bool Delete_MallCategory(string unids)
+        {
+            if (!unids.IsNotNullOrEmpty())
+            {
+                return false;
+            }
+            using (DbRepository entities = new DbRepository())
+            {
+                //找到实体
+                entities.Category.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x =>
+                {
+                    entities.Goods.Where(y => y.CategoryId.Equals(x.UNID)).ToList().ForEach(y =>
+                    {
+                        y.Flag = (y.Flag | (long)GlobalFlag.Removed);
+                    });
+                });
+                return entities.SaveChanges() > 0 ? true : false;
+            }
+        }
+
+
+        /// <summary>
+        /// 查找实体
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        public Category Find_MallCategory(string unid)
+        {
+            if (!unid.IsNotNullOrEmpty())
+                return null;
+            using (DbRepository entities = new DbRepository())
+            {
+                var entity = entities.Category.Find(unid);
+                return entity;
+            }
+        }
+
+
+        /// <summary>
+        /// 获取分类下拉框集合
+        /// </summary>
+        /// <param name="categoryId">分类id</param>
+        /// <returns></returns>
+        public List<SelectItem> Get_MallCategorySelectItem(string categoryId)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                List<SelectItem> list = new List<SelectItem>();
+                entities.Category.Where(x => x.PersonId.Equals(Client.LoginUser.UNID)).ToList().ForEach(x =>
+                {
+                    list.Add(new SelectItem()
+                    {
+                        Selected = x.UNID.Equals(categoryId),
+                        Text = x.Name,
+                        Value = x.UNID
+                    });
+                });
+                return list;
+
+            }
+        }
+
+        /// <summary>
+        /// 获取店家的分类
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <returns></returns>
+        public List<SelectItem> Get_ItemByMallId(string personId)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                List<SelectItem> list = new List<SelectItem>();
+                entities.Category.Where(x => x.PersonId.Equals(personId)).ToList().ForEach(x =>
+                {
+                    list.Add(new SelectItem()
+                    {
+                        Text = x.Name,
+                        Value = x.UNID
+                    });
+                });
+                return list;
+
+            }
+        }
+
+
+        #endregion
     }
 }

@@ -48,5 +48,15 @@ namespace IService
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
         PageList<User> Get_UserPageList(int pageIndex, int pageSize, string name, string openId, DateTime? createdTimeStart, DateTime? createdTimeEnd);
+
+
+        /// <summary>
+        /// 获取用户的积分记录
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <param name="personId"></param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        List<ScoreDetails> Get_UserScore(string openId,string personId,int pageIndex);
     }
 }

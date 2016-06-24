@@ -40,9 +40,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
 
             var model = IPuzzleService.Get_NextPuzzle(unid, user.OpenId,person.UNID) ;
             ViewData["LastOne"] = false;
-            if (model == null)
-                return Error();
-            else if (model.UNID.Equals(unid))
+            if (model == null||model.UNID.Equals(unid))
                 ViewData["LastOne"] = true;
 
             return View(model);

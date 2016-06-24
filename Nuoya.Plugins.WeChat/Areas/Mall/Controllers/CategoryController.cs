@@ -8,13 +8,13 @@ using System.Web.Mvc;
 using IService;
 using Nuoya.Plugins.WeChat.Controllers;
 
-namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
+namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
 {
     /// <summary>
     /// 分类控制器
     /// </summary>
     [LoginFilter]
-    public class CategoryController : DinnerBaseController
+    public class CategoryController : MallBaseController
     {
         
         public ICategoryService ICategoryService;

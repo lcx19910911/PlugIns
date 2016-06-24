@@ -142,5 +142,20 @@ namespace Service
             }
         }
 
+
+        /// <summary>
+        /// 获取用户的积分记录
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <param name="personId"></param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public List<ScoreDetails> Get_UserScore(string openId, string personId, int pageIndex)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                return entities.ScoreDetails.Where(x => x.OpenId.Equals(openId) & x.PersonId.Equals(personId)).OrderByDescending(x=>x.CreatedTime).Skip((pageIndex - 1) * 10).Take(10).ToList();
+            }
+        }
     }
 }

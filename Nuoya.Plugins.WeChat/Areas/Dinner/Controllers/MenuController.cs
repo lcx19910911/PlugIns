@@ -18,12 +18,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
     /// </summary>
     public class MenuController : DinnerBaseController
     {
-        public IDinnerCategoryService IDinnerCategoryService;
+        public ICategoryService IDinnerCategoryService;
         public IDinnerDishService IDinnerDishService;
         public IDinnerOrderService IDinnerOrderService;
         public IUserService IUserService;
 
-        public MenuController(IDinnerCategoryService _IDinnerCategoryService, IDinnerDishService _IDinnerDishService, IDinnerOrderService _IDinnerOrderService, IUserService _IUserService)
+        public MenuController(ICategoryService _IDinnerCategoryService, IDinnerDishService _IDinnerDishService, IDinnerOrderService _IDinnerOrderService, IUserService _IUserService)
         {
             this.IDinnerCategoryService = _IDinnerCategoryService;
             this.IDinnerDishService = _IDinnerDishService;

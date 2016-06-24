@@ -73,7 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DinnerDishService.cs" />
     <Compile Include="ScratchCardService.cs" />
-    <Compile Include="DinnerCategoryService.cs" />
+    <Compile Include="CategoryService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

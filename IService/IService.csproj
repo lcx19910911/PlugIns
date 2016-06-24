@@ -50,7 +50,7 @@
     <Compile Include="IDinnerShopService.cs" />
     <Compile Include="IDinnerOrderService.cs" />
     <Compile Include="IDinnerDishService.cs" />
-    <Compile Include="IDinnerCategoryService.cs" />
+    <Compile Include="ICategoryService.cs" />
     <Compile Include="IScratchCardService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

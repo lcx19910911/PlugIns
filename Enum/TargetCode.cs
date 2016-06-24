@@ -30,5 +30,18 @@ namespace EnumPro
         [Description("微点餐")]
         Dinner = 2,
 
+        /// <summary>
+        /// 商品
+        /// </summary>
+        [Description("商品")]
+        Goods = 3,
+
+
+        /// <summary>
+        /// 推荐分类
+        /// </summary>
+        [Description("推荐分类")]
+        Category = 4,
+
     }
 }

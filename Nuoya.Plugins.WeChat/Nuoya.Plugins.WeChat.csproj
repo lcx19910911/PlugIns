@@ -599,6 +599,9 @@
     <Compile Include="Areas\Dinner\Controllers\OrderController.cs" />
     <Compile Include="Areas\Dinner\Controllers\ShopController.cs" />
     <Compile Include="Areas\Dinner\DinnerAreaRegistration.cs" />
+    <Compile Include="Areas\Mall\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Mall\Controllers\MallBaseController.cs" />
+    <Compile Include="Areas\Mall\MallAreaRegistration.cs" />
     <Compile Include="Areas\Puzzle\Controllers\HomeController.cs" />
     <Compile Include="Areas\Puzzle\Controllers\PuzzleBaseController.cs" />
     <Compile Include="Areas\Puzzle\Controllers\AdminController.cs" />
@@ -610,6 +613,7 @@
     <Compile Include="Areas\Sign\Controllers\SignBaseController.cs" />
     <Compile Include="Areas\Sign\SignAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
+    <Compile Include="Areas\User\Controllers\ScoreController.cs" />
     <Compile Include="Areas\User\Controllers\UserBaseController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -672,6 +676,9 @@
     <Content Include="Areas\Dinner\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Dinner\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Scratchcard\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\User\Views\Score\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\web.config" />
+    <Content Include="Areas\Mall\Views\Shared\_Layout.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
@@ -690,6 +697,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dinner\Models\" />
+    <Folder Include="Areas\Mall\Models\" />
     <Folder Include="Areas\Puzzle\Models\" />
     <Folder Include="Areas\Scratchcard\Models\" />
     <Folder Include="Areas\Sign\Models\" />

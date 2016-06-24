@@ -21,7 +21,7 @@ namespace Core.Helper
             var fileName = Guid.NewGuid().ToString("N") + file.FileName.Substring(file.FileName.LastIndexOf('.'));
             string path= Path.Combine(phicyPath, fileName);
             file.SaveAs(path);
-            return string.Format("/{0}/{1}",root,fileName);
+            return string.Format("{0}/{1}/{2}",Params.DomianName,root,fileName);
         }
 
         public static string Save(HttpPostedFile file, string mark)
@@ -32,7 +32,7 @@ namespace Core.Helper
             var fileName = Guid.NewGuid().ToString("N") + file.FileName.Substring(file.FileName.LastIndexOf('.'));
             string path = Path.Combine(phicyPath, fileName);
             file.SaveAs(path);
-            return string.Format("/{0}/{1}", root, fileName);
+            return string.Format("{0}/{1}/{2}", Params.DomianName, root, fileName);
         }
 
         public static string SaveImageStream(Stream stream, string suffix)
@@ -54,7 +54,7 @@ namespace Core.Helper
                 }
             }
 
-            return string.Format("/{0}/{1}", root, fileName);
+            return string.Format("{0}/{1}/{2}", Params.DomianName, root, fileName);
         }
     }
 }

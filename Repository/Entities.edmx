@@ -240,12 +240,9 @@
           <Property Name="IsCach" Type="int" Nullable="false" />
           <Property Name="CachTime" Type="datetime" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“PlugIns.dbo.UserPuzzle”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="UserPuzzle">
           <Key>
             <PropertyRef Name="UNID" />
-            <PropertyRef Name="OpenId" />
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="PuzzleId" Type="char" MaxLength="32" />
@@ -285,6 +282,7 @@
           <EntitySet Name="ScratchCard" EntityType="Self.ScratchCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserJoinCounter" EntityType="Self.UserJoinCounter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPuzzle" EntityType="Self.UserPuzzle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserScore" EntityType="Self.UserScore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSign" EntityType="Self.UserSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsDetails" EntityType="Self.GoodsDetails" store:Type="Tables" store:Schema="dbo">
@@ -294,14 +292,6 @@
     [GoodsDetails].[Image] AS [Image], 
     [GoodsDetails].[Sort] AS [Sort]
     FROM [dbo].[GoodsDetails] AS [GoodsDetails]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="UserPuzzle" EntityType="Self.UserPuzzle" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UserPuzzle].[UNID] AS [UNID], 
-    [UserPuzzle].[PuzzleId] AS [PuzzleId], 
-    [UserPuzzle].[PuzzleDate] AS [PuzzleDate], 
-    [UserPuzzle].[OpenId] AS [OpenId]
-    FROM [dbo].[UserPuzzle] AS [UserPuzzle]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -320,12 +310,12 @@
           <EntitySet Name="GoodsDetails" EntityType="PlugInsModel.GoodsDetails" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
           <EntitySet Name="Puzzle" EntityType="PlugInsModel.Puzzle" />
-          <EntitySet Name="UserPuzzle" EntityType="PlugInsModel.UserPuzzle" />
           <EntitySet Name="Goods" EntityType="PlugInsModel.Goods" />
           <EntitySet Name="UserScore" EntityType="PlugInsModel.UserScore" />
           <EntitySet Name="UserSign" EntityType="PlugInsModel.UserSign" />
           <EntitySet Name="User" EntityType="PlugInsModel.User" />
           <EntitySet Name="ScoreDetails" EntityType="PlugInsModel.ScoreDetails" />
+          <EntitySet Name="UserPuzzle" EntityType="PlugInsModel.UserPuzzle" />
           </EntityContainer>
         <EntityType Name="Prize">
           <Key>
@@ -513,16 +503,6 @@
           <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="UserPuzzle">
-          <Key>
-            <PropertyRef Name="UNID" />
-            <PropertyRef Name="OpenId" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="PuzzleId" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="PuzzleDate" Type="DateTime" Precision="0" />
-          <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-        </EntityType>
         <EntityType Name="Goods">
           <Key>
             <PropertyRef Name="UNID" />
@@ -588,6 +568,15 @@
           <Property Name="IsAdd" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="TargetId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserPuzzle">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="PuzzleId" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="PuzzleDate" Type="DateTime" Precision="0" />
+          <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -791,16 +780,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserPuzzle">
-            <EntityTypeMapping TypeName="PlugInsModel.UserPuzzle">
-              <MappingFragment StoreEntitySet="UserPuzzle">
-                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
-                <ScalarProperty Name="PuzzleDate" ColumnName="PuzzleDate" />
-                <ScalarProperty Name="PuzzleId" ColumnName="PuzzleId" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Goods">
             <EntityTypeMapping TypeName="PlugInsModel.Goods">
               <MappingFragment StoreEntitySet="Goods">
@@ -868,6 +847,16 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPuzzle">
+            <EntityTypeMapping TypeName="PlugInsModel.UserPuzzle">
+              <MappingFragment StoreEntitySet="UserPuzzle">
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="PuzzleDate" ColumnName="PuzzleDate" />
+                <ScalarProperty Name="PuzzleId" ColumnName="PuzzleId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>
