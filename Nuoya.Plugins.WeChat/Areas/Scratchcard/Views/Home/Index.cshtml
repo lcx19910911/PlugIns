@@ -282,8 +282,11 @@
                 }
             });
 
+            var auth = "@(Request.Cookies["LoginUserCookie"]==null ? string.Empty : Request.Cookies["LoginUserCookie"].Value)";
+            var ASPSESSID = "@Session.SessionID";
+
             $("#preheatingImageFile").uploadify({
-                'formData': { mark: 'ScratchCard'},
+                'formData': { mark: 'ScratchCard', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
                 'swf': '/Scripts/uploadify/uploadify.swf',
                 'uploader': '/upload/uploadimage',
                 'buttonText': '选择图片',
@@ -305,7 +308,7 @@
             });
             
             $("#ongoingImageFile").uploadify({
-                'formData': { mark: 'ScratchCard' },
+                'formData': { mark: 'ScratchCard', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
                 'swf': '/Scripts/uploadify/uploadify.swf',
                 'uploader': '/upload/uploadimage',
                 'buttonText': '选择图片',
@@ -327,7 +330,7 @@
             });
 
             $("#overImageFile").uploadify({
-                'formData': { mark: 'ScratchCard' },
+                'formData': { mark: 'ScratchCard', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
                 'swf': '/Scripts/uploadify/uploadify.swf',
                 'uploader': '/upload/uploadimage',
                 'buttonText': '选择图片',

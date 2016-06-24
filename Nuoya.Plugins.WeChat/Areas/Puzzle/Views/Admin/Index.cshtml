@@ -104,7 +104,7 @@
                     Description: {
                         maxlength: 500
                     },
-                   
+
                     IsShowCompare: {
                         required: true
                     },
@@ -156,9 +156,11 @@
                     }
                 }
             });
+            var auth = "@(Request.Cookies["LoginUserCookie"]==null ? string.Empty : Request.Cookies["LoginUserCookie"].Value)";
+            var ASPSESSID = "@Session.SessionID";
 
             $("#imageFile").uploadify({
-                'formData': { mark: 'Puzzle' },
+                'formData': { mark: 'Puzzle', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
                 'swf': '/Scripts/uploadify/uploadify.swf',
                 'uploader': '/upload/uploadimage',
                 'buttonText': '选择图片',
@@ -365,7 +367,7 @@
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
-                                    
+
                                     var ongoingTime = document.forms[0].OngoingTime.value;
                                     var overTime = document.forms[0].OverTime.value;
                                     if (ongoingTime > overTime) {

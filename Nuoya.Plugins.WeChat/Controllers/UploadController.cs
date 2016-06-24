@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
+    [AllowAnonymous]
     public class UploadController : BaseController
     {
         // GET: Upload

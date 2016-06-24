@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
 using System.Web.SessionState;
+using System.Web.Security;
 
 namespace Nuoya.Plugins.WeChat
 {
@@ -29,6 +30,7 @@ namespace Nuoya.Plugins.WeChat
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+           // "LoginUserCookie" = "11";
         }
 
         /// <summary>
@@ -76,13 +78,60 @@ namespace Nuoya.Plugins.WeChat
             Response.Redirect("/base/Error");
         }
 
-        protected void Application_BeginRequest()
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
-           
+            /* we guess at this point session is not already retrieved by application so we recreate cookie with the session id... */
+            try
+            {
+                string session_param_name = "ASPSESSID";
+                string session_cookie_name = "ASP.NET_SessionId";
+
+                if (HttpContext.Current.Request.Form[session_param_name] != null)
+                {
+                    Core.Util.LogHelper.WriteError("1");
+                    UpdateCookie(session_cookie_name, HttpContext.Current.Request.Form[session_param_name]);
+                }
+                else if (HttpContext.Current.Request.QueryString[session_param_name] != null)
+                {
+                    Core.Util.LogHelper.WriteError("2");
+                    UpdateCookie(session_cookie_name, HttpContext.Current.Request.QueryString[session_param_name]);
+                }
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                string auth_param_name = "AUTHID";
+                string auth_cookie_name = "LoginUserCookie";
+
+                if (HttpContext.Current.Request.Form[auth_param_name] != null)
+                {
+                    Core.Util.LogHelper.WriteError("3");
+                    UpdateCookie(auth_cookie_name, HttpContext.Current.Request.Form[auth_param_name]);
+                }
+                else if (HttpContext.Current.Request.QueryString[auth_param_name] != null)
+                {
+                    Core.Util.LogHelper.WriteError("4");
+                    UpdateCookie(auth_cookie_name, HttpContext.Current.Request.QueryString[auth_param_name]);
+                }
+
+            }
+            catch
+            {
+            }
         }
 
-        protected void Application_EndRequest()
+        private void UpdateCookie(string cookie_name, string cookie_value)
         {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies.Get(cookie_name);
+            if (null == cookie)
+            {
+                cookie = new HttpCookie(cookie_name);
+            }
+            cookie.Value = cookie_value;
+            HttpContext.Current.Request.Cookies.Set(cookie);
         }
     }
 }

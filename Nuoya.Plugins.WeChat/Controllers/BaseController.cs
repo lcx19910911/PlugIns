@@ -163,7 +163,6 @@ namespace Nuoya.Plugins.WeChat.Controllers
         {
             get
             {
-
                 return _loginUser != null ? _loginUser : Session["LoginUser"] as LoginUser;
             }
             set
@@ -171,6 +170,8 @@ namespace Nuoya.Plugins.WeChat.Controllers
                 Session["LoginUser"] = value;
             }
         }
+
+          
 
     }
 }

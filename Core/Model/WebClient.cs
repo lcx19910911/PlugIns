@@ -7,6 +7,7 @@ using System.Web;
 using Core.Code;
 using Core.Extensions;
 using System.Web.SessionState;
+using System.Web.Security;
 
 namespace Core.Model
 {
@@ -45,7 +46,6 @@ namespace Core.Model
         {
             get
             {
-                
                 return _loginUser != null ? _loginUser : Session["LoginUser"] as LoginUser;
             }
             set

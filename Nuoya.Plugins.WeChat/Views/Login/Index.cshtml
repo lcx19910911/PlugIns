@@ -56,38 +56,26 @@
     @Scripts.Render("~/Scripts/Login")
 
     <script type="text/javascript">
-        function onSubmit(e) {
-            if (document.forms[0].account.value == "") {
-                $.Nuoya.alert("请输入账号");
-                return false;
-            }
-            if (document.forms[0].password.value == "") {
-                $.Nuoya.alert("请输入密码");
-                return false;
-            }
-            $.Nuoya.action("/Login/Submit", { password: document.forms[0].password.value, account: document.forms[0].account.value }, function (data) {
-                if (data) {
-                    window.location.href = "@(string.IsNullOrEmpty(Request["redirecturl"])?"/home/index": Request["redirecturl"])";
-                }
-                else {
-                    $.Nuoya.alert("账号或密码错误");
-                }
-            });
-        }
+
         $(function () {
 
-            $("[name='account']").keydown(function (e) {
-                if (e.keyCode == 13) {
-                    onSubmit();
-                }
-            });
-            $("[name='password']").keydown(function (e) {
-                if (e.keyCode == 13) {
-                    onSubmit();
-                }
-            });
             $("#btnSubmit").click(function (e) {
-                onSubmit(e);
+                if (document.forms[0].account.value == "") {
+                    $.Nuoya.alert("请输入账号");
+                    return false;
+                }
+                if (document.forms[0].password.value == "") {
+                    $.Nuoya.alert("请输入密码");
+                    return false;
+                }
+                $.Nuoya.action("/Login/Submit", { password: document.forms[0].password.value, account: document.forms[0].account.value }, function (data) {
+                    if (data) {
+                        window.location.href = "@(string.IsNullOrEmpty(Request["redirecturl"])?"/home/index": Request["redirecturl"])";
+                    }
+                    else {
+                        $.Nuoya.alert("账号或密码错误");
+                    }
+                });
             });
         });
     </script>
