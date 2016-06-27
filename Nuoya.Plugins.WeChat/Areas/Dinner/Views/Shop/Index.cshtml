@@ -63,6 +63,8 @@
         $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
 
 
+    
+
         function ClearFilter() {
             $("#searchDomain input").val("");
         }
@@ -70,7 +72,7 @@
         //批量删除
         function batchDelete() {
             grid.del({
-                ajaxUrl: "/Shop/Delete",
+                ajaxUrl: "/Dinner/Shop/Delete",
                 callback: function (json) {
                     grid.reload();
                 }
@@ -81,7 +83,7 @@
         function batchEnable() {
             grid.batchAction({
                 message: "确定批量启用？",
-                ajaxUrl: "/Shop/Enable",
+                ajaxUrl: "/Dinner/Shop/Enable",
                 callback: function (json) {
                     grid.reload();
                 }
@@ -92,7 +94,7 @@
         function batchDisable() {
             grid.batchAction({
                 message: "确定批量禁用？",
-                ajaxUrl: "/Shop/Disable",
+                ajaxUrl: "/Dinner/Shop/Disable",
                 callback: function (json) {
                     grid.reload();
                 }
@@ -167,29 +169,36 @@
                 }
             });
 
-            var auth = "@(Request.Cookies[Core.Params.CookieName] == null ? string.Empty : Request.Cookies[Core.Params.CookieName].Value)";
-            var ASPSESSID = "@Session.SessionID";
-            $("#imageFile").uploadify({
-                'formData': { 'mark': 'DinnerShop', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
-                'swf': '/Scripts/uploadify/uploadify.swf',
-                'uploader': '/upload/uploadimage',
-                'buttonText': '选择图片',
-                'auto': true,
-                'multi': false,
-                'removeCompleted': true,
-                'fileSizeLimit': '2048KB',
-                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
-                'onUploadSuccess': function (file, data, response) {
-                    var data = JSON.parse(data);
-                    if (data.Code == 0) {
-                        $("[name='Image']").val(data.Result);
-                        $("#imageDiv").show().find("img").attr("src", data.Result);
+            UploadImg();
+        }
 
-                    } else {
+
+        function UploadImg() {
+            var headimgbtn = $("#imageFile").uploadFile({
+                url: '/upload/uploadimage?mark=DinnerShop',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='Image']").val(data);
+                        $("#imageDiv").show().find("img").attr("src", data);
+                    }
+                    else {
                         $.Nuoya.alert("上传错误");
                     }
-                }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    uploadheadimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
             });
+            var uploadheadimg = headimgbtn.data("uploadFileData");
         }
 
         //新增
@@ -215,7 +224,7 @@
                         }
 
                         $.Nuoya.form("form").ajaxSubmit({
-                            ajaxUrl: "/Shop/Add",
+                            ajaxUrl: "/Dinner/Shop/Add",
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
@@ -237,7 +246,7 @@
                 domainId: "searchDomain",
                 subId: "btnSearch"
             },
-            ajaxUrl: "/Shop/GetPageList",
+            ajaxUrl: "/Dinner/Shop/GetPageList",
             //数据请求地址
             pageSize: 10,
             events: [
@@ -253,7 +262,7 @@
                             ajaxUrl: "/HtmlTemplates/DinnerShop/Update.html",
                             title: "编辑门店",
                             callback: function (e) {
-                                $.Nuoya.action("/Shop/Find", { unid: item.UNID }, function (model) {
+                                $.Nuoya.action("/Dinner/Shop/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
                                         data: model
@@ -276,7 +285,7 @@
                                     }
 
                                     $.Nuoya.form("form").ajaxSubmit({
-                                        ajaxUrl: "/Shop/Update",
+                                        ajaxUrl: "/Dinner/Shop/Update",
                                         params: {
                                             UNID: item.UNID
                                         },
@@ -299,7 +308,7 @@
                     icon: "icon-trash-o",
                     name: "删除",
                     click: function (item) {
-                        $.Nuoya.deleteAction("/Shop/Delete", {
+                        $.Nuoya.deleteAction("/Dinner/Shop/Delete", {
                             unids: item.UNID
                         },
                         function () {
@@ -320,7 +329,7 @@
                         }
                     },
                     click: function (item) {
-                        $.Nuoya.action("/Shop/Disable", {
+                        $.Nuoya.action("/Dinner/Shop/Disable", {
                             unids: item.UNID
                         },
                         function () {
@@ -341,12 +350,20 @@
                         }
                     },
                     click: function (item) {
-                        $.Nuoya.action("/Shop/Enabled", {
+                        $.Nuoya.action("/Dinner/Shop/Enabled", {
                             unids: item.UNID
                         },
                         function () {
                             grid.reload();
                         });
+                    }
+                },
+                {
+                    className: "am-text-danger",
+                    icon: "icon-check",
+                    name: "登陆门店",
+                    click: function (item) {
+                        window.location.href = "/login/ChildrenLogin?unid=" + item.UNID;
                     }
                 }
             ]

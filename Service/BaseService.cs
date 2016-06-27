@@ -19,8 +19,10 @@ namespace Service
 
         public HttpContext ContextCurrent { get; set; }
 
-        public WebClient Client {
-            get {
+        public WebClient Client
+        {
+            get
+            {
                 return new WebClient(ContextCurrent);
             }
         }
@@ -33,11 +35,11 @@ namespace Service
         /// <returns></returns>
         private PageList<T> ConvertPageList<T>(List<T> allList, int pageIndex, int pageSize)
         {
-                pageIndex = pageIndex <= 0 ? 1 : pageIndex;
-                pageSize = pageSize <= 0 ? 10 : pageSize;
-                int skip = (pageIndex - 1) * pageSize;
-                var list = allList?.Skip(skip).Take(pageSize).ToList();
-                return new PageList<T>(list, pageIndex, pageSize, allList == null ? 0 : allList.LongCount());
+            pageIndex = pageIndex <= 0 ? 1 : pageIndex;
+            pageSize = pageSize <= 0 ? 10 : pageSize;
+            int skip = (pageIndex - 1) * pageSize;
+            var list = allList?.Skip(skip).Take(pageSize).ToList();
+            return new PageList<T>(list, pageIndex, pageSize, allList == null ? 0 : allList.LongCount());
         }
 
         /// <summary>
@@ -49,9 +51,9 @@ namespace Service
         private PageList<T> ConvertPageList<T>(List<T> list, int pageIndex, int pageSize, int recoredCount)
         {
 
-                pageIndex = pageIndex <= 0 ? 1 : pageIndex;
-                pageSize = pageSize <= 0 ? 10 : pageSize;
-                return new PageList<T>(list, pageIndex, pageSize, recoredCount);
+            pageIndex = pageIndex <= 0 ? 1 : pageIndex;
+            pageSize = pageSize <= 0 ? 10 : pageSize;
+            return new PageList<T>(list, pageIndex, pageSize, recoredCount);
         }
 
         /// <summary>

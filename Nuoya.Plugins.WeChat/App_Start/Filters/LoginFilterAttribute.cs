@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.AuthAPI;
 using Service;
-using Core;
 
 namespace Nuoya.Plugins.WeChat.Filters
 {
@@ -56,7 +55,7 @@ namespace Nuoya.Plugins.WeChat.Filters
                     }
                     if (entity != null)
                     {
-                        Core.Helper.CookieHelper.CreateLoginCookie(entity);
+                        filterContext.HttpContext.Session["LoginUser"] = new Core.Model.LoginUser(entity);
                     }
                 }
             }
@@ -64,7 +63,7 @@ namespace Nuoya.Plugins.WeChat.Filters
             //判断页面是否需要登录
             if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName, StringComparison.OrdinalIgnoreCase) && x.Item2.Equals(actionName, StringComparison.OrdinalIgnoreCase)) == null)
             {
-                if (filterContext.HttpContext.Request.Cookies[Params.CookieName] == null)
+                if (controller.LoginUser == null)
                 {
                     if (!controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))
                     {
@@ -78,7 +77,7 @@ namespace Nuoya.Plugins.WeChat.Filters
                             }
                             else if (actionMethod.ReturnType.Name == "JsonResult")
                             {
-                                JsonResult jsonResult = new JsonResult(); 
+                                JsonResult jsonResult = new JsonResult();
                                 jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
                                 filterContext.RequestContext.HttpContext.Response.StatusCode = 9999;
                                 filterContext.Result = jsonResult;

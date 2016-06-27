@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using IService;
 using Core.Helper;
 using Core;
+using Nuoya.Plugins.WeChat.Filters;
+using Core.Model;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
@@ -38,7 +40,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var person = IPersonService.Login(account, password);
             if (person != null)
             {
-                CookieHelper.CreateLoginCookie(person);
+                this.LoginUser = new Core.Model.LoginUser(person);
                 return JResult(true);
             }
             else
@@ -47,12 +49,31 @@ namespace Nuoya.Plugins.WeChat.Controllers
                 if (result != null && result.code == 100)
                 {
                     person = IPersonService.Manager_Person(result.data, account, password);
-                    CookieHelper.CreateLoginCookie(person);
+                    this.LoginUser = new Core.Model.LoginUser(person);
                     return JResult(true);
                 }
                 else
                     return JResult(false);
             }
+        }
+
+        /// <summary>
+        /// 登录提交
+        /// </summary>
+        /// <param name="account">账号</param>
+        /// <param name="password">密码</param> 
+        /// <returns></returns>
+        [LoginFilter]
+        public ActionResult ChildrenLogin(string unid)
+        {
+            var person = IPersonService.Get_ByShopId(unid);
+            if (person != null)
+            {
+                this.LoginUser = new Core.Model.LoginUser(person);
+                return Redirect("/Dinner/Category/index");
+            }
+            else
+                return Redirect("/home/index");
         }
 
 
@@ -62,7 +83,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public ActionResult Quit()
         {
-            HttpContext.Response.Cookies[Params.CookieName].Expires = DateTime.Now.AddDays(-1);
+            this.LoginUser = null;
             return View("Index");
         }
     }

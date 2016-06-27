@@ -37,6 +37,13 @@ namespace IService
         Person Get_ByComId(int comId);
 
         /// <summary>
+        /// 根据店铺id
+        /// </summary>
+        /// <param name="shopId">平台id</param>
+        /// <returns></returns>
+        Person Get_ByShopId(string shopId);
+
+        /// <summary>
         /// 新增平台人员信息
         /// </summary>
         /// <param name="name">name</param>

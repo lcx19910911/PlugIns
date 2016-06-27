@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
-    [LoginFilter]
     public class HomeController : BaseController
     {
+        [LoginFilter]
         public ActionResult Index()
         {
             return View();

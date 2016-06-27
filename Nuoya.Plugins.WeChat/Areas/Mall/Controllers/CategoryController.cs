@@ -30,10 +30,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            if (!this.LoginUser.IsChildren)
-                return Redirect("/home/index");
-            else
-                return View();
+            return View();
         }
 
         /// <summary>

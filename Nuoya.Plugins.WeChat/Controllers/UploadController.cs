@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace Nuoya.Plugins.WeChat.Controllers
 {
     [AllowAnonymous]
-    public class UploadController : BaseController
+    public class UploadController : Controller
     {
         // GET: Upload
         public ActionResult UploadImage(string mark)
@@ -17,10 +17,10 @@ namespace Nuoya.Plugins.WeChat.Controllers
             if (file != null)
             {
                 string path = UploadHelper.Save(file, mark);
-                return JResult(path);
+                return Content(path);
             }
             else
-                return JResult("");
+                return Content("");
         }
     }
 }

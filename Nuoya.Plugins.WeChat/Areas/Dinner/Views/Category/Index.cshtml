@@ -58,7 +58,7 @@
         //批量删除
         function batchDelete() {
             grid.del({
-                ajaxUrl: "/Category/Delete",
+                ajaxUrl: "/Dinner/Category/Delete",
                 callback: function (json) {
                     grid.reload();
                 }
@@ -106,7 +106,7 @@
                     callback: function (e) {
 
                         $.Nuoya.form("form").ajaxSubmit({
-                            ajaxUrl: "/Category/Add",
+                            ajaxUrl: "/Dinner/Category/Add",
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
@@ -142,7 +142,7 @@
                             ajaxUrl: "/HtmlTemplates/DinnerCategory/Update.html",
                             title: "编辑分类",
                             callback: function (e) {
-                                $.Nuoya.action("/Category/Find", { unid: item.UNID }, function (model) {
+                                $.Nuoya.action("/Dinner/Category/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
                                         data: model
@@ -156,7 +156,7 @@
                                 callback: function (e) {
 
                                     $.Nuoya.form("form").ajaxSubmit({
-                                        ajaxUrl: "/Category/Update",
+                                        ajaxUrl: "/Dinner/Category/Update",
                                         params: {
                                             UNID: item.UNID
                                         },
@@ -179,7 +179,7 @@
                     icon: "icon-trash-o",
                     name: "删除",
                     click: function (item) {
-                        $.Nuoya.deleteAction("/Category/Delete", {
+                        $.Nuoya.deleteAction("/Dinner/Category/Delete", {
                             unids: item.UNID
                         },
                         function () {

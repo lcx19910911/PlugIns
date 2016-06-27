@@ -203,6 +203,7 @@
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
     <Content Include="Images\404Pic.png" />
     <Content Include="Scripts\activity\puzzle\gameobject.js" />
+    <Content Include="Scripts\file_upload_plug-in.js" />
     <Content Include="Scripts\UEditor\dialogs\anchor\anchor.html" />
     <Content Include="Scripts\UEditor\dialogs\attachment\attachment.css" />
     <Content Include="Scripts\UEditor\dialogs\attachment\attachment.html" />
@@ -489,15 +490,6 @@
     <Content Include="Scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
     <Content Include="Scripts\My97DatePicker\skin\whyGreen\img.gif" />
     <Content Include="Scripts\My97DatePicker\WdatePicker.js" />
-    <Content Include="Scripts\uploadify\Change Log.txt" />
-    <Content Include="Scripts\uploadify\jquery.uploadify.js" />
-    <Content Include="Scripts\uploadify\jquery.uploadify.min.js" />
-    <Content Include="Scripts\uploadify\license.txt" />
-    <Content Include="Scripts\uploadify\uploadify-cancel.png" />
-    <Content Include="Scripts\uploadify\uploadify.css" />
-    <Content Include="Scripts\uploadify\uploadify.swf" />
-    <Content Include="Scripts\uploadify\__MACOSX\._Change Log.txt" />
-    <Content Include="Scripts\uploadify\__MACOSX\._uploadify.swf" />
     <Content Include="Styles\activity\images\scratchcard\activity-lottery-2.png" />
     <Content Include="Styles\activity\images\scratchcard\activity-lottery-3.png" />
     <Content Include="Styles\activity\images\scratchcard\activity-lottery-bg.png" />
@@ -600,6 +592,7 @@
     <Compile Include="Areas\Dinner\Controllers\ShopController.cs" />
     <Compile Include="Areas\Dinner\DinnerAreaRegistration.cs" />
     <Compile Include="Areas\Mall\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Mall\Controllers\HomeController.cs" />
     <Compile Include="Areas\Mall\Controllers\MallBaseController.cs" />
     <Compile Include="Areas\Mall\MallAreaRegistration.cs" />
     <Compile Include="Areas\Puzzle\Controllers\HomeController.cs" />
@@ -644,9 +637,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\PartialMenu.cshtml" />
     <Content Include="Views\UserJoinCounter\Index.cshtml" />
-    <Content Include="Scripts\uploadify\check-exists.php" />
-    <Content Include="Scripts\uploadify\index.php" />
-    <Content Include="Scripts\uploadify\uploadify.php" />
     <Content Include="Areas\Scratchcard\Views\web.config" />
     <Content Include="Areas\Dinner\Views\web.config" />
     <Content Include="Areas\Dinner\Views\Category\Index.cshtml" />
@@ -679,6 +669,8 @@
     <Content Include="Areas\User\Views\Score\Index.cshtml" />
     <Content Include="Areas\Mall\Views\web.config" />
     <Content Include="Areas\Mall\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Mall\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Mall\Views\Category\Index.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />

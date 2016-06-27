@@ -25,5 +25,7 @@ namespace Nuoya.Plugins.WeChat.Api
         {          
             return new WebResult<T>() { Result = model, Code = code };
         }
+
+        public LoginUser LoginUser { get; set; }
     }
 }

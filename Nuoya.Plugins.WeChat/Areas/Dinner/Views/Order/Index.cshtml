@@ -68,7 +68,7 @@
         //批量删除
         function batchDelete() {
             grid.del({
-                ajaxUrl: "/Order/Delete",
+                ajaxUrl: "/Dinner/Order/Delete",
                 callback: function (json) {
                     grid.reload();
                 }
@@ -82,7 +82,7 @@
                 domainId: "searchDomain",
                 subId: "btnSearch"
             },
-            ajaxUrl: "/Order/GetPageList",
+            ajaxUrl: "/Dinner/Order/GetPageList",
             //数据请求地址
             pageSize: 10,
             events: [
@@ -100,7 +100,7 @@
                     },
                     click: function (item) {
                         $.Nuoya.confirm("将该订单标记为“处理”吗？", function () {
-                            $.Nuoya.action("/Order/Confirm", {
+                            $.Nuoya.action("/Dinner/Order/Confirm", {
                                 unid: item.UNID
                             },
                             function (data) {
@@ -128,7 +128,7 @@
                     },
                     click: function (item) {
                         $.Nuoya.confirm("将该订单标记为“无效”吗？", function () {
-                            $.Nuoya.action("/Order/Invalid", {
+                            $.Nuoya.action("/Dinner/Order/Invalid", {
                                 unid: item.UNID
                             },
                             function (data) {

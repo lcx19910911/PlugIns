@@ -8,7 +8,6 @@ using Core.Code;
 using Core.Extensions;
 using System.Web.SessionState;
 using System.Web.Security;
-using Core.Helper;
 
 namespace Core.Model
 {
@@ -47,7 +46,11 @@ namespace Core.Model
         {
             get
             {
-                return _loginUser != null ? _loginUser : CookieHelper.GetCurrentUser();
+                return _loginUser != null ? _loginUser : Session["LoginUser"] as LoginUser;
+            }
+            set
+            {
+                Session["LoginUser"] = value;
             }
         }
         private string _postData = null;
@@ -117,7 +120,7 @@ namespace Core.Model
             }
         }
 
-       private SourceCode _sourceCode = SourceCode.None;
+        private SourceCode _sourceCode = SourceCode.None;
 
         /// <summary>
         /// 来源

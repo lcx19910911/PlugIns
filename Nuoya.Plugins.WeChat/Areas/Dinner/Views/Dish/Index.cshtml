@@ -71,7 +71,7 @@
         //批量删除
         function batchDelete() {
             grid.del({
-                ajaxUrl: "/Dish/Delete",
+                ajaxUrl: "/Dinner/Dish/Delete",
                 callback: function (json) {
                     grid.reload();
                 }
@@ -79,9 +79,9 @@
         }
         $(function () {
             $("select[name='CategoryId']").append("<option value='0'>不限</option>");
-            $.Nuoya.action("/Category/GetSelectItem", {}, function (json) {
+            $.Nuoya.action("/Dinner/Category/GetSelectItem", {}, function (json) {
                 $(json).each(function () {
-                    $("select[name='DinnerCategoryId']").append("<option  value='" + this.Value + "'>" + this.Text + "</option>");
+                    $("select[name='CategoryId']").append("<option  value='" + this.Value + "'>" + this.Text + "</option>");
                 });
             });
         });
@@ -96,9 +96,9 @@
                     $("input[name='State']").attr("checked", "checked");
                 }
             }
-            $.Nuoya.action("/Category/GetSelectItem", { cid: dataitem ? dataitem.DinnerCategoryId : "" }, function (json) {
+            $.Nuoya.action("/Dinner/Category/GetSelectItem", { cid: dataitem ? dataitem.DinnerCategoryId : "" }, function (json) {
                 $(json).each(function () {
-                    $("select[name='DinnerCategoryId']").append("<option " + (this.Selected == true ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
+                    $("select[name='CategoryId']").append("<option " + (this.Selected == true ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
                 });
             });
 
@@ -154,30 +154,37 @@
                     }
                 }
             });
-            var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName] ==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
-            var ASPSESSID = "@Session.SessionID";
 
-            $("#imageFile").uploadify({
-                'formData': { mark: 'DinnerDish', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
-                'swf': '/Scripts/uploadify/uploadify.swf',
-                'uploader': '/upload/uploadimage',
-                'buttonText': '选择图片',
-                'auto': true,
-                'multi': false,
-                'removeCompleted': true,
-                'fileSizeLimit': '2048KB',
-                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
-                'onUploadSuccess': function (file, data, response) {
-                    var data = JSON.parse(data);
-                    if (data.Code == 0) {
-                        $("[name='Image']").val(data.Result);
-                        $("#imageDiv").show().find("img").attr("src", data.Result);
+            UploadImg();
+        }
 
-                    } else {
-                        $.Nuoya.alert("上传错误");
+
+        function UploadImg() {
+            var headimgbtn = $("#imageFile").uploadFile({
+                url: '/upload/uploadimage?mark=DinnerDish',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='Image']").val(data);
+                        $("#imageDiv").show().find("img").attr("src", data);
                     }
-                }
+                    else {
+                        $.Nuoya.alert( "上传错误");
+                    }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    uploadheadimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
             });
+            var uploadheadimg = headimgbtn.data("uploadFileData");
         }
 
         //新增
@@ -203,7 +210,7 @@
                         }
 
                         $.Nuoya.form("form").ajaxSubmit({
-                            ajaxUrl: "/Dish/Add",
+                            ajaxUrl: "/Dinner/Dish/Add",
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
@@ -225,7 +232,7 @@
                 domainId: "searchDomain",
                 subId: "btnSearch"
             },
-            ajaxUrl: "/Dish/GetPageList",
+            ajaxUrl: "/Dinner/Dish/GetPageList",
             //数据请求地址
             pageSize: 10,
             events: [
@@ -241,7 +248,7 @@
                             ajaxUrl: "/HtmlTemplates/DinnerDish/Update.html",
                             title: "编辑分类",
                             callback: function (e) {
-                                $.Nuoya.action("/Dish/Find", { unid: item.UNID }, function (model) {
+                                $.Nuoya.action("/Dinner/Dish/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
                                         data: model
@@ -262,7 +269,7 @@
                                     }
 
                                     $.Nuoya.form("form").ajaxSubmit({
-                                        ajaxUrl: "/Dish/Update",
+                                        ajaxUrl: "/Dinner/Dish/Update",
                                         params: {
                                             UNID: item.UNID
                                         },
@@ -285,7 +292,7 @@
                     icon: "icon-trash-o",
                     name: "删除",
                     click: function (item) {
-                        $.Nuoya.deleteAction("/Dish/Delete", {
+                        $.Nuoya.deleteAction("/Dinner/Dish/Delete", {
                             unids: item.UNID
                         },
                         function () {

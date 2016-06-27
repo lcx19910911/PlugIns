@@ -129,5 +129,15 @@ namespace Service
                 return person;
             }
         }
+
+
+        public Person Get_ByShopId(string shopId)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                var person = entities.Person.Where(x => x.Flag == (long)GlobalFlag.Normal).FirstOrDefault(x => x.ShopId.Equals(shopId) && x.IsChildren == (int)YesOrNoCode.Yes);
+                return person;
+            }
+        }
     }
 }
