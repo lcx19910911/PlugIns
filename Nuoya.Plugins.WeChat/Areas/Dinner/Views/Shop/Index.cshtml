@@ -167,10 +167,10 @@
                 }
             });
 
-            var auth = "@(Request.Cookies["LoginUserCookie"]==null ? string.Empty : Request.Cookies["LoginUserCookie"].Value)";
+            var auth = "@(Request.Cookies[Core.Params.CookieName] == null ? string.Empty : Request.Cookies[Core.Params.CookieName].Value)";
             var ASPSESSID = "@Session.SessionID";
             $("#imageFile").uploadify({
-                'formData': { mark: 'DinnerShop', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
+                'formData': { 'mark': 'DinnerShop', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
                 'swf': '/Scripts/uploadify/uploadify.swf',
                 'uploader': '/upload/uploadimage',
                 'buttonText': '选择图片',

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using IService;
+using Core.Helper;
+using Core;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
@@ -36,7 +38,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var person = IPersonService.Login(account, password);
             if (person != null)
             {
-                this.LoginUser = new Core.Model.LoginUser(person);
+                CookieHelper.CreateLoginCookie(person);
                 return JResult(true);
             }
             else
@@ -45,7 +47,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
                 if (result != null && result.code == 100)
                 {
                     person = IPersonService.Manager_Person(result.data, account, password);
-                    this.LoginUser = new Core.Model.LoginUser(person);
+                    CookieHelper.CreateLoginCookie(person);
                     return JResult(true);
                 }
                 else
@@ -60,7 +62,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         /// <returns></returns>
         public ActionResult Quit()
         {
-            this.LoginUser = null;
+            HttpContext.Response.Cookies[Params.CookieName].Expires = DateTime.Now.AddDays(-1);
             return View("Index");
         }
     }

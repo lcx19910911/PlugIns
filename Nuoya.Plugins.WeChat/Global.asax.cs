@@ -30,7 +30,7 @@ namespace Nuoya.Plugins.WeChat
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
-           // "LoginUserCookie" = "11";
+            // Core.Params.CookieName = "11";
         }
 
         /// <summary>
@@ -88,12 +88,10 @@ namespace Nuoya.Plugins.WeChat
 
                 if (HttpContext.Current.Request.Form[session_param_name] != null)
                 {
-                    Core.Util.LogHelper.WriteError("1");
                     UpdateCookie(session_cookie_name, HttpContext.Current.Request.Form[session_param_name]);
                 }
                 else if (HttpContext.Current.Request.QueryString[session_param_name] != null)
                 {
-                    Core.Util.LogHelper.WriteError("2");
                     UpdateCookie(session_cookie_name, HttpContext.Current.Request.QueryString[session_param_name]);
                 }
             }
@@ -104,16 +102,16 @@ namespace Nuoya.Plugins.WeChat
             try
             {
                 string auth_param_name = "AUTHID";
-                string auth_cookie_name = "LoginUserCookie";
+                string auth_cookie_name = FormsAuthentication.FormsCookieName;
 
                 if (HttpContext.Current.Request.Form[auth_param_name] != null)
                 {
-                    Core.Util.LogHelper.WriteError("3");
+                    Core.Util.LogHelper.WriteError("1");
                     UpdateCookie(auth_cookie_name, HttpContext.Current.Request.Form[auth_param_name]);
                 }
                 else if (HttpContext.Current.Request.QueryString[auth_param_name] != null)
                 {
-                    Core.Util.LogHelper.WriteError("4");
+                    Core.Util.LogHelper.WriteError("2");
                     UpdateCookie(auth_cookie_name, HttpContext.Current.Request.QueryString[auth_param_name]);
                 }
 

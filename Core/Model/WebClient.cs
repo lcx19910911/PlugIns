@@ -8,6 +8,7 @@ using Core.Code;
 using Core.Extensions;
 using System.Web.SessionState;
 using System.Web.Security;
+using Core.Helper;
 
 namespace Core.Model
 {
@@ -46,11 +47,7 @@ namespace Core.Model
         {
             get
             {
-                return _loginUser != null ? _loginUser : Session["LoginUser"] as LoginUser;
-            }
-            set
-            {
-                Session["LoginUser"] = value;
+                return _loginUser != null ? _loginUser : CookieHelper.GetCurrentUser();
             }
         }
         private string _postData = null;

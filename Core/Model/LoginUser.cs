@@ -23,6 +23,11 @@ namespace Core.Model
             this.IsChildren = person.IsChildren == 1 ? true : false;
         }
 
+
+        public LoginUser()
+        {
+        }
+
         /// <summary>
         /// 
         /// </summary>

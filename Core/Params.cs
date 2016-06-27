@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Web.Security;
 
 namespace Core
 {
@@ -50,5 +51,10 @@ namespace Core
         /// 连续十天签到积分
         /// </summary>
         public static readonly int TendayScore = 30;
+
+        /// <summary>
+        /// 登陆cookie
+        /// </summary>
+        public static readonly string CookieName = FormsAuthentication.FormsCookieName;
     }
 }

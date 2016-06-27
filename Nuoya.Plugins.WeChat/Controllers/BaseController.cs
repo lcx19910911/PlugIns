@@ -8,6 +8,7 @@ using Nuoya.Plugins.WeChat.Filters;
 using Core.Model;
 using Core.Code;
 using Core.Extensions;
+using Core.Helper;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
@@ -163,11 +164,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
         {
             get
             {
-                return _loginUser != null ? _loginUser : Session["LoginUser"] as LoginUser;
-            }
-            set
-            {
-                Session["LoginUser"] = value;
+                return _loginUser != null ? _loginUser : CookieHelper.GetCurrentUser();
             }
         }
 

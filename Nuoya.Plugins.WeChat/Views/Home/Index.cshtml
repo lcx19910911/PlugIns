@@ -26,9 +26,9 @@
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
         <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
             <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-                @if (Session["LoginUser"] != null)
+                @if (Core.Helper.CookieHelper.IsLogin())
                 {
-                    <li><a href="javascript:;"><span>@((Session["LoginUser"] as Core.Model.LoginUser).Name)</span></a></li>
+                    <li><a href="javascript:;"><span>@(Core.Helper.CookieHelper.GetCurrentUser().Name)</span></a></li>
                     <li><a href="javascript:;" class="admin-clear-cache"><span class="am-icon-close"></span> <span>清除缓存</span></a></li>
                     <li><a href="/login/Quit" class="admin-quit"><span class="am-icon-sign-out"></span> <span>注销</span></a></li>
                 }
@@ -47,9 +47,9 @@
                 </div>
 
                 <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
-                    @if (Session["LoginUser"] != null)
+                    @if (Core.Helper.CookieHelper.IsLogin())
                     {
-                        if ((Session["LoginUser"] as Core.Model.LoginUser).IsChildren)
+                        if (Core.Helper.CookieHelper.GetCurrentUser().IsChildren)
                         {
                             <li><a href="/dinner/dish" class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br>微点餐门店管理员页面<br></a></li>
                         }

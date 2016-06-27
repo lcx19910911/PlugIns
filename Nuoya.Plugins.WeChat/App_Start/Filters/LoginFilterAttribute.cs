@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.AuthAPI;
 using Service;
+using Core;
 
 namespace Nuoya.Plugins.WeChat.Filters
 {
@@ -55,7 +56,7 @@ namespace Nuoya.Plugins.WeChat.Filters
                     }
                     if (entity != null)
                     {
-                        filterContext.HttpContext.Session["LoginUser"] = new Core.Model.LoginUser(entity);
+                        Core.Helper.CookieHelper.CreateLoginCookie(entity);
                     }
                 }
             }
@@ -63,7 +64,7 @@ namespace Nuoya.Plugins.WeChat.Filters
             //判断页面是否需要登录
             if (allowAction.FirstOrDefault(x => x.Item1.Equals(controllerName, StringComparison.OrdinalIgnoreCase) && x.Item2.Equals(actionName, StringComparison.OrdinalIgnoreCase)) == null)
             {
-                if (controller.LoginUser == null)
+                if (filterContext.HttpContext.Request.Cookies[Params.CookieName] == null)
                 {
                     if (!controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))
                     {
