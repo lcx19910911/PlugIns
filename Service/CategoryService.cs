@@ -237,7 +237,7 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.Category.AsQueryable().Where(x => x.ShopId.Equals(Client.LoginUser.UNID));
+                var query = entities.Category.AsQueryable().Where(x => x.PersonId.Equals(Client.LoginUser.UNID));
                 if (name.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.Name.Contains(name));

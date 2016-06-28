@@ -195,6 +195,7 @@
   <ItemGroup>
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="HtmlTemplates\MallCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />
     <Content Include="HtmlTemplates\DinnerShop\Update.html" />

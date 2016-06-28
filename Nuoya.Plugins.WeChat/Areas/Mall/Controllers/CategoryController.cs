@@ -42,7 +42,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public JsonResult GetPageList(int pageIndex, int pageSize, string name)
         {
-            var pagelist = ICategoryService.Get_DinnerCategoryPageList(pageIndex, pageSize, name);
+            var pagelist = ICategoryService.Get_MallCategoryPageList(pageIndex, pageSize, name);
             return JResult(pagelist);
         }
 
@@ -53,7 +53,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public JsonResult Add(Category model)
         {
-            var result = ICategoryService.Add_DinnerCategory(model);
+            var result = ICategoryService.Add_MallCategory(model);
             return JResult(result);
         }
 
@@ -65,7 +65,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public JsonResult Update(Category model, string unid)
         {
-            var result = ICategoryService.Update_DinnerCategory(model, unid);
+            var result = ICategoryService.Update_MallCategory(model, unid);
             return JResult(result);
         }
 
@@ -76,7 +76,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public JsonResult Find(string unid)
         {
-            var result = ICategoryService.Find_DinnerCategory(unid);
+            var result = ICategoryService.Find_MallCategory(unid);
             return JResult(result);
         }
 
@@ -87,7 +87,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public ActionResult Delete(string unids)
         {
-            var model = ICategoryService.Delete_DinnerCategory(unids);
+            var model = ICategoryService.Delete_MallCategory(unids);
             return JResult(model);
         }
 
