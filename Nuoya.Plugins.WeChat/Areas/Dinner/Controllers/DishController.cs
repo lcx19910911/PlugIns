@@ -31,7 +31,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         public ActionResult Index()
         {
             if (!this.LoginUser.IsChildren)
-                return RedirectToAction("/home/index");
+                return Redirect("/home/index");
             else
                 return View();
         }

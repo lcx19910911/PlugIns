@@ -30,10 +30,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            if (!this.LoginUser.IsChildren)
-                return RedirectToAction("/home/index");
-            else
-                return View();
+            return View();
         }
 
         /// <summary>
@@ -57,9 +54,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
-        public JsonResult Add(Goods model)
+        public JsonResult Add(Goods model,string DetailsImage,string DetailsSort)
         {
-            var result = IMallGoodsService.Add_MallGoods(model);
+            var result = IMallGoodsService.Add_MallGoods(model, DetailsImage, DetailsSort);
             return JResult(result);
         }
 
@@ -69,9 +66,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
-        public JsonResult Update(Goods model, string unid)
+        public JsonResult Update(Goods model, string DetailsImage, string DetailsSort)
         {
-            var result = IMallGoodsService.Update_MallGoods(model, unid);
+            var result = IMallGoodsService.Update_MallGoods(model, DetailsImage, DetailsSort);
             return JResult(result);
         }
 

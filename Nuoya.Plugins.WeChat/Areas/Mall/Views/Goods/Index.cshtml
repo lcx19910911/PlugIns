@@ -88,8 +88,23 @@
         });
 
         function formInit(dataitem) {
+            if (dataitem != null) {
+                if (dataitem.Goods != null) {
+                    if (dataitem.Goods.Image != null) {
+                        $("#imageDiv").show().find("img").attr("src", dataitem.Goods.Image);
+                    }
+                    if (dataitem.Goods.State == 1) {
+                        $("input[name='State']").attr("checked", "checked");
+                    }
+                }
 
-            $.Nuoya.action("/Mall/Category/GetSelectItem", { cid: dataitem ? dataitem.CategoryId : "" }, function (json) {
+                if (dataitem.GoodsDetails != null) {
+                    $(dataitem.GoodsDetails).each(function (index, item) {
+                        AddDesImage(item.Image, item.Sort);
+                    })
+                }
+            }
+            $.Nuoya.action("/Mall/Category/GetSelectItem", { cid: dataitem ? dataitem.Goods.CategoryId : "" }, function (json) {
                 $(json).each(function () {
                     $("select[name='CategoryId']").append("<option " + (this.Selected == true ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
                 });
@@ -102,10 +117,6 @@
                     Name: {
                         required: true,
                         maxlength: 25
-                    },
-                    Sort: {
-                        required: true,
-                        digits: true
                     },
                     OriginalPrice: {
                         required: true,
@@ -128,10 +139,6 @@
                     Name: {
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
-                    },
-                    Sort: {
-                        required: "不允许为空",
-                        digits: "请输入数字"
                     },
                     OriginalPrice: {
                         required: "不允许为空",
@@ -160,7 +167,7 @@
             var headimgbtn = $("#imageFile").uploadFile({
                 url: '/upload/uploadimage?mark=MallGoods',
                 fileSuffixs: ["jpg", "png", "gif"],
-                maximumFilesUpload: 10,//最大文件上传数
+                maximumFilesUpload: 1,//最大文件上传数
                 onComplete: function (data) {
                     if (data) {
                         $("[name='Image']").val(data);
@@ -182,7 +189,65 @@
                 },
             });
             var uploadheadimg = headimgbtn.data("uploadFileData");
+
+
+            var desImgBtn = $("#desImageFile").uploadFile({
+                url: '/upload/uploadimage?mark=MallGoods',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        AddDesImage(data,0);
+                        //$("[name='Image']").val(data);
+                        //$("#imageDiv").show().find("img").attr("src", data);
+                    }
+                    else {
+                        $.Nuoya.alert("上传错误");
+                    }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        $.Nuoya.alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    desImgBtnimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
+            });
+            var desImgBtnimg = desImgBtn.data("uploadFileData");
         }
+
+        function AddDesImage(src,sort)
+        {
+            var html = "";
+            html += '<div class="am-g am-margin-top">';
+            html += '    <div class="am-u-md-2 am-text-right">';
+            html += '       <strong class="am-text-danger am-text-sm">*</strong>';
+            html += '    </div>';
+            html += '    <div class="am-u-md-3 am-text-left">';
+            html += '          <input type="hidden" name="DetailsImage" value="' + src + '"/>';
+            html += '          <img style="width:260px;"  src="' + src + '"/>';
+            html += '    </div>';
+            html += '    <div class="am-u-md-1 am-text-left">';
+            html += '          排序';
+            html += '    </div>';
+            html += '    <div class="am-u-md-2 am-text-left">';
+            html += '          <input type="text" name="DetailsSort" class="am-input-sm" value="' + sort + '">';
+            html += '    </div>';
+            html += '    <div class="am-hide-sm-only am-u-md-4 am-text-left"><a onclick="DeleteDetialsImage($(this))">删除</a></div>';
+            html += '</div>';
+
+            $("#tab2").append(html);
+        }
+
+        function DeleteDetialsImage(obj)
+        {
+            debugger
+            obj.parent().parent().remove();
+        }
+
 
         //新增
         function add() {
@@ -190,7 +255,7 @@
                 closeViaDimmer: false,
                 width: ($(window).width() - 200) + "px",
                 height: ($(window).height() - 100) + "px", 
-                ajaxUrl: "/HtmlTemplates/DinnerDish/Update.html",
+                ajaxUrl: "/HtmlTemplates/MallGoods/Update.html",
                 title: "添加商品",
                 callback: function (e) {
                     formInit();//表单初始化
@@ -206,6 +271,25 @@
                             return false;
                         }
 
+                        if (document.getElementById('chk_state').checked) {
+                            document.forms[0].State.value = "1";
+                        }
+                        else {
+                            document.forms[0].State.value = "0";
+                        }
+
+                        var detailsImageAry = [];
+                        $("[name='DetailsImage']").each(function (index, item) {
+                            detailsImageAry.push($(item).val());
+                        });
+
+                        var detailsSortAry = [];
+                        $("[name='DetailsSort']").each(function (index, item) {
+                            detailsSortAry.push($(item).val());
+                        });
+
+                        document.forms[0].DetailsImage.value = detailsImageAry.join(',');
+                        document.forms[0].DetailsSort.value = detailsSortAry.join(',');
 
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/Mall/Goods/Add",
@@ -243,13 +327,13 @@
                             closeViaDimmer: false,
                             width: ($(window).width() - 200) + "px",
                             height: ($(window).height() - 100) + "px",
-                            ajaxUrl: "/HtmlTemplates/DinnerDish/Update.html",
+                            ajaxUrl: "/HtmlTemplates/MallGoods/Update.html",
                             title: "编辑商品",
                             callback: function (e) {
                                 $.Nuoya.action("/Mall/Goods/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
-                                        data: model
+                                        data: model.Goods
                                     });
                                     formInit(model);//表单初始化
                                     document.forms[0].UNID.value = item.UNID;
@@ -258,6 +342,34 @@
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
+
+                                    var ongoingTime = document.forms[0].OngoingTime.value;
+                                    var overTime = document.forms[0].OverTime.value;
+                                    if (ongoingTime > overTime) {
+                                        $.Nuoya.alert("开始时间必须小于结束时间");
+                                        return false;
+                                    }
+
+
+                                    if (document.getElementById('chk_state').checked) {
+                                        document.forms[0].State.value = "1";
+                                    }
+                                    else {
+                                        document.forms[0].State.value = "0";
+                                    }
+
+                                    var detailsImageAry = [];
+                                    $("[name='DetailsImage']").each(function (index, item) {
+                                        detailsImageAry.push($(item).val());
+                                    });
+
+                                    var detailsSortAry = [];
+                                    $("[name='DetailsSort']").each(function (index, item) {
+                                        detailsSortAry.push($(item).val());
+                                    });
+
+                                    document.forms[0].DetailsImage.value = detailsImageAry.join(',');
+                                    document.forms[0].DetailsSort.value = detailsSortAry.join(',');
 
                                     $.Nuoya.form("form").ajaxSubmit({
                                         ajaxUrl: "/Mall/Goods/Update",

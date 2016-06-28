@@ -76,7 +76,7 @@
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CategoryId" Type="nchar" MaxLength="10" />
+          <Property Name="CategoryId" Type="char" MaxLength="32" />
           <Property Name="StockNum" Type="int" Nullable="false" />
           <Property Name="SurplusNum" Type="int" Nullable="false" />
           <Property Name="OverTime" Type="datetime" Nullable="false" />
@@ -89,6 +89,8 @@
           <Property Name="Flag" Type="bigint" />
           <Property Name="PersonId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="Image" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“PlugIns.dbo.GoodsDetails”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -600,7 +602,7 @@
           </Key>
           <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CategoryId" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="StockNum" Type="Int32" Nullable="false" />
           <Property Name="SurplusNum" Type="Int32" Nullable="false" />
           <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -613,6 +615,8 @@
           <Property Name="Flag" Type="Int64" />
           <Property Name="PersonId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -897,6 +901,8 @@
           <EntitySetMapping Name="Goods">
             <EntityTypeMapping TypeName="PlugInsModel.Goods">
               <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Flag" ColumnName="Flag" />

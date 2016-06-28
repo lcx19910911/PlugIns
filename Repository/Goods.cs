@@ -29,5 +29,7 @@ namespace Repository
         public Nullable<long> Flag { get; set; }
         public string PersonId { get; set; }
         public byte[] TimeStamp { get; set; }
+        public string Image { get; set; }
+        public int State { get; set; }
     }
 }

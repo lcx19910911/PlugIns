@@ -53,6 +53,7 @@
     <Compile Include="Dinner\DinnerShop\Update.cs" />
     <Compile Include="Dinner\Order\List.cs" />
     <Compile Include="Dinner\Order\OrderModel.cs" />
+    <Compile Include="Mall\Goods\GoodsModel.cs" />
     <Compile Include="Person\Add.cs" />
     <Compile Include="Person\List.cs" />
     <Compile Include="Person\Update.cs" />

@@ -1,5 +1,6 @@
 ﻿using Core.Model;
 using Domain;
+using Domain.Mall.Goods;
 using Domain.ScratchCard;
 using Repository;
 using System;
@@ -29,14 +30,14 @@ namespace IService
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        string Add_MallGoods(Goods model);
+        string Add_MallGoods(Goods model, string DetailsImage, string DetailsSort);
 
         /// <summary>
         /// 修改
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        string Update_MallGoods(Goods model, string unid);
+        string Update_MallGoods(Goods model, string DetailsImage, string DetailsSort);
 
         /// <summary>
         /// 删除
@@ -50,7 +51,7 @@ namespace IService
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        Goods Find_MallGoods(string unid);
+        GoodsModel Find_MallGoods(string unid);
 
         /// <summary>
         /// 根据分类获取商品
