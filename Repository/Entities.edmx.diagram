@@ -20,9 +20,9 @@
         <EntityTypeShape EntityType="PlugInsModel.ScoreDetails" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="PlugInsModel.UserPuzzle" Width="1.5" PointX="12.375" PointY="8.75" />
         <EntityTypeShape EntityType="PlugInsModel.Category" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="PlugInsModel.Recommend" Width="1.5" PointX="12.375" PointY="11.75" />
         <EntityTypeShape EntityType="PlugInsModel.Goods" Width="1.5" PointX="9.375" PointY="9.75" />
         <EntityTypeShape EntityType="PlugInsModel.GoodsDetails" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PlugInsModel.Recommend" Width="1.5" PointX="11.375" PointY="11.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,14 +16,9 @@ namespace Repository
     {
         public string UNID { get; set; }
         public string Title { get; set; }
-        public string BriefDescribe { get; set; }
-        public string Link { get; set; }
-        public int RecommendCode { get; set; }
         public int Sort { get; set; }
         public string TargetID { get; set; }
         public Nullable<int> TargetCode { get; set; }
-        public long Flag { get; set; }
-        public System.DateTime UpdatedTime { get; set; }
-        public System.DateTime CreatedTime { get; set; }
+        public Nullable<int> RecommendCode { get; set; }
     }
 }

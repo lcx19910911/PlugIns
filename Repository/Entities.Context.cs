@@ -40,8 +40,8 @@ namespace Repository
         public virtual DbSet<ScoreDetails> ScoreDetails { get; set; }
         public virtual DbSet<UserPuzzle> UserPuzzle { get; set; }
         public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Recommend> Recommend { get; set; }
         public virtual DbSet<Goods> Goods { get; set; }
         public virtual DbSet<GoodsDetails> GoodsDetails { get; set; }
+        public virtual DbSet<Recommend> Recommend { get; set; }
     }
 }

@@ -179,15 +179,10 @@
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="256" />
-          <Property Name="BriefDescribe" Type="varchar" MaxLength="512" />
-          <Property Name="Link" Type="varchar" MaxLength="256" />
-          <Property Name="RecommendCode" Type="int" Nullable="false" />
           <Property Name="Sort" Type="int" Nullable="false" />
           <Property Name="TargetID" Type="char" MaxLength="32" />
           <Property Name="TargetCode" Type="int" />
-          <Property Name="Flag" Type="bigint" Nullable="false" />
-          <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
-          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="RecommendCode" Type="int" />
         </EntityType>
         <EntityType Name="ScoreDetails">
           <Key>
@@ -324,9 +319,9 @@
           <EntitySet Name="ScoreDetails" EntityType="PlugInsModel.ScoreDetails" />
           <EntitySet Name="UserPuzzle" EntityType="PlugInsModel.UserPuzzle" />
           <EntitySet Name="Category" EntityType="PlugInsModel.Category" />
-          <EntitySet Name="Recommend" EntityType="PlugInsModel.Recommend" />
           <EntitySet Name="Goods" EntityType="PlugInsModel.Goods" />
           <EntitySet Name="GoodsDetails" EntityType="PlugInsModel.GoodsDetails" />
+          <EntitySet Name="Recommend" EntityType="PlugInsModel.Recommend" />
           </EntityContainer>
         <EntityType Name="Prize">
           <Key>
@@ -560,22 +555,6 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="Recommend">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="BriefDescribe" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
-          <Property Name="Link" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="RecommendCode" Type="Int32" Nullable="false" />
-          <Property Name="Sort" Type="Int32" Nullable="false" />
-          <Property Name="TargetID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="TargetCode" Type="Int32" />
-          <Property Name="Flag" Type="Int64" Nullable="false" />
-          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="Goods">
           <Key>
             <PropertyRef Name="UNID" />
@@ -606,6 +585,17 @@
           <Property Name="GoodsId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Sort" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Recommend">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="TargetID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="TargetCode" Type="Int32" />
+          <Property Name="RecommendCode" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -860,23 +850,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Recommend">
-            <EntityTypeMapping TypeName="PlugInsModel.Recommend">
-              <MappingFragment StoreEntitySet="Recommend">
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
-                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
-                <ScalarProperty Name="RecommendCode" ColumnName="RecommendCode" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="BriefDescribe" ColumnName="BriefDescribe" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Goods">
             <EntityTypeMapping TypeName="PlugInsModel.Goods">
               <MappingFragment StoreEntitySet="Goods">
@@ -906,6 +879,18 @@
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recommend">
+            <EntityTypeMapping TypeName="PlugInsModel.Recommend">
+              <MappingFragment StoreEntitySet="Recommend">
+                <ScalarProperty Name="RecommendCode" ColumnName="RecommendCode" />
+                <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>
