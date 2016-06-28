@@ -183,6 +183,7 @@
           <Property Name="TargetID" Type="char" MaxLength="32" />
           <Property Name="TargetCode" Type="int" />
           <Property Name="RecommendCode" Type="int" />
+          <Property Name="CreatedTime" Type="datetime" />
         </EntityType>
         <EntityType Name="ScoreDetails">
           <Key>
@@ -596,6 +597,7 @@
           <Property Name="TargetID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="TargetCode" Type="Int32" />
           <Property Name="RecommendCode" Type="Int32" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -886,6 +888,7 @@
           <EntitySetMapping Name="Recommend">
             <EntityTypeMapping TypeName="PlugInsModel.Recommend">
               <MappingFragment StoreEntitySet="Recommend">
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="RecommendCode" ColumnName="RecommendCode" />
                 <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
                 <ScalarProperty Name="TargetID" ColumnName="TargetID" />

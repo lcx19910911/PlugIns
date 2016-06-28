@@ -16,6 +16,7 @@ using Extension;
 using Domain.UserJoinCounter;
 using System.Web;
 using Domain.Mall.Recommend;
+using Enum;
 
 namespace Service
 {
@@ -100,28 +101,25 @@ namespace Service
 
                         model.UNID = x.UNID;
                         model.TargetCode = EnumHelper.GetEnumDescription((TargetCode)x.TargetCode);
-                        model.TargetCode = EnumHelper.GetEnumDescription((TargetCode)x.TargetCode);
+                        model.RecommendCode = EnumHelper.GetEnumDescription((RecommendCode)x.RecommendCode);
+                        model.CreatedTime = x.CreatedTime;
+                        model.Sort = x.Sort;
+                        model.Title = x.Title;
 
                         if (targetCode == (int)TargetCode.Goods)
                         {
                             goodsDic.TryGetValue(x.TargetID, out goodsItem);
+                            model.TargetName = goodsItem.Name;
+                            model.TargetID = goodsItem.UNID;
                         }
                         else if (targetCode == (int)TargetCode.Goods)
                         {
                             categoryDic.TryGetValue(x.TargetID, out categoryItem);
+                            model.TargetName = categoryItem.Name;
+                            model.TargetID = categoryItem.UNID;
                         }
-                        list.Add(new UserJoinCounterModel()
-                        {
-                            UNID = x.UNID,
-                            Name = scratchCardItem?.Name,
-                            CreatedTime = x.CreatedTime,
-                            PrizeResult = x.IsPrize == 0 ? "未中奖" : (x.PrizeGrade != 0 ? string.Format("{0}等奖", x.PrizeGrade) : "未中奖"),
-                            OpenID = x.OpenID,
-                            SN = x.SN,
-                            TargetCode = EnumHelper.GetEnumDescription((TargetCode)x.TargetCode),
-                            IsCach = x.IsPrize == 1 ? (x.IsCach == 1 ? "已兑奖" : "未兑奖") : "",
-                            CashTime = x.IsPrize == 1 ? (x.IsCach == 1 ? x.CachTime : null) : null
-                        });
+
+                        list.Add(model);
                     }
                 });
 
@@ -129,28 +127,38 @@ namespace Service
             }
         }
 
+
+
         /// <summary>
-        /// 兑奖
+        /// 增加
         /// </summary>
-        /// <param name="unid"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
-        public string Cash(string unid)
+        public string Add_Recommend(Recommend model)
         {
-            if (!unid.IsNotNullOrEmpty())
+            if (model == null
+                || !model.TargetID.IsNotNullOrEmpty()
+                || model.RecommendCode== 0
+                )
                 return "数据为空";
             using (DbRepository entities = new DbRepository())
             {
-                var userJoinCounter = entities.UserJoinCounter.Find(unid);
-                if (userJoinCounter == null)
-                    return "数据为空";
-                if (userJoinCounter.IsPrize != 1)
-                    return "该记录未中奖";
+                var query = entities.Recommend.AsQueryable();
+                if (query.Where(x => x.TargetID.Equals(model.TargetID)).Count() != 0)
+                    return "分类名称已存在";
 
-                userJoinCounter.IsCach = 1;
-                userJoinCounter.CachTime = DateTime.Now;
+                var addEntity = new Category();
+                addEntity.UNID = Guid.NewGuid().ToString("N");
+                addEntity.Sort = model.Sort;
+                addEntity.Name = model.Name;
+                addEntity.CreatedTime = DateTime.Now;
+                addEntity.UpdatedTime = DateTime.Now;
+                addEntity.ShopId = Client.LoginUser.ShopId;
 
+                entities.Category.Add(addEntity);
                 return entities.SaveChanges() > 0 ? "" : "保存出错";
             }
+
         }
     }
 }

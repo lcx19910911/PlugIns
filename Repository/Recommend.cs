@@ -20,5 +20,6 @@ namespace Repository
         public string TargetID { get; set; }
         public Nullable<int> TargetCode { get; set; }
         public Nullable<int> RecommendCode { get; set; }
+        public System.DateTime CreatedTime { get; set; }
     }
 }

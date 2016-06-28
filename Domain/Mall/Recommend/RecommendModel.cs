@@ -12,6 +12,10 @@ namespace Domain.Mall.Recommend
         public string Title { get; set; }
         public int Sort { get; set; }
         public string TargetCode { get; set; }
+        public string TargetID { get; set; }
         public string RecommendCode { get; set; }
+        public string TargetName { get; set; }
+
+        public System.DateTime CreatedTime { get; set; }
     }
 }
