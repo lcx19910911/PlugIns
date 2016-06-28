@@ -199,6 +199,7 @@
     <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />
     <Content Include="HtmlTemplates\DinnerShop\Update.html" />
+    <Content Include="HtmlTemplates\MallGoods\Update.html" />
     <Content Include="HtmlTemplates\Puzzle\Update.html" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />
@@ -593,6 +594,7 @@
     <Compile Include="Areas\Dinner\Controllers\ShopController.cs" />
     <Compile Include="Areas\Dinner\DinnerAreaRegistration.cs" />
     <Compile Include="Areas\Mall\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Mall\Controllers\GoodsController.cs" />
     <Compile Include="Areas\Mall\Controllers\HomeController.cs" />
     <Compile Include="Areas\Mall\Controllers\MallBaseController.cs" />
     <Compile Include="Areas\Mall\MallAreaRegistration.cs" />
@@ -672,6 +674,7 @@
     <Content Include="Areas\Mall\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Mall\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Mall\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\Goods\Index.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />

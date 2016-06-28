@@ -1,12 +1,12 @@
 ﻿
 
 @{
-    ViewBag.Title = "门店管理";
-    Layout = "~/Areas/Dinner/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "商品管理";
+    Layout = "~/Areas/Mall/Views/Shared/_Layout.cshtml";
 }
 
 <div class="am-cf am-padding">
-    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">门店管理</strong></div>
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">商品管理</strong></div>
 </div>
 <div id="searchDomain">
 
@@ -14,7 +14,9 @@
         <div class="am-u-lg-12">
             <div class="am-input-group am-input-group-sm">
                 <span class="am-input-group-label">名称</span>
-                <input type="text" class="am-form-field" placeholder="按名称搜索" name="name" ;>
+                <input type="text" class="am-form-field " placeholder="按商品名称搜索" name="name" ;>
+                <span class="am-input-group-label am-margin-left-sm">商品分类</span>
+                <select name="CategoryId" data-am-selected="{btnSize: 'sm'}"></select>
                 <span class="am-input-group-label  am-margin-left-sm">创建日期</span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
                 <span class="am-input-group-label"> - </span>
@@ -32,8 +34,6 @@
                 <div class="am-btn-group am-btn-group-sm">
                     <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
                     <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-                    <button onclick="batchEnable()" type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span> 启用</button>
-                    <button onclick="batchDisable()" type="button" class="am-btn am-btn-default"><span class="am-icon-close"></span> 禁用</button>
                 </div>
             </div>
         </div>
@@ -45,10 +45,12 @@
         <thead>
             <tr>
                 <th dataname="UNID" type="checkbox"></th>
-                <th dataname="Name">店铺名称</th>
+                <th dataname="Name">商品名称</th>
+                <th dataname="SellingPrice">销售价</th>
+                <th dataname="StockNum">库存数量</th>
+                <th dataname="OngoingTime" datatype="jsondate">开始时间</th>
+                <th dataname="OverTime" datatype="jsondate">结束时间</th>
                 <th dataname="Sort">排序</th>
-                <th dataname="HoldTime">营业时间</th>
-                <th dataname="Flag">状态</th>
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
             </tr>
@@ -63,8 +65,6 @@
         $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
 
 
-    
-
         function ClearFilter() {
             $("#searchDomain input").val("");
         }
@@ -72,48 +72,29 @@
         //批量删除
         function batchDelete() {
             grid.del({
-                ajaxUrl: "/Dinner/Shop/Delete",
+                ajaxUrl: "/Mall/Goods/Delete",
                 callback: function (json) {
                     grid.reload();
                 }
             });
         }
-
-        //批量启用
-        function batchEnable() {
-            grid.batchAction({
-                message: "确定批量启用？",
-                ajaxUrl: "/Dinner/Shop/Enable",
-                callback: function (json) {
-                    grid.reload();
-                }
+        $(function () {
+            $("select[name='CategoryId']").append("<option value='0'>不限</option>");
+            $.Nuoya.action("/Mall/Category/GetSelectItem", {}, function (json) {
+                $(json).each(function () {
+                    $("select[name='CategoryId']").append("<option  value='" + this.Value + "'>" + this.Text + "</option>");
+                });
             });
-        }
-
-        //批量禁用
-        function batchDisable() {
-            grid.batchAction({
-                message: "确定批量禁用？",
-                ajaxUrl: "/Dinner/Shop/Disable",
-                callback: function (json) {
-                    grid.reload();
-                }
-            });
-        }
+        });
 
         function formInit(dataitem) {
 
-            if (dataitem != null) {
-                if (dataitem.Image != null) {
-                    $("#imageDiv").show().find("img").attr("src", dataitem.Image);
-                }
-                if (dataitem.StartShoptime != null) {
-                    $("[name='StartShoptime']").val(dataitem.StartShoptime);
-                }
-                if (dataitem.EndShoptime != null) {
-                    $("[name='EndShoptime']").val(dataitem.EndShoptime);
-                }
-            }
+            $.Nuoya.action("/Mall/Category/GetSelectItem", { cid: dataitem ? dataitem.CategoryId : "" }, function (json) {
+                $(json).each(function () {
+                    $("select[name='CategoryId']").append("<option " + (this.Selected == true ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
+                });
+            });
+
 
             //添加表单验证
             $.Nuoya.form("form").validate({
@@ -122,24 +103,25 @@
                         required: true,
                         maxlength: 25
                     },
-                    Account: {
-                        maxlength: 12,
-                        minlength: 6
-                    },
-                    Password: {
-                        maxlength: 15,
-                        minlength: 6
-                    },
                     Sort: {
                         required: true,
                         digits: true
                     },
-                    ContactPhone: {
-                        phoneMobile: true,
-                        maxlength: 11
+                    OriginalPrice: {
+                        required: true,
+                        min: 0,
+                        max: 999999999
                     },
-                    Address: {
-                        maxlength: 500
+                    SellingPrice: {
+                        required: true,
+                        min: 0,
+                        max: 999999999
+                    },
+                    OverTime: {
+                        required: true
+                    },
+                    OngoingTime: {
+                        required: true
                     }
                 },
                 messages: {
@@ -147,24 +129,25 @@
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
                     },
-                    Account: {
-                        minlength: "最少{0}个字符",
-                        maxlength: "最多{0}个字符"
-                    },
-                    Password: {
-                        minlength: "最少{0}个字符",
-                        maxlength: "最多{0}个字符"
-                    },
                     Sort: {
                         required: "不允许为空",
                         digits: "请输入数字"
                     },
-                    ContactPhone: {
-                        phoneMobile: "请输入正确的手机号码",
-                        maxlength: "最多{0}个字符"
+                    OriginalPrice: {
+                        required: "不允许为空",
+                        min: "最小金额{0}元",
+                        max: "最大金额{0}元"
                     },
-                    Address: {
-                        maxlength: "最多{0}个字符"
+                    SellingPrice: {
+                        required: "不允许为空",
+                        min: "最小金额{0}元",
+                        max: "最大金额{0}元"
+                    },
+                    OverTime: {
+                        required: "不允许为空",
+                    },
+                    OngoingTime: {
+                        required: "不允许为空",
                     }
                 }
             });
@@ -175,16 +158,16 @@
 
         function UploadImg() {
             var headimgbtn = $("#imageFile").uploadFile({
-                url: '/upload/uploadimage?mark=DinnerShop',
+                url: '/upload/uploadimage?mark=MallGoods',
                 fileSuffixs: ["jpg", "png", "gif"],
-                maximumFilesUpload: 1,//最大文件上传数
+                maximumFilesUpload: 10,//最大文件上传数
                 onComplete: function (data) {
                     if (data) {
                         $("[name='Image']").val(data);
                         $("#imageDiv").show().find("img").attr("src", data);
                     }
                     else {
-                        $.Nuoya.alert("上传错误");
+                        $.Nuoya.alert( "上传错误");
                     }
 
                 },
@@ -206,9 +189,9 @@
             $.Nuoya.ajaxDialog({
                 closeViaDimmer: false,
                 width: ($(window).width() - 200) + "px",
-                height: ($(window).height() - 100) + "px",
-                ajaxUrl: "/HtmlTemplates/DinnerShop/Update.html",
-                title: "添加门店",
+                height: ($(window).height() - 100) + "px", 
+                ajaxUrl: "/HtmlTemplates/DinnerDish/Update.html",
+                title: "添加商品",
                 callback: function (e) {
                     formInit();//表单初始化
                 },
@@ -216,15 +199,16 @@
                     label: "保存",
                     callback: function (e) {
 
-                        var startTime = document.forms[0].StartShoptime.value;
-                        var overTime = document.forms[0].EndShoptime.value;
-                        if (startTime > overTime) {
+                        var ongoingTime = document.forms[0].OngoingTime.value;
+                        var overTime = document.forms[0].OverTime.value;
+                        if (ongoingTime > overTime) {
                             $.Nuoya.alert("开始时间必须小于结束时间");
                             return false;
                         }
 
+
                         $.Nuoya.form("form").ajaxSubmit({
-                            ajaxUrl: "/Dinner/Shop/Add",
+                            ajaxUrl: "/Mall/Goods/Add",
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
@@ -246,7 +230,7 @@
                 domainId: "searchDomain",
                 subId: "btnSearch"
             },
-            ajaxUrl: "/Dinner/Shop/GetPageList",
+            ajaxUrl: "/Mall/Goods/GetPageList",
             //数据请求地址
             pageSize: 10,
             events: [
@@ -259,33 +243,24 @@
                             closeViaDimmer: false,
                             width: ($(window).width() - 200) + "px",
                             height: ($(window).height() - 100) + "px",
-                            ajaxUrl: "/HtmlTemplates/DinnerShop/Update.html",
-                            title: "编辑门店",
+                            ajaxUrl: "/HtmlTemplates/DinnerDish/Update.html",
+                            title: "编辑商品",
                             callback: function (e) {
-                                $.Nuoya.action("/Dinner/Shop/Find", { unid: item.UNID }, function (model) {
+                                $.Nuoya.action("/Mall/Goods/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
                                     $.Nuoya.form("form").dataLoad({
                                         data: model
                                     });
                                     formInit(model);//表单初始化
                                     document.forms[0].UNID.value = item.UNID;
-
-
                                 });
                             },
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
 
-                                    var startTime = document.forms[0].StartShoptime.value;
-                                    var overTime = document.forms[0].EndShoptime.value;
-                                    if (startTime > overTime) {
-                                        $.Nuoya.alert("开始时间必须小于结束时间");
-                                        return false;
-                                    }
-
                                     $.Nuoya.form("form").ajaxSubmit({
-                                        ajaxUrl: "/Dinner/Shop/Update",
+                                        ajaxUrl: "/Mall/Goods/Update",
                                         params: {
                                             UNID: item.UNID
                                         },
@@ -308,62 +283,12 @@
                     icon: "icon-trash-o",
                     name: "删除",
                     click: function (item) {
-                        $.Nuoya.deleteAction("/Dinner/Shop/Delete", {
+                        $.Nuoya.deleteAction("/Mall/Goods/Delete", {
                             unids: item.UNID
                         },
                         function () {
                             grid.reload();
                         });
-                    }
-                },
-                {
-                    className: "am-text-danger",
-                    icon: "icon-close",
-                    name: "禁用",
-                    formula: function (item) {
-                        if (item.Flag == "正常") {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    },
-                    click: function (item) {
-                        $.Nuoya.action("/Dinner/Shop/Disable", {
-                            unids: item.UNID
-                        },
-                        function () {
-                            grid.reload();
-                        });
-                    }
-                },
-                {
-                    className: "am-text-danger",
-                    icon: "icon-check",
-                    name: "启用",
-                    formula: function (item) {
-                        if (item.Flag == "已禁用") {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    },
-                    click: function (item) {
-                        $.Nuoya.action("/Dinner/Shop/Enabled", {
-                            unids: item.UNID
-                        },
-                        function () {
-                            grid.reload();
-                        });
-                    }
-                },
-                {
-                    className: "am-text-danger",
-                    icon: "icon-check",
-                    name: "登陆门店",
-                    click: function (item) {
-                        window.location.href = "/login/ChildrenLogin?unid=" + item.UNID;
                     }
                 }
             ]

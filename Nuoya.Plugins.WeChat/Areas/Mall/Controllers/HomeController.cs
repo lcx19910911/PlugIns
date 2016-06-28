@@ -20,12 +20,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
     public class HomeController : MallBaseController
     {
         public ICategoryService ICategoryService;
-        public IUserService IUserService;
+        public IMallGoodsService IMallGoodsService;
 
-        public HomeController(ICategoryService _ICategoryService, IUserService _IUserService)
+        public HomeController(ICategoryService _ICategoryService, IMallGoodsService _IMallGoodsService)
         {
             this.ICategoryService = _ICategoryService;
-            this.IUserService = _IUserService;
+            this.IMallGoodsService = _IMallGoodsService;
         }
 
 

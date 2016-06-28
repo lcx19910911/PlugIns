@@ -87,7 +87,8 @@
           <Property Name="CreatedTime" Type="datetime" />
           <Property Name="UpdatedTime" Type="datetime" Nullable="false" />
           <Property Name="Flag" Type="bigint" />
-          <Property Name="OpenId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="PersonId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“PlugIns.dbo.GoodsDetails”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -326,7 +327,6 @@
           <EntitySet Name="GoodsDetails" EntityType="PlugInsModel.GoodsDetails" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
           <EntitySet Name="Puzzle" EntityType="PlugInsModel.Puzzle" />
-          <EntitySet Name="Goods" EntityType="PlugInsModel.Goods" />
           <EntitySet Name="UserScore" EntityType="PlugInsModel.UserScore" />
           <EntitySet Name="UserSign" EntityType="PlugInsModel.UserSign" />
           <EntitySet Name="User" EntityType="PlugInsModel.User" />
@@ -334,6 +334,7 @@
           <EntitySet Name="UserPuzzle" EntityType="PlugInsModel.UserPuzzle" />
           <EntitySet Name="Category" EntityType="PlugInsModel.Category" />
           <EntitySet Name="Recommend" EntityType="PlugInsModel.Recommend" />
+          <EntitySet Name="Goods" EntityType="PlugInsModel.Goods" />
           </EntityContainer>
         <EntityType Name="Prize">
           <Key>
@@ -508,25 +509,6 @@
           <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="Goods">
-          <Key>
-            <PropertyRef Name="UNID" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="StockNum" Type="Int32" Nullable="false" />
-          <Property Name="SurplusNum" Type="Int32" Nullable="false" />
-          <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OriginalPrice" Type="Decimal" Precision="12" Scale="2" />
-          <Property Name="SellingPrice" Type="Decimal" Precision="12" Scale="2" />
-          <Property Name="ScoreNum" Type="Int32" />
-          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Flag" Type="Int64" />
-          <Property Name="OpenId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-        </EntityType>
         <EntityType Name="UserScore">
           <Key>
             <PropertyRef Name="UNID" />
@@ -611,6 +593,26 @@
           <Property Name="Flag" Type="Int64" Nullable="false" />
           <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="StockNum" Type="Int32" Nullable="false" />
+          <Property Name="SurplusNum" Type="Int32" Nullable="false" />
+          <Property Name="OverTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OngoingTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OriginalPrice" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="SellingPrice" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="ScoreNum" Type="Int32" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Flag" Type="Int64" />
+          <Property Name="PersonId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -800,26 +802,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Goods">
-            <EntityTypeMapping TypeName="PlugInsModel.Goods">
-              <MappingFragment StoreEntitySet="Goods">
-                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="ScoreNum" ColumnName="ScoreNum" />
-                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
-                <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
-                <ScalarProperty Name="OngoingTime" ColumnName="OngoingTime" />
-                <ScalarProperty Name="OverTime" ColumnName="OverTime" />
-                <ScalarProperty Name="SurplusNum" ColumnName="SurplusNum" />
-                <ScalarProperty Name="StockNum" ColumnName="StockNum" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserScore">
             <EntityTypeMapping TypeName="PlugInsModel.UserScore">
               <MappingFragment StoreEntitySet="UserScore">
@@ -908,6 +890,27 @@
                 <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="BriefDescribe" ColumnName="BriefDescribe" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods">
+            <EntityTypeMapping TypeName="PlugInsModel.Goods">
+              <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="UpdatedTime" ColumnName="UpdatedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ScoreNum" ColumnName="ScoreNum" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
+                <ScalarProperty Name="OngoingTime" ColumnName="OngoingTime" />
+                <ScalarProperty Name="OverTime" ColumnName="OverTime" />
+                <ScalarProperty Name="SurplusNum" ColumnName="SurplusNum" />
+                <ScalarProperty Name="StockNum" ColumnName="StockNum" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>

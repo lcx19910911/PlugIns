@@ -46,9 +46,9 @@
         <thead>
             <tr>
                 <th dataname="UNID" type="checkbox"></th>
-                <th dataname="Name">分类名称</th>
+                <th dataname="Name">菜品名称</th>
                 <th dataname="Sort">排序</th>
-                <th dataname="Name">分类名称</th>
+                <th dataname="CategoryName">分类名称</th>
                 <th dataname="Sort">排序</th>
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
@@ -96,7 +96,7 @@
                     $("input[name='State']").attr("checked", "checked");
                 }
             }
-            $.Nuoya.action("/Dinner/Category/GetSelectItem", { cid: dataitem ? dataitem.DinnerCategoryId : "" }, function (json) {
+            $.Nuoya.action("/Dinner/Category/GetSelectItem", { cid: dataitem ? dataitem.CategoryId : "" }, function (json) {
                 $(json).each(function () {
                     $("select[name='CategoryId']").append("<option " + (this.Selected == true ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
                 });
@@ -176,7 +176,7 @@
                 },
                 onChosen: function (file, obj, fileSize, errorText) {
                     if (errorText) {
-                        alert(errorText);
+                        $.Nuoya.alert(errorText);
                         return false;
                     }
                     //Loading("图片正在上传中...", "请稍等");
@@ -194,7 +194,7 @@
                 width: ($(window).width() - 200) + "px",
                 height: ($(window).height() - 100) + "px",
                 ajaxUrl: "/HtmlTemplates/DinnerDish/Update.html",
-                title: "添加分类",
+                title: "添加菜品",
                 callback: function (e) {
                     formInit();//表单初始化
                 },
@@ -246,7 +246,7 @@
                             width: ($(window).width() - 200) + "px",
                             height: ($(window).height() - 100) + "px",
                             ajaxUrl: "/HtmlTemplates/DinnerDish/Update.html",
-                            title: "编辑分类",
+                            title: "编辑菜品",
                             callback: function (e) {
                                 $.Nuoya.action("/Dinner/Dish/Find", { unid: item.UNID }, function (model) {
                                     //载入数据
