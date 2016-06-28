@@ -282,74 +282,90 @@
                 }
             });
 
-            var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName] ==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
-            var ASPSESSID = "@Session.SessionID";
+            UploadImg();
+        }
 
-            $("#preheatingImageFile").uploadify({
-                'formData': { mark: 'ScratchCard', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
-                'swf': '/Scripts/uploadify/uploadify.swf',
-                'uploader': '/upload/uploadimage',
-                'buttonText': '选择图片',
-                'auto': true,
-                'multi': false,
-                'removeCompleted': true,
-                'fileSizeLimit': '2048KB',
-                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
-                'onUploadSuccess': function (file, data, response) {
-                    var data = JSON.parse(data);
-                    if (data.Code == 0) {
-                        $("[name='PreheatingImage']").val(data.Result);
-                        $("#div_preheatingImageShow").find("img").attr("src", data.Result);
 
-                    } else {
+        function UploadImg() {
+
+            var overImageFile = $("#overImageFile").uploadFile({
+                url: '/upload/uploadimage?mark=ScratchCard',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='OverImage']").val(data);
+                        $("#div_overImageShow").show().find("img").attr("src", data);
+                    }
+                    else {
                         $.Nuoya.alert("上传错误");
                     }
-                }
-            });
-            
-            $("#ongoingImageFile").uploadify({
-                'formData': { mark: 'ScratchCard', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
-                'swf': '/Scripts/uploadify/uploadify.swf',
-                'uploader': '/upload/uploadimage',
-                'buttonText': '选择图片',
-                'auto': true,
-                'multi': false,
-                'removeCompleted': true,
-                'fileSizeLimit': '2048KB',
-                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
-                'onUploadSuccess': function (file, data, response) {
-                    var data = JSON.parse(data);
-                    if (data.Code == 0) {
-                        $("[name='OngoingImage']").val(data.Result);
-                        $("#div_ongingImageShow").find("img").attr("src", data.Result);
 
-                    } else {
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    overImageFile.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
+            });
+            var overImageImg = overImageFile.data("uploadFileData");
+
+            var ongoingImageFile = $("#ongoingImageFile").uploadFile({
+                url: '/upload/uploadimage?mark=ScratchCard',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='OngoingImage']").val(data);
+                        $("#div_ongingImageShow").show().find("img").attr("src", data);
+                    }
+                    else {
                         $.Nuoya.alert("上传错误");
                     }
-                }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    ongoingImageFile.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
             });
+            var ongoingImageImg = ongoingImageFile.data("uploadFileData");
 
-            $("#overImageFile").uploadify({
-                'formData': { mark: 'ScratchCard', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
-                'swf': '/Scripts/uploadify/uploadify.swf',
-                'uploader': '/upload/uploadimage',
-                'buttonText': '选择图片',
-                'auto': true,
-                'multi': false,
-                'removeCompleted': true,
-                'fileSizeLimit': '2048KB',
-                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
-                'onUploadSuccess': function (file, data, response) {
-                    var data = JSON.parse(data);
-                    if (data.Code == 0) {
-                        $("[name='OverImage']").val(data.Result);
-                        $("#div_overImageShow").find("img").attr("src", data.Result);
 
-                    } else {
+            var preheatingImageFile = $("#preheatingImageFile").uploadFile({
+                url: '/upload/uploadimage?mark=ScratchCard',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='PreheatingImage']").val(data);
+                        $("#div_preheatingImageShow").show().find("img").attr("src", data);
+                    }
+                    else {
                         $.Nuoya.alert("上传错误");
                     }
-                }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    preheatingImageFile.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
             });
+            var preheatingImageImg = preheatingImageFile.data("uploadFileData");
         }
 
         //新增

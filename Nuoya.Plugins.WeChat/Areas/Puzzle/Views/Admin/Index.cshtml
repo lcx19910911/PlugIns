@@ -156,30 +156,7 @@
                     }
                 }
             });
-            var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName] ==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
-            var ASPSESSID = "@Session.SessionID";
 
-            $("#imageFile").uploadify({
-                'formData': { mark: 'Puzzle', 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
-                'swf': '/Scripts/uploadify/uploadify.swf',
-                'uploader': '/upload/uploadimage',
-                'buttonText': '选择图片',
-                'auto': true,
-                'multi': false,
-                'removeCompleted': true,
-                'fileSizeLimit': '2048KB',
-                'fileTypeExts': '*.jpg;*.jpeg;*.png;;*.gif',
-                'onUploadSuccess': function (file, data, response) {
-                    var data = JSON.parse(data);
-                    if (data.Code == 0) {
-                        $("[name='Image']").val(data.Result);
-                        $("#div_imageShow").find("img").attr("src", data.Result);
-
-                    } else {
-                        $.Nuoya.alert("上传错误");
-                    }
-                }
-            });
 
             $("#chk_isBindScore").change(function () {
                 if ($(this).checked)
@@ -195,48 +172,36 @@
             });
 
 
-            $("#bindSystemBtn").click(function () {
-                $.palmv.ajaxDialog({
-                    width: ($(window).width() - 200) + "px",
-                    ajaxUrl: "/HtmlTemplates/Recommend/NewsSearchMulit.html",
-                    title: "添加资讯推荐",
-                    callback: function (e) {
-                        searchMulitGrid = $.palmv.grid({
-                            params: { excludeRecommendCode: 10 },
-                            search: {
-                                domainId: "newsSearchMulitDomain",
-                                subId: "newsSearchMulit"
-                            },
-                            tableId: "newsSearchMulitDataTable",
-                            ajaxUrl: "/News/GetPageList",
-                            pageSize: 10,
-                            drawCallback: function () {
-                                $.palmv.resetModalPosition(e.dialog);
-                            }
-                        });
-                    },
-                    buttons: [{
-                        label: "选择",
-                        callback: function (e) {
-                            var ids = searchMulitGrid.getCheckIds();
-                            var url = "";
-                            if (title == "资讯推荐") {
-                                url = "/Recommend/NewsHomeTopReferralAddByUnids";
-                            }
-                            else if (title == "最新资讯") {
-                                url = "/Recommend/NewsDetailsLatestAddByUnids";
-                            }
-                            else if (title == "跟投帮助") {
-                                url = "/Recommend/UserJoinProjectNewsHelpAddByUnids";
-                            }
-                            $.palmv.action(url, { unidList: ids }, function () {
-                                e.hide();
-                                grid.reload();
-                            });
-                        }
-                    }]
-                });
+            UploadImg();
+        }
+
+
+        function UploadImg() {
+            var headimgbtn = $("#imageFile").uploadFile({
+                url: '/upload/uploadimage?mark=Puzzle',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='Image']").val(data.Result);
+                        $("#div_imageShow").find("img").attr("src", data.Result);
+                    }
+                    else {
+                        $.Nuoya.alert("上传错误");
+                    }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    uploadheadimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
             });
+            var uploadheadimg = headimgbtn.data("uploadFileData");
         }
 
         //新增
