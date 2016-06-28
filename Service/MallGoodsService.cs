@@ -243,6 +243,11 @@ namespace Service
                 entities.Goods.Where(x => unids.Contains(x.UNID)).ToList().ForEach(y =>
                 {
                     y.Flag = (y.Flag | (long)GlobalFlag.Removed);
+
+                    //删除推荐
+                    var reconmend = entities.Recommend.FirstOrDefault(x => x.TargetID.Equals(y.UNID));
+                    if(reconmend!=null)
+                        entities.Recommend.Remove(reconmend);
                 });
                 return entities.SaveChanges() > 0 ? true : false;
             }

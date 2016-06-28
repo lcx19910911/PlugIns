@@ -37,11 +37,11 @@ namespace Service
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
-        PageList<Domain.Mall.Recommend.RecommendModel> Get_RecommendPageList(int pageIndex, int pageSize, string name, int targetCode)
+        public PageList<Domain.Mall.Recommend.RecommendModel> Get_RecommendPageList(int pageIndex, int pageSize, string name, int targetCode)
         {
             using (DbRepository entities = new DbRepository())
             {
-                var query = entities.Recommend.AsQueryable();
+                var query = entities.Recommend.AsQueryable().Where(x=>x.PersonId.Equals(Client.LoginUser.UNID));
 
                 //活动名
                 //实例化对象
@@ -101,7 +101,7 @@ namespace Service
 
                         model.UNID = x.UNID;
                         model.TargetCode = EnumHelper.GetEnumDescription((TargetCode)x.TargetCode);
-                        model.RecommendCode = EnumHelper.GetEnumDescription((RecommendCode)x.RecommendCode);
+                        model.RecommendCode = x.RecommendCode;
                         model.CreatedTime = x.CreatedTime;
                         model.Sort = x.Sort;
                         model.Title = x.Title;
@@ -145,20 +145,142 @@ namespace Service
             {
                 var query = entities.Recommend.AsQueryable();
                 if (query.Where(x => x.TargetID.Equals(model.TargetID)).Count() != 0)
-                    return "分类名称已存在";
+                    return "推荐已存在";
 
-                var addEntity = new Category();
+                var addEntity = new Recommend();
                 addEntity.UNID = Guid.NewGuid().ToString("N");
                 addEntity.Sort = model.Sort;
-                addEntity.Name = model.Name;
+                addEntity.Title = model.Title;
                 addEntity.CreatedTime = DateTime.Now;
-                addEntity.UpdatedTime = DateTime.Now;
-                addEntity.ShopId = Client.LoginUser.ShopId;
+                addEntity.PersonId = Client.LoginUser.UNID;
+                addEntity.TargetCode = model.TargetCode;
+                addEntity.TargetID = model.TargetID;
+                addEntity.RecommendCode = model.RecommendCode;
 
-                entities.Category.Add(addEntity);
+                entities.Recommend.Add(addEntity);
                 return entities.SaveChanges() > 0 ? "" : "保存出错";
             }
 
+        }
+
+        /// <summary>
+        /// 增加
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public string Add_GoodsRecommend(Recommend model)
+        {
+            if (model == null
+                || !model.TargetID.IsNotNullOrEmpty()
+                )
+                return "数据为空";
+            using (DbRepository entities = new DbRepository())
+            {
+                var query = entities.Goods.AsQueryable();
+                if (query.Where(x => x.UNID.Equals(model.TargetID)).Count() != 0)
+                    return "推荐已存在";
+
+                var addEntity = new Recommend();
+                addEntity.UNID = Guid.NewGuid().ToString("N");
+                addEntity.Sort = model.Sort;
+                addEntity.Title = model.Title;
+                addEntity.CreatedTime = DateTime.Now;
+                addEntity.PersonId = Client.LoginUser.UNID;
+                addEntity.TargetCode = (int)TargetCode.Goods;
+                addEntity.TargetID = model.TargetID;
+                addEntity.RecommendCode = (int)RecommendCode.HomeGoods;
+
+                entities.Recommend.Add(addEntity);
+                return entities.SaveChanges() > 0 ? "" : "保存出错";
+            }
+
+        }
+
+
+        /// <summary>
+        /// 增加
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public string Add_CategoryRecommend(Recommend model)
+        {
+            if (model == null
+                || !model.TargetID.IsNotNullOrEmpty()
+                )
+                return "数据为空";
+            using (DbRepository entities = new DbRepository())
+            {
+                var query = entities.Recommend.AsQueryable();
+                if (query.Where(x => x.TargetID.Equals(model.TargetID)).Count() != 0)
+                    return "推荐已存在";
+
+                var addEntity = new Recommend();
+                addEntity.UNID = Guid.NewGuid().ToString("N");
+                addEntity.Sort = model.Sort;
+                addEntity.Title = model.Title;
+                addEntity.CreatedTime = DateTime.Now;
+                addEntity.PersonId = Client.LoginUser.UNID;
+                addEntity.TargetCode = (int)TargetCode.Category;
+                addEntity.TargetID = model.TargetID;
+                addEntity.RecommendCode = (int)RecommendCode.HomeCategory;
+
+                entities.Recommend.Add(addEntity);
+                return entities.SaveChanges() > 0 ? "" : "保存出错";
+            }
+
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="unids"></param>
+        /// <returns></returns>
+        public bool Delete_Recommend(string unids)
+        {
+            if (!unids.IsNotNullOrEmpty())
+            {
+                return false;
+            }
+            using (DbRepository entities = new DbRepository())
+            {
+                //找到实体
+                entities.Recommend.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x => {
+                    entities.Recommend.Remove(x);
+                });
+                return entities.SaveChanges() > 0 ? true : false;
+            }
+        }
+
+
+        /// <summary>
+        /// 获取推荐商品
+        /// </summary>
+        /// <returns></returns>
+        public List<Goods> Get_RecommendGoods()
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                //找到实体
+                var recommendIdList = entities.Recommend.Where(x=>x.RecommendCode==(int)RecommendCode.HomeGoods).Select(x=>x.UNID).ToList();
+
+
+                return entities.Goods.Where(x => recommendIdList.Contains(x.UNID)).ToList();
+            }
+        }
+
+        /// <summary>
+        /// 获取推荐分类
+        /// </summary>
+        /// <returns></returns>
+        public List<Category> Get_RecommendCategory()
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                //找到实体
+                var recommendIdList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeCategory).Select(x => x.UNID).ToList();
+
+                return entities.Category.Where(x => recommendIdList.Contains(x.UNID)).ToList();
+            }
         }
     }
 }

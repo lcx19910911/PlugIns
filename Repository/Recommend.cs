@@ -16,6 +16,7 @@ namespace Repository
     {
         public string UNID { get; set; }
         public string Title { get; set; }
+        public string PersonId { get; set; }
         public int Sort { get; set; }
         public string TargetID { get; set; }
         public Nullable<int> TargetCode { get; set; }

@@ -179,11 +179,12 @@
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="256" />
+          <Property Name="PersonId" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="Sort" Type="int" Nullable="false" />
           <Property Name="TargetID" Type="char" MaxLength="32" />
           <Property Name="TargetCode" Type="int" />
           <Property Name="RecommendCode" Type="int" />
-          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ScoreDetails">
           <Key>
@@ -593,11 +594,12 @@
           </Key>
           <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PersonId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="Sort" Type="Int32" Nullable="false" />
           <Property Name="TargetID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="TargetCode" Type="Int32" />
           <Property Name="RecommendCode" Type="Int32" />
-          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -893,6 +895,7 @@
                 <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
                 <ScalarProperty Name="TargetID" ColumnName="TargetID" />
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>

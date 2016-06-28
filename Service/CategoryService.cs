@@ -350,6 +350,11 @@ namespace Service
                     {
                         y.Flag = (y.Flag | (long)GlobalFlag.Removed);
                     });
+
+                    //删除推荐
+                    var reconmend = entities.Recommend.FirstOrDefault(z => z.TargetID.Equals(x.UNID));
+                    if (reconmend != null)
+                        entities.Recommend.Remove(reconmend);
                 });
                 return entities.SaveChanges() > 0 ? true : false;
             }

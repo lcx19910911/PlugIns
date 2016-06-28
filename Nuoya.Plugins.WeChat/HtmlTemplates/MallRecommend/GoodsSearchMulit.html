@@ -1,0 +1,40 @@
+﻿<div id="goodsSearchMulitDomain">
+    <input type="hidden" value="0" name="Flag" />
+
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">名称</span>
+                <input type="text" class="am-form-field " placeholder="按商品名称搜索" name="name" ;>
+                <span class="am-input-group-label am-margin-left-sm">商品分类</span>
+                <select name="CategoryId" data-am-selected="{btnSize: 'sm'}"></select>
+                <span class="am-input-group-label  am-margin-left-sm">创建日期</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
+                <span class="am-input-group-label"> - </span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid_container">
+    <table id="goodsSearchMulitDataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="UNID" type="checkbox"></th>
+                <th dataname="Name">商品名称</th>
+                <th dataname="SellingPrice">销售价</th>
+                <th dataname="StockNum">库存数量</th>
+                <th dataname="OngoingTime" datatype="jsondate">开始时间</th>
+                <th dataname="OverTime" datatype="jsondate">结束时间</th>
+                <th dataname="Sort">排序</th>
+                <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
