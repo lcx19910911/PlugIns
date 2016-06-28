@@ -50,13 +50,12 @@
 </body>
 
 <script type="text/javascript">
-    var request = getRequest();
 
-    $("#dishImg").attr("src", unescape(request["img"]));
-    $("#name").text(unescape(request["name"])).attr("data", request["tid"]);
-    $("#price").text(unescape(request["price"]));
-    if (request["des"] && request["des"]!="null") {
-        $("#des").text(unescape(request["des"]));
+    $("#dishImg").attr("src", getQueryString["img"]);
+    $("#name").text(getQueryString["name"]).attr("data", getQueryString["tid"]);
+    $("#price").text(getQueryString["price"]);
+    if (getQueryString["des"] && getQueryString["des"] != "null") {
+        $("#des").text(getQueryString["des"]);
     }
     //按钮操作数量
 
@@ -65,6 +64,15 @@
         if (n.text() > "1") {
             n.text(parseInt(n.text()) - 1);
         }
+    }
+
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
     }
 
     function addoper() {

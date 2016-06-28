@@ -34,9 +34,6 @@ function leftMenuClick() {
         }
     });
 
-    $("#right-menu .right_bc li img").each(function (i, e) {
-        e.addEventListener('tap', rightMenuClick);
-    });
 
     $("#right-menu .add-oper").each(function (i, e) {
         e.addEventListener('tap', addoper);
@@ -279,7 +276,7 @@ function showCartList() {
 function initDish(o, c) {
     return '<li data-id="' + o.UNID + '" class="item clearfix">\
                     <div class="item-img-container">\
-                        <img data=' + o.UNID + ' src="' + o.Image + '" d-data=' + o.Description + '>\
+                        <img data=' + o.UNID + ' src="' +window.location.host+o.Image + '" data=' + o.Description + '>\
                     </div>\
                     <div class="item-label-container"></div>\
                     <div class="item-info">\
