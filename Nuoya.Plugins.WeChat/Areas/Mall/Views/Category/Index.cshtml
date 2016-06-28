@@ -67,6 +67,13 @@
 
 
         function formInit(dataitem) {
+
+            if (dataitem != null) {
+                if (dataitem.Image != null) {
+                    $("#imageDiv").show().find("img").attr("src", dataitem.Image);
+                }
+            }
+
             //添加表单验证
             $.Nuoya.form("form").validate({
                 rules: {
@@ -176,6 +183,8 @@
                     name: "编辑",
                     click: function (item) {
                         $.Nuoya.ajaxDialog({
+                            width: "1000px",
+                            height: "600px",
                             closeViaDimmer: false,
                             ajaxUrl: "/HtmlTemplates/MallCategory/Update.html",
                             title: "编辑分类",

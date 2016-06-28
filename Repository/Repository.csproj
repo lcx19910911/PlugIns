@@ -99,6 +99,9 @@
     <Compile Include="Puzzle.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Recommend.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ScoreDetails.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
