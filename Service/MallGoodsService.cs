@@ -188,7 +188,7 @@ namespace Service
 
                             //新增的图片
                             var oldImageList = detailsImageList.Select(x => x.Image).ToList();
-                            var addList = imageList.Where(x => oldImageList.Contains(x)).ToList();
+                            var addList = imageList.Where(x => !oldImageList.Contains(x)).ToList();
                             addList.ForEach(x => {
                                 var index = imageList.IndexOf(y => y.Equals(x));
 

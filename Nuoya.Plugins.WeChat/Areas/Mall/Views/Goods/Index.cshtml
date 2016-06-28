@@ -227,14 +227,14 @@
             html += '       <strong class="am-text-danger am-text-sm">*</strong>';
             html += '    </div>';
             html += '    <div class="am-u-md-3 am-text-left">';
-            html += '          <input type="hidden" name="DetailsImage" value="' + src + '"/>';
+            html += '          <input type="hidden" name="GoodsDetialsImage" value="' + src + '"/>';
             html += '          <img style="width:260px;"  src="' + src + '"/>';
             html += '    </div>';
             html += '    <div class="am-u-md-1 am-text-left">';
             html += '          排序';
             html += '    </div>';
             html += '    <div class="am-u-md-2 am-text-left">';
-            html += '          <input type="text" name="DetailsSort" class="am-input-sm" value="' + sort + '">';
+            html += '          <input type="text" name="GoodsDetialsSort" class="am-input-sm" value="' + sort + '">';
             html += '    </div>';
             html += '    <div class="am-hide-sm-only am-u-md-4 am-text-left"><a onclick="DeleteDetialsImage($(this))">删除</a></div>';
             html += '</div>';
@@ -279,12 +279,12 @@
                         }
 
                         var detailsImageAry = [];
-                        $("[name='DetailsImage']").each(function (index, item) {
+                        $("[name='GoodsDetialsImage']").each(function (index, item) {
                             detailsImageAry.push($(item).val());
                         });
 
                         var detailsSortAry = [];
-                        $("[name='DetailsSort']").each(function (index, item) {
+                        $("[name='GoodsDetialsSort']").each(function (index, item) {
                             detailsSortAry.push($(item).val());
                         });
 
@@ -359,12 +359,12 @@
                                     }
 
                                     var detailsImageAry = [];
-                                    $("[name='DetailsImage']").each(function (index, item) {
+                                    $("[name='GoodsDetialsImage']").each(function (index, item) {
                                         detailsImageAry.push($(item).val());
                                     });
 
                                     var detailsSortAry = [];
-                                    $("[name='DetailsSort']").each(function (index, item) {
+                                    $("[name='GoodsDetialsSort']").each(function (index, item) {
                                         detailsSortAry.push($(item).val());
                                     });
 

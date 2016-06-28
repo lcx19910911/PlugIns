@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="PlugInsModel.Person" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="PlugInsModel.ScratchCard" Width="1.5" PointX="2.625" PointY="0.625" />
         <EntityTypeShape EntityType="PlugInsModel.UserJoinCounter" Width="1.5" PointX="10.375" PointY="6" />
-        <EntityTypeShape EntityType="PlugInsModel.GoodsDetails" Width="1.5" PointX="12" PointY="1.5" />
         <EntityTypeShape EntityType="PlugInsModel.DinnerDish" Width="1.5" PointX="8.75" PointY="1.375" />
         <EntityTypeShape EntityType="PlugInsModel.Puzzle" Width="1.5" PointX="6.75" PointY="5.125" />
         <EntityTypeShape EntityType="PlugInsModel.UserScore" Width="1.5" PointX="4.75" PointY="10.75" />
@@ -23,6 +22,7 @@
         <EntityTypeShape EntityType="PlugInsModel.Category" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="PlugInsModel.Recommend" Width="1.5" PointX="12.375" PointY="11.75" />
         <EntityTypeShape EntityType="PlugInsModel.Goods" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PlugInsModel.GoodsDetails" Width="1.5" PointX="11.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

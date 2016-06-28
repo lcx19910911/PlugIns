@@ -92,12 +92,9 @@
           <Property Name="Image" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="State" Type="int" Nullable="false" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“PlugIns.dbo.GoodsDetails”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="GoodsDetails">
           <Key>
             <PropertyRef Name="UNID" />
-            <PropertyRef Name="GoodsId" />
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="GoodsId" Type="char" MaxLength="32" Nullable="false" />
@@ -293,6 +290,7 @@
           <EntitySet Name="DinnerOrder" EntityType="Self.DinnerOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DinnerShop" EntityType="Self.DinnerShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodsDetails" EntityType="Self.GoodsDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
@@ -305,14 +303,6 @@
           <EntitySet Name="UserPuzzle" EntityType="Self.UserPuzzle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserScore" EntityType="Self.UserScore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSign" EntityType="Self.UserSign" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GoodsDetails" EntityType="Self.GoodsDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [GoodsDetails].[UNID] AS [UNID], 
-    [GoodsDetails].[GoodsId] AS [GoodsId], 
-    [GoodsDetails].[Image] AS [Image], 
-    [GoodsDetails].[Sort] AS [Sort]
-    FROM [dbo].[GoodsDetails] AS [GoodsDetails]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -326,7 +316,6 @@
           <EntitySet Name="Person" EntityType="PlugInsModel.Person" />
           <EntitySet Name="ScratchCard" EntityType="PlugInsModel.ScratchCard" />
           <EntitySet Name="UserJoinCounter" EntityType="PlugInsModel.UserJoinCounter" />
-          <EntitySet Name="GoodsDetails" EntityType="PlugInsModel.GoodsDetails" />
           <EntitySet Name="DinnerDish" EntityType="PlugInsModel.DinnerDish" />
           <EntitySet Name="Puzzle" EntityType="PlugInsModel.Puzzle" />
           <EntitySet Name="UserScore" EntityType="PlugInsModel.UserScore" />
@@ -337,6 +326,7 @@
           <EntitySet Name="Category" EntityType="PlugInsModel.Category" />
           <EntitySet Name="Recommend" EntityType="PlugInsModel.Recommend" />
           <EntitySet Name="Goods" EntityType="PlugInsModel.Goods" />
+          <EntitySet Name="GoodsDetails" EntityType="PlugInsModel.GoodsDetails" />
           </EntityContainer>
         <EntityType Name="Prize">
           <Key>
@@ -462,16 +452,6 @@
           <Property Name="SN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsCach" Type="Int32" Nullable="false" />
           <Property Name="CachTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="GoodsDetails">
-          <Key>
-            <PropertyRef Name="UNID" />
-            <PropertyRef Name="GoodsId" />
-          </Key>
-          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="GoodsId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Sort" Type="Int32" />
         </EntityType>
         <EntityType Name="DinnerDish">
           <Key>
@@ -618,6 +598,15 @@
           <Property Name="Image" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="GoodsDetails">
+          <Key>
+            <PropertyRef Name="UNID" />
+          </Key>
+          <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="GoodsId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -752,16 +741,6 @@
                 <ScalarProperty Name="OpenID" ColumnName="OpenID" />
                 <ScalarProperty Name="TargetID" ColumnName="TargetID" />
                 <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
-                <ScalarProperty Name="UNID" ColumnName="UNID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GoodsDetails">
-            <EntityTypeMapping TypeName="PlugInsModel.GoodsDetails">
-              <MappingFragment StoreEntitySet="GoodsDetails">
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -917,6 +896,16 @@
                 <ScalarProperty Name="StockNum" ColumnName="StockNum" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UNID" ColumnName="UNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodsDetails">
+            <EntityTypeMapping TypeName="PlugInsModel.GoodsDetails">
+              <MappingFragment StoreEntitySet="GoodsDetails">
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
                 <ScalarProperty Name="UNID" ColumnName="UNID" />
               </MappingFragment>
             </EntityTypeMapping>
