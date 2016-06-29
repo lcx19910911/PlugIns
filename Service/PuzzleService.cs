@@ -186,7 +186,7 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 var ongingList = Get_OngingPuzzleList(entities, openId, personId);
-                if (ongingList == null)
+                if (ongingList == null||ongingList.Count==0)
                     return null;
                 if (unid.IsNotNullOrEmpty())
                 {

@@ -1,0 +1,73 @@
+﻿@model  List<Repository.Goods>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, user-scalable=no,initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>全部商品</title>
+    <link href="~/Styles/mall/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Styles/mall/Up.css">
+
+</head>
+<body>
+    <div class="body">
+        <div class="tour">
+            <a href="/mall/home/index" class="tour1"><img src="~/Styles/mall/img/back.png" alt="" style="height: 26px;width: 20px"></a>
+            <p>全部商品<i class="xlmenu"></i></p>
+        </div>
+        @Html.Action("AllCategory", "Category")
+
+        <div class="allsp">
+            @foreach (var item in Model)
+            {
+                <figure>
+                    <a href="/mall/goods/details?unid=@(item.UNID)"><img src="@item.Image" style="" alt="商品" class="xqtp" />
+                    <p>@item.Name</p>
+                    <div class="info">
+                        <em class="sat">￥@item.SellingPrice&nbsp;<small>￥@item.OriginalPrice</small></em>
+                        <img src="~/Styles/mall/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right">
+                    </div></a>
+                </figure>
+            }
+
+         
+            <div style="clear: both"></div>
+        </div>    
+
+        <div class="wx_nav" id="wx_nav">
+            <a href="javascript:;" class="nav_index" id="nav_index">首页</a>
+            <a href="javascript:;" class="nav_me on" id="nav_me on">订单</a>
+        </div>
+    </div>
+    <footer>
+        <div class="footer">
+            <p>没有更多了</p>
+        </div>
+    </footer>  
+    <div class="actGotop"><a href="javascript:;" title="返回顶部"></a> <img src="~/Styles/mall/img/fanhui.png" alt=""></div>
+    <div class="theme-popover-mask"></div>
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="/Scripts/mall/xlmenu.js"></script>
+    <script type="text/javascript" src="/Scripts/mall/touch.js"></script>
+    <script type="text/javascript" src="/Scripts/mall/srcolltop.js"></script>
+    <!-- 隐藏菜单 -->
+    <script>
+        $(function () {
+            var titleName=$(".ycmenu li");
+            for(var i =0;i<titleName.length;i++){
+                titleName[i].onmouseover=function(){
+                    for(var j =0;j<titleName.length;j++){
+                        titleName[j].className="";
+                    }
+                    this.className = "a";
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

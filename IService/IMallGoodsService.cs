@@ -58,6 +58,6 @@ namespace IService
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
-        List<Goods> Get_GoodsListByCategoryId(string cId);
+        List<Goods> Get_GoodsListByCategoryId(string cId, string personId);
     }
 }

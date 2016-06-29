@@ -7,13 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using IService;
 using Nuoya.Plugins.WeChat.Controllers;
+using Core.Web;
 
 namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
 {
     /// <summary>
     /// 商品控制器
     /// </summary>
-    [LoginFilter]
     public class GoodsController : MallBaseController
     {
 
@@ -28,6 +28,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
+        [LoginFilter]
         public ActionResult Index()
         {
             return View();
@@ -43,6 +44,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult GetPageList(int pageIndex, int pageSize, string name,string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
             var pagelist = IMallGoodsService.Get_MallGoodsPageList(pageIndex, pageSize, name, categoryId, createdTimeStart, createdTimeEnd);
@@ -54,6 +56,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult Add(Goods model,string DetailsImage,string DetailsSort)
         {
             var result = IMallGoodsService.Add_MallGoods(model, DetailsImage, DetailsSort);
@@ -66,6 +69,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult Update(Goods model, string DetailsImage, string DetailsSort)
         {
             var result = IMallGoodsService.Update_MallGoods(model, DetailsImage, DetailsSort);
@@ -77,21 +81,46 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// </summary>
         /// <param name="model"</param>
         /// <returns></returns>
+        [LoginFilter]
         public JsonResult Find(string unid)
         {
             var result = IMallGoodsService.Find_MallGoods(unid);
             return JResult(result);
         }
-    
+
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="unid"></param>
         /// <returns></returns>
+        [LoginFilter]
         public ActionResult Delete(string unids)
         {
             var model = IMallGoodsService.Delete_MallGoods(unids);
             return JResult(model);
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
+        public ActionResult AllGoods(string categoryId)
+        {
+            Repository.User user = CacheHelper.Get<Repository.User>("user");
+            var person = CacheHelper.Get<Person>("person");
+            if (user == null || person == null)
+                return Error();
+
+            var goodsList = IMallGoodsService.Get_GoodsListByCategoryId(categoryId, person.UNID);
+
+            return View(goodsList);
+        }
+
+        public ActionResult Details(string unid)
+        {
+            var goods = IMallGoodsService.Find_MallGoods(unid);
+            return View(goods);
         }
     }
 }

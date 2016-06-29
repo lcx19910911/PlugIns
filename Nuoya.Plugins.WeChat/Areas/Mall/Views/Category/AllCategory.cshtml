@@ -1,0 +1,14 @@
+﻿@model List<Repository.Category>
+@{
+}
+
+
+<div class="ycmenu">
+    <ul>
+        <li><a href="/mall/goods/allgoods" class="a">全部商品</a></li>
+        @foreach (var item in Model)
+        {
+            <li><a href="/mall/goods/allgoods?categoryId=@item.UNID">@item.Name</a></li>
+        }
+    </ul>
+</div>

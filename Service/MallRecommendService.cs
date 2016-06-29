@@ -256,15 +256,22 @@ namespace Service
         /// 获取推荐商品
         /// </summary>
         /// <returns></returns>
-        public List<Goods> Get_RecommendGoods()
+        public List<Tuple<Repository.Goods, string>> Get_RecommendGoods(string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
                 //找到实体
-                var recommendIdList = entities.Recommend.Where(x=>x.RecommendCode==(int)RecommendCode.HomeGoods).Select(x=>x.UNID).ToList();
+                var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeGoods && x.PersonId.Equals(personId)).ToList(); 
+                var recommendIdList= recommendList.Select(x=>x.TargetID).ToList();
 
+                List<Tuple<Repository.Goods, string>> list = new List<Tuple<Goods, string>>();
 
-                return entities.Goods.Where(x => recommendIdList.Contains(x.UNID)).ToList();
+                entities.Goods.Where(x => recommendIdList.Contains(x.UNID)).ToList().ForEach(x =>
+                {
+                    list.Add(new Tuple<Goods, string>(x, recommendList.FirstOrDefault(y => y.TargetID.Equals(x.UNID))?.Title));
+                });
+
+                return list;
             }
         }
 
@@ -272,14 +279,22 @@ namespace Service
         /// 获取推荐分类
         /// </summary>
         /// <returns></returns>
-        public List<Category> Get_RecommendCategory()
+        public List<Tuple<Repository.Category, string>> Get_RecommendCategory(string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
                 //找到实体
-                var recommendIdList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeCategory).Select(x => x.UNID).ToList();
+                var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeCategory && x.PersonId.Equals(personId)).ToList();
+                var recommendIdList = recommendList.Select(x => x.TargetID).ToList();
 
-                return entities.Category.Where(x => recommendIdList.Contains(x.UNID)).ToList();
+                List<Tuple<Repository.Category, string>> list = new List<Tuple<Category, string>>();
+
+                entities.Category.Where(x => recommendIdList.Contains(x.UNID)).ToList().ForEach(x =>
+                {
+                    list.Add(new Tuple<Category, string>(x, recommendList.FirstOrDefault(y => y.TargetID.Equals(x.UNID))?.Title));
+                });
+
+                return list;
             }
         }
     }

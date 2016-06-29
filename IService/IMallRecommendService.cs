@@ -55,13 +55,13 @@ namespace IService
         /// 获取推荐商品
         /// </summary>
         /// <returns></returns>
-        List<Goods> Get_RecommendGoods();
+        List<Tuple<Repository.Goods, string>> Get_RecommendGoods(string personId);
 
         /// <summary>
         /// 获取推荐分类
         /// </summary>
         /// <returns></returns>
-        List<Category> Get_RecommendCategory();
+        List<Tuple<Repository.Category, string>> Get_RecommendCategory(string personId);
 
     }
 }

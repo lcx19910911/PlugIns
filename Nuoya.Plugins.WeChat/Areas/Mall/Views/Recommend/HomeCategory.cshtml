@@ -1,0 +1,19 @@
+﻿@model   List<Tuple<Repository.Category,string>>
+@{
+
+}
+
+
+<div class="SeckillOne">
+    @foreach (var item in Model)
+    {
+        <div class="category">
+            <a href="/mall/goods/AllGoods?categoryId=@item.Item1.UNID">
+                <img src="@item.Item1.Image" alt="">
+                <div id="CountMsg" class="HotDate">
+                    @item.Item2
+                </div>
+            </a>
+        </div>
+    }
+</div>

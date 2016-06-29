@@ -281,11 +281,14 @@ namespace Service
         /// </summary>
         /// <param name="cId"></param>
         /// <returns></returns>
-        public List<Goods> Get_GoodsListByCategoryId(string cId)
+        public List<Goods> Get_GoodsListByCategoryId(string cId,string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
-                return entities.Goods.Where(x => x.CategoryId.Equals(cId) && (x.Flag & (long)GlobalFlag.Removed) == 0).ToList();
+                if(cId.IsNotNullOrEmpty())
+                    return entities.Goods.Where(x => x.CategoryId.Equals(cId) && (x.Flag & (long)GlobalFlag.Removed) == 0&&x.PersonId.Equals(personId)).ToList();
+                else
+                    return entities.Goods.Where(x =>(x.Flag & (long)GlobalFlag.Removed) == 0&x.PersonId.Equals(personId)).ToList();
             }
         }
     }

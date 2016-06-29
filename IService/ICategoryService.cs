@@ -127,9 +127,15 @@ namespace IService
         /// </summary>
         /// <param name="unids"></param>
         /// <returns></returns>
-        List<SelectItem> Get_ItemByMallId(string shopId);
+        List<SelectItem> Get_ItemByPersonId(string personId);
 
 
+        /// <summary>
+        /// 获取店家的分类
+        /// </summary>
+        /// <param name="unids"></param>
+        /// <returns></returns>
+        List<Category> Get_ListByPersonId(string personId);
         #endregion
     }
 }

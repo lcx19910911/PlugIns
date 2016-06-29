@@ -407,7 +407,7 @@ namespace Service
         /// </summary>
         /// <param name="personId"></param>
         /// <returns></returns>
-        public List<SelectItem> Get_ItemByMallId(string personId)
+        public List<SelectItem> Get_ItemByPersonId(string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -425,6 +425,19 @@ namespace Service
             }
         }
 
+        /// <summary>
+        /// 获取店家的分类
+        /// </summary>
+        /// <param name="unids"></param>
+        /// <returns></returns>
+        public List<Category> Get_ListByPersonId(string personId)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                return entities.Category.Where(x => x.PersonId.Equals(personId)).ToList();
+
+            }
+        }
 
         #endregion
     }

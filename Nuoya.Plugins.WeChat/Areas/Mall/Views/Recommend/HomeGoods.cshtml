@@ -1,0 +1,24 @@
+﻿@model   List<Tuple<Repository.Goods, string>>
+@{
+
+}
+
+
+<div class="allsp">
+    @foreach (var item in Model)
+    {
+        <figure>
+            <a href="/mall/goods/details?unid=@(item.Item1.UNID)">
+                <img src="@item.Item1.Image" style="" alt="商品" class="xqtp" />
+                <p>@item.Item2</p>
+                <div class="info">
+                    <em class="sat">￥@item.Item1.SellingPrice&nbsp;<small>￥@item.Item1.OriginalPrice</small></em>
+                    <img src="~/Styles/mall/img/u20.png" alt="购物车" style="width: 30px;height: 30px" align="right" />
+                </div>
+            </a>
+        </figure>
+    }
+
+
+    <div class="clear"></div>
+</div>
