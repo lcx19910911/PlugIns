@@ -200,7 +200,9 @@
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />
     <Content Include="HtmlTemplates\DinnerShop\Update.html" />
     <Content Include="HtmlTemplates\MallGoods\Update.html" />
-    <Content Include="HtmlTemplates\MallRecommend\GoodsSearchMulit.html" />
+    <Content Include="HtmlTemplates\MallRecommend\CategorySearchSingle.html" />
+    <Content Include="HtmlTemplates\MallRecommend\GoodsSearchSingle.html" />
+    <Content Include="HtmlTemplates\MallRecommend\Update.html" />
     <Content Include="HtmlTemplates\Puzzle\Update.html" />
     <Content Include="HtmlTemplates\ScratchCard\Update.html" />
     <Content Include="HtmlTemplates\UserJoinCounter\Index.html" />

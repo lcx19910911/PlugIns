@@ -16,7 +16,7 @@ using Extension;
 using Domain.UserJoinCounter;
 using System.Web;
 using Domain.Mall.Recommend;
-using Enum;
+using EnumPro;
 
 namespace Service
 {
@@ -37,7 +37,7 @@ namespace Service
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
-        public PageList<Domain.Mall.Recommend.RecommendModel> Get_RecommendPageList(int pageIndex, int pageSize, string name, int targetCode)
+        public PageList<Domain.Mall.Recommend.RecommendModel> Get_RecommendPageList(int pageIndex, int pageSize, string name, int recommendCode)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -51,11 +51,11 @@ namespace Service
                 Dictionary<string, Category> categoryDic = new Dictionary<string, Category>();
 
                 //必须先选择活动类型
-                if (targetCode != 0)
+                if (recommendCode != 0)
                 {
-                    query = query.Where(x => x.TargetCode == targetCode);
+                    query = query.Where(x => x.RecommendCode == recommendCode);
                     //判断活动类型
-                    if (targetCode == (int)TargetCode.Goods)
+                    if (recommendCode == (int)RecommendCode.HomeGoods)
                     {
                         //遍历活动名
                         var targetEntities = entities.Goods;
@@ -70,7 +70,7 @@ namespace Service
                             goodsDic = targetEntities.ToDictionary(x => x.UNID);
                         }
                     }
-                    else if (targetCode == (int)TargetCode.Category)
+                    else if (recommendCode == (int)RecommendCode.HomeCategory)
                     {
                         //遍历活动名
                         var targetEntities = entities.Category;
@@ -106,13 +106,13 @@ namespace Service
                         model.Sort = x.Sort;
                         model.Title = x.Title;
 
-                        if (targetCode == (int)TargetCode.Goods)
+                        if (recommendCode == (int)RecommendCode.HomeGoods)
                         {
                             goodsDic.TryGetValue(x.TargetID, out goodsItem);
                             model.TargetName = goodsItem.Name;
                             model.TargetID = goodsItem.UNID;
                         }
-                        else if (targetCode == (int)TargetCode.Goods)
+                        else if (recommendCode == (int)RecommendCode.HomeCategory)
                         {
                             categoryDic.TryGetValue(x.TargetID, out categoryItem);
                             model.TargetName = categoryItem.Name;

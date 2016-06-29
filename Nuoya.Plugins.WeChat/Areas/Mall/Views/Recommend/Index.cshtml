@@ -3,23 +3,28 @@
 @{
     ViewBag.Title = "推荐管理";
     Layout = "~/Areas/Mall/Views/Shared/_Layout.cshtml";
+    string code = Request["code"];
 }
 
 <div class="am-cf am-padding">
-    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">推荐管理</strong></div>
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">@(code == "1" ? "首页推荐商品" : (code == "2" ? "首页推荐分类" : ""))管理</strong></div>
 </div>
 <div id="searchDomain">
 
     <div class="am-g">
         <div class="am-u-lg-12">
             <div class="am-input-group am-input-group-sm">
-                <span class="am-input-group-label">名称</span>
-                <input type="text" class="am-form-field" placeholder="按推荐类型名称搜索" name="name" ;>
-                <span class="am-input-group-label am-margin-left-sm">推荐类别</span>
-                <select name="targetCode" data-am-selected="{btnSize: 'sm'}">
-                    <option value="1">首页推荐商品</option>
-                    <option value="2">首页推荐分类</option>
-                </select>
+                @if (code == "1")
+                {
+                    <span class="am-input-group-label">商品名称</span>
+                    <input type="text" class="am-form-field" placeholder="按商品名称搜索" name="name" ;>
+                }
+                else if (code == "2")
+                {
+                    <span class="am-input-group-label">分类名称</span>
+                    <input type="text" class="am-form-field" placeholder="按分类名称搜索" name="name" ;>
+                }
+                <input type="hidden" value="@code" name="recommendCode" />
                 <span class="am-input-group-btn am-margin-left-sm">
                     <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
                     <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
@@ -31,8 +36,7 @@
         <div class="am-u-lg-4">
             <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-sm">
-                    <button onclick="addGoods()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增商品推荐</button>
-                    <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增分类推进</button>
+                    <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span>新增</button>
                     <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
                 </div>
             </div>
@@ -45,9 +49,7 @@
         <thead>
             <tr>
                 <th dataname="UNID" type="checkbox"></th>
-                <th dataname="Name">分类名称</th>
                 <th dataname="Title">推荐标题</th>
-                <th dataname="RecommendCode">推荐类型</th>             
                 <th dataname="TargetName">类型名</th>
                 <th dataname="TargetCode">类型</th>
                 <th dataname="Sort">排序</th>
@@ -61,6 +63,7 @@
 @section scripts
 {
     <script type="text/javascript">
+        var code = "@code";
         function ClearFilter() {
             $("#searchDomain input").val("");
         }
@@ -120,22 +123,30 @@
         }
 
         //新增
-        function addGoods() {
+        function add() {
 
-            
+
             $.Nuoya.ajaxDialog({
-                width: "1000px",
-                height: "600px",
-                closeViaDimmer: false,
-                ajaxUrl: "/HtmlTemplates/MallRecommend/Recommend.html",
-                title: "添加分类",
+                ajaxUrl: "/HtmlTemplates/MallRecommend/Update.html",
+                title: "添加",
                 callback: function (e) {
                     formInit();//表单初始化
+                    if (code == "1") {
+                        $(".btnSelectGoods[recommendCode=1]").show();
+
+                        $(".btnSelectCategory[recommendCode=2]").hide();
+                    }
+                    else if (code == "2") {
+                        $(".btnSelectGoods[recommendCode=1]").hide();
+
+                        $(".btnSelectCategory[recommendCode=2]").show();
+                    }
+
+                    btnSelectBindEvent();
                 },
                 buttons: [{
                     label: "保存",
                     callback: function (e) {
-
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/Mall/Recommend/Add",
                             callback: function (data) {
@@ -149,7 +160,102 @@
                         });
                     }
                 }]
-            })
+            });
+        }
+
+
+        function btnSelectBindEvent() {
+            $(".btnSelectGoods").click(function () {
+                var excludeRecommendCode = $(this).attr("recommendCode");
+                $("input[name=RecommendCode]").val(excludeRecommendCode);
+                var targetCode = $(this).attr("targetCode");
+                $("input[name=TargetCode]").val(targetCode);
+
+                $.Nuoya.ajaxDialog({
+                    width: ($(window).width() - 400) + "px",
+                    ajaxUrl: "/HtmlTemplates/MallRecommend/GoodsSearchSingle.html",
+                    title: "选择商品",
+                    callback: function (e) {
+                        $('#goodsSearchSingleDomain  [name=createdTimeStart]').datepicker({ format: 'yyyy-mm-dd' });
+                        $('#goodsSearchSingleDomain  [name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
+
+                        $.Nuoya.action("/Mall/Category/GetSelectItem", { }, function (json) {
+                            $(json).each(function () {
+                                $("select[name='CategoryId']").append("<option " + (this.Selected == true ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
+                            });
+                        });
+                        $.Nuoya.grid({
+                            search: {
+                                domainId: "goodsSearchSingleDomain",
+                                subId: "btnGoodsSearch"
+                            },
+                            tableId: "goodsSearchSingletDataTable",
+                            ajaxUrl: "/Mall/Goods/GetPageList",
+                            pageSize: 10,
+                            events: [
+                                {
+                                    className: "am-text-secondary",
+                                    icon: "icon-pencil-square-o",
+                                    name: "选择",
+                                    click: function (item) {
+                                        $("[name=TargetID]").val(item.UNID);
+                                        $("[name=Title]").val(item.Name);
+                                        $("#name label").text("商品");
+                                        $("[name='Name']").val(item.Name);
+                                        $("#name").show();
+                                        e.hide();
+                                    }
+                                }
+                            ],
+                            drawCallback: function () {
+                                $.Nuoya.resetModalPosition(e.dialog);
+                            }
+                        });
+                    }
+                });
+            });
+
+            $(".btnSelectCategory").click(function () {
+                var excludeRecommendCode = $(this).attr("recommendCode");
+                $("input[name=RecommendCode]").val(excludeRecommendCode);
+                var targetCode = $(this).attr("targetCode");
+                $("input[name=TargetCode]").val(targetCode);
+
+                $.Nuoya.ajaxDialog({
+                    width: ($(window).width() - 400) + "px",
+                    ajaxUrl: "/HtmlTemplates/MallRecommend/CategorySearchSingle.html",
+                    title: "选择分类",
+                    callback: function (e) {
+                        $.Nuoya.grid({
+                            search: {
+                                domainId: "categorySearchSingleDomain",
+                                subId: "btnCategorySearch"
+                            },
+                            tableId: "categorySearchMulitDataTable",
+                            ajaxUrl: "/Mall/Category/GetPageList",
+                            pageSize: 10,
+                            events: [
+                                {
+                                    className: "am-text-secondary",
+                                    icon: "icon-pencil-square-o",
+                                    name: "选择",
+                                    click: function (item) {
+                                        $("[name=TargetID]").val(item.UNID);
+                                        $("[name=Title]").val(item.Name);
+                                        $("#name label").text("分类");
+                                        $("[name='Name']").val(item.Name);
+                                        $("#name").show();
+                                        e.hide();
+                                    }
+                                }
+                            ],
+                            drawCallback: function () {
+                                $.Nuoya.resetModalPosition(e.dialog);
+                            }
+                        });
+                    }
+                });
+            });
         }
 
         var grid = $.Nuoya.grid({

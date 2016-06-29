@@ -1,0 +1,31 @@
+﻿<form id="form" class="am-form am-form-horizontal">
+    <div class="am-form-group">
+        <label class="am-u-sm-3 am-form-label">推荐标题</label>
+        <div class="am-u-sm-9">
+            <input type="hidden" name="TargetID" />
+            <input type="text" name="Title" />
+        </div>
+    </div>
+    <div class="am-form-group" id="name" style="display:none;">
+        <label class="am-u-sm-3 am-form-label"></label>
+        <div class="am-u-sm-9">
+            <input type="text" name="Name"  readonly/>
+        </div>
+    </div>
+    <div class="am-form-group">
+        <input type="hidden" name="RecommendCode" />
+        <input type="hidden" name="TargetCode" />
+        <label class="am-u-sm-3 am-form-label"></label>
+        <div class="am-u-sm-9 am-margin-left">
+            <button style="width:28%;margin-left:3%" type="button" class="am-btn am-btn-primary  btnSelectGoods" recommendCode="1" targetCode="3">选择商品</button>
+            <button style="width:28%;margin-left:3%" type="button" class="am-btn am-btn-primary  btnSelectCategory" recommendCode="2" targetCode="4">选择分类</button>
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label class="am-u-sm-3 am-form-label">排序</label>
+        <div class="am-u-sm-9">
+            <input type="text" name="Sort" />
+        </div>
+    </div>  
+</form>
+

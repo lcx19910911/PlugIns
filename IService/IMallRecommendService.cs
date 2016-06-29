@@ -18,11 +18,9 @@ namespace IService
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
         /// <param name="name">菜品名 - 搜索项</param>
-        /// <param name="categoryId">分类id - 搜索项</param>
-        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
-        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
+        /// <param name="recommendCode">分类id - 搜索项</param>
         /// <returns></returns>
-        PageList<Domain.Mall.Recommend.RecommendModel> Get_RecommendPageList(int pageIndex, int pageSize, string name, int targetCode);
+        PageList<Domain.Mall.Recommend.RecommendModel> Get_RecommendPageList(int pageIndex, int pageSize, string name, int recommendCode);
 
         /// <summary>
         /// 增加

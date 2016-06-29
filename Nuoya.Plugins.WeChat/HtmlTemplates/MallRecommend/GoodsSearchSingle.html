@@ -1,27 +1,35 @@
-﻿<div id="goodsSearchMulitDomain">
+﻿<div id="goodsSearchSingleDomain">
     <input type="hidden" value="0" name="Flag" />
 
     <div class="am-g">
-        <div class="am-u-lg-12">
+        <div class="am-u-lg-3">
             <div class="am-input-group am-input-group-sm">
                 <span class="am-input-group-label">名称</span>
                 <input type="text" class="am-form-field " placeholder="按商品名称搜索" name="name" ;>
+            </div>
+        </div>
+        <div class="am-u-lg-3">
+            <div class="am-input-group am-input-group-sm">
                 <span class="am-input-group-label am-margin-left-sm">商品分类</span>
                 <select name="CategoryId" data-am-selected="{btnSize: 'sm'}"></select>
+            </div>
+        </div>
+        <div class="am-u-lg-6 am-u-end">
+            <div class="am-input-group am-input-group-sm">
+               
                 <span class="am-input-group-label  am-margin-left-sm">创建日期</span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
                 <span class="am-input-group-label"> - </span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
                 <span class="am-input-group-btn am-margin-left-sm">
-                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
-                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                    <button class="am-btn am-btn-default" id="btnGoodsSearch" type="button">搜索</button>
                 </span>
             </div>
         </div>
     </div>
 </div>
 <div class="grid_container">
-    <table id="goodsSearchMulitDataTable" class="am-table am-table-striped am-table-hover table-main">
+    <table id="goodsSearchSingletDataTable" class="am-table am-table-striped am-table-hover table-main">
         <thead>
             <tr>
                 <th dataname="UNID" type="checkbox"></th>

@@ -38,9 +38,9 @@ namespace EnumPro
 
 
         /// <summary>
-        /// 推荐分类
+        /// 分类
         /// </summary>
-        [Description("推荐分类")]
+        [Description("商品分类")]
         Category = 4,
 
     }
