@@ -45,6 +45,7 @@
     <Compile Include="IMallGoodsService.cs" />
     <Compile Include="IPersonService.cs" />
     <Compile Include="IPuzzleService.cs" />
+    <Compile Include="IMallOrderService.cs" />
     <Compile Include="IUEditorService.cs" />
     <Compile Include="IUserJoinCounterService.cs" />
     <Compile Include="IUserSignService.cs" />

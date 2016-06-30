@@ -64,6 +64,7 @@
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="MallGoodsService.cs" />
     <Compile Include="PuzzleService.cs" />
+    <Compile Include="MallOrderService.cs" />
     <Compile Include="UEditorService.cs" />
     <Compile Include="MallRecommendService.cs" />
     <Compile Include="UserSignService.cs" />

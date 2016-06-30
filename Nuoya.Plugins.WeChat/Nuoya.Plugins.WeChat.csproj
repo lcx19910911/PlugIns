@@ -537,6 +537,7 @@
     <Content Include="Styles\mall\img\失败.png" />
     <Content Include="Styles\mall\img\成功.png" />
     <Content Include="Styles\mall\img\购买.png" />
+    <Content Include="Styles\mall\myList.css" />
     <Content Include="Styles\mall\spxq.css" />
     <Content Include="Styles\mall\style.css" />
     <Content Include="Styles\mall\swipe.css" />
@@ -663,6 +664,7 @@
     <Compile Include="Areas\Dinner\Controllers\OrderController.cs" />
     <Compile Include="Areas\Dinner\Controllers\ShopController.cs" />
     <Compile Include="Areas\Dinner\DinnerAreaRegistration.cs" />
+    <Compile Include="Areas\Mall\Controllers\OrderController.cs" />
     <Compile Include="Areas\Mall\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Mall\Controllers\RecommendController.cs" />
     <Compile Include="Areas\Mall\Controllers\GoodsController.cs" />
@@ -753,6 +755,7 @@
     <Content Include="Areas\Mall\Views\Goods\AllGoods.cshtml" />
     <Content Include="Areas\Mall\Views\Category\AllCategory.cshtml" />
     <Content Include="Areas\Mall\Views\Goods\Details.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\List.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />

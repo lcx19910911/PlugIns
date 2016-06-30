@@ -86,6 +86,9 @@
     <Compile Include="GoodsDetails.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="GoodsOrder.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetails.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

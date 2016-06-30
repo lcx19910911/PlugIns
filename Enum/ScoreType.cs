@@ -12,8 +12,8 @@ namespace EnumPro
     /// </summary>
     public enum ScoreType
     {
-        [Description("兑换奖品")]
-        Exchange = 0,
+        [Description("商城消费")]
+        Mall = 0,
 
         [Description("签到")]
         Sign = 1,

@@ -23,6 +23,7 @@
         <EntityTypeShape EntityType="PlugInsModel.Goods" Width="1.5" PointX="9.375" PointY="9.75" />
         <EntityTypeShape EntityType="PlugInsModel.GoodsDetails" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="PlugInsModel.Recommend" Width="1.5" PointX="11.375" PointY="11.75" />
+        <EntityTypeShape EntityType="PlugInsModel.GoodsOrder" Width="1.5" PointX="13.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

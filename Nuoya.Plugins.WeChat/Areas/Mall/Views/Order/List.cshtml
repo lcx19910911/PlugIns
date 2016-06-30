@@ -1,0 +1,70 @@
+﻿@model List<Tuple<Repository.GoodsOrder, Repository.Goods>>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, user-scalable=no,initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>我的订单</title>
+    <link href="~/Styles/mall/myList.css" rel="stylesheet" />
+</head>
+<!-- A标签切换 -->
+<body>
+    <div class="body">
+        <div class="tour">
+            <a href="/mall/home/index" class="tour1"><img src="img/back.png" alt="" style="height: 26px;width: 20px"></a>
+            <p>我的订单</p>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="ddbh">
+                <ul>
+                    <li class="li1">订单编号：@item.Item1.UNID</li>
+                </ul>
+                <div style="clear: both"></div>
+            </div>
+            <div class="zfdd">
+                <ul>
+                    <li class="li3"><a href="/mall/goods/details?unid=@item.Item2.UNID"><img src="@item.Item2.Image" alt="" style="width: 60px;height: 60px" /></a></li>
+                    <li class="li4"><span>×@item.Item1.Count</span><br /><span>@item.Item2.Name</span><br /><span style="color: red">@item.Item2.SellingPrice</span></li>
+                </ul>
+                <div style="clear: both"></div>
+            </div>
+            <div class="ddfk">
+                <ul>
+                    <li class="li5">订单付款：@item.Item1.AllPrice</li>
+                    <li class="li6">消费积分：@item.Item1.ScoreNum</li>
+                </ul>
+                <div style="clear: both"></div>
+            </div>
+        }
+        <div class="wx_nav" id="wx_nav">
+            <a href="/mall/home/index" class="nav_index" id="nav_index">首页</a>
+            <a href="/mall/order/list" class="nav_me on" id="nav_me on">订单</a>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/mall/touch.js"></script>
+    <script>
+        $(function () {
+            var title = $(".qbdd a");
+            for (var i = 0; i < title.length; i++) {
+                title[i].id = i;
+                title[i].onmouseover = function () {
+                    for (var j = 0; j < title.length; j++) {
+                        title[j].className = "";
+                    }
+                    this.className = "aclass";
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
+

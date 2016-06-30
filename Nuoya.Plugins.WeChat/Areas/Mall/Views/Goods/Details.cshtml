@@ -88,7 +88,7 @@
             var one = $(".one").val();
             //数量增加操作
             $(".plus").click(function () {
-                var count=parseInt(t.val() + 1);
+                var count=parseInt(t.val()) + 1;
                 if(count*scoreNum>userScore)
                 {
                     alert("积分不够")
@@ -128,24 +128,12 @@
             });
 
             $("#buy-btn").click(function(){
-                $.Nuoya.action("/mall/order/add", { unid: "@(Request["unid"])",count:$(".num").val() }, function (model) {
-
-                    if (model.IsError) {
-                        alert(model.Result);
+                $.Nuoya.action("/mall/order/add", {count:$(".num").val(),goodsId:"@(Request["unid"])" }, function (result) {                  
+                    if (!result) {
+                        window.location.href="/mall/order/list";
                     }
-                    else {
-                        if (model.IsPrize) {
-                            $("#sncode").html(model.SN);
-                            alert("SN为兑奖唯一凭证，请妥善保存");
-                        }
-                        else {
-                            $("#rePrizeDiv").slideToggle(500);
-                            // $("#userInfoDiv").hide();
-                        }
-                        $("#prizeResultDiv").slideToggle(500);
-                        $("#theAward").html(model.Result);
-                        $("#prizeDiv").html(model.Result);
-                    }
+                    else
+                        alert(result);
                 })
             });
         });
