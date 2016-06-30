@@ -95,6 +95,7 @@ namespace Service
                 model.UpdatedTime = DateTime.Now;
                 model.PersonId = Client.LoginUser.UNID;
                 model.Flag = (long)GlobalFlag.Normal;
+                model.SurplusNum = model.StockNum;
                 if (DetailsImage.IsNotNullOrEmpty())
                 {
                     var imageList = DetailsImage.Split(',');

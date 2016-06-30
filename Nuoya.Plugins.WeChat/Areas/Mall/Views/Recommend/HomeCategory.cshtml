@@ -4,14 +4,14 @@
 }
 
 
-<div class="SeckillOne">
+<div class="SeckillOne" style="height:@(Model.Count/2*120)px">
     @foreach (var item in Model)
     {
         <div class="category">
             <a href="/mall/goods/AllGoods?categoryId=@item.Item1.UNID">
                 <img src="@item.Item1.Image" alt="">
                 <div id="CountMsg" class="HotDate">
-                    @item.Item2
+                    <p>@item.Item2</p>
                 </div>
             </a>
         </div>

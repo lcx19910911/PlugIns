@@ -101,15 +101,9 @@
           <Property Name="Image" Type="varchar" MaxLength="500" />
           <Property Name="Sort" Type="int" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“PlugIns.dbo.GoodsOrder”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="GoodsOrder">
           <Key>
             <PropertyRef Name="UNID" />
-            <PropertyRef Name="GoodsId" />
-            <PropertyRef Name="OpenId" />
-            <PropertyRef Name="PersonId" />
-            <PropertyRef Name="CreatedTime" />
           </Key>
           <Property Name="UNID" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="GoodsId" Type="char" MaxLength="32" Nullable="false" />
@@ -307,6 +301,7 @@
           <EntitySet Name="DinnerShop" EntityType="Self.DinnerShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsDetails" EntityType="Self.GoodsDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodsOrder" EntityType="Self.GoodsOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prize" EntityType="Self.Prize" Schema="dbo" store:Type="Tables" />
@@ -319,18 +314,6 @@
           <EntitySet Name="UserPuzzle" EntityType="Self.UserPuzzle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserScore" EntityType="Self.UserScore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSign" EntityType="Self.UserSign" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GoodsOrder" EntityType="Self.GoodsOrder" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [GoodsOrder].[UNID] AS [UNID], 
-    [GoodsOrder].[GoodsId] AS [GoodsId], 
-    [GoodsOrder].[OpenId] AS [OpenId], 
-    [GoodsOrder].[PersonId] AS [PersonId], 
-    [GoodsOrder].[Count] AS [Count], 
-    [GoodsOrder].[AllPrice] AS [AllPrice], 
-    [GoodsOrder].[ScoreNum] AS [ScoreNum], 
-    [GoodsOrder].[CreatedTime] AS [CreatedTime]
-    FROM [dbo].[GoodsOrder] AS [GoodsOrder]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -636,10 +619,6 @@
         <EntityType Name="GoodsOrder">
           <Key>
             <PropertyRef Name="UNID" />
-            <PropertyRef Name="GoodsId" />
-            <PropertyRef Name="OpenId" />
-            <PropertyRef Name="PersonId" />
-            <PropertyRef Name="CreatedTime" />
           </Key>
           <Property Name="UNID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="GoodsId" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />

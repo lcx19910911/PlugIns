@@ -45,8 +45,14 @@ namespace Service
                 var userEntity = entities.User.Find(user.OpenId);
                 if (userEntity == null)
                     return false;
-                var yesterday =DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
-                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.OpenId) &&x.SignDate> yesterday).OrderByDescending(x => x.SignDate).FirstOrDefault();
+                var yesterday =DateTime.Now.AddDays(-1).Date;
+                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.OpenId)&&x.PersonId.Equals(person.UNID)).OrderByDescending(x => x.SignDate).First();
+
+                //判断今天是否已签到
+                if (lastSign.SignDate > yesterday)
+                {
+                    return false;
+                }
                 //判断是否连续签到
                 if (lastSign != null)
                 {
@@ -54,12 +60,12 @@ namespace Service
                     {
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
-                        SignNum = lastSign.SignNum++,
+                        SignNum = lastSign.SignNum+1,
                         OpenId = user.OpenId,
                         PersonId=person.UNID
                     };
                     //签到10天判断
-                    if (todaySign.SignNum / 10 == 0)
+                    if (todaySign.SignNum / 10 == 0&& todaySign.SignNum>=10)
                     {                     
                         var tenScoreDetials = new ScoreDetails()
                         {

@@ -15,7 +15,7 @@
 <body>
     <div class="body">
         <div class="tour">
-            <a href="/mall/home/index" class="tour1"><img src="img/back.png" alt="" style="height: 26px;width: 20px"></a>
+            <a href="/mall/home/index" class="tour1"><img src="~/Styles/mall/img/back.png" alt="" style="height: 26px;width: 20px"></a>
             <p>我的订单</p>
         </div>
 
@@ -29,14 +29,19 @@
             </div>
             <div class="zfdd">
                 <ul>
-                    <li class="li3"><a href="/mall/goods/details?unid=@item.Item2.UNID"><img src="@item.Item2.Image" alt="" style="width: 60px;height: 60px" /></a></li>
-                    <li class="li4"><span>×@item.Item1.Count</span><br /><span>@item.Item2.Name</span><br /><span style="color: red">@item.Item2.SellingPrice</span></li>
+                    <a href="/mall/goods/details?unid=@item.Item2.UNID">
+                        <li class="li3">
+                            <img src="@item.Item2.Image" alt="" style="width: 60px;height: 60px" />
+                        </li>
+                        <li class="li4"><span>×@item.Item1.Count</span><br /><span>@item.Item2.Name</span><br /><span style="color: red">￥@item.Item2.SellingPrice</span></li>
+                    </a>
                 </ul>
                 <div style="clear: both"></div>
             </div>
             <div class="ddfk">
                 <ul>
-                    <li class="li5">订单付款：@item.Item1.AllPrice</li>
+                    <li class="li5">订单付款：￥@item.Item1.AllPrice</li>
+                    <li class="li5">&nbsp;日期：@item.Item1.CreatedTime.ToString("yyyy年MM月dd日")</li>
                     <li class="li6">消费积分：@item.Item1.ScoreNum</li>
                 </ul>
                 <div style="clear: both"></div>

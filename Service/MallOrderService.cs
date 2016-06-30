@@ -150,6 +150,11 @@ namespace Service
                 if (goods == null)
                     return "数据错误";
 
+                if (goods.OngoingTime > DateTime.Now)
+                    return "还没到活动时间";
+                if (goods.OverTime < DateTime.Now)
+                    return "已过活动时间";
+
                 if (goods.SurplusNum < model.Count)
                     return "商品库存不足";
 

@@ -35,17 +35,17 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string info,int comId)
+        public ActionResult Index(string info,string comId)
         {
             //接收微信用户数据
 
             var userInfoCache = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
-            if (person==null&&comId != 0)
+            if (person==null&&!string.IsNullOrEmpty(comId))
             {
                 CacheHelper.Get<Person>("person", CacheTimeOption.TwoHour, () =>
                 {
-                    return person=IPersonService.Get_ByComId(comId);
+                    return person=IPersonService.Get_ByComId(comId.GetInt());
                 });
             }
             UserCenterModel model = new UserCenterModel();
@@ -79,7 +79,7 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                 model.User = userInfoCache;
                 model.Score = IUserService.Find_PersonUserScore(person.UNID,userInfoCache.OpenId);
                 var signModel = IUserSignService.Get_LastSign(userInfoCache.OpenId,person.UNID);
-                model.SignNum = signModel == null ? 0 : (signModel.SignDate == DateTime.Now.Date ? signModel.SignNum : 0);
+                model.SignNum = signModel == null ? 0 : (signModel.SignDate == DateTime.Now.Date|| signModel.SignDate == DateTime.Now.AddDays(-1).Date ? signModel.SignNum : 0);
 
                 return View(model);
             }

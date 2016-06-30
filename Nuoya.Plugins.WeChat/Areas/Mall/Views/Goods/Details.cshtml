@@ -45,7 +45,25 @@
         </div>
 
         <div class="bottom-shop">
-            @if ((int)ViewData["userScore"]> Model.Goods.ScoreNum)
+            @if (DateTime.Now > Model.Goods.OverTime)
+            {
+                <div class="spxz">
+                    <ul>
+                        <li class="li2"><a href="#"><img src="@Model.Goods.Image" alt="" style="width: 60px;height: 60px"></a></li>
+                        <li class="li4" style="margin-left:30%;width:60%"><strong>已过活动时间</strong></li>
+                    </ul>
+                </div>
+            }
+            else if (DateTime.Now < Model.Goods.OngoingTime)
+            {
+                <div class="spxz">
+                    <ul>
+                        <li class="li2"><a href="#"><img src="@Model.Goods.Image" alt="" style="width: 60px;height: 60px"></a></li>
+                        <li class="li4" style="margin-left:30%; width:60%"><strong>还没到活动时间</strong></li>
+                    </ul>
+                </div>
+            }
+            else if ((int)ViewData["userScore"]> Model.Goods.ScoreNum)
             {
                 <div class="spxz">
                     <ul>
