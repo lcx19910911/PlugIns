@@ -59,10 +59,24 @@ namespace Service
 
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var categoryIdList = list.Select(x => x.CategoryId).ToList();
+            
+                var categoryList = entities.Category.Where(x => categoryIdList.Contains(x.UNID)).ToList();
 
-                var categpryList = entities.Category.ToDictionary(x => x.UNID);
-
-                var returnList = list.AutoMap<DinnerDish, Domain.DinnerDish.List>();
+                var returnList = new List<Domain.DinnerDish.List>();
+                list.ForEach(x =>
+                {
+                    returnList.Add(new Domain.DinnerDish.List()
+                    {
+                        UNID = x.UNID,
+                        CategoryName = categoryList.FirstOrDefault(y => y.UNID.Equals(x.CategoryId))?.Name,
+                        CreatedTime = x.CreatedTime,
+                        Label = x.Label,
+                        Name = x.Name,
+                        Price = x.Price,
+                        Sort = x.Sort
+                    });
+                });
 
                 return CreatePageList(returnList, pageIndex, pageSize, count);
             }

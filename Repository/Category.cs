@@ -11,9 +11,6 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("Category")]
     public partial class Category
     {
         public string UNID { get; set; }

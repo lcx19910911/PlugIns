@@ -690,7 +690,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Api\ActivityController.cs" />
     <Compile Include="Controllers\UEditorController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WXUserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserJoinCounterController.cs" />
@@ -759,7 +759,7 @@
     <Content Include="Areas\Mall\Views\Order\List.cshtml" />
     <Content Include="Areas\Mall\Views\Order\Index.cshtml" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\WXUser\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
     <Content Include="Views\Base\TokenNotAvailable.cshtml" />
     <Content Include="Views\Shared\_AreaLayout.cshtml" />

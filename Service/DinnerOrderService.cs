@@ -60,9 +60,30 @@ namespace Service
                     query = query.Where(x => x.CreatedTime < createdTimeEnd);
                 }
                 var count = query.Count();
-                var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().AutoMap<DinnerOrder, Domain.Dinner.Order.List>();
+                var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
-                return CreatePageList(list, pageIndex, pageSize, count);
+                var openIdList = list.Select(x => x.OpenId).ToList();
+
+                var userList = entities.User.Where(x => openIdList.Contains(x.OpenId)).ToList();
+
+                var returnList = new List<Domain.Dinner.Order.List>();
+                list.ForEach(x =>
+                {
+                    returnList.Add(new Domain.Dinner.Order.List()
+                    {
+                        UNID = x.UNID,
+                        NickName = userList.FirstOrDefault(y => y.OpenId.Equals(x.OpenId))?.NickName,
+                        CreatedTime = x.CreatedTime,
+                        Details=x.Details,
+                        OrderNum=x.OrderNum,
+                        Remark=x.Remark,
+                        State=x.State,
+                        TotalPrice=x.TotalPrice
+                    });
+                });
+                
+
+                return CreatePageList(returnList, pageIndex, pageSize, count);
             }
         }
 

@@ -58,7 +58,6 @@ namespace Domain.Person
         /// <summary>
         /// 状态
         /// </summary>
-        [EnumAutoMapper("Flag", typeof(GlobalFlag))]
         public string FlagState { get; set; }        
     }
 }

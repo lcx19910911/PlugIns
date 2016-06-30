@@ -11,7 +11,6 @@ namespace Domain.Dinner.Order
     {
         public string UNID { get; set; }
         public string OrderNum { get; set; }
-        [DataAutoMapper("OpenId", typeof(Repository.User), "OpenID", "NickName")]
         public string NickName { get; set; }
         public decimal TotalPrice { get; set; }
         public string Remark { get; set; }

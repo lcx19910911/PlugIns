@@ -12,9 +12,6 @@ namespace Repository
     using System;
     using System.Collections.Generic;
 
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("DinnerDish")]
     public partial class DinnerDish
     {
         public string UNID { get; set; }
