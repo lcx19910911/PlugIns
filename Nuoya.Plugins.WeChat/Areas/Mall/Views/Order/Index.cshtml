@@ -1,0 +1,141 @@
+﻿
+
+@{
+    ViewBag.Title = "订单管理";
+    Layout = "~/Areas/Mall/Views/Shared/_Layout.cshtml";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">订单管理</strong></div>
+</div>
+<div id="searchDomain">
+
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">商品名称</span>
+                <input type="text" class="am-form-field" placeholder="按商品名称搜索" name="name" ;>
+                <span class="am-input-group-label">用户昵称</span>
+                <input type="text" class="am-form-field" placeholder="按用户昵称搜索" name="nickName" ;>
+                <span class="am-input-group-label">订单编号</span>
+                <input type="text" class="am-form-field" placeholder="按订单编号搜索" name="unid" ;>
+                <span class="am-input-group-label  am-margin-left-sm">下单日期</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:120px;">
+                <span class="am-input-group-label"> - </span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:120px;">
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="UNID" type="checkbox"></th>
+                <th dataname="GoodsName">商品名称</th>
+                <th dataname="NickName">用户昵称</th>
+                <th dataname="Count">商品数量</th>
+                <th dataname="AllPrice">总价</th>
+                <th dataname="ScoreNum">消费积分</th>
+                <th dataname="CreatedTime" datatype="jsondate">下单日期</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $('[name=createdTimeStart]').datepicker({ format: 'yyyy-mm-dd' });
+        $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
+        function ClearFilter() {
+            $("#searchDomain input").val("");
+        }
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/Mall/Order/GetPageList",
+            //数据请求地址
+            pageSize: 10,
+            events: [
+                {
+                    className: "am-text-danger",
+                    icon: "icon-trash-o",
+                    name: "查看商品",
+                    click: function (item) {
+
+                        $.Nuoya.ajaxDialog({
+                            closeViaDimmer: false,
+                            width: ($(window).width() - 200) + "px",
+                            height: ($(window).height() - 100) + "px",
+                            ajaxUrl: "/HtmlTemplates/MallGoods/Update.html",
+                            title: "商品详情",
+                            callback: function (e) {
+                                $.Nuoya.action("/Mall/Goods/Find", { unid: item.GoodsId }, function (model) {
+                                    //载入数据
+                                    $.Nuoya.form("form").dataLoad({
+                                        data: model.Goods
+                                    });
+                                    if (model.Goods != null) {
+                                        if (model.Goods.Image != null) {
+                                            $("#imageDiv").show().find("img").attr("src", model.Goods.Image);
+                                        }
+                                        if (model.Goods.State == 1) {
+                                            $("input[name='State']").attr("checked", "checked");
+                                        }
+                                    }
+
+                                    if (model.GoodsDetails != null) {
+                                        $(model.GoodsDetails).each(function (index, item) {
+                                            AddDesImage(item.Image, item.Sort);
+                                        })
+                                    }
+
+                                    $.Nuoya.action("/Mall/Category/GetSelectItem", { cid: model ? model.Goods.CategoryId : "" }, function (json) {
+                                        $(json).each(function () {
+                                            $("select[name='CategoryId']").append("<option " + (this.Selected == true ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
+                                        });
+                                    });
+
+                                    $("#form inpout").attr("readonly", "readonly");
+                                });
+                            },
+                        })
+                    }
+                }
+            ]
+        });
+
+        function AddDesImage(src, sort) {
+            var html = "";
+            html += '<div class="am-g am-margin-top">';
+            html += '    <div class="am-u-md-2 am-text-right">';
+            html += '       <strong class="am-text-danger am-text-sm">*</strong>';
+            html += '    </div>';
+            html += '    <div class="am-u-md-3 am-text-left">';
+            html += '          <input type="hidden" name="GoodsDetialsImage" value="' + src + '"/>';
+            html += '          <img style="width:260px;"  src="' + src + '"/>';
+            html += '    </div>';
+            html += '    <div class="am-u-md-1 am-text-left">';
+            html += '          排序';
+            html += '    </div>';
+            html += '    <div class="am-u-md-2 am-text-left">';
+            html += '          <input type="text" name="GoodsDetialsSort" class="am-input-sm" value="' + sort + '">';
+            html += '    </div>';
+            html += '    <div class="am-hide-sm-only am-u-md-4 am-text-left"></div>';
+            html += '</div>';
+
+            $("#tab2").append(html);
+        }
+    </script>
+}

@@ -96,5 +96,15 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
             var result = ICategoryService.Get_ListByPersonId(person.UNID);
             return PartialView(result);
         }
+
+        /// <summary>
+        /// 获取菜品分类选择项
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetSelectItem(string cid)
+        {
+            var listSelectItem = ICategoryService.Get_MallCategorySelectItem(cid);
+            return JResult(listSelectItem);
+        }
     }
 }

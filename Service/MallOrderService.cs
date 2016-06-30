@@ -45,17 +45,23 @@ namespace Service
             {
                 var query = entities.GoodsOrder.AsQueryable().Where(x => x.PersonId.Equals(Client.LoginUser.UNID));
 
-                var goodsList = entities.Goods.Where(x => x.Name.Contains(name)).ToList();
-                var openList = entities.User.Where(x => x.NickName.Contains(nickName)).ToList();
+                var goodsList =new List<Goods>();
+                var userList = new List<User>();
 
                 if (name.IsNotNullOrEmpty())
                 {
+                    goodsList = entities.Goods.Where(x => x.Name.Contains(name) && x.PersonId.Equals(Client.LoginUser.UNID)).ToList();
                     var goodsIdList = goodsList.Select(x => x.UNID).ToList();
                     query = query.Where(x => goodsIdList.Contains(x.GoodsId));
                 }
+                else
+                {
+                    goodsList = entities.Goods.Where(x =>x.PersonId.Equals(Client.LoginUser.UNID)).ToList();
+                }
                 if (nickName.IsNotNullOrEmpty())
                 {
-                    var openIdList = openList.Select(x => x.OpenId).ToList();
+                    userList = entities.User.Where(x => x.NickName.Contains(nickName)).ToList();
+                    var openIdList = userList.Select(x => x.OpenId).ToList();
                     query = query.Where(x => openIdList.Contains(x.OpenId));
                 }
 
@@ -74,13 +80,18 @@ namespace Service
                     query = query.Where(x => x.CreatedTime < createdTimeEnd);
                 }
 
-                var list = new List<Domain.Mall.Order.OrderModel>();
+                var returnList = new List<Domain.Mall.Order.OrderModel>();
                 var count = query.Count();
-                query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
+                var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var openIdArry = list.Select(x => x.OpenId).ToList();
+                var goodsIdArry = list.Select(x => x.GoodsId).ToList();
+                goodsList = entities.Goods.Where(x =>goodsIdArry.Contains(x.UNID)).ToList();
+                userList = entities.User.Where(x => openIdArry.Contains(x.OpenId)).ToList();
+                list.ForEach(x =>
                 {
                     if (x != null)
                     {
-                        list.Add(new Domain.Mall.Order.OrderModel()
+                        returnList.Add(new Domain.Mall.Order.OrderModel()
                         {
                             UNID = x.UNID,
                             GoodsName = goodsList.FirstOrDefault(y => y.UNID.Equals(x.GoodsId))?.Name,
@@ -88,7 +99,7 @@ namespace Service
                             AllPrice = x.AllPrice,
                             Count = x.Count,
                             GoodsId = x.GoodsId,
-                            NickName = openList.FirstOrDefault(y => y.OpenId.Equals(x.OpenId))?.NickName,
+                            NickName = userList.FirstOrDefault(y => y.OpenId.Equals(x.OpenId))?.NickName,
                             PersonId = x.PersonId,
                             OpenId = x.OpenId,
                             ScoreNum = x.ScoreNum
@@ -96,7 +107,7 @@ namespace Service
                     }
                 });
 
-                return CreatePageList(list, pageIndex, pageSize, count);
+                return CreatePageList(returnList, pageIndex, pageSize, count);
             }
         }
 
