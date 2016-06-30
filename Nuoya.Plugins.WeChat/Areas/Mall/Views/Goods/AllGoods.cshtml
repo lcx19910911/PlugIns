@@ -28,7 +28,7 @@
                     <a href="/mall/goods/details?unid=@(item.UNID)"><img src="@item.Image" style="" alt="商品" class="xqtp" />
                     <p>@item.Name</p>
                     <div class="info">
-                        <em class="sat">￥@item.SellingPrice&nbsp;<small>￥@item.OriginalPrice</small></em>
+                        <em class="sat">￥@((long)item.SellingPrice)+@(item.ScoreNum)积分&nbsp;<small>￥@((long)item.OriginalPrice)</small></em>
                         <img src="~/Styles/mall/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right">
                     </div></a>
                 </figure>
@@ -39,7 +39,7 @@
         </div>    
 
         <div class="wx_nav" id="wx_nav">
-            <a href="javascript:;" class="nav_index" id="nav_index">首页</a>
+            <a href="/mall/home/index" class="nav_index" id="nav_index">首页</a>
             <a href="javascript:;" class="nav_me on" id="nav_me on">订单</a>
         </div>
     </div>

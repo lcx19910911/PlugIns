@@ -261,7 +261,6 @@
                         scratchMove: function () {
                             num++;
                             if (num == 10) {
-                                debugger
                                 $("#scratchpad").attr("disabled", "disabled");
                                 $.Nuoya.action("/scratchcard/home/Do", { unid: "@(Request["unid"])" }, function (model) {
 

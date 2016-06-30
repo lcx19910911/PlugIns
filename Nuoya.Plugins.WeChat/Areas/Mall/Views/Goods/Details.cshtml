@@ -11,7 +11,6 @@
     <title>商品详情</title>
     <link href="~/Styles/mall/spxq.css" rel="stylesheet" />
     <link href="~/Styles/mall/swipe.css" rel="stylesheet" />
-    <script src="~/Scripts/mall/touch.js"></script>
 </head>
 <body>
     <div class="body">
@@ -25,8 +24,7 @@
             </div>
             <p>@Model.Goods.Name</p>
             <div class="info">
-                <em class="sat">￥@Model.Goods.SellingPrice @Model.Goods.ScoreNum 积分<small>￥@Model.Goods.OriginalPrice</small></em>
-                <a href="shopping.html"><button type="button" class="btn">兑换</button></a>
+                <em class="sat">￥@Model.Goods.SellingPrice @(Model.Goods.ScoreNum)积分<small>￥@Model.Goods.OriginalPrice</small></em>         
             </div>
         </figure>
         <hr />
@@ -45,11 +43,113 @@
                 <img class="img-responsive" src="@item.Image" />
             }
         </div>
-        <div class="wx_nav" id="wx_nav">
-            <a href="javascript:;" class="nav_index" id="nav_index">首页</a>
-            <a href="javascript:;" class="nav_me on" id="nav_me on">订单</a>
+
+        <div class="bottom-shop">
+            @if ((int)ViewData["userScore"]> Model.Goods.ScoreNum)
+            {
+                <div class="spxz">
+                    <ul>
+                        <li class="li2"><a href="#"><img src="@Model.Goods.Image" alt="" style="width: 60px;height: 60px"></a></li>
+                        <li class="li3"><span>@Model.Goods.Name</span><br><span style="color: red">￥</span><input type="text" value="@Model.Goods.SellingPrice" class="one" disabled="disabled"></li>
+                        @if (Model.Goods.SurplusNum > 0)
+                        {
+                            <li class="li4"><div><a class="reduce">-</a><input type="text" value="1" class="num"><a class="plus">+</a></div></li>
+
+                            <li class="li5"><button id="buy-btn">兑换</button></li>
+                        }
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="spxz">
+                    <ul>
+                        <li class="li2"><a href="#"><img src="@Model.Goods.Image" alt="" style="width: 60px;height: 60px"></a></li>
+                        <li class="li3"><span>@Model.Goods.Name</span><br><span style="color: red">￥</span><input type="text" value="@Model.Goods.SellingPrice" class="one" disabled="disabled"></li>
+
+                         <li class="li4"><strong>积分不够</strong></li>
+                    </ul>
+                </div>
+            }
+
+
         </div>
+
     </div>
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/mall/touch.js"></script>
+    <script src="~/Scripts/Nuoya/nuoya.core.js"></script>
+    <script>
+        $(function () {
+            var surplusNum=@Model.Goods.SurplusNum;
+            var userScore=@((int)ViewData["userScore"]);
+            var scoreNum=@Model.Goods.ScoreNum;
+            var t = $(".num");
+            var one = $(".one").val();
+            //数量增加操作
+            $(".plus").click(function () {
+                var count=parseInt(t.val() + 1);
+                if(count*scoreNum>userScore)
+                {
+                    alert("积分不够")
+                }
+                else if(surplusNum<count)
+                {
+                    alert("已经超过库存数量")
+                }
+                else
+                {
+                    t.val(count);
+                    if (parseInt(t.val()) != 1) {
+                        $('#reduce').attr('disabled', false);
+                    }
+                    setTotal();
+                    //数量减少操作
+                    $(".reduce").click(function () {
+                        if (parseInt(t.val()) > 1) {
+                            t.val(parseInt(t.val()) - 1);
+                            setTotal();
+                            //                    $('#reduce').attr('disabled', true);
+                        }
+
+
+                        //                if (parseInt(t.val()) == 0) {
+                        //                    return false;
+                        ////                    $('#reduce').attr('disabled', true);
+                        //                }
+
+                    });
+                }
+                function setTotal() {
+                    $(".red").html("<a>￥</a>" + (parseInt(t.val()) * one).toFixed(2));//toFixed()是保留小数点的函数
+                }
+
+                setTotal();
+            });
+
+            $("#buy-btn").click(function(){
+                $.Nuoya.action("/mall/order/add", { unid: "@(Request["unid"])",count:$(".num").val() }, function (model) {
+
+                    if (model.IsError) {
+                        alert(model.Result);
+                    }
+                    else {
+                        if (model.IsPrize) {
+                            $("#sncode").html(model.SN);
+                            alert("SN为兑奖唯一凭证，请妥善保存");
+                        }
+                        else {
+                            $("#rePrizeDiv").slideToggle(500);
+                            // $("#userInfoDiv").hide();
+                        }
+                        $("#prizeResultDiv").slideToggle(500);
+                        $("#theAward").html(model.Result);
+                        $("#prizeDiv").html(model.Result);
+                    }
+                })
+            });
+        });
+    </script>
 </body>
 </html>
 

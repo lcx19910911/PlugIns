@@ -18,10 +18,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
     {
 
         public IMallGoodsService IMallGoodsService;
+        public IUserService IUserService;
 
-        public GoodsController(IMallGoodsService _IMallGoodsService)
+        public GoodsController(IMallGoodsService _IMallGoodsService, IUserService _IUserService)
         {
-            this.IMallGoodsService = _IMallGoodsService;          
+            this.IMallGoodsService = _IMallGoodsService;
+            this.IUserService = _IUserService;
         }
 
         /// <summary>
@@ -117,9 +119,22 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
             return View(goodsList);
         }
 
+        /// <summary>
+        /// 商品详细页
+        /// </summary>
+        /// <param name="unid"></param>
+        /// <returns></returns>
         public ActionResult Details(string unid)
         {
+            Repository.User user = CacheHelper.Get<Repository.User>("user");
+            var person = CacheHelper.Get<Person>("person");
+            if (user == null || person == null)
+                return Error();
+
+            ViewData["userScore"]=IUserService.Find_PersonUserScore(person.UNID, user.OpenId);
             var goods = IMallGoodsService.Find_MallGoods(unid);
+            if(goods==null)
+                return Error();
             return View(goods);
         }
     }
