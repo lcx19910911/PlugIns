@@ -36,7 +36,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
             var user = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user == null|| person==null)
-                return Error();
+                return OAuthExpired();
 
             var model = IPuzzleService.Get_NextPuzzle(unid, user.OpenId,person.UNID) ;
             ViewData["LastOne"] = false;

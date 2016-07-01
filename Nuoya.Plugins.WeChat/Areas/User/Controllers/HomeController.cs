@@ -73,7 +73,7 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                 }
             }
             if (userInfoCache == null|| person==null)
-                return Error();
+                return OAuthExpired();
             else
             {
                 model.User = userInfoCache;

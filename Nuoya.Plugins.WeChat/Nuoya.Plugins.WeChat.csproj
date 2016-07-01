@@ -773,6 +773,7 @@
     <Content Include="Styles\mall\img\mall\.svn\text-base\icon_nav_v2.png.svn-base" />
     <Content Include="Styles\mall\img\mall\.svn\text-base\Thumbs.db.svn-base" />
     <Content Include="Styles\mall\img\mall\Thumbs.db" />
+    <Content Include="Views\Shared\OAuthExpired.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

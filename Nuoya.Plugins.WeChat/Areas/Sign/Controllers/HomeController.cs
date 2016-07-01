@@ -38,7 +38,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Sign.Controllers
             Repository.User user=CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user==null|| person==null)
-                return Error();
+                return OAuthExpired();
             UserCenterModel model = new UserCenterModel();
             model.User = user;
             model.Score = IUserService.Find_PersonUserScore(person.UNID,user.OpenId);

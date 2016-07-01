@@ -27,6 +27,13 @@ namespace Nuoya.Plugins.WeChat.Controllers
             return View("Error");
         }
 
+        public ActionResult OAuthExpired()
+        {
+            return View("OAuthExpired");
+        }
+
+        
+
         public ActionResult _505()
         {
             return View();

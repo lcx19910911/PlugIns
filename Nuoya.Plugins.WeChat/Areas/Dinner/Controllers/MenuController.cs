@@ -68,7 +68,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 
             if (string.IsNullOrEmpty(unid))
             {
-                return Error();
+                return OAuthExpired();
             }
             else
             {

@@ -112,7 +112,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
             Repository.User user = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user == null || person == null)
-                return Error();
+                return OAuthExpired();
 
             var goodsList = IMallGoodsService.Get_GoodsListByCategoryId(categoryId, person.UNID);
 
@@ -129,12 +129,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
             Repository.User user = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user == null || person == null)
-                return Error();
+                return OAuthExpired();
 
             ViewData["userScore"]=IUserService.Find_PersonUserScore(person.UNID, user.OpenId);
             var goods = IMallGoodsService.Find_MallGoods(unid);
             if(goods==null)
-                return Error();
+                return OAuthExpired();
             return View(goods);
         }
     }

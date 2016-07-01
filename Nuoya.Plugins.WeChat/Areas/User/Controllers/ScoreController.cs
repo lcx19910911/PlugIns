@@ -36,11 +36,11 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
             Repository.User user = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user == null || person == null)
-                return Error();
+                return OAuthExpired();
             int score = IUserService.Find_PersonUserScore(person.UNID, user.OpenId);
             var list = IUserService.Get_UserScore(user.OpenId, person.UNID, 1);
             if(list == null)
-                return Error();
+                return OAuthExpired();
             else
                 return View( new Tuple<int, Repository.User, List<Repository.ScoreDetails>>(score, user, list));
         }
