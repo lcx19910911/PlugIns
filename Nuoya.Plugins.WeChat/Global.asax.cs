@@ -9,19 +9,20 @@ using System.Web.Routing;
 using System.Web.Http;
 using System.Web.SessionState;
 using System.Web.Security;
+using Microsoft.Practices.Unity;
+using Nuoya.Plugins.WeChat.App_Start;
+using System.Web.Http.Dispatcher;
+using Nuoya.Plugins.WeChat.Api;
 
 namespace Nuoya.Plugins.WeChat
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private const string WebApiPrefix = "APi";
-        private static string WebApiExecutePath = string.Format("~/{0}", WebApiPrefix);
 
         protected void Application_Start()
         {
             LogHelper.WriteCustom(string.Format("Application_Start At {0} \r\n", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss")), @"Application\", false);
             AreaRegistration.RegisterAllAreas();
-
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //脚本资源注册
@@ -29,8 +30,14 @@ namespace Nuoya.Plugins.WeChat
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
+            //返回json
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
-            // Core.Params.CookieName = "11";
+
+            //注册api的ioc服务
+            IUnityContainer apiUnityContainer = new UnityContainer();
+            UnityConfig.RegisterTypes(apiUnityContainer);
+            GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator), new ApiUnityHttpControllerActivator(apiUnityContainer));
+
         }
 
         /// <summary>
@@ -68,16 +75,25 @@ namespace Nuoya.Plugins.WeChat
             if (httpException != null && httpException.GetHttpCode() == 404)
             {
                 LogHelper.WriteCustom(httpException.ToString(), "404Error\\");
+                Server.ClearError();
+                Response.Clear();
+                Response.Redirect("/base/_404");
             }
             else
             {
                 LogHelper.WriteException("Application Error.", Server.GetLastError());
+                Server.ClearError();
+                Response.Clear();
+                Response.Redirect("/base/_505");
             }
-            Server.ClearError();
-            Response.Clear();
-            Response.Redirect("/base/Error");
+            
         }
 
+        /// <summary>
+        /// 附加cookie解决 flash上传时不带cookie的错
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             /* we guess at this point session is not already retrieved by application so we recreate cookie with the session id... */

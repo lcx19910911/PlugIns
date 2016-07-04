@@ -78,6 +78,7 @@ a,img,button,input,textarea {
 .zfdd ul li {
     display: block;
     float: left;
+    margin-left:20px;
 }
 .li3{
     margin-top: 0.5rem;
@@ -108,7 +109,6 @@ a,img,button,input,textarea {
  float: left;
 }
 .ddfk .li6{
-    margin-left: 1.5rem;
     float: right;
 }
 .ddfk .li6 button{
@@ -146,7 +146,7 @@ a,img,button,input,textarea {
     overflow:hidden;
     height:48px;
     border-top:1px solid #ddd;
-    position:fixed;
+    /*position:fixed;*/
     z-index:900;
     width:100%;
     bottom:0;

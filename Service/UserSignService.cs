@@ -60,44 +60,52 @@ namespace Service
                     {
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
-                        SignNum = lastSign.SignNum+1,
                         OpenId = user.OpenId,
                         PersonId=person.UNID
                     };
-                    //签到10天判断
-                    if (todaySign.SignNum / 10 == 0&& todaySign.SignNum>=10)
-                    {                     
-                        var tenScoreDetials = new ScoreDetails()
-                        {
-                            UNID = Guid.NewGuid().ToString("N"),
-                            OpenId = user.OpenId,
-                            CreatedTime = DateTime.Now,
-                            Description = "连续签到10天获得积分",
-                            IsAdd = (int)YesOrNoCode.Yes,
-                            Value = Params.TendayScore,
-                            Type= (int)ScoreType.Sign,
-                            PersonId=person.UNID
-                        };
-                        entities.ScoreDetails.Add(tenScoreDetials);
+                    if (lastSign.SignDate == yesterday)
+                    {
+                        todaySign.SignNum = lastSign.SignNum + 1;
 
-                        //是否初次签到
-                        var userScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
-                        if (userScore == null)
+                        //签到10天判断
+                        if (todaySign.SignNum % 10 == 0 && todaySign.SignNum >= 10)
                         {
-                            var addUserScore = new UserScore()
+                            var tenScoreDetials = new ScoreDetails()
                             {
                                 UNID = Guid.NewGuid().ToString("N"),
                                 OpenId = user.OpenId,
-                                PersonId = person.UNID,
-                                Score = Params.TendayScore
+                                CreatedTime = DateTime.Now,
+                                Description = "连续签到10天获得积分",
+                                IsAdd = (int)YesOrNoCode.Yes,
+                                Value = Params.TendayScore,
+                                Type = (int)ScoreType.Sign,
+                                PersonId = person.UNID
                             };
-                            entities.UserScore.Add(addUserScore);
-                        }
-                        else
-                        {
-                            userScore.Score += Params.TendayScore;
+                            entities.ScoreDetails.Add(tenScoreDetials);
+
+                            //是否初次签到
+                            var userScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                            if (userScore == null)
+                            {
+                                var addUserScore = new UserScore()
+                                {
+                                    UNID = Guid.NewGuid().ToString("N"),
+                                    OpenId = user.OpenId,
+                                    PersonId = person.UNID,
+                                    Score = Params.TendayScore
+                                };
+                                entities.UserScore.Add(addUserScore);
+                            }
+                            else
+                            {
+                                userScore.Score += Params.TendayScore;
+                            }
                         }
                     }
+                    else
+                        todaySign.SignNum = 1;
+
+
                     entities.UserSign.Add(todaySign);
                 }
                 else

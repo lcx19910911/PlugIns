@@ -103,15 +103,15 @@ namespace Service
             {
                 var model = info.DeserializeJson<Domain.Dinner.OrderModel>();
 
-                string openId = CacheHelper.Get<string>("openId");
+                var user = CacheHelper.Get<Repository.User>("user");
                 string shopId = CacheHelper.Get<string>("dinner-shopId");
-                if (!openId.IsNotNullOrEmpty())
+                if (user==null)
                     return "微信授权过期";
                 if (!shopId.IsNotNullOrEmpty())
                     return "店铺不存在";
                 var addEntity = new DinnerOrder();
                 addEntity.UNID = Guid.NewGuid().ToString("N");
-                addEntity.OpenId = openId;
+                addEntity.OpenId = user.OpenId;
                 addEntity.Details = "";
 
                 decimal totalPrice = 0;
@@ -150,9 +150,9 @@ namespace Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                string openId = CacheHelper.Get<string>("openId");
+                var user = CacheHelper.Get<Repository.User>("user");
                 string shopId = CacheHelper.Get<string>("dinner-shopId");
-                if (!openId.IsNotNullOrEmpty())
+                if (user == null)
                     return null;
                 if (!shopId.IsNotNullOrEmpty())
                     return null;
@@ -160,7 +160,7 @@ namespace Service
                 var model = new Domain.Dinner.OrderModel();
                 //2小时有效订单
                 var limitTime = DateTime.Now.AddHours(-2);
-                var order = entities.DinnerOrder.OrderByDescending(x => x.CreatedTime).FirstOrDefault(x => x.OpenId.Equals(openId) && x.ShopId.Equals(shopId) && x.CreatedTime > limitTime);
+                var order = entities.DinnerOrder.OrderByDescending(x => x.CreatedTime).FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.ShopId.Equals(shopId) && x.CreatedTime > limitTime);
 
                 if (order != null)
                 {

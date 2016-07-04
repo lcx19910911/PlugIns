@@ -1,5 +1,6 @@
 ﻿using Core.Code;
 using Core.Model;
+using IService;
 using Nuoya.Plugins.WeChat.Filters;
 using System;
 using System.Collections.Generic;

@@ -55,7 +55,7 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
             Repository.User user = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user == null || person == null)
-                return Error();
+                return OAuthExpired();
             var result = IUserService.Get_UserScore(user.OpenId, person.UNID, pageIndex);
             return JResult(result);
         }

@@ -40,23 +40,33 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         //[OAuthFilter]
         public ActionResult Index(string unid,string info)
         {
-            //接收微信用户数据
-            if (!string.IsNullOrEmpty(info))
+
+            var userInfoCache = CacheHelper.Get<Repository.User>("user");
+
+            if (!string.IsNullOrEmpty(info) && userInfoCache == null)
             {
-                WXUser model = info.DeserializeJson<WXUser>();
-                if (model != null)
-                {
+                WXUser entity = info.DeserializeJson<WXUser>();
+                if (entity != null)
+                {                 
                     //更新数据
-                    IUserService.Update_User(model);
-                    CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () =>
+                    IUserService.Update_User(entity);
+                    CacheHelper.Get<Repository.User>("user", CacheTimeOption.TwoHour, () =>
                     {
-                        return model.openid;
+                        return userInfoCache = new Repository.User()
+                        {
+                            OpenId = entity.openid,
+                            HeadImgUrl = entity.headimgurl,
+                            NickName = entity.nickname
+                        };
                     });
                 }
             }
+            if (userInfoCache == null)
+                return OAuthExpired();
 
             //判断是否已有订单
             ViewBag.ExistsOrder = this.Request.Cookies["had"] == null ? false : (string.IsNullOrEmpty(this.Request.Cookies["had"].Value) ? false : true);
+
             //店铺id
             if (string.IsNullOrEmpty(unid))
                 unid = CacheHelper.Get<string>("dinner-shopId");

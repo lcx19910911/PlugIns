@@ -47,6 +47,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
             var pagelist = IPuzzleService.Get_PuzzlePageList(pageIndex, pageSize, name,createdTimeStart, createdTimeEnd);
             return JResult(pagelist);
         }
+
         /// <summary>
         /// 增加
         /// </summary>

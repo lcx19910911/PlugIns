@@ -45,7 +45,7 @@
                 <input type="password" name="password" value="">
                 <br>
                 <div class="am-cf">
-                    <input type="button" id="btnSubmit" name="" value="登 录" class="am-btn am-btn-primary  am-btn-block">
+                    <input type="button" id="btnSubmit" name="" value="登 录" class="am-btn am-btn-primary  am-btn-block" onclick="Login()">
                 </div>
             </form>
             <hr>
@@ -56,9 +56,8 @@
 
     <script type="text/javascript">
 
-        $(function () {
+        function Login() {
 
-            $("#btnSubmit").click(function (e) {
                 if (document.forms[0].account.value == "") {
                     $.Nuoya.alert("请输入账号");
                     return false;
@@ -75,8 +74,7 @@
                         $.Nuoya.alert("账号或密码错误");
                     }
                 });
-            });
-        });
+        }
     </script>
 </body>
 </html>

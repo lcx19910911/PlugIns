@@ -118,20 +118,29 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
         //[OAuthFilter]
         public ActionResult Details(string unid,string info)
         {
-            //接收微信用户数据
-            if (!string.IsNullOrEmpty(info))
+            var userInfoCache = CacheHelper.Get<Repository.User>("user");
+
+            if (!string.IsNullOrEmpty(info) && userInfoCache == null)
             {
-                WXUser model = info.DeserializeJson<WXUser>();
-                if (model != null)
+                WXUser entity = info.DeserializeJson<WXUser>();
+                if (entity != null)
                 {
                     //更新数据
-                    IUserService.Update_User(model);
-                    CacheHelper.Get<string>("openId", CacheTimeOption.TwoHour, () =>
+                    IUserService.Update_User(entity);
+                    CacheHelper.Get<Repository.User>("user", CacheTimeOption.TwoHour, () =>
                     {
-                        return model.openid;
+                        return userInfoCache = new Repository.User()
+                        {
+                            OpenId = entity.openid,
+                            HeadImgUrl = entity.headimgurl,
+                            NickName = entity.nickname
+                        };
                     });
                 }
             }
+            if (userInfoCache == null)
+                return OAuthExpired();
+
             var item = IScratchCardService.Show_ScratchCard(unid);
             return View(item);
         }

@@ -22,9 +22,9 @@ namespace Nuoya.Plugins.WeChat.Controllers
             return JResult(false);
         }
 
-        public ActionResult Error()
+        public ActionResult _404()
         {
-            return View("Error");
+            return View();
         }
 
         public ActionResult OAuthExpired()
@@ -35,11 +35,6 @@ namespace Nuoya.Plugins.WeChat.Controllers
         
 
         public ActionResult _505()
-        {
-            return View();
-        }
-
-        public ActionResult TokenNotAvailable()
         {
             return View();
         }

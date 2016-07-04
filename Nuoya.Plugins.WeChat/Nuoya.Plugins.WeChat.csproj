@@ -196,6 +196,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="HtmlTemplates\Com\BindSingle.html" />
     <Content Include="HtmlTemplates\MallCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />
@@ -646,6 +647,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\ApiBaseController.cs" />
+    <Compile Include="App_Start\ApiUnityHttpControllerActivator.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Filters\ApiAuthorizeAttribute.cs" />
@@ -658,6 +660,9 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Com\ComAreaRegistration.cs" />
+    <Compile Include="Areas\Com\Controllers\ComBaseController.cs" />
+    <Compile Include="Areas\Com\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dinner\Controllers\DinnerBaseController.cs" />
     <Compile Include="Areas\Dinner\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Dinner\Controllers\DishController.cs" />
@@ -710,7 +715,7 @@
     <Content Include="Styles\fonts\fontawesome-webfont.woff" />
     <Content Include="Styles\fonts\fontawesome-webfont.woff2" />
     <Content Include="Styles\fonts\FontAwesome.otf" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Base\_404.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\PartialMenu.cshtml" />
     <Content Include="Views\UserJoinCounter\Index.cshtml" />
@@ -758,10 +763,10 @@
     <Content Include="Areas\Mall\Views\Goods\Details.cshtml" />
     <Content Include="Areas\Mall\Views\Order\List.cshtml" />
     <Content Include="Areas\Mall\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Com\Views\web.config" />
     <None Include="Properties\PublishProfiles\plugins.pubxml" />
     <Content Include="Views\WXUser\Index.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
-    <Content Include="Views\Base\TokenNotAvailable.cshtml" />
     <Content Include="Views\Shared\_AreaLayout.cshtml" />
     <Content Include="Scripts\UEditor\third-party\video-js\font\vjs.eot" />
     <Content Include="Scripts\UEditor\third-party\video-js\font\vjs.ttf" />
@@ -783,6 +788,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Com\Models\" />
+    <Folder Include="Areas\Com\Views\Shared\" />
     <Folder Include="Areas\Dinner\Models\" />
     <Folder Include="Areas\Mall\Models\" />
     <Folder Include="Areas\Puzzle\Models\" />

@@ -289,8 +289,10 @@ namespace Service
                 //当前用户的参与状况
                 var hadJoinEntity = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid));
 
-                string openId = CacheHelper.Get<string>("openId");
-                var todayHadJoinCount = hadJoinEntity.Where(x => x.CreatedTime >= startDate && x.CreatedTime < endDate && x.OpenID.Equals(openId)).Count();
+                var user = CacheHelper.Get<Repository.User>("user");
+                if (user == null)
+                    return null;
+                var todayHadJoinCount = hadJoinEntity.Where(x => x.CreatedTime >= startDate && x.CreatedTime < endDate && x.OpenID.Equals(user.OpenId)).Count();
 
                 model.HadPrizeOnePrizeCount = hadJoinEntity.Where(x => x.IsPrize == 1 && x.PrizeGrade == 1).Count();
                 model.HadPrizeTwoPrizeCount = hadJoinEntity.Where(x => x.IsPrize == 1 && x.PrizeGrade == 2).Count();
@@ -340,12 +342,13 @@ namespace Service
                 }
 
                 //当前的微信 openid
-                string openId = CacheHelper.Get<string>("openId");
-                if (!openId.IsNotNullOrEmpty())
+                var user = CacheHelper.Get<Repository.User>("user");
+                if (user == null)
                 {
                     result.Result = "身份授权已过期，请重新刷新页面授权";
                     return result;
                 }
+
                 //参与抽奖的参与情况
                 var hadPrizeList = entities.UserJoinCounter.Where(x => x.TargetCode == (int)TargetCode.ScratchCard && x.TargetID.Equals(unid)).ToList();
                 //一等奖个数
@@ -355,7 +358,7 @@ namespace Service
                 //三等奖个数
                 int threePrizeNum = hadPrizeList.Where(x => x.IsPrize == 1 && x.PrizeGrade == 3).Count();
                 //个人参与总次数
-                int hadJoinCount = hadPrizeList.Where(x => x.OpenID.Equals(openId)).Count();
+                int hadJoinCount = hadPrizeList.Where(x => x.OpenID.Equals(user.OpenId)).Count();
                 if (prizeEntity.AllCountLimt <= hadPrizeList.Count)
                 {
                     result.Result = "对不起，您活动次数已经达到最大次数限制";
@@ -365,7 +368,7 @@ namespace Service
                 var startDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 var endDate = DateTime.Parse(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
                 //当天参与情况
-                if (hadPrizeList.Where(x => x.OpenID.Equals(openId) && x.CreatedTime >= startDate && x.CreatedTime < endDate).Count() >= prizeEntity.DayLimt)
+                if (hadPrizeList.Where(x => x.OpenID.Equals(user.OpenId) && x.CreatedTime >= startDate && x.CreatedTime < endDate).Count() >= prizeEntity.DayLimt)
                 {
                     result.Result = scratchScardEntity.RepeatNotice;
                     return result;
@@ -383,7 +386,7 @@ namespace Service
                 userJoin.CreatedTime = DateTime.Now;
                 userJoin.SN = userJoin.UNID.SubString(16);
                 result.SN = userJoin.SN;
-                userJoin.OpenID = openId;
+                userJoin.OpenID = user.OpenId;
                 userJoin.IsCach = 0;
 
                 //减去已中奖个数
