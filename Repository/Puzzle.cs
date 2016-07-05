@@ -27,6 +27,7 @@ namespace Repository
         public int Score { get; set; }
         public string BindTitle { get; set; }
         public string BindName { get; set; }
+        public string BindLogoUrl { get; set; }
         public string BindUrl { get; set; }
         public System.DateTime OverTime { get; set; }
         public System.DateTime OngoingTime { get; set; }

@@ -11,6 +11,7 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
+    
     public partial class Category
     {
         public string UNID { get; set; }

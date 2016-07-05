@@ -84,6 +84,12 @@
                         ue.setContent(dataitem.Description);
                     });
                 }
+
+                if(dataitem.BindUrl!=null)
+                {
+                    var html = " <tr><td>" + dataitem.BindName + "</td><td><img style='width:120px; margin:0 auto;' src='" + dataitem.BindLogoUrl + "'/></td><td>" + dataitem.BindUrl + "</td></tr>"
+                    $("#comTable").append(html);
+                }
             }
             //添加表单验证
             $.Nuoya.form("form").validate({
@@ -101,17 +107,11 @@
                     Image: {
                         required: true
                     },
-                    Description: {
-                        maxlength: 500
-                    },
 
                     IsShowCompare: {
                         required: true
                     },
                     DifficultyFlag: {
-                        required: true
-                    },
-                    IsBindScore: {
                         required: true
                     },
                     Score: {
@@ -134,17 +134,11 @@
                     Image: {
                         required: "不允许为空"
                     },
-                    Description: {
-                        maxlength: "最多{0}个字符"
-                    },
                     IsShowCompare: {
                         required: "不允许为空"
                     },
                     DifficultyFlag: {
                         required: "不允许为空"
-                    },
-                    IsBindScore: {
-                        maxlength: "最多{0}个字符"
                     },
                     Score: {
                         digits: "请输入数字",
@@ -159,7 +153,7 @@
 
 
             $("#chk_isBindScore").change(function () {
-                if ($(this).checked)
+                if (document.getElementById('chk_isBindScore').checked)
                 {
                     $("#bindScore").show();
                     $("#bindSystem").hide();
@@ -174,18 +168,53 @@
 
             UploadImg();
 
-            $("#bindSystemBtn").click(function () {
 
-                $.Nuoya.action("/Login/Submit", { password: document.forms[0].password.value, account: document.forms[0].account.value }, function (data) {
-                    if (data) {
-                        window.location.href = "@(string.IsNullOrEmpty(Request["redirecturl"])?"/home/index": Request["redirecturl"])";
-                    }
-                    else {
-                        $.Nuoya.alert("账号或密码错误");
+            $("#comTable tbody").html("");
+            $("#bindSystemBtn").click(function () {
+                $.Nuoya.ajaxDialog({
+                    width: ($(window).width() - 400) + "px",
+                    height: ($(window).height() - 300) + "px",
+                    ajaxUrl: "/HtmlTemplates/Com/BindActivitySingle.html?num=" + Math.random(),
+                    title: "选择商品",
+                    callback: function (e) {
+
+                        $.Nuoya.grid({
+                            search: {
+                                domainId: "goodsSearchSingleDomain",
+                                subId: "btnGoodsSearch"
+                            },
+                            tableId: "searchSingletDataTable",
+                            ajaxUrl: "/Com/Home/GetComActivityList?num=" + Math.random(),
+                            pageSize: 10,
+                            events: [
+                                {
+                                    className: "am-text-secondary",
+                                    icon: "icon-pencil-square-o",
+                                    name: "选择",
+                                    click: function (item) {
+                                        $("#comTable tbody").html("");
+                                        $("[name=BindUrl]").val(item.page_url);
+                                        $("[name=BindName]").val(item.ApplyName);
+                                        $("[name=BindLogoUrl]").val(item.LogoUrl);
+                                        var html = " <tr><td>" + item.ApplyName + "</td><td><img style='width:120px; margin:0 auto;' src='" + item.LogoUrl + "'/></td><td>" + item.page_url + "</td></tr>"
+                                        $("#comTable").append(html);
+                                        e.hide();
+                                    }
+                                }
+                            ],
+                            drawCallback: function () {
+                                $.Nuoya.resetModalPosition(e.dialog);
+                            }
+                        });
                     }
                 });
 
             });
+        }
+
+        function ShowLogo(item)
+        {
+            return "<img style='width:120px; margin:0 auto;' src='" + item.LogoUrl + "'/>"
         }
 
 
@@ -196,8 +225,8 @@
                 maximumFilesUpload: 1,//最大文件上传数
                 onComplete: function (data) {
                     if (data) {
-                        $("[name='Image']").val(data.Result);
-                        $("#div_imageShow").find("img").attr("src", data.Result);
+                        $("[name='Image']").val(data);
+                        $("#div_imageShow").find("img").attr("src", data);
                     }
                     else {
                         $.Nuoya.alert("上传错误");

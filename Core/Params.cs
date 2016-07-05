@@ -40,7 +40,12 @@ namespace Core
         /// <summary>
         /// 平台请求登陆接口
         /// </summary>
-        public static readonly string LoginUrl = ConfigurationManager.AppSettings["Com_LoginUrl"];
+        public static readonly string LoginUrl =string.Format("{0}/{1}", ConfigurationManager.AppSettings["Com_Site"], "api/CompanyAccount/Login");
+
+        /// <summary>
+        /// 平台地址
+        /// </summary>
+        public static readonly string ComUrl = ConfigurationManager.AppSettings["Com_Site"];
 
         /// <summary>
         /// 每天签到积分

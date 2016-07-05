@@ -11,6 +11,8 @@ using System.Web;
 using System.Web.Mvc;
 using MPUtil.UserMng;
 using Domain.User;
+using Domain.Com;
+using Core.Model;
 
 namespace Nuoya.Plugins.WeChat.Areas.Com.Controllers
 {
@@ -29,10 +31,23 @@ namespace Nuoya.Plugins.WeChat.Areas.Com.Controllers
             this.IMallGoodsService = _IMallGoodsService;
         }
 
+        /// <summary>
+        /// 获取平台的活动
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetComActivityList()
+        {
+            string url = string.Format("{0}{1}?cid={2}", Params.ComUrl, "api/CompanyComContentExt/GetComContent", 10020);
+            string pageResult=WebHelper.GetPage(url, null, "GET", null, System.Text.Encoding.UTF8);
 
-        //public ActionResult GetComActivity()
-        //{
+            if (string.IsNullOrEmpty(pageResult))
+                return _505();
 
-        //}
+            var result = pageResult.DeserializeJson<ComResult<ActivityModel>>();
+            if(result == null|| result.code != 100|| result.data==null)
+                return _505();
+            var pageListResult=new PageList<ActivityModel>(result.data, 1, result.data.Count, result.data.Count);
+            return JResult(pageListResult);
+        }
     }
 }

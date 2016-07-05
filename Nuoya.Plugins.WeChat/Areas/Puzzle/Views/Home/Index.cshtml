@@ -165,11 +165,11 @@
                             <td>
                                 <div class="alert-main">
                                     <close class="close">×</close>
-                                    <div class="title"></div>
+                                    <div class="title">@Model.BindTitle</div>
                                     <div class="content">
-                                        <div id="bindName"></div>
+                                        <div id="bindName">@Model.BindName</div>
                                         <div class="signBtn">
-                                            <a id="sign-btn">签到</a>
+                                            <a id="sign-btn" href="@Model.BindUrl">领取</a>
                                         </div>
                                     </div>
                                 </div>

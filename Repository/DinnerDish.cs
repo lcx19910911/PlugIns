@@ -11,7 +11,7 @@ namespace Repository
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class DinnerDish
     {
         public string UNID { get; set; }

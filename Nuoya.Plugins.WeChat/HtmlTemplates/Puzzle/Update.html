@@ -29,9 +29,9 @@
                             活动时间
                         </div>
                         <div class="am-u-md-6">
-                            <input type="text" name="OngoingTime" style="width:170px;float:left;" readonly onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" datatype="jsondate" />
+                            <input type="text" name="OngoingTime" style="width:170px;float:left;" readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" datatype="jsondate" />
                             <label class="am-u-md-1 am-text-left">-</label>
-                            <input type="text" name="OverTime" style="width:170px;float:left;" readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" datatype="jsondate" />
+                            <input type="text" name="OverTime" style="width:170px;float:left;" readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" datatype="jsondate" />
                         </div>
                         <div class="am-hide-sm-only am-u-md-3 am-text-left"></div>
                     </div>
@@ -139,12 +139,13 @@
                                 绑定平台活动
                             </div>
                             <div class="am-u-md-3">
-                                <button id="bindSystemBtn">选择</button>
+                                <a id="bindSystemBtn" style="float:left">选择</a>
                                 <input type="hidden" name="BindUrl" />
+                                <input type="hidden" name="BindName" />
+                                <input type="hidden" name="BindLogoUrl" />
                             </div>
                             <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填 ，拼图完成时，跳转到所选的平台活动</div>
                         </div>
-
                         <div class="am-g am-margin-top">
                             <div class="am-u-md-3 am-text-right">                               
                             </div>
@@ -152,17 +153,13 @@
                                 <table class="am-table am-table-bordered am-table-striped am-table-compact">
                                     <thead>
                                         <tr>
-                                            <th>网站名称</th>
-                                            <th>网址</th>
-                                            <th>创建时间</th>
+                                            <th>活动类型名称</th>
+                                            <th>图片</th>
+                                            <th>链接</th>
                                         </tr>
                                     </thead> 
-                                    <tbody>
-                                        <tr>
-                                            <td>Amaze UI</td>
-                                            <td>http://amazeui.org</td>
-                                            <td>2012-10-01</td>
-                                        </tr>
+                                    <tbody  id="comTable">
+                                       
                                     </tbody>
                                 </table>
                             </div>

@@ -196,7 +196,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="HtmlTemplates\Com\BindSingle.html" />
+    <Content Include="HtmlTemplates\Com\BindActivitySingle.html" />
     <Content Include="HtmlTemplates\MallCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerCategory\Update.html" />
     <Content Include="HtmlTemplates\DinnerDish\Update.html" />

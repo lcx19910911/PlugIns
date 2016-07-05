@@ -128,7 +128,7 @@ namespace Service
                     oldEntity.BindUrl = model.BindUrl;
                     oldEntity.OngoingTime = model.OngoingTime;
                     oldEntity.OverTime = model.OverTime;
-
+                    oldEntity.BindLogoUrl = model.BindLogoUrl;
                 }
                 else
                     return "数据为空";

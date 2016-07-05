@@ -137,7 +137,7 @@ a,img,button,input,textarea {
     text-align: center;
 }
 .wx_nav a:before{
-    background-image:url("../img/opcity.png");
+    background-image:url("/img/opcity.png");
     background-repeat:no-repeat;
     background-size:340px 20px;
     -webkit-background-size:340px 20px;
@@ -177,7 +177,7 @@ a,img,button,input,textarea {
     color:lightseagreen;
 }
 .wx_nav a:active:before,.wx_nav a.nav_shopcart:before{
-    background-image:url("../img/greenicon.png");
+    background-image:url("/img/greenicon.png");
     background-repeat:no-repeat;
     background-size:340px 20px;
     -webkit-background-size:340px 20px;

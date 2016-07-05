@@ -47,6 +47,8 @@
     <Compile Include="API\ApiScratchCardModel.cs" />
     <Compile Include="API\ApiUserJoinCounterModel.cs" />
     <Compile Include="API\ApiUserModel.cs" />
+    <Compile Include="Com\ActivityModel.cs" />
+    <Compile Include="Com\ComResult.cs" />
     <Compile Include="Dinner\DinnerCategory\Update.cs" />
     <Compile Include="Dinner\DinnerDish\List.cs" />
     <Compile Include="Dinner\DinnerShop\List.cs" />
