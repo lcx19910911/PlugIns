@@ -31,15 +31,21 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string unid)
+        public ActionResult Index(string unid,string personId)
         {
+            var model = new Repository.Puzzle();
+            ViewData["LastOne"] = false;
+            if (!string.IsNullOrEmpty(personId))
+            {
+                model = IPuzzleService.Get_NextPuzzle(unid,"", personId);
+                return View(model);
+            }
             var user = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (user == null|| person==null)
                 return OAuthExpired();
 
-            var model = IPuzzleService.Get_NextPuzzle(unid, user.OpenId,person.UNID) ;
-            ViewData["LastOne"] = false;
+            model = IPuzzleService.Get_NextPuzzle(unid, user.OpenId,person.UNID) ;
             if (model == null||model.UNID.Equals(unid))
                 ViewData["LastOne"] = true;
 

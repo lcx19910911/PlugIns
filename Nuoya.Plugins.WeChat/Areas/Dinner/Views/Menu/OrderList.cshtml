@@ -105,7 +105,7 @@
         $.ajax({
             url: "OrderSubmit",
             type: "post",
-            data: { "info": JSON.stringify(data) },
+            data: { "orderInfo": JSON.stringify(data) },
             success: function (rv) {
                 if (rv.Result=="") {
                     $.cookie('cart', "");

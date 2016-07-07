@@ -169,8 +169,8 @@
             UploadImg();
 
 
-            $("#comTable tbody").html("");
             $("#bindSystemBtn").click(function () {
+
                 $.Nuoya.ajaxDialog({
                     width: ($(window).width() - 400) + "px",
                     height: ($(window).height() - 300) + "px",
@@ -192,7 +192,7 @@
                                     icon: "icon-pencil-square-o",
                                     name: "选择",
                                     click: function (item) {
-                                        $("#comTable tbody").html("");
+                                        $("#comTable").html("");
                                         $("[name=BindUrl]").val(item.page_url);
                                         $("[name=BindName]").val(item.ApplyName);
                                         $("[name=BindLogoUrl]").val(item.LogoUrl);
@@ -446,7 +446,7 @@
                     icon: "icon-firefox",
                     name: "预览",
                     click: function (item) {
-                        window.open("/Puzzle/home/index?unid=" + item.UNID);
+                        window.open("/Puzzle/home/index?unid=" + item.UNID + "&personId=@((Session["LoginUser"] as Core.Model.LoginUser).UNID)");
                     }
                 }
             ]

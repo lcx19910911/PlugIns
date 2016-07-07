@@ -38,7 +38,6 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
         public ActionResult Index(string info,string comId)
         {
             //接收微信用户数据
-
             var userInfoCache = CacheHelper.Get<Repository.User>("user");
             var person = CacheHelper.Get<Person>("person");
             if (person==null&&!string.IsNullOrEmpty(comId))

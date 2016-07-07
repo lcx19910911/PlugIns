@@ -191,8 +191,8 @@ namespace Service
                 if (unid.IsNotNullOrEmpty())
                 {
                     int index = ongingList.FindIndex(x => x.UNID.Equals(unid));
-                    if (ongingList.Count > index + 1)
-                        return ongingList[index + 1];
+                    if (ongingList.Count >= index + 1)
+                        return ongingList[index];
                     else
                         return ongingList[0];
                 }

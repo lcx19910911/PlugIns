@@ -40,6 +40,7 @@ namespace Nuoya.Plugins.WeChat.Filters
             var actionMethodList = filterContext.Controller.GetType().GetMethods();
             string requestUrl = filterContext.HttpContext.Request.Url.ToString();
             string token = filterContext.HttpContext.Request["token"];
+            string info = filterContext.HttpContext.Request["info"];
 
             //判断用户token是否有效
             if (!string.IsNullOrEmpty(token))

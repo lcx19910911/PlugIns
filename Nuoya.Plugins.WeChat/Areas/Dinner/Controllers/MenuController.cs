@@ -130,12 +130,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         /// <summary>
         /// 确认订单提交给后台
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="orderInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult OrderSubmit(string info)
+        public ActionResult OrderSubmit(string orderInfo)
         {
-            return JResult(IDinnerOrderService.Add_DinnerOrder(info));
+            return JResult(IDinnerOrderService.Add_DinnerOrder(orderInfo));
         }
         #endregion
 

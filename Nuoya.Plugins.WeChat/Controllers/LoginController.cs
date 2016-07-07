@@ -10,6 +10,7 @@ using Core.Helper;
 using Core;
 using Nuoya.Plugins.WeChat.Filters;
 using Core.Model;
+using System.Threading.Tasks;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {
@@ -24,9 +25,12 @@ namespace Nuoya.Plugins.WeChat.Controllers
         }
 
         // GET: Login
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            return await Task.Run(() =>
+            {
+                return View();
+            });
         }
 
         /// <summary>
