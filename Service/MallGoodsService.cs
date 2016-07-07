@@ -271,7 +271,7 @@ namespace Service
                 if (entity != null)
                 {
                     model.Goods = entity;
-                    model.GoodsDetails = entities.GoodsDetails.Where(x => x.GoodsId.Equals(unid)).ToList();
+                    model.GoodsDetails = entities.GoodsDetails.Where(x => x.GoodsId.Equals(unid)).OrderBy(x=>x.Sort).ToList();
                 }
                 return model;
             }

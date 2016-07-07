@@ -261,7 +261,7 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 //找到实体
-                var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeGoods && x.PersonId.Equals(personId)).ToList(); 
+                var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeGoods && x.PersonId.Equals(personId)).OrderBy(x=>x.Sort).ToList(); 
                 var recommendIdList= recommendList.Select(x=>x.TargetID).ToList();
 
                 List<Tuple<Repository.Goods, string>> list = new List<Tuple<Goods, string>>();
@@ -284,7 +284,7 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 //找到实体
-                var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeCategory && x.PersonId.Equals(personId)).ToList();
+                var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeCategory && x.PersonId.Equals(personId)).OrderBy(x => x.Sort).ToList();
                 var recommendIdList = recommendList.Select(x => x.TargetID).ToList();
 
                 List<Tuple<Repository.Category, string>> list = new List<Tuple<Category, string>>();
