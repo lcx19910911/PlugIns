@@ -35,9 +35,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Com.Controllers
         /// 获取平台的活动
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetComActivityList()
+        public ActionResult GetComActivityList(int type)
         {
-            string url = string.Format("{0}{1}?cid={2}", Params.ComUrl, "api/CompanyComContentExt/GetComContent",this.LoginUser.UNID);
+            string url = string.Format("{0}{1}?cid={2}", Params.ComUrl, "api/CompanyComContentExt/GetComContent", 10020);
             string pageResult=WebHelper.GetPage(url, null, "GET", null, System.Text.Encoding.UTF8);
 
             if (string.IsNullOrEmpty(pageResult))
@@ -46,6 +46,8 @@ namespace Nuoya.Plugins.WeChat.Areas.Com.Controllers
             var result = pageResult.DeserializeJson<ComResult<ActivityModel>>();
             if(result == null|| result.code != 100|| result.data==null)
                 return _505();
+            //排除自身
+            result.data.RemoveAll(x => x.FK_ApplyID == type);
             var pageListResult=new PageList<ActivityModel>(result.data, 1, result.data.Count, result.data.Count);
             return JResult(pageListResult);
         }

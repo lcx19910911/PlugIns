@@ -175,7 +175,7 @@
                     width: ($(window).width() - 400) + "px",
                     height: ($(window).height() - 300) + "px",
                     ajaxUrl: "/HtmlTemplates/Com/BindActivitySingle.html?num=" + Math.random(),
-                    title: "选择商品",
+                    title: "选择活动",
                     callback: function (e) {
 
                         $.Nuoya.grid({
@@ -184,7 +184,7 @@
                                 subId: "btnGoodsSearch"
                             },
                             tableId: "searchSingletDataTable",
-                            ajaxUrl: "/Com/Home/GetComActivityList?num=" + Math.random(),
+                            ajaxUrl: "/Com/Home/GetComActivityList?type=14&num=" + Math.random(),
                             pageSize: 10,
                             events: [
                                 {
@@ -446,7 +446,7 @@
                     icon: "icon-firefox",
                     name: "预览",
                     click: function (item) {
-                        window.open("/Puzzle/home/index?unid=" + item.UNID + "&personId=@((Session["LoginUser"] as Core.Model.LoginUser).UNID)");
+                        window.open("/Puzzle/home/index?unid=" + item.UNID);
                     }
                 }
             ]

@@ -10,6 +10,9 @@ namespace Domain.Com
     {
         public int ComContentID { get; set; }
 
+        /// <summary>
+        /// 拼图 14  积分商城 15
+        /// </summary>
         public int FK_ApplyID { get; set; }
 
         //活动类型名
