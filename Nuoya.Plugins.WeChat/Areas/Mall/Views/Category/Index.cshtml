@@ -40,6 +40,7 @@
             <tr>
                 <th dataname="UNID" type="checkbox"></th>
                 <th dataname="Name">分类名称</th>
+                <th render="showImg">图片</th>
                 <th dataname="Sort">排序</th>
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
@@ -53,6 +54,10 @@
     <script type="text/javascript">
         function ClearFilter() {
             $("#searchDomain input").val("");
+        }
+        function showImg(item) {
+            if (item.Image != "")
+                return '<img src="' + item.Image + '" style="width:35px;height:35px;"/>';
         }
 
         //批量删除

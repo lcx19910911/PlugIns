@@ -255,7 +255,8 @@ namespace Service
                             CreatedTime = x.CreatedTime,
                             Name = x.Name,
                             UpdatedTime = x.UpdatedTime,
-                            Sort = x.Sort
+                            Sort = x.Sort,
+                            Image=x.Image
                         });
                     }
                 });
