@@ -37,7 +37,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Com.Controllers
         /// <returns></returns>
         public ActionResult GetComActivityList()
         {
-            string url = string.Format("{0}{1}?cid={2}", Params.ComUrl, "api/CompanyComContentExt/GetComContent", 10020);
+            string url = string.Format("{0}{1}?cid={2}", Params.ComUrl, "api/CompanyComContentExt/GetComContent",this.LoginUser.UNID);
             string pageResult=WebHelper.GetPage(url, null, "GET", null, System.Text.Encoding.UTF8);
 
             if (string.IsNullOrEmpty(pageResult))

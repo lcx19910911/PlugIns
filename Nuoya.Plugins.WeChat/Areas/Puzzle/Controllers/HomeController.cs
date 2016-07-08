@@ -37,7 +37,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
             ViewData["LastOne"] = false;
             if (!string.IsNullOrEmpty(personId))
             {
-                model = IPuzzleService.Get_NextPuzzle(unid,"", personId);
+                model = IPuzzleService.Find_Puzzle(unid);
                 return View(model);
             }
             var user = CacheHelper.Get<Repository.User>("user");
