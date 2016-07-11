@@ -68,7 +68,6 @@ namespace Service
                         {
                             UNID = x.UNID,
                             CreatedTime = x.CreatedTime,
-                            KeyWord = x.KeyWord,
                             Name = x.Name,
                             OngoingTime = x.OngoingTime,
                             OverTime = x.OverTime,

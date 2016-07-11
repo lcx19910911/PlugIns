@@ -23,7 +23,7 @@ namespace IService
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
-        PageList<Goods> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd);
+        PageList<Domain.Mall.Goods.List> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd);
 
         /// <summary>
         /// 增加

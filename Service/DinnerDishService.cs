@@ -59,6 +59,7 @@ namespace Service
 
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
                 var categoryIdList = list.Select(x => x.CategoryId).ToList();
             
                 var categoryList = entities.Category.Where(x => categoryIdList.Contains(x.UNID)).ToList();

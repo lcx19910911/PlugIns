@@ -35,7 +35,7 @@ namespace Service
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
         /// <returns></returns>
-        public PageList<Goods> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        public PageList<Domain.Mall.Goods.List> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -61,7 +61,27 @@ namespace Service
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
-                return CreatePageList(list, pageIndex, pageSize, count);
+                var categoryIdList = list.Select(x => x.CategoryId).ToList();
+
+                var categoryList = entities.Category.Where(x => categoryIdList.Contains(x.UNID)).ToList();
+
+                var returnList = new List<Domain.Mall.Goods.List>();
+                list.ForEach(x =>
+                {
+                    returnList.Add(new Domain.Mall.Goods.List()
+                    {
+                        UNID = x.UNID,
+                        CategoryName = categoryList.FirstOrDefault(y => y.UNID.Equals(x.CategoryId))?.Name,
+                        CreatedTime = x.CreatedTime,
+                        Name = x.Name,
+                        SellingPrice=x.SellingPrice,
+                        StockNum=x.StockNum,
+                        OngoingTime=x.OngoingTime,
+                        OverTime=x.OverTime
+                    });
+                });
+
+                return CreatePageList(returnList, pageIndex, pageSize, count);
             }
         }
 

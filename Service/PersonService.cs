@@ -15,7 +15,7 @@ using System.Web;
 
 namespace Service
 {
-    /// <summary>
+    /// <summary 
     /// 人员
     /// </summary>
     public class PersonService : BaseService, IPersonService

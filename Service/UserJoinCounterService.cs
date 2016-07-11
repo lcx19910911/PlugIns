@@ -156,7 +156,7 @@ namespace Service
                             SN = x.SN,
                             TargetCode = EnumHelper.GetEnumDescription((TargetCode)x.TargetCode),
                             IsCach = x.IsPrize == 1 ? (x.IsCach == 1 ? "已兑奖" : "未兑奖") : "",
-                            CashTime = x.IsPrize == 1 ? (x.IsCach == 1 ? x.CachTime : null) : null
+                            CashTime = x.IsPrize == 1 ? (x.IsCach == 1 ? x?.CachTime : null) : null
                         });
                     }
                 });

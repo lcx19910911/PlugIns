@@ -81,12 +81,16 @@ namespace Service
                 }
 
                 var returnList = new List<Domain.Mall.Order.OrderModel>();
+
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
                 var openIdArry = list.Select(x => x.OpenId).ToList();
                 var goodsIdArry = list.Select(x => x.GoodsId).ToList();
+
                 goodsList = entities.Goods.Where(x =>goodsIdArry.Contains(x.UNID)).ToList();
                 userList = entities.User.Where(x => openIdArry.Contains(x.OpenId)).ToList();
+
                 list.ForEach(x =>
                 {
                     if (x != null)
