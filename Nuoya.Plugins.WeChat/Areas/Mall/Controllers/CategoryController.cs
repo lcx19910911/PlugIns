@@ -60,6 +60,18 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
             return JResult(result);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="unids"</param>
+        /// <returns></returns>
+        [LoginFilter]
+        public JsonResult Delete(string unids)
+        {
+            var result = ICategoryService.Delete_MallCategory(unids);
+            return JResult(result);
+        }
+
 
         /// <summary>
         /// 修改

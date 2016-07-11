@@ -347,11 +347,8 @@ namespace Service
                 //找到实体
                 entities.Category.Where(x => unids.Contains(x.UNID)).ToList().ForEach(x =>
                 {
-                    entities.Goods.Where(y => y.CategoryId.Equals(x.UNID)).ToList().ForEach(y =>
-                    {
-                        y.Flag = (y.Flag | (long)GlobalFlag.Removed);
-                    });
 
+                    entities.Category.Remove(x);
                     //删除推荐
                     var reconmend = entities.Recommend.FirstOrDefault(z => z.TargetID.Equals(x.UNID));
                     if (reconmend != null)
