@@ -36,18 +36,18 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string info,string comId)
+        public ActionResult Index(string info, string comId)
         {
             //接收微信用户数据
             var userInfoCache = CookieHelper.GetCurrentWxUser();
             var person = CookieHelper.GetCurrentPeople();
-            if (person==null&&!string.IsNullOrEmpty(comId))
+            if (person == null && !string.IsNullOrEmpty(comId))
             {
-                    var personInfo=IPersonService.Get_ByComId(comId.GetInt());
+                var personInfo = IPersonService.Get_ByComId(comId.GetInt());
                 CookieHelper.CreatePeople(personInfo);
             }
             UserCenterModel model = new UserCenterModel();
-            if (!string.IsNullOrEmpty(info)&& userInfoCache==null)
+            if (!string.IsNullOrEmpty(info) && userInfoCache == null)
             {
                 WXUser entity = info.DeserializeJson<WXUser>();
                 if (entity != null)
@@ -62,21 +62,17 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                     CookieHelper.CreateWxUser(entity);
                 }
             }
-            if (userInfoCache == null|| person==null)
-                return OAuthExpired();
-            else
-            {
-                model.User = new Repository.User()
-                {
-                    HeadImgUrl = userInfoCache.headimgurl,
-                    NickName = userInfoCache.nickname
-                };
-                model.Score = IUserService.Find_PersonUserScore(person.UNID,userInfoCache.openid);
-                var signModel = IUserSignService.Get_LastSign(userInfoCache.openid, person.UNID);
-                model.SignNum = signModel == null ? 0 : (signModel.SignDate == DateTime.Now.Date|| signModel.SignDate == DateTime.Now.AddDays(-1).Date ? signModel.SignNum : 0);
 
-                return View(model);
-            }
+            model.User = new Repository.User()
+            {
+                HeadImgUrl = userInfoCache.headimgurl,
+                NickName = userInfoCache.nickname
+            };
+            model.Score = IUserService.Find_PersonUserScore(person.UNID, userInfoCache.openid);
+            var signModel = IUserSignService.Get_LastSign(userInfoCache.openid, person.UNID);
+            model.SignNum = signModel == null ? 0 : (signModel.SignDate == DateTime.Now.Date || signModel.SignDate == DateTime.Now.AddDays(-1).Date ? signModel.SignNum : 0);
+
+            return View(model);
         }
     }
 }

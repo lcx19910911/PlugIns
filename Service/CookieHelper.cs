@@ -53,8 +53,7 @@ namespace Service
             try
             {
                 HttpCookie cookie = new HttpCookie(Params.PeopleCookieName);
-                var obj = new LoginUser(person);
-                cookie.Value = CryptoHelper.AES_Encrypt(obj.ToJson(), Params.SecretKey);
+                cookie.Value = CryptoHelper.AES_Encrypt(person.ToJson(), Params.SecretKey);
                 cookie.Expires = DateTime.Now.AddMinutes(120);
                 // 写登录Cookie
                 HttpContext.Current.Response.Cookies.Remove(cookie.Name);
@@ -72,8 +71,8 @@ namespace Service
             HttpCookie cookie = HttpContext.Current.Request.Cookies[Params.PeopleCookieName];
             if (cookie == null)
                 return null;
-            Person people = (CryptoHelper.AES_Decrypt(cookie.Value, Params.SecretKey)).DeserializeJson<Person>();
-            return people;
+            string value = CryptoHelper.AES_Decrypt(cookie.Value, Params.SecretKey);
+            return value.DeserializeJson<Person>();
         }
 
 

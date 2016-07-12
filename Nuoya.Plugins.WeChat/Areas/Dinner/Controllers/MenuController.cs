@@ -21,15 +21,17 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
     {
         public ICategoryService IDinnerCategoryService;
         public IDinnerDishService IDinnerDishService;
+        public IDinnerShopService IDinnerShopService;
         public IDinnerOrderService IDinnerOrderService;
         public IUserService IUserService;
 
-        public MenuController(ICategoryService _IDinnerCategoryService, IDinnerDishService _IDinnerDishService, IDinnerOrderService _IDinnerOrderService, IUserService _IUserService)
+        public MenuController(ICategoryService _IDinnerCategoryService, IDinnerDishService _IDinnerDishService, IDinnerOrderService _IDinnerOrderService, IUserService _IUserService, IDinnerShopService _IDinnerShopService)
         {
             this.IDinnerCategoryService = _IDinnerCategoryService;
             this.IDinnerDishService = _IDinnerDishService;
             this.IDinnerOrderService = _IDinnerOrderService;
             this.IUserService = _IUserService;
+            this.IDinnerShopService = _IDinnerShopService;
         }
 
         /// <summary>
@@ -70,6 +72,15 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
             }
             else
             {
+                var entity = IDinnerShopService.Find_DinnerShop(unid);
+                if (entity != null)
+                {
+                    var startTime = DateTime.Parse(entity.StartShoptime);
+                    var endTime = DateTime.Parse(entity.EndShoptime);
+                    var nowTime = DateTime.Parse(DateTime.Now.Hour+":"+DateTime.Now.Minute);
+                    if (nowTime < startTime || nowTime > endTime)
+                        return Content("抱歉，还没到营业时间");
+                }
                 var item = IDinnerCategoryService.Get_ItemByShopId(unid);
                 return View(item);
             }

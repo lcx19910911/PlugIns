@@ -6,7 +6,8 @@
 }
 
 <div class="am-cf am-padding">
-    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">@(Request["state"]=="0"?"未处理":(Request["state"] == "1" ?"确认":"无效"))订单</strong></div>
+
+    <div class="am-fl am-cf"><a href="/"><strong class="am-text-primary am-text-lg">首页</strong></a> /<small>@(Request["state"] == "0" ? "未处理" : (Request["state"] == "1" ? "确认" : "无效"))订单</small></div>
 </div>
 <div id="searchDomain">
     <input type="hidden" name="state" value="@(Request["state"])" />
