@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="AutoMapperExtension.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="CookieHelper.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="MallGoodsService.cs" />
     <Compile Include="PuzzleService.cs" />

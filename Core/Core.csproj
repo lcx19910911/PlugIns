@@ -109,7 +109,6 @@
     <Compile Include="Extensions\ProtobufExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
-    <Compile Include="Helper\CookieHelper.cs" />
     <Compile Include="Helper\CryptoHelper.cs" />
     <Compile Include="Helper\EditorHelper.cs" />
     <Compile Include="Helper\EntityHelper.cs" />

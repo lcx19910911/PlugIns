@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using IService;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.Web;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
 {
@@ -109,8 +110,8 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public ActionResult AllGoods(string categoryId)
         {
-            Repository.User user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return OAuthExpired();
 
@@ -126,12 +127,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public ActionResult Details(string unid)
         {
-            Repository.User user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return OAuthExpired();
 
-            ViewData["userScore"]=IUserService.Find_PersonUserScore(person.UNID, user.OpenId);
+            ViewData["userScore"]=IUserService.Find_PersonUserScore(person.UNID, user.openid);
             var goods = IMallGoodsService.Find_MallGoods(unid);
             if(goods==null)
                 return OAuthExpired();

@@ -151,13 +151,13 @@ namespace Service
                 || model.Count == 0
                 )
                 return "数据错误";
-            var user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return "身份验证过期";
             using (DbRepository entities = new DbRepository())
             {
-                var userEntity = entities.User.Find(user.OpenId);
+                var userEntity = entities.User.Find(user.openid);
                 if (userEntity == null)
                     return "用户不存在";
 
@@ -178,7 +178,7 @@ namespace Service
                 //积分总计
                 model.ScoreNum = model.Count * goods.ScoreNum;
 
-                var userScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                var userScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.openid) && x.PersonId.Equals(person.UNID));
                 if (userScore == null || userScore.Score < model.ScoreNum)
                     return "用户积分不足";
 
@@ -189,7 +189,7 @@ namespace Service
                 var scoreDetials = new ScoreDetails()
                 {
                     UNID = Guid.NewGuid().ToString("N"),
-                    OpenId = user.OpenId,
+                    OpenId = user.openid,
                     CreatedTime = DateTime.Now,
                     Description = string.Format("购买商品：{0}，数量{1}，消费积分{2}", goods.Name, model.Count, model.Count * goods.ScoreNum),
                     IsAdd = (int)YesOrNoCode.No,
@@ -201,7 +201,7 @@ namespace Service
 
 
                 model.UNID = Guid.NewGuid().ToString("N");
-                model.OpenId = user.OpenId;
+                model.OpenId = user.openid;
                 model.PersonId = person.UNID;
                 model.AllPrice = model.Count * goods.SellingPrice;
                 model.CreatedTime = DateTime.Now;

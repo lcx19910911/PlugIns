@@ -237,8 +237,8 @@ namespace Service
         /// <returns>操作结果  提示语句  是否绑定平台活动  平台活动名 绑定地址</returns>
         public Tuple<bool, string, bool, string, string> Complete(string unid)
         {
-            var user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return new Tuple<bool, string, bool, string, string>(false,"身份过期", false, "", "");
             using (DbRepository entities = new DbRepository())
@@ -255,7 +255,7 @@ namespace Service
                 var userPuzzle = new UserPuzzle()
                 {
                     UNID = Guid.NewGuid().ToString("N"),
-                    OpenId = user.OpenId,
+                    OpenId = user.openid,
                     PuzzleDate = dateTime,
                     PuzzleId = unid
                 };
@@ -267,7 +267,7 @@ namespace Service
                     var scoreDetials = new ScoreDetails()
                     {
                         UNID = Guid.NewGuid().ToString("N"),
-                        OpenId = user.OpenId,
+                        OpenId = user.openid,
                         CreatedTime = DateTime.Now,
                         Description = "完成拼图获得积分",
                         IsAdd = (int)YesOrNoCode.Yes,
@@ -279,13 +279,13 @@ namespace Service
 
                     entities.ScoreDetails.Add(scoreDetials);
                     //用户积分增加
-                    var updateUserScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                    var updateUserScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.openid) && x.PersonId.Equals(person.UNID));
                     if (updateUserScore == null)
                     {
                         var addUserScore = new UserScore()
                         {
                             UNID = Guid.NewGuid().ToString("N"),
-                            OpenId = user.OpenId,
+                            OpenId = user.openid,
                             PersonId = person.UNID,
                             Score = puzzle.Score
                         };

@@ -57,6 +57,6 @@ namespace Repository
         /// 创建时间
         /// </summary>
         [Display(Name = "创建时间")]
-        public System.DateTime CachTime { get; set; }
+        public Nullable<System.DateTime> CachTime { get; set; }
     }
 }

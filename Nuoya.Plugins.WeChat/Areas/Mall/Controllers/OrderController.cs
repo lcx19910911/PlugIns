@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using IService;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.Web;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
 {
@@ -68,12 +69,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public ActionResult List()
         {
-            Repository.User user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return OAuthExpired();
 
-            var orderList = IMallOrderService.Get_AllOrderList(user.OpenId,person.UNID);
+            var orderList = IMallOrderService.Get_AllOrderList(user.openid,person.UNID);
             return View(orderList);
         }
     }

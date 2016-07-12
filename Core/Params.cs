@@ -60,6 +60,11 @@ namespace Core
         /// <summary>
         /// 登陆cookie
         /// </summary>
-        public static readonly string CookieName = FormsAuthentication.FormsCookieName;
+        public static readonly string UserCookieName = "wechat_user";
+
+        /// <summary>
+        /// 登陆cookie
+        /// </summary>
+        public static readonly string PeopleCookieName = "web_people";
     }
 }

@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using MPUtil.UserMng;
 using Domain.User;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
 {
@@ -35,8 +36,8 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            Repository.User user=CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user =CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user==null|| person==null)
                 return OAuthExpired();
             UserCenterModel model = new UserCenterModel();

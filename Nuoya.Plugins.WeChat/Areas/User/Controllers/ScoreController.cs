@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using MPUtil.UserMng;
 using Domain.User;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
 {
@@ -33,16 +34,19 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            Repository.User user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return OAuthExpired();
-            int score = IUserService.Find_PersonUserScore(person.UNID, user.OpenId);
-            var list = IUserService.Get_UserScore(user.OpenId, person.UNID, 1);
+            int score = IUserService.Find_PersonUserScore(person.UNID, user.openid);
+            var list = IUserService.Get_UserScore(user.openid, person.UNID, 1);
             if(list == null)
                 return OAuthExpired();
             else
-                return View( new Tuple<int, Repository.User, List<Repository.ScoreDetails>>(score, user, list));
+                return View( new Tuple<int, Repository.User, List<Repository.ScoreDetails>>(score, new Repository.User() {
+                    NickName=user.nickname,
+                    HeadImgUrl=user.headimgurl
+                }, list));
         }
 
         /// <summary>
@@ -52,11 +56,11 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
         /// <returns></returns>
         public ActionResult LoadMore(int pageIndex=1)
         {
-            Repository.User user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return OAuthExpired();
-            var result = IUserService.Get_UserScore(user.OpenId, person.UNID, pageIndex);
+            var result = IUserService.Get_UserScore(user.openid, person.UNID, pageIndex);
             return JResult(result);
         }
     }

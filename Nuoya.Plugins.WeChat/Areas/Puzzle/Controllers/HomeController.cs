@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using MPUtil.UserMng;
 using Domain.User;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
 {
@@ -40,12 +41,12 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
                 model = IPuzzleService.Find_Puzzle(unid);
                 return View(model);
             }
-            var user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null|| person==null)
                 return OAuthExpired();
 
-            model = IPuzzleService.Get_NextPuzzle(unid, user.OpenId,person.UNID) ;
+            model = IPuzzleService.Get_NextPuzzle(unid, user.openid,person.UNID) ;
             if (model == null||model.UNID.Equals(unid))
                 ViewData["LastOne"] = true;
 

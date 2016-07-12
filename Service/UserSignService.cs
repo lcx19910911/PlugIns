@@ -36,17 +36,17 @@ namespace Service
         /// <returns></returns>
         public bool User_Sign()
         {
-            var user = CacheHelper.Get<Repository.User>("user");
-            var person = CacheHelper.Get<Person>("person");
+            var user = CookieHelper.GetCurrentWxUser();
+            var person = CookieHelper.GetCurrentPeople();
             if (user == null || person == null)
                 return false;
             using (DbRepository entities = new DbRepository())
             {
-                var userEntity = entities.User.Find(user.OpenId);
+                var userEntity = entities.User.Find(user.openid);
                 if (userEntity == null)
                     return false;
                 var yesterday =DateTime.Now.AddDays(-1).Date;
-                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.OpenId)&&x.PersonId.Equals(person.UNID)).OrderByDescending(x => x.SignDate).First();
+                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.openid) &&x.PersonId.Equals(person.UNID)).OrderByDescending(x => x.SignDate).First();
 
                 //判断今天是否已签到
                 if (lastSign.SignDate > yesterday)
@@ -60,7 +60,7 @@ namespace Service
                     {
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
-                        OpenId = user.OpenId,
+                        OpenId = user.openid,
                         PersonId=person.UNID
                     };
                     if (lastSign.SignDate == yesterday)
@@ -73,7 +73,7 @@ namespace Service
                             var tenScoreDetials = new ScoreDetails()
                             {
                                 UNID = Guid.NewGuid().ToString("N"),
-                                OpenId = user.OpenId,
+                                OpenId = user.openid,
                                 CreatedTime = DateTime.Now,
                                 Description = "连续签到10天获得积分",
                                 IsAdd = (int)YesOrNoCode.Yes,
@@ -84,13 +84,13 @@ namespace Service
                             entities.ScoreDetails.Add(tenScoreDetials);
 
                             //是否初次签到
-                            var userScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                            var userScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.openid) && x.PersonId.Equals(person.UNID));
                             if (userScore == null)
                             {
                                 var addUserScore = new UserScore()
                                 {
                                     UNID = Guid.NewGuid().ToString("N"),
-                                    OpenId = user.OpenId,
+                                    OpenId = user.openid,
                                     PersonId = person.UNID,
                                     Score = Params.TendayScore
                                 };
@@ -115,7 +115,7 @@ namespace Service
                         UNID = Guid.NewGuid().ToString("N"),
                         SignDate = DateTime.Now,
                         SignNum = 1,
-                        OpenId = user.OpenId,
+                        OpenId = user.openid,
                         PersonId = person.UNID
                     };
                     entities.UserSign.Add(todaySign);
@@ -125,7 +125,7 @@ namespace Service
                 var scoreDetials = new ScoreDetails()
                 {
                     UNID = Guid.NewGuid().ToString("N"),
-                    OpenId = user.OpenId,
+                    OpenId = user.openid,
                     CreatedTime = DateTime.Now,
                     Description = "签到获得积分",
                     IsAdd = (int)YesOrNoCode.Yes,
@@ -134,13 +134,13 @@ namespace Service
                     PersonId=person.UNID
                 };
                 //用户积分增加
-                var updateUserScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.OpenId) && x.PersonId.Equals(person.UNID));
+                var updateUserScore = entities.UserScore.FirstOrDefault(x => x.OpenId.Equals(user.openid) && x.PersonId.Equals(person.UNID));
                 if (updateUserScore == null)
                 {
                     var addUserScore = new UserScore()
                     {
                         UNID = Guid.NewGuid().ToString("N"),
-                        OpenId = user.OpenId,
+                        OpenId = user.openid,
                         PersonId = person.UNID,
                         Score = Params.SignScore
                     };

@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.AuthAPI;
 using MPUtil.UserMng;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
 {
@@ -118,28 +119,17 @@ namespace Nuoya.Plugins.WeChat.Areas.Scratchcard.Controllers
         //[OAuthFilter]
         public ActionResult Details(string unid,string info)
         {
-            var userInfoCache = CacheHelper.Get<Repository.User>("user");
-
-            if (!string.IsNullOrEmpty(info) && userInfoCache == null)
+            var userInfoCache = CookieHelper.GetCurrentWxUser();
+            if (!string.IsNullOrEmpty(info)&& userInfoCache == null)
             {
                 WXUser entity = info.DeserializeJson<WXUser>();
                 if (entity != null)
                 {
                     //更新数据
                     IUserService.Update_User(entity);
-                    CacheHelper.Get<Repository.User>("user", CacheTimeOption.TwoHour, () =>
-                    {
-                        return userInfoCache = new Repository.User()
-                        {
-                            OpenId = entity.openid,
-                            HeadImgUrl = entity.headimgurl,
-                            NickName = entity.nickname
-                        };
-                    });
-                }
+                    CookieHelper.CreateWxUser(entity);
+                }           
             }
-            if (userInfoCache == null)
-                return OAuthExpired();
 
             var item = IScratchCardService.Show_ScratchCard(unid);
             return View(item);

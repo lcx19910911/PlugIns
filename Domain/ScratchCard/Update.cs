@@ -18,10 +18,6 @@ namespace Domain.ScratchCard
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 回复关键字
-        /// </summary>
-        public string KeyWord { get; set; }
-        /// <summary>
         /// 开始时间
         /// </summary>
         public System.DateTime OngoingTime { get; set; }

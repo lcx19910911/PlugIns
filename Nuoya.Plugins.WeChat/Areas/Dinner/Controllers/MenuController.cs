@@ -10,6 +10,7 @@ using IService;
 using Nuoya.Plugins.WeChat.Controllers;
 using Nuoya.Plugins.WeChat.Filters;
 using MPUtil.UserMng;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 {
@@ -41,7 +42,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
         public ActionResult Index(string unid,string info)
         {
 
-            var userInfoCache = CacheHelper.Get<Repository.User>("user");
+            var userInfoCache = CookieHelper.GetCurrentWxUser();
 
             if (!string.IsNullOrEmpty(info) && userInfoCache == null)
             {
@@ -50,15 +51,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
                 {                 
                     //更新数据
                     IUserService.Update_User(entity);
-                    CacheHelper.Get<Repository.User>("user", CacheTimeOption.TwoHour, () =>
-                    {
-                        return userInfoCache = new Repository.User()
-                        {
-                            OpenId = entity.openid,
-                            HeadImgUrl = entity.headimgurl,
-                            NickName = entity.nickname
-                        };
-                    });
+                    CookieHelper.CreateWxUser(entity);
                 }
             }
             if (userInfoCache == null)
@@ -69,12 +62,9 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 
             //店铺id
             if (string.IsNullOrEmpty(unid))
-                unid = CacheHelper.Get<string>("dinner-shopId");
+                unid = CookieHelper.GetCurrentShopId();
             else
-                CacheHelper.Get<string>("dinner-shopId", CacheTimeOption.TwoHour, () =>
-                {
-                    return unid;
-                });
+                CookieHelper.CreateShopId(unid);
 
             if (string.IsNullOrEmpty(unid))
             {

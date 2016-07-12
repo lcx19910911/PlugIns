@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using IService;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.Web;
+using Service;
 
 namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
 {
@@ -81,7 +82,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public PartialViewResult HomeCategory()
         {
-            var person = CacheHelper.Get<Person>("person");
+            var person = CookieHelper.GetCurrentPeople();
             var categoryList = IMallRecommendService.Get_RecommendCategory(person.UNID);
             return PartialView(categoryList);
         }
@@ -92,7 +93,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         /// <returns></returns>
         public PartialViewResult HomeGoods()
         {
-            var person = CacheHelper.Get<Person>("person");
+            var person = CookieHelper.GetCurrentPeople();
             var goodsList = IMallRecommendService.Get_RecommendGoods(person.UNID);
             return PartialView(goodsList);
         }
