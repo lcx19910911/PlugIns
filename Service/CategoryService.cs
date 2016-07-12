@@ -150,6 +150,7 @@ namespace Service
                     {
                         entities.DinnerDish.Remove(y);
                     });
+                    entities.Category.Remove(x);
                 });
                 return entities.SaveChanges() > 0 ? true : false;
             }

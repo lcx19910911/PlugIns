@@ -45,7 +45,7 @@ namespace Repository
                 if (ex.GetType() == typeof(DbUpdateConcurrencyException))
                 {
                     return -1;
-                }
+                }               
                 return 0;
             }
            

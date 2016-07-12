@@ -32,7 +32,7 @@ namespace Repository
         /// 密码
         /// </summary>
         [Display(Name = "密码")]
-        [MaxLength(15)]
+        [MaxLength(100)]
         [MinLength(6)]
         public string Password { get; set; }
         /// <summary>
