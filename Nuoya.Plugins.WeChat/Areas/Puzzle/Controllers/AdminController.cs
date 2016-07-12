@@ -54,7 +54,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// <param name="model"</param>
         /// <returns></returns>
         [ValidateInput(false)]
-        public JsonResult Add(Repository.Puzzle model)
+        public JsonResult Add(Model.Puzzle model)
         {
             
             var result = IPuzzleService.Add_Puzzle(model);
@@ -68,7 +68,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// <param name="model"</param>
         /// <returns></returns>
         [ValidateInput(false)]
-        public JsonResult Update(Repository.Puzzle model, string unid)
+        public JsonResult Update(Model.Puzzle model, string unid)
         {
             var result = IPuzzleService.Update_Puzzle(model, unid);
             return JResult(result);

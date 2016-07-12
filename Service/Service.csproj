@@ -96,6 +96,10 @@
       <Project>{7f5a4474-b443-45bb-9493-d74c828893fb}</Project>
       <Name>IService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{AFF1C068-C80B-4888-9F09-B0850D0FBB72}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MPUtil\MPUtil.csproj">
       <Project>{3BBC72D2-FB0D-4490-ACFA-C62B31A95AB5}</Project>
       <Name>MPUtil</Name>

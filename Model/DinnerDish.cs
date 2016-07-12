@@ -1,4 +1,4 @@
-namespace Repository
+namespace Model
 {
     using System;
     using System.Collections.Generic;
@@ -6,10 +6,10 @@ namespace Repository
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
-    /// 店铺
+    /// 菜品
     /// </summary>
-    [Table("DinnerShop")]
-    public partial class DinnerShop
+    [Table("DinnerDish")]
+    public partial class DinnerDish
     {
         /// <summary>
         /// 主键
@@ -17,61 +17,50 @@ namespace Repository
         [Key]
         public string UNID { get; set; }
         /// <summary>
-        /// 店铺名
+        /// 菜品名
         /// </summary>
-        [Display(Name = "店铺名")]
+        [Display(Name = "菜品名")]
         [MaxLength(50)]
         [Required]
         public string Name { get; set; }
         /// <summary>
-        /// 用户Id
+        /// 店铺id
         /// </summary>
-        [Display(Name = "用户Id")]
-        public string PersonId { get; set; }
+        [Display(Name = "店铺id")]
+        public string ShopId { get; set; }
         /// <summary>
-        /// 联系电话
+        /// 分类id
         /// </summary>
-        [Display(Name = "联系电话")]
-        [DataType(DataType.PhoneNumber)]
-        public string ContactPhone { get; set; }
+        [Display(Name = "分类id")]
+        [Required]
+        public string CategoryId { get; set; }
         /// <summary>
-        /// 地址
+        /// 价格
         /// </summary>
-        [Display(Name = "地址")]
+        [Display(Name = "价格")]
+        [Range(typeof(decimal), "0.00", "9999.99", ErrorMessage = "产品价格格式不正确")]
+        [RegularExpression(@"^(([0-9]+)|([0-4]+\.[0-9]{1,2}))$", ErrorMessage = "产品价格不正确！")]
+        public decimal Price { get; set; }
+        /// <summary>
+        /// 标签
+        /// </summary>
+        [Display(Name = "标签")]
         [MaxLength(100)]
-        public string Address { get; set; }
+        public string Label { get; set; }
         /// <summary>
-        /// 自我介绍
+        /// 菜品状态
         /// </summary>
-        [Display(Name = "自我介绍")]
-        [MaxLength(1000)]
-        public string Introduction { get; set; }
+        public int State { get; set; }
         /// <summary>
-        /// 开始营业时间
+        /// 描述
         /// </summary>
-        [Display(Name = "创建时间")]
-        [Required]
-        public string StartShoptime { get; set; }
+        [Display(Name = "描述")]
+        [MaxLength(500)]
+        public string Description { get; set; }
         /// <summary>
-        /// 结束营业时间
+        /// 图标
         /// </summary>
-        [Display(Name = "结束营业时间")]
-        [Required]
-        public string EndShoptime { get; set; }
-        /// <summary>
-        /// 备注
-        /// </summary>
-        [Display(Name = "备注")]
-        public string Mark { get; set; }
-        /// <summary>
-        /// 状态
-        /// </summary>
-        [Display(Name = "状态")]
-        public long Flag { get; set; }
-        /// <summary>
-        /// 图片
-        /// </summary>
-        [Display(Name = "图片")]
+        [Display(Name = "图标")]
         [MaxLength(500)]
         public string Image { get; set; }
         /// <summary>

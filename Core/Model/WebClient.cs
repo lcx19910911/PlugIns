@@ -8,6 +8,7 @@ using Core.Code;
 using Core.Extensions;
 using System.Web.SessionState;
 using System.Web.Security;
+using Domain;
 
 namespace Core.Model
 {

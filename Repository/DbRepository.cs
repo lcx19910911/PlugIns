@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -45,7 +46,8 @@ namespace Repository
                 if (ex.GetType() == typeof(DbUpdateConcurrencyException))
                 {
                     return -1;
-                }               
+                }
+                Core.Util.LogHelper.WriteException(ex);
                 return 0;
             }
            

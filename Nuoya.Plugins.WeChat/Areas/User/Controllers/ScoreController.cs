@@ -43,7 +43,7 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
             if(list == null)
                 return OAuthExpired();
             else
-                return View( new Tuple<int, Repository.User, List<Repository.ScoreDetails>>(score, new Repository.User() {
+                return View( new Tuple<int, Model.User, List<Model.ScoreDetails>>(score, new Model.User() {
                     NickName=user.nickname,
                     HeadImgUrl=user.headimgurl
                 }, list));

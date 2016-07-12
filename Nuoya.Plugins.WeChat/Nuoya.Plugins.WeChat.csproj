@@ -193,6 +193,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\UEditor\default\css\ueditor.css" />
+    <Content Include="Content\UEditor\default\css\ueditor.min.css" />
+    <Content Include="Content\UEditor\default\dialogbase.css" />
+    <Content Include="Content\UEditor\default\images\anchor.gif" />
+    <Content Include="Content\UEditor\default\images\arrow.png" />
+    <Content Include="Content\UEditor\default\images\arrow_down.png" />
+    <Content Include="Content\UEditor\default\images\arrow_up.png" />
+    <Content Include="Content\UEditor\default\images\button-bg.gif" />
+    <Content Include="Content\UEditor\default\images\cancelbutton.gif" />
+    <Content Include="Content\UEditor\default\images\charts.png" />
+    <Content Include="Content\UEditor\default\images\cursor_h.gif" />
+    <Content Include="Content\UEditor\default\images\cursor_h.png" />
+    <Content Include="Content\UEditor\default\images\cursor_v.gif" />
+    <Content Include="Content\UEditor\default\images\cursor_v.png" />
+    <Content Include="Content\UEditor\default\images\dialog-title-bg.png" />
+    <Content Include="Content\UEditor\default\images\filescan.png" />
+    <Content Include="Content\UEditor\default\images\highlighted.gif" />
+    <Content Include="Content\UEditor\default\images\icons-all.gif" />
+    <Content Include="Content\UEditor\default\images\icons.gif" />
+    <Content Include="Content\UEditor\default\images\icons.png" />
+    <Content Include="Content\UEditor\default\images\loaderror.png" />
+    <Content Include="Content\UEditor\default\images\loading.gif" />
+    <Content Include="Content\UEditor\default\images\lock.gif" />
+    <Content Include="Content\UEditor\default\images\neweditor-tab-bg.png" />
+    <Content Include="Content\UEditor\default\images\pagebreak.gif" />
+    <Content Include="Content\UEditor\default\images\scale.png" />
+    <Content Include="Content\UEditor\default\images\sortable.png" />
+    <Content Include="Content\UEditor\default\images\spacer.gif" />
+    <Content Include="Content\UEditor\default\images\sparator_v.png" />
+    <Content Include="Content\UEditor\default\images\table-cell-align.png" />
+    <Content Include="Content\UEditor\default\images\tangram-colorpicker.png" />
+    <Content Include="Content\UEditor\default\images\toolbar_bg.png" />
+    <Content Include="Content\UEditor\default\images\unhighlighted.gif" />
+    <Content Include="Content\UEditor\default\images\upload.png" />
+    <Content Include="Content\UEditor\default\images\videologo.gif" />
+    <Content Include="Content\UEditor\default\images\word.gif" />
+    <Content Include="Content\UEditor\default\images\wordpaste.png" />
+    <Content Include="Content\UEditor\iframe.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -796,7 +834,6 @@
     <Folder Include="Areas\Scratchcard\Models\" />
     <Folder Include="Areas\Sign\Models\" />
     <Folder Include="Areas\User\Models\" />
-    <Folder Include="Content\UEditor\" />
     <Folder Include="Models\" />
     <Folder Include="Styles\activity\images\wall\template1\" />
     <Folder Include="Styles\datetimepicker\images\" />
@@ -822,6 +859,10 @@
     <ProjectReference Include="..\IService\IService.csproj">
       <Project>{7f5a4474-b443-45bb-9493-d74c828893fb}</Project>
       <Name>IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{AFF1C068-C80B-4888-9F09-B0850D0FBB72}</Project>
+      <Name>Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\MPUtil\MPUtil.csproj">
       <Project>{3bbc72d2-fb0d-4490-acfa-c62b31a95ab5}</Project>

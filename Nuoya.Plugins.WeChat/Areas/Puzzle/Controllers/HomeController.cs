@@ -34,7 +34,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// <returns></returns>
         public ActionResult Index(string unid,string personId)
         {
-            var model = new Repository.Puzzle();
+            var model = new Model.Puzzle();
             ViewData["LastOne"] = false;
             if (!string.IsNullOrEmpty(personId))
             {

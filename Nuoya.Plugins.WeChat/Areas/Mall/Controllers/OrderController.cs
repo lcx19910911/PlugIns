@@ -9,6 +9,7 @@ using IService;
 using Nuoya.Plugins.WeChat.Controllers;
 using Core.Web;
 using Service;
+using Model;
 
 namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
 {

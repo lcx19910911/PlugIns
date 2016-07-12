@@ -15,6 +15,7 @@ using IService;
 using Extension;
 using Domain.UserJoinCounter;
 using System.Web;
+using Model;
 
 namespace Service
 {

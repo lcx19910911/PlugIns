@@ -52,7 +52,7 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                 WXUser entity = info.DeserializeJson<WXUser>();
                 if (entity != null)
                 {
-                    model.User = new Repository.User()
+                    model.User = new Model.User()
                     {
                         NickName = entity.nickname,
                         HeadImgUrl = entity.headimgurl
@@ -63,7 +63,7 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                 }
             }
 
-            model.User = new Repository.User()
+            model.User = new Model.User()
             {
                 HeadImgUrl = userInfoCache.headimgurl,
                 NickName = userInfoCache.nickname

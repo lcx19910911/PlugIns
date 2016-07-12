@@ -96,7 +96,6 @@
     <Compile Include="Code\LogCode.cs" />
     <Compile Include="Code\OSSFileCode.cs" />
     <Compile Include="Code\SourceCode.cs" />
-    <Compile Include="Code\UploadStateCode.cs" />
     <Compile Include="Code\ValidResultType.cs" />
     <Compile Include="Config\UploadPathConfig.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\UploadHelper.cs" />
     <Compile Include="Helper\UrlHelper.cs" />
-    <Compile Include="Model\LoginUser.cs" />
     <Compile Include="Model\PageList.cs" />
     <Compile Include="Model\QueryKeyValue.cs" />
     <Compile Include="Model\SelectItem.cs" />
@@ -145,13 +143,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{c11f259a-56d2-4a64-bd34-e613f43212d8}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Enum\Enum.csproj">
       <Project>{8c23e9b1-34ec-4e41-a340-a70c99c63a07}</Project>
       <Name>Enum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Repository\Repository.csproj">
-      <Project>{782f0f81-d0d1-49d3-9464-e77daa8b3b06}</Project>
-      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

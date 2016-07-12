@@ -38,7 +38,7 @@ namespace Nuoya.Plugins.WeChat.App_Start.Filters
                     if (entity != null)
                     {
                         isValidate = true;
-                        HttpContext.Current.Session.Add(LogonUserName, new Core.Model.LoginUser(entity));
+                        HttpContext.Current.Session.Add(LogonUserName, new Domain.LoginUser(entity));
                     }
                 }
             }

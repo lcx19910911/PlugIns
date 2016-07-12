@@ -8,6 +8,7 @@ using Nuoya.Plugins.WeChat.Filters;
 using Core.Model;
 using Core.Code;
 using Core.Extensions;
+using Domain;
 
 namespace Nuoya.Plugins.WeChat.Controllers
 {

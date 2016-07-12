@@ -56,7 +56,7 @@ namespace Nuoya.Plugins.WeChat.Filters
                     }
                     if (entity != null)
                     {
-                        filterContext.HttpContext.Session["LoginUser"] = new Core.Model.LoginUser(entity);
+                        filterContext.HttpContext.Session["LoginUser"] = new Domain.LoginUser(entity);
                     }
                 }
             }

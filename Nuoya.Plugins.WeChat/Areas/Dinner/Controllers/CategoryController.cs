@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using IService;
 using Nuoya.Plugins.WeChat.Controllers;
+using Model;
 
 namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
 {

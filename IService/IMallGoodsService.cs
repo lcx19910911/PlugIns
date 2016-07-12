@@ -2,7 +2,7 @@
 using Domain;
 using Domain.Mall.Goods;
 using Domain.ScratchCard;
-using Repository;
+using Model;
 using System;
 using System.Collections.Generic;
 

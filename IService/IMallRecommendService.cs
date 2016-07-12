@@ -1,7 +1,7 @@
 ﻿using Core.Model;
 using Domain;
 using Domain.ScratchCard;
-using Repository;
+using Model;
 using System;
 using System.Collections.Generic;
 
@@ -55,13 +55,13 @@ namespace IService
         /// 获取推荐商品
         /// </summary>
         /// <returns></returns>
-        List<Tuple<Repository.Goods, string>> Get_RecommendGoods(string personId);
+        List<Tuple<Model.Goods, string>> Get_RecommendGoods(string personId);
 
         /// <summary>
         /// 获取推荐分类
         /// </summary>
         /// <returns></returns>
-        List<Tuple<Repository.Category, string>> Get_RecommendCategory(string personId);
+        List<Tuple<Model.Category, string>> Get_RecommendCategory(string personId);
 
     }
 }

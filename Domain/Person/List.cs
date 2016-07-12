@@ -1,5 +1,4 @@
-﻿using Core.Attributes;
-using EnumPro;
+﻿using EnumPro;
 using System;
 using System.Collections.Generic;
 using System.Linq;

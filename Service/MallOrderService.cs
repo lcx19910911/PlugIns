@@ -16,6 +16,7 @@ using Extension;
 using System.Web;
 using Domain.API;
 using System.Threading;
+using Model;
 
 namespace Service
 {

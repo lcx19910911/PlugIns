@@ -16,7 +16,7 @@ using Extension;
 using Domain.UserJoinCounter;
 using System.Web;
 using Domain.Mall.Recommend;
-using EnumPro;
+using Model;
 
 namespace Service
 {
@@ -256,7 +256,7 @@ namespace Service
         /// 获取推荐商品
         /// </summary>
         /// <returns></returns>
-        public List<Tuple<Repository.Goods, string>> Get_RecommendGoods(string personId)
+        public List<Tuple<Model.Goods, string>> Get_RecommendGoods(string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -264,7 +264,7 @@ namespace Service
                 var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeGoods && x.PersonId.Equals(personId)).OrderBy(x=>x.Sort).ToList(); 
                 var recommendIdList= recommendList.Select(x=>x.TargetID).ToList();
 
-                List<Tuple<Repository.Goods, string>> list = new List<Tuple<Goods, string>>();
+                List<Tuple<Model.Goods, string>> list = new List<Tuple<Goods, string>>();
 
                 entities.Goods.Where(x => recommendIdList.Contains(x.UNID)).ToList().ForEach(x =>
                 {
@@ -279,7 +279,7 @@ namespace Service
         /// 获取推荐分类
         /// </summary>
         /// <returns></returns>
-        public List<Tuple<Repository.Category, string>> Get_RecommendCategory(string personId)
+        public List<Tuple<Model.Category, string>> Get_RecommendCategory(string personId)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -287,7 +287,7 @@ namespace Service
                 var recommendList = entities.Recommend.Where(x => x.RecommendCode == (int)RecommendCode.HomeCategory && x.PersonId.Equals(personId)).OrderBy(x => x.Sort).ToList();
                 var recommendIdList = recommendList.Select(x => x.TargetID).ToList();
 
-                List<Tuple<Repository.Category, string>> list = new List<Tuple<Category, string>>();
+                List<Tuple<Model.Category, string>> list = new List<Tuple<Category, string>>();
 
                 entities.Category.Where(x => recommendIdList.Contains(x.UNID)).ToList().ForEach(x =>
                 {

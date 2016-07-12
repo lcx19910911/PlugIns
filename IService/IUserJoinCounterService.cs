@@ -2,7 +2,6 @@
 using Domain;
 using Domain.ScratchCard;
 using Domain.UserJoinCounter;
-using Repository;
 using System;
 using System.Collections.Generic;
 

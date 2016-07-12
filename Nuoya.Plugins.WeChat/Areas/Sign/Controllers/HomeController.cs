@@ -41,7 +41,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Sign.Controllers
             if (user==null|| person==null)
                 return OAuthExpired();
             UserCenterModel model = new UserCenterModel();
-            model.User = new Repository.User()
+            model.User = new Model.User()
             {
                 HeadImgUrl=user.headimgurl,
                 NickName=user.nickname

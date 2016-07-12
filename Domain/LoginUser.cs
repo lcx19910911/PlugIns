@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Repository;
 
-namespace Core.Model
+namespace Domain
 {
     /// <summary>
     /// 登录用户
     /// </summary>
     public class LoginUser
     {
-        public LoginUser(Person person)
+        public LoginUser(Model.Person person)
         {
             this.UNID = person.UNID;
             this.Account = person.Account;

@@ -4,6 +4,7 @@ using Core.Model;
 using EnumPro;
 using Extension;
 using IService;
+using Model;
 using Repository;
 using System;
 using System.Collections.Generic;

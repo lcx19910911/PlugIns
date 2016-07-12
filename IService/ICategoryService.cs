@@ -1,7 +1,7 @@
 ﻿using Core.Model;
 using Domain;
 using Domain.ScratchCard;
-using Repository;
+using Model;
 using System;
 using System.Collections.Generic;
 

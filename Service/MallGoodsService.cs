@@ -15,6 +15,7 @@ using IService;
 using Extension;
 using System.Web;
 using Domain.Mall.Goods;
+using Model;
 
 namespace Service
 {

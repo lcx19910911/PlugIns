@@ -2,8 +2,8 @@
 using Core.Model;
 using Domain;
 using Domain.ScratchCard;
+using Model;
 using MPUtil.UserMng;
-using Repository;
 using System;
 using System.Collections.Generic;
 

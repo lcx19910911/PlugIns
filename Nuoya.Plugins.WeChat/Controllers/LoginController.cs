@@ -44,7 +44,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var person = IPersonService.Login(account, password);
             if (person != null)
             {
-                this.LoginUser = new Core.Model.LoginUser(person);
+                this.LoginUser = new Domain.LoginUser(person);
                 return JResult(true);
             }
             else
@@ -53,7 +53,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
                 if (result != null && result.code == 100)
                 {
                     person = IPersonService.Manager_Person(result.data, account, password);
-                    this.LoginUser = new Core.Model.LoginUser(person);
+                    this.LoginUser = new Domain.LoginUser(person);
                     return JResult(true);
                 }
                 else
@@ -73,7 +73,7 @@ namespace Nuoya.Plugins.WeChat.Controllers
             var person = IPersonService.Get_ByShopId(unid);
             if (person != null)
             {
-                this.LoginUser = new Core.Model.LoginUser(person);
+                this.LoginUser = new Domain.LoginUser(person);
                 return Redirect("/Dinner/Category/index");
             }
             else

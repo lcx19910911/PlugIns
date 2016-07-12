@@ -14,6 +14,7 @@ using Core.Web;
 using IService;
 using Extension;
 using System.Web;
+using Model;
 
 namespace Service
 {

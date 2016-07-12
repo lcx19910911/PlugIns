@@ -16,6 +16,7 @@ using Extension;
 using System.Web;
 using Domain.API;
 using System.Threading;
+using Model;
 
 namespace Service
 {
@@ -78,7 +79,7 @@ namespace Service
                 )
                 return "数据为空";
             if (model.OngoingTime < DateTime.Now)
-                return "开始时间需比晚于当前时间";
+                return "开始时间需比大于当前时间";
             if (model.OverTime < model.OngoingTime || model.OverTime < DateTime.Now)
                 return "结束时间必须大于当前时间和开始时间";
             using (DbRepository entities = new DbRepository())
@@ -129,6 +130,7 @@ namespace Service
                     oldEntity.OngoingTime = model.OngoingTime;
                     oldEntity.OverTime = model.OverTime;
                     oldEntity.BindLogoUrl = model.BindLogoUrl;
+                    oldEntity.BindTitle = model.BindTitle;
                 }
                 else
                     return "数据为空";

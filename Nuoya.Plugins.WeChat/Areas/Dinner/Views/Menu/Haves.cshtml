@@ -22,7 +22,7 @@
     <div id="dishList" class="dish-list">
         @if (Model != null && Model.Details!=null)
         {
-            foreach (Repository.OrderDetails d in Model.Details)
+            foreach (Model.OrderDetails d in Model.Details)
             {
                 <div class="dish-item clearfix">
                     <div class="dish-item__order">

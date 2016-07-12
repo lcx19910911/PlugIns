@@ -2,7 +2,6 @@
 using Domain;
 using Domain.API;
 using Domain.ScratchCard;
-using Repository;
 using System;
 using System.Collections.Generic;
 

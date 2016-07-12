@@ -7,6 +7,7 @@ using Core.Web;
 using EnumPro;
 using Extension;
 using IService;
+using Model;
 using MPUtil.UserMng;
 using Repository;
 using System;

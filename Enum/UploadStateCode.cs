@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Code
+namespace EnumPro
 {
     public enum UploadStateCode
     {
