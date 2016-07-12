@@ -57,7 +57,7 @@ namespace Repository
         public PlugInsEntities()
            : base("name=PlugInsEntities")
         {
-            Database.SetInitializer<PlugInsEntities>(null);
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<PlugInsEntities>());
         }
 
 

@@ -13,6 +13,11 @@ using Microsoft.Practices.Unity;
 using Nuoya.Plugins.WeChat.App_Start;
 using System.Web.Http.Dispatcher;
 using Nuoya.Plugins.WeChat.Api;
+using Repository;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Collections.Generic;
 
 namespace Nuoya.Plugins.WeChat
 {
@@ -38,6 +43,13 @@ namespace Nuoya.Plugins.WeChat
             UnityConfig.RegisterTypes(apiUnityContainer);
             GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator), new ApiUnityHttpControllerActivator(apiUnityContainer));
 
+            ///预加载
+            using (var dbcontext = new DbRepository())
+            {
+                var objectContext = ((IObjectContextAdapter)dbcontext).ObjectContext;
+                var mappingCollection = (StorageMappingItemCollection)objectContext.MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);
+                mappingCollection.GenerateViews(new List<EdmSchemaError>());
+            }
         }
 
         /// <summary>

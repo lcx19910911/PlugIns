@@ -118,12 +118,6 @@ namespace Repository
         [Required]
         public System.DateTime OverTime { get; set; }
 
-        /// <summary>
-        /// 图片
-        /// </summary>
-        [Display(Name = "图片")]
-        [MaxLength(500)]
-        public string Image { get; set; }
 
         /// <summary>
         /// 创建时间
