@@ -47,7 +47,7 @@ namespace Service
 
                 var list = new List<Category>();
                 var count = query.Count();
-                query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
+                query.OrderByDescending(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
                     {

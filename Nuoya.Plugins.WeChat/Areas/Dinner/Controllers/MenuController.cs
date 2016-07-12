@@ -54,8 +54,6 @@ namespace Nuoya.Plugins.WeChat.Areas.Dinner.Controllers
                     CookieHelper.CreateWxUser(entity);
                 }
             }
-            if (userInfoCache == null)
-                return OAuthExpired();
 
             //判断是否已有订单
             ViewBag.ExistsOrder = this.Request.Cookies["had"] == null ? false : (string.IsNullOrEmpty(this.Request.Cookies["had"].Value) ? false : true);

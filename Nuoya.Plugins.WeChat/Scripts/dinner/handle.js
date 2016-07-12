@@ -276,7 +276,7 @@ function showCartList() {
 function initDish(o, c) {
     return '<li data-id="' + o.UNID + '" class="item clearfix">\
                     <div class="item-img-container">\
-                        <img data=' + o.UNID + ' src="' +window.location.host+o.Image + '" data=' + o.Description + '>\
+                        <img data=' + o.UNID + ' src="' +o.Image + '" data=' + o.Description + '>\
                     </div>\
                     <div class="item-label-container"></div>\
                     <div class="item-info">\
