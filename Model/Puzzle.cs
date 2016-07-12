@@ -52,7 +52,7 @@ namespace Model
         /// 积分
         /// </summary>
         [Display(Name = "积分")]
-        [Range(1, 100000)]
+        [Range(0, 100000)]
         public int Score { get; set; }
 
         /// <summary>

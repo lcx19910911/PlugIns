@@ -32,11 +32,11 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string unid,string personId)
+        public ActionResult Index(string unid)
         {
             var model = new Model.Puzzle();
             ViewData["LastOne"] = false;
-            if (!string.IsNullOrEmpty(personId))
+            if (this.LoginUser != null)
             {
                 model = IPuzzleService.Find_Puzzle(unid);
                 return View(model);
@@ -46,7 +46,7 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
             if (user == null|| person==null)
                 return OAuthExpired();
 
-            model = IPuzzleService.Get_NextPuzzle(unid, user.openid,person.UNID) ;
+            model = IPuzzleService.Get_NextPuzzle(unid, user?.openid,person?.UNID) ;
             if (model == null||model.UNID.Equals(unid))
                 ViewData["LastOne"] = true;
 
