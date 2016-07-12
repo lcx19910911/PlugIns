@@ -51,13 +51,13 @@ namespace Repository
         /// </summary>
         [Display(Name = "创建时间")]
         [Required]
-        public System.DateTime StartShoptime { get; set; }
+        public string StartShoptime { get; set; }
         /// <summary>
         /// 结束营业时间
         /// </summary>
         [Display(Name = "结束营业时间")]
         [Required]
-        public System.DateTime EndShoptime { get; set; }
+        public string EndShoptime { get; set; }
         /// <summary>
         /// 备注
         /// </summary>

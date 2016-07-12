@@ -107,7 +107,8 @@
             type: "post",
             data: { "orderInfo": JSON.stringify(data) },
             success: function (rv) {
-                if (rv.Result=="") {
+                if (rv.Result == "") {
+                    $(".btn.btn-block.btn-large").attr("disabled", "disabled");
                     $.cookie('cart', "");
                     $.cookie('had', "1");
 
