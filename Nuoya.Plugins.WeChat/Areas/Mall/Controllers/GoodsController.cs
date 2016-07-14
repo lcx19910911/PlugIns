@@ -51,7 +51,24 @@ namespace Nuoya.Plugins.WeChat.Areas.Mall.Controllers
         [LoginFilter]
         public JsonResult GetPageList(int pageIndex, int pageSize, string name,string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
         {
-            var pagelist = IMallGoodsService.Get_MallGoodsPageList(pageIndex, pageSize, name, categoryId, createdTimeStart, createdTimeEnd);
+            var pagelist = IMallGoodsService.Get_MallGoodsPageList(pageIndex, pageSize, name, categoryId, createdTimeStart, createdTimeEnd,false);
+            return JResult(pagelist);
+        }
+
+        /// <summary>
+        /// 获取未推荐的分页列表
+        /// </summary>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <param name="name">商品名 - 搜索项</param>
+        /// <param name="categoryId">分类id - 搜索项</param>
+        /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
+        /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
+        /// <returns></returns>
+        [LoginFilter]
+        public JsonResult GetNotRecommandPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        {
+            var pagelist = IMallGoodsService.Get_MallGoodsPageList(pageIndex, pageSize, name, categoryId, createdTimeStart, createdTimeEnd, true);
             return JResult(pagelist);
         }
 

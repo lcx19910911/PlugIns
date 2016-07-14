@@ -22,8 +22,9 @@ namespace IService
         /// <param name="categoryId">分类id - 搜索项</param>
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
+        /// <param name="isRecommand">是否显示未推荐的商品</param>
         /// <returns></returns>
-        PageList<Domain.Mall.Goods.List> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd);
+        PageList<Domain.Mall.Goods.List> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd, bool isRecommand);
 
         /// <summary>
         /// 增加

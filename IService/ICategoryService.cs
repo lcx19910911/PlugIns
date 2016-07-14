@@ -73,15 +73,14 @@ namespace IService
         #endregion
 
         #region 商品分类
-
         /// <summary>
         /// 获取分页列表
         /// </summary>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="name">分类名 - 搜索项</param>
+        /// <param name="isRecommand">是否是获取未推荐类型</param>
         /// <returns></returns>
-        PageList<Category> Get_MallCategoryPageList(int pageIndex, int pageSize, string name);
+        PageList<Category> Get_MallCategoryPageList(int pageIndex, int pageSize, string name, bool isRecommand);
 
         /// <summary>
         /// 增加

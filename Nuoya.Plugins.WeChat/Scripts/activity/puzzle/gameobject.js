@@ -64,7 +64,6 @@ puzzleGame.prototype = {
         this.imgSplit();
         this.levelSelect();
         this.gameState();
-        touchEvents.initTouchEvents();
     },
 
     /**
@@ -176,11 +175,12 @@ puzzleGame.prototype = {
                     moveStartPointY = cell_mouse_y;
                     cellIndexMove = cellIndex_1;
 
-                    document.addEventListener(touchEvents.touchmove, movePosition, false);
-                    document.addEventListener(touchEvents.touchend, endPosition, false);                 
+                    document.addEventListener("touchmove", movePosition, false);
+                    document.addEventListener("touchend", endPosition, false);                 
                 });
+
             } else if (self.hasStart == 1) {
-                if (!confirm('已经在游戏中，确定要回复原图？')) {
+                if (!confirm('已经在游戏中，确定要恢复原图？')) {
                     return false;
                 }
                 //样式恢复
@@ -378,32 +378,6 @@ puzzleGame.prototype = {
     }
 }
 
-var touchEvents = {
-    touchstart: "touchstart",
-    touchmove: "touchmove",
-    touchend: "touchend",
-
-    /**
-     * @desc:判断是否pc设备，若是pc，需要更改touch事件为鼠标事件，否则默认触摸事件
-     */
-    initTouchEvents: function () {
-        if (IsPC()) {
-            this.touchstart = "mousedown";
-            this.touchmove = "mousemove";
-            this.touchend = "mouseup";
-        }
-    }
-};
-
-function IsPC() {
-    var userAgentInfo = navigator.userAgent;
-    var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
-    var flag = true;
-    for (var v = 0; v < Agents.length; v++) {
-        if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }
-    }
-    return flag;
-}
 
 //移动开始
 function movePosition(event) {
@@ -430,6 +404,6 @@ function endPosition() {
     }
 
     //移除绑定
-    document.removeEventListener(touchEvents.touchmove, movePosition, false);
-    document.removeEventListener(touchEvents.touchend, endPosition, false);
+    document.removeEventListener("touchmove", movePosition, false);
+    document.removeEventListener("touchend", endPosition, false);
 }

@@ -221,7 +221,7 @@
 
         function AddDesImage(src,sort)
         {
-            var html = "";
+            var html = '<hr data-am-widget="divider" style="" class="am-divider am-divider-default">';
             html += '<div class="am-g am-margin-top">';
             html += '    <div class="am-u-md-2 am-text-right">';
             html += '       <strong class="am-text-danger am-text-sm">*</strong>';
@@ -234,10 +234,10 @@
             html += '          排序';
             html += '    </div>';
             html += '    <div class="am-u-md-2 am-text-left">';
-            html += '          <input type="text" name="GoodsDetialsSort" class="am-input-sm" value="' + sort + '">';
+            html += '          <input type="number" name="GoodsDetialsSort" class="am-input-sm" value="' + sort + '">';
             html += '    </div>';
             html += '    <div class="am-hide-sm-only am-u-md-4 am-text-left"><a onclick="DeleteDetialsImage($(this))">删除</a></div>';
-            html += '</div>';
+            html += '</div> <hr />';
 
             $("#tab2").append(html);
         }

@@ -234,8 +234,9 @@ namespace Service
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
         /// <param name="name">分类名 - 搜索项</param>
+        /// <param name="isRecommand">是否是获取未推荐类型</param>
         /// <returns></returns>
-        public PageList<Category> Get_MallCategoryPageList(int pageIndex, int pageSize, string name)
+        public PageList<Category> Get_MallCategoryPageList(int pageIndex, int pageSize, string name,bool isRecommand)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -244,7 +245,11 @@ namespace Service
                 {
                     query = query.Where(x => x.Name.Contains(name));
                 }
-
+                if (isRecommand)
+                {
+                    var cartegoryIdList = entities.Recommend.Where(x => x.TargetCode == (int)TargetCode.Category && x.PersonId.Equals(Client.LoginUser.UNID)).Select(x => x.TargetID).ToList();
+                    query = query.Where(x => !cartegoryIdList.Contains(x.UNID));
+                }
                 var list = new List<Category>();
                 var count = query.Count();
                 query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>

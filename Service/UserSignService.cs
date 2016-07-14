@@ -47,16 +47,18 @@ namespace Service
                 if (userEntity == null)
                     return false;
                 var yesterday =DateTime.Now.AddDays(-1).Date;
-                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.openid) &&x.PersonId.Equals(person.UNID)).OrderByDescending(x => x.SignDate).First();
+                var lastSign = entities.UserSign.Where(x=>x.OpenId.Equals(user.openid) &&x.PersonId.Equals(person.UNID)).OrderByDescending(x => x.SignDate).FirstOrDefault();
 
-                //判断今天是否已签到
-                if (lastSign.SignDate > yesterday)
-                {
-                    return false;
-                }
+                
                 //判断是否连续签到
                 if (lastSign != null)
                 {
+                    //判断今天是否已签到
+                    if (lastSign.SignDate > yesterday)
+                    {
+                        return false;
+                    }
+
                     var todaySign = new UserSign()
                     {
                         UNID = Guid.NewGuid().ToString("N"),

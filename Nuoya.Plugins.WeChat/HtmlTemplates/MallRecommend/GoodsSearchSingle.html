@@ -8,10 +8,11 @@
                 <input type="text" class="am-form-field " placeholder="按商品名称搜索" name="name" ;>
             </div>
         </div>
-        <div class="am-u-lg-3">
-            <div class="am-input-group am-input-group-sm">
-                <span class="am-input-group-label am-margin-left-sm">商品分类</span>
-                <select name="CategoryId" data-am-selected="{btnSize: 'sm'}"></select>
+
+        <div class="am-u-lg-3 am-form am-form-inline">
+            <div class="am-input-group">
+                <span class="am-input-group-label am-input-group-label">是否中奖</span>
+                <select name="CategoryId" data-am-selected="{btnSize: 'sm'}" style="width:160px;float:left;"></select>
             </div>
         </div>
         <div class="am-u-lg-6 am-u-end">
@@ -38,7 +39,6 @@
                 <th dataname="StockNum">库存数量</th>
                 <th dataname="OngoingTime" datatype="jsondate">开始时间</th>
                 <th dataname="OverTime" datatype="jsondate">结束时间</th>
-                <th dataname="Sort">排序</th>
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
             </tr>

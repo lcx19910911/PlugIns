@@ -36,7 +36,8 @@ namespace Nuoya.Plugins.WeChat.Areas.Puzzle.Controllers
         {
             var model = new Model.Puzzle();
             ViewData["LastOne"] = false;
-            if (this.LoginUser != null)
+            //预览
+            if (this.LoginUser != null&&!string.IsNullOrEmpty(unid))
             {
                 model = IPuzzleService.Find_Puzzle(unid);
                 return View(model);

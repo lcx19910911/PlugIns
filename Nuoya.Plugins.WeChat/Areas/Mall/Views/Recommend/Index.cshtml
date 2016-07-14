@@ -172,7 +172,7 @@
                 $("input[name=TargetCode]").val(targetCode);
 
                 $.Nuoya.ajaxDialog({
-                    width: ($(window).width() - 400) + "px",
+                    width: ($(window).width() - 300) + "px",
                     ajaxUrl: "/HtmlTemplates/MallRecommend/GoodsSearchSingle.html",
                     title: "选择商品",
                     callback: function (e) {
@@ -189,8 +189,8 @@
                                 domainId: "goodsSearchSingleDomain",
                                 subId: "btnGoodsSearch"
                             },
-                            tableId: "goodsSearchSingletDataTable",
-                            ajaxUrl: "/Mall/Goods/GetPageList",
+                            tableId: "goodsSearchSingletDataTable", 
+                            ajaxUrl: "/Mall/Goods/GetNotRecommandPageList",
                             pageSize: 10,
                             events: [
                                 {
@@ -222,7 +222,7 @@
                 $("input[name=TargetCode]").val(targetCode);
 
                 $.Nuoya.ajaxDialog({
-                    width: ($(window).width() - 400) + "px",
+                    width: ($(window).width() - 700) + "px",
                     ajaxUrl: "/HtmlTemplates/MallRecommend/CategorySearchSingle.html",
                     title: "选择分类",
                     callback: function (e) {
@@ -232,7 +232,7 @@
                                 subId: "btnCategorySearch"
                             },
                             tableId: "categorySearchMulitDataTable",
-                            ajaxUrl: "/Mall/Category/GetPageList",
+                            ajaxUrl: "/Mall/Category/GetNotRecommandPageList",
                             pageSize: 10,
                             events: [
                                 {

@@ -1,5 +1,5 @@
 body{ margin:0; padding:0;-webkit-appearance:none;}
-.addWrap{ position:relative; width:100%;background:#fff;margin:0; padding:0;}
+.addWrap{ position:relative; width:100%;background:#fff;margin-bottom:74px; padding:0;}
 .addWrap .swipe{overflow: hidden;visibility: hidden;position:relative;}
 .addWrap .swipe-wrap{overflow:hidden;position:relative;}
 .addWrap .swipe-wrap > div {float: left;width: 100%;position:relative;}

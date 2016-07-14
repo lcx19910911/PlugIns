@@ -1,7 +1,9 @@
 /**
  * admin.css
  */
-
+a {
+    cursor:pointer;
+}
 ul {
     margin-top: 0;
 }

@@ -35,8 +35,8 @@ namespace Service
         /// <param name="categoryId">分类id - 搜索项</param>
         /// <param name="createdTimeStart">发布日期起 - 搜索项</param>
         /// <param name="createdTimeEnd">发布日期止 - 搜索项</param>
-        /// <returns></returns>
-        public PageList<Domain.Mall.Goods.List> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd)
+        /// <returns></returns> /// <returns></returns>
+        public PageList<Domain.Mall.Goods.List> Get_MallGoodsPageList(int pageIndex, int pageSize, string name, string categoryId, DateTime? createdTimeStart, DateTime? createdTimeEnd, bool isRecommand)
         {
             using (DbRepository entities = new DbRepository())
             {
@@ -57,6 +57,13 @@ namespace Service
                 {
                     createdTimeEnd = createdTimeEnd.Value.AddDays(1);
                     query = query.Where(x => x.CreatedTime < createdTimeEnd);
+                }
+
+
+                if (isRecommand)
+                {
+                    var goodsIdList = entities.Recommend.Where(x => x.TargetCode == (int)TargetCode.Goods && x.PersonId.Equals(Client.LoginUser.UNID)).Select(x => x.TargetID).ToList();
+                    query = query.Where(x => !goodsIdList.Contains(x.UNID));
                 }
 
                 var count = query.Count();

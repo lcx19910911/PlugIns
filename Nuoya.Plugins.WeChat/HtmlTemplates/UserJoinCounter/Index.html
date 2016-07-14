@@ -1,4 +1,5 @@
 ﻿<div id="searchUserJoinDomain">
+    <br />
     <div class="am-g">    
         <div class="am-u-lg-3">
             <div class="am-input-group am-input-group-sm">
@@ -35,17 +36,24 @@
     </div>
     <div class="am-g" style="padding-top:10px; margin-left:-12px;">
 
-        <div class="am-u-lg-12">
+        <div class="am-u-lg-3 am-form am-form-inline">
+            <div class="am-input-group">
+                <span class="am-u-lg-1 am-input-group-label">是否中奖</span>
+                <div class="am-u-sm-2  am-u-end">
+                    <select name="prizeType" data-am-selected style="width:160px;float:left;">
+                        <option value="0">不限</option>
+                        <option value="-2">未中奖</option>
+                        <option value="-1">中奖</option>
+                        <option value="1">一等级</option>
+                        <option value="2">二等奖</option>
+                        <option value="3">三等奖</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="am-u-lg-9">
             <div class="am-input-group am-input-group-sm">
-                <span class="am-input-group-label   am-margin-left-sm">是否中奖</span>
-                <select name="prizeType" data-am-selected="{btnSize: 'sm'}">
-                    <option value="0">不限</option>
-                    <option value="-2">未中奖</option>
-                    <option value="-1">中奖</option>
-                    <option value="1">一等级</option>
-                    <option value="2">二等奖</option>
-                    <option value="3">三等奖</option>
-                </select>
                 <span class="am-input-group-label   am-margin-left-sm">参与时间</span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
                 <span class="am-input-group-label"> - </span>

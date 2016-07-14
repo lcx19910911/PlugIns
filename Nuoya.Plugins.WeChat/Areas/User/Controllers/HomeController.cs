@@ -43,8 +43,8 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
             var person = CookieHelper.GetCurrentPeople();
             if (person == null && !string.IsNullOrEmpty(comId))
             {
-                var personInfo = IPersonService.Get_ByComId(comId.GetInt());
-                CookieHelper.CreatePeople(personInfo);
+                person = IPersonService.Get_ByComId(comId.GetInt());
+                CookieHelper.CreatePeople(person);
             }
             UserCenterModel model = new UserCenterModel();
             if (!string.IsNullOrEmpty(info) && userInfoCache == null)
@@ -57,6 +57,7 @@ namespace Nuoya.Plugins.WeChat.Areas.User.Controllers
                         NickName = entity.nickname,
                         HeadImgUrl = entity.headimgurl
                     };
+                    userInfoCache = entity;
                     //更新数据
                     IUserService.Update_User(entity);
                     CookieHelper.CreateWxUser(entity);

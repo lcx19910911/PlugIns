@@ -5,7 +5,7 @@
           speed: 400,
           background: 'rgb(247, 25, 25)',
           color: '#ffffff',
-          position: 'top',
+          position: 'bottom',
           width: "auto",
           delay: 200,
           offsetX: 0,
