@@ -104,7 +104,7 @@ namespace Service
                             AllPrice = x.AllPrice,
                             Count = x.Count,
                             GoodsId = x.GoodsId,
-                            NickName = userList.FirstOrDefault(y => y.OpenId.Equals(x.OpenId))?.NickName,
+                            NickName = userList.FirstOrDefault(y => y.OpenId.Trim().Equals(x.OpenId))?.NickName,
                             PersonId = x.PersonId,
                             OpenId = x.OpenId,
                             ScoreNum = x.ScoreNum

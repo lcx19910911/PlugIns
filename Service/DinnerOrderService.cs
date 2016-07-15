@@ -73,7 +73,7 @@ namespace Service
                     returnList.Add(new Domain.Dinner.Order.List()
                     {
                         UNID = x.UNID,
-                        NickName = userList.FirstOrDefault(y => y.OpenId.Equals(x.OpenId))?.NickName,
+                        NickName = userList.FirstOrDefault(y => y.OpenId.Trim().Equals(x.OpenId))?.NickName,
                         CreatedTime = x.CreatedTime,
                         Details=x.Details,
                         OrderNum=x.OrderNum,
