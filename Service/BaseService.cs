@@ -16,7 +16,9 @@ namespace Service
 {
     public class BaseService
     {
-
+        /// <summary>
+        /// 请求context
+        /// </summary>
         public HttpContext ContextCurrent { get; set; }
 
         public WebClient Client
@@ -30,7 +32,7 @@ namespace Service
         /// <summary>
         /// list转换pageList
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="T"></typeparam>
         /// <param name="allList">需要分页的数据</param>
         /// <returns></returns>
         private PageList<T> ConvertPageList<T>(List<T> allList, int pageIndex, int pageSize)
@@ -45,7 +47,7 @@ namespace Service
         /// <summary>
         /// list转换pageList
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="T"></typeparam>
         /// <param name="List">需要分页的数据</param>
         /// <returns></returns>
         private PageList<T> ConvertPageList<T>(List<T> list, int pageIndex, int pageSize, int recoredCount)
@@ -91,7 +93,7 @@ namespace Service
             using (DbRepository entities = new DbRepository())
             {
                 //按逗号分隔符分隔开得到unid列表
-                var unidArray = unids.Split(',');
+                var unidArray = unids.Split(','); 
                 //遍历unid列表逐个删除
                 foreach (var unid in unidArray)
                 {

@@ -8,7 +8,7 @@
                         店铺名称
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="Name" class="am-input-sm">
+                        <input type="text" name="Name" class="am-input-sm" maxlength="25">
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm"><strong class="am-text-danger am-text-sm">*</strong></strong>必填，不能超过25个字</div>
                 </div>
@@ -17,7 +17,7 @@
                         编号
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="Sort" class="am-input-sm" />
+                        <input type="text" name="Sort" class="am-input-sm"  min="0"/>
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>决定展示顺序，编号越小越靠前</div>
                 </div>
@@ -27,7 +27,7 @@
                         账号
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="Account" class="am-input-sm" />
+                        <input type="text" name="Account" class="am-input-sm" maxlength="12" />
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>6-12个字符</div>
                 </div>
@@ -37,7 +37,7 @@
                         密码
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="Password" class="am-input-sm" />
+                        <input type="text" name="Password" class="am-input-sm" maxlength="15" />
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>6-15个字符(如需修改请输入新密码)</div>
                 </div>
@@ -47,7 +47,7 @@
                         联系电话
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="ContactPhone" class="am-input-sm" />
+                        <input type="text" name="ContactPhone" class="am-input-sm" maxlength="11"/>
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"></div>
                 </div>
@@ -57,7 +57,7 @@
                         地址
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="Address" class="am-input-sm" />
+                        <input type="text" name="Address" class="am-input-sm" maxlength="100"/>
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"></div>
                 </div>
@@ -101,7 +101,7 @@
                         自我介绍
                     </div>
                     <div class="am-u-md-5">
-                        <textarea name="Introduction" rows="7"></textarea>
+                        <textarea name="Introduction" rows="7" maxlength="1000"></textarea>
                     </div>
                     <div class="am-hide-sm-only am-u-md-4 am-text-left"></div>
                 </div>

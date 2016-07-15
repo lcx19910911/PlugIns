@@ -172,7 +172,6 @@
                 afterValid:null
             };
             options = $.extend(true, defaults, options);
-
             if ((options.isValid && _valid()) || !options.isValid) {
                 if (options.beforeSubmit === null || $.Nuoya.callFunction(options.beforeSubmit, options.params)) {
                     $form.ajaxForm();

@@ -127,12 +127,6 @@
                         required: true,
                         min: 0,
                         max: 99999999
-                    },
-                    OverTime: {
-                        required: true
-                    },
-                    OngoingTime: {
-                        required: true
                     }
                 },
                 messages: {
@@ -149,12 +143,6 @@
                         required: "不允许为空",
                         min: "最小金额{0}元",
                         max: "最大金额{0}元"
-                    },
-                    OverTime: {
-                        required: "不允许为空",
-                    },
-                    OngoingTime: {
-                        required: "不允许为空",
                     }
                 }
             });
@@ -262,11 +250,22 @@
                 buttons: [{
                     label: "保存",
                     callback: function (e) {
-
+                        if (!document.forms[0].OngoingTime.value) {
+                            $.Nuoya.alert("活动开始时间不能为空");
+                            return false;
+                        }
+                        if (!document.forms[0].OverTime.value) {
+                            $.Nuoya.alert("活动结束时间不能为空");
+                            return false;
+                        }
                         var ongoingTime = document.forms[0].OngoingTime.value;
                         var overTime = document.forms[0].OverTime.value;
                         if (ongoingTime > overTime) {
                             $.Nuoya.alert("开始时间必须小于结束时间");
+                            return false;
+                        }
+                        if (!document.forms[0].Image.value) {
+                            $.Nuoya.alert("请上传商品图片");
                             return false;
                         }
 
@@ -295,6 +294,7 @@
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
+                                    $("#searchDomain [name='CategoryId']").val("0");
                                     grid.reload();
                                 }
                                 else
@@ -342,6 +342,19 @@
                                 label: "保存",
                                 callback: function (e) {
 
+
+                                    if (!document.forms[0].Image.value) {
+                                        $.Nuoya.alert("请上传商品图片");
+                                        return false;
+                                    }
+                                    if (!document.forms[0].OngoingTime.value) {
+                                        $.Nuoya.alert("活动开始时间不能为空");
+                                        return false;
+                                    }
+                                    if (!document.forms[0].OverTime.value) {
+                                        $.Nuoya.alert("活动结束时间不能为空");
+                                        return false;
+                                    }
                                     var ongoingTime = document.forms[0].OngoingTime.value;
                                     var overTime = document.forms[0].OverTime.value;
                                     if (ongoingTime > overTime) {
@@ -378,6 +391,7 @@
                                         callback: function (data) {
                                             if (data.Result == "") {
                                                 e.hide();
+                                                $("#searchDomain [name='CategoryId']").val("");
                                                 grid.reload();
                                             }
                                             else

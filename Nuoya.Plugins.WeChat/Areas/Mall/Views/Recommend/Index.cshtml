@@ -88,6 +88,7 @@
                         maxlength: 64
                     },
                     Sort: {
+                        min:1,
                         required: true,
                         digits: true
                     },
@@ -106,6 +107,7 @@
                         maxlength: "最多{0}个字符"
                     },
                     Sort: {
+                        min: "最小为1",
                         required: "不允许为空",
                         digits: "请输入数字"
                     },
@@ -194,7 +196,7 @@
                             pageSize: 10,
                             events: [
                                 {
-                                    className: "am-text-secondary",
+                                    className: "am-text-danger",
                                     icon: "icon-pencil-square-o",
                                     name: "选择",
                                     click: function (item) {
@@ -236,7 +238,7 @@
                             pageSize: 10,
                             events: [
                                 {
-                                    className: "am-text-secondary",
+                                    className: "am-text-danger",
                                     icon: "icon-pencil-square-o",
                                     name: "选择",
                                     click: function (item) {

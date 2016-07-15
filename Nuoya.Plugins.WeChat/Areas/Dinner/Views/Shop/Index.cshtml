@@ -121,7 +121,7 @@
                 rules: {
                     Name: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 25
                     },
                     Account: {
                         maxlength: 12,
@@ -132,6 +132,7 @@
                         minlength: 6
                     },
                     Sort: {
+                        min:1,
                         required: true,
                         digits: true
                     },
@@ -140,6 +141,9 @@
                         maxlength: 11
                     },
                     Address: {
+                        maxlength: 100
+                    },
+                    Introduction: {
                         maxlength: 100
                     }
                 },
@@ -157,6 +161,7 @@
                         maxlength: "最多{0}个字符"
                     },
                     Sort: {
+                        min: "最小为1",
                         required: "不允许为空",
                         digits: "请输入数字"
                     },
@@ -165,6 +170,9 @@
                         maxlength: "最多{0}个字符"
                     },
                     Address: {
+                        maxlength: "最多{0}个字符"
+                    },
+                    Introduction: {
                         maxlength: "最多{0}个字符"
                     }
                 }

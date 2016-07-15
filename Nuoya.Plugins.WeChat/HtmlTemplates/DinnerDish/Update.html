@@ -9,7 +9,7 @@
                         菜品名称
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="Name" class="am-input-sm">
+                        <input type="text" name="Name" class="am-input-sm" maxlength="25">
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm"><strong class="am-text-danger am-text-sm">*</strong></strong>必填，不能超过25个字</div>
                 </div>
@@ -18,7 +18,7 @@
                         排序
                     </div>
                     <div class="am-u-md-3">
-                        <input type="number" name="Sort" class="am-input-sm" />
+                        <input type="number" name="Sort" class="am-input-sm"  min="1"/>
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>决定展示顺序，编号越小越靠前</div>
                 </div>
@@ -59,7 +59,7 @@
                         价格
                     </div>
                     <div class="am-u-md-3">
-                        <input type="number" name="Price" class="am-input-sm" />
+                        <input type="number" name="Price" class="am-input-sm"  min="0"/>
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong></div>
                 </div>
@@ -69,7 +69,7 @@
                         标签
                     </div>
                     <div class="am-u-md-3">
-                        <input type="text" name="Label" class="am-input-sm" />
+                        <input type="text" name="Label" class="am-input-sm" maxlength="100"/>
                     </div>
                     <div class="am-hide-sm-only am-u-md-6 am-text-left"></div>
                 </div>  
@@ -89,7 +89,7 @@
                         描述
                     </div>
                     <div class="am-u-md-5">
-                        <textarea name="Description" rows="7"></textarea>
+                        <textarea name="Description" rows="7" maxlength="500"></textarea>
                     </div>
                     <div class="am-hide-sm-only am-u-md-4 am-text-left"></div>
                 </div>

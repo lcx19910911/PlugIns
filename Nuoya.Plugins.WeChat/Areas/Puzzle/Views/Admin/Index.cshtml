@@ -104,9 +104,6 @@
                     OverTime: {
                         required: true
                     },
-                    Image: {
-                        required: true
-                    },
 
                     IsShowCompare: {
                         required: true
@@ -129,9 +126,6 @@
                         maxlength: "最多{0}个字符"
                     },
                     OngoingTime: {
-                        required: "不允许为空"
-                    },
-                    Image: {
                         required: "不允许为空"
                     },
                     IsShowCompare: {
@@ -260,6 +254,10 @@
                 buttons: [{
                     label: "保存",
                     callback: function (e) {
+                        if (!document.forms[0].Image.value) {
+                            $.Nuoya.alert("请上传图片");
+                            return false;
+                        }
 
                         var ongoingTime = document.forms[0].OngoingTime.value;
                         var overTime = document.forms[0].OverTime.value;
@@ -374,6 +372,11 @@
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
+
+                                    if (!document.forms[0].Image.value) {
+                                        $.Nuoya.alert("请上传图片");
+                                        return false;
+                                    }
 
                                     var ongoingTime = document.forms[0].OngoingTime.value;
                                     var overTime = document.forms[0].OverTime.value;

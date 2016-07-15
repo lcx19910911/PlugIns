@@ -272,10 +272,8 @@
                                             $("#sncode").html(model.SN);
                                             alert("SN为兑奖唯一凭证，请妥善保存");
                                         }
-                                        else {
-                                            $("#rePrizeDiv").slideToggle(500);
-                                            // $("#userInfoDiv").hide();
-                                        }
+
+                                        $("#rePrizeDiv").show();
                                         $("#prizeResultDiv").slideToggle(500);
                                         $("#theAward").html(model.Result);
                                         $("#prizeDiv").html(model.Result);

@@ -108,9 +108,10 @@
                 rules: {
                     Name: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 25
                     },
                     Sort: {
+                        min:1,
                         required: true,
                         digits: true
                     },
@@ -122,9 +123,6 @@
                     Label: {
                         maxlength: 100
                     },
-                    Image: {
-                        required: true
-                    },
                     Description: {
                         maxlength: 500
                     }
@@ -135,6 +133,7 @@
                         maxlength: "最多{0}个字符"
                     },
                     Sort: {
+                        min: "最小为1",
                         required: "不允许为空",
                         digits: "请输入数字"
                     },
@@ -145,9 +144,6 @@
                     },
                     Label: {
                         maxlength: "最多{0}个字符"
-                    },
-                    Image: {
-                        required: "不允许为空",
                     },
                     Description: {
                         maxlength: "最多{0}个字符"
@@ -209,11 +205,16 @@
                             document.forms[0].State.value = "0";
                         }
 
+                        if (!document.forms[0].Image.value) {
+                            $.Nuoya.alert("请上传图片");
+                            return false;
+                        }
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/Dinner/Dish/Add",
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
+                                    $("#searchDomain [name='CategoryId']").val("");
                                     grid.reload();
                                 }
                                 else
@@ -268,6 +269,10 @@
                                         document.forms[0].State.value = "0";
                                     }
 
+                                    if (!document.forms[0].Image.value) {
+                                        $.Nuoya.alert("请上传图片");
+                                        return false;
+                                    }
                                     $.Nuoya.form("form").ajaxSubmit({
                                         ajaxUrl: "/Dinner/Dish/Update",
                                         params: {
@@ -276,6 +281,7 @@
                                         callback: function (data) {
                                             if (data.Result == "") {
                                                 e.hide();
+                                                $("#searchDomain [name='CategoryId']").val("");
                                                 grid.reload();
                                             }
                                             else

@@ -6,18 +6,25 @@
         <div class="am-tabs am-margin" data-am-tabs="">
             <ul class="am-tabs-nav am-nav am-nav-tabs" id="selectTabUl">
                 <li class="am-active"><a href="#tab1">基本信息</a></li>
-                <li class=""><a href="#tab2">商品图片</a></li>
+                <li class=""><a href="#tab2">商品详情</a></li>
             </ul>
             <div class="am-tabs-bd" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);overflow-x:hidden">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-md-3">
+                        </div>
+                        <div class="am-u-md-9 am-text-left">
+                            <small><strong class="am-text-danger am-text-sm">商品详情页面上传商品的详情图片</strong></small>
+                        </div>
+                    </div>
                     <div class="am-g am-margin-top">
                         <div class="am-u-md-3 am-text-right">
                             商品名称
                         </div>
                         <div class="am-u-md-5">
-                            <input type="text" name="Name" class="am-input-sm">
+                            <input type="text" name="Name" class="am-input-sm" maxlength="50">
                         </div>
-                        <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过64个字</div>
+                        <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过50个字</div>
                     </div>
                     <div class="am-g am-margin-top">
                         <div class="am-u-md-3 am-text-right">
@@ -53,12 +60,12 @@
                         <div class="am-u-md-3 am-text-right">
                             活动时间
                         </div>
-                        <div class="am-u-md-6">
+                        <div class="am-u-md-4">
                             <input type="text" name="OngoingTime" style="width:170px;float:left;"  readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" datatype="jsondate" />
                             <label class="am-u-md-1 am-text-left">-</label>
                             <input type="text" name="OverTime" style="width:170px;float:left;"   readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" datatype="jsondate" />
                         </div>
-                        <div class="am-hide-sm-only am-u-md-3 am-text-left"></div>
+                        <div class="am-hide-sm-only am-u-md-5 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，开始时间必须大于当前时间</div>
                     </div>
 
 
@@ -77,7 +84,7 @@
                             库存数量
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="StockNum" class="am-input-sm">
+                            <input type="number" name="StockNum" class="am-input-sm" min="1">
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填</div>
                     </div>
@@ -88,7 +95,7 @@
                             原价
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="OriginalPrice" class="am-input-sm">
+                            <input type="number" name="OriginalPrice" class="am-input-sm" min="0">
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填</div>
                     </div>
@@ -99,7 +106,7 @@
                             销售价
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="SellingPrice" class="am-input-sm">
+                            <input type="number" name="SellingPrice" class="am-input-sm" min="0">
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填</div>
                     </div>
@@ -109,7 +116,7 @@
                             需要积分
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="ScoreNum" class="am-input-sm" >
+                            <input type="number" name="ScoreNum" class="am-input-sm" min="0">
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填</div>
                     </div>

@@ -94,12 +94,6 @@
                         required: true,
                         maxlength: 64
                     },
-                    OngoingTime: {
-                        required: true
-                    },
-                    OverTime: {
-                        required: true
-                    },
                     RepeatNotice: {
                         required: true,
                         maxlength: 64
@@ -108,9 +102,6 @@
                         required: true,
                         maxlength: 64
                     },
-                    PreheatingImage: {
-                        required: true
-                    },
                     PreheatingDescribe: {
                         maxlength: 2000
                     },
@@ -118,18 +109,12 @@
                         required: true,
                         maxlength: 64
                     },
-                    OngoingImage: {
-                        required: true
-                    },
                     OngoingDescribe: {
                         maxlength: 2000
                     },
                     OverTitle: {
                         required: true,
                         maxlength: 64
-                    },
-                    OverImage: {
-                        required: true
                     },
                     OverDescribe: {
                         maxlength: 2000
@@ -149,7 +134,8 @@
                     },
                     DayLimt: {
                         required: true,
-                        digits: true
+                        digits: true,
+                        min:1
                     },
                     AllCountLimt: {
                         required: true,
@@ -177,19 +163,14 @@
                     },
                     ExpectedPeopleCount: {
                         required: true,
-                        digits: true
+                        digits: true,
+                        min:3
                     }
                 },
                 messages: {
                     Name: {
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
-                    },
-                    OngoingTime: {
-                        required: "不允许为空"
-                    },
-                    OverTime: {
-                        required: "不允许为空"
                     },
                     RepeatNotice: {
                         required: "不允许为空",
@@ -199,9 +180,6 @@
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
                     },
-                    PreheatingImage: {
-                        required: "不允许为空"
-                    },
                     PreheatingDescribe: {
                         maxlength: "最多{0}个字符"
                     },
@@ -209,18 +187,12 @@
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
                     },
-                    OngoingImage: {
-                        required: "不允许为空"
-                    },
                     OngoingDescribe: {
                         maxlength: "最多{0}个字符"
                     },
                     OverTitle: {
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
-                    },
-                    OverImage: {
-                        required: "不允许为空"
                     },
                     OverDescribe: {
                         maxlength: "最多{0}个字符"
@@ -238,7 +210,6 @@
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
                     },
-
 
                     DayLimt: {
                         required: "不允许为空",
@@ -271,7 +242,8 @@
                     },
                     ExpectedPeopleCount: {
                         required: "不允许为空",
-                        digits: "请输入数字"
+                        digits: "请输入数字",
+                        min: "必须大于{0}"
                     }
                 }
             });
@@ -376,6 +348,29 @@
                 buttons: [{
                     label: "保存",
                     callback: function (e) {
+                        if (!document.forms[0].OngoingTime.value) {
+                            $.Nuoya.alert("活动开始时间不能为空");
+                            return false;
+                        }
+                        if (!document.forms[0].OverTime.value) {
+                            $.Nuoya.alert("活动结束时间不能为空");
+                            return false;
+                        }
+                        if (!document.forms[0].PreheatingImage.value) {
+                            $.Nuoya.alert("请上传预热图片");
+                            return false;
+                        }
+
+                        if (!document.forms[0].OngoingImage.value) {
+                            $.Nuoya.alert("请上传活动中图片");
+                            return false;
+                        }
+
+                        if (!document.forms[0].OverImage.value) {
+                            $.Nuoya.alert("请上传活动结束图片");
+                            return false;
+                        }
+
 
                         var ongoingTime = document.forms[0].OngoingTime.value;
                         var overTime = document.forms[0].OverTime.value;
@@ -476,6 +471,29 @@
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
+                                    if (!document.forms[0].OngoingTime.value) {
+                                        $.Nuoya.alert("活动开始时间不能为空");
+                                        return false;
+                                    }
+                                    if (!document.forms[0].OverTime.value) {
+                                        $.Nuoya.alert("活动结束时间不能为空");
+                                        return false;
+                                    }
+
+                                    if (!document.forms[0].PreheatingImage.value) {
+                                        $.Nuoya.alert("请上传预热图片");
+                                        return false;
+                                    }
+
+                                    if (!document.forms[0].OngoingImage.value) {
+                                        $.Nuoya.alert("请上传活动中图片");
+                                        return false;
+                                    }
+
+                                    if (!document.forms[0].OverImage.value) {
+                                        $.Nuoya.alert("请上传活动结束图片");
+                                        return false;
+                                    }
 
                                     var ongoingTime = document.forms[0].OngoingTime.value;
                                     var overTime = document.forms[0].OverTime.value;

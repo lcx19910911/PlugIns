@@ -13,28 +13,21 @@
                             活动名称
                         </div>
                         <div class="am-u-md-5">
-                            <input type="text" name="Name" class="am-input-sm">
+                            <input type="text" name="Name" class="am-input-sm" maxlength="64">
                         </div>
                         <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过64个字</div>
-                    </div>
-                    <div class="am-g am-margin-top">
-                        <div class="am-u-md-3">
-                        </div>
-                        <div class="am-u-md-9 am-text-left">
-                            <small><strong class="am-text-danger am-text-sm">*</strong>必填，活动在启动前10分钟进入预热</small>
-                        </div>
                     </div>
 
                     <div class="am-g am-margin-top">
                         <div class="am-u-md-3 am-text-right">
                             活动时间
                         </div>
-                        <div class="am-u-md-6">
+                        <div class="am-u-md-5">
                             <input type="text" name="OngoingTime" style="width:170px;float:left;"  readonly onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" datatype="jsondate" />
                             <label class="am-u-md-1 am-text-left">-</label>
                             <input type="text" name="OverTime" style="width:170px;float:left;"   readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" datatype="jsondate" />
                         </div>
-                        <div class="am-hide-sm-only am-u-md-3 am-text-left"></div>
+                        <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，活动在启动前10分钟进入预热</div>
                     </div>
 
                     <div class="am-g am-margin-top">
@@ -42,7 +35,7 @@
                             重复抽奖提示
                         </div>
                         <div class="am-u-md-5">
-                            <input type="text" name="RepeatNotice" class="am-input-sm">
+                            <input type="text" name="RepeatNotice" class="am-input-sm" maxlength="64">
                         </div>
                         <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过64个字</div>
                     </div>
@@ -74,7 +67,7 @@
                                     活动预热标题
                                 </div>
                                 <div class="am-u-md-5">
-                                    <input type="text" name="PreheatingTitle" class="am-input-sm">
+                                    <input type="text" name="PreheatingTitle" class="am-input-sm" maxlength="64">
                                 </div>
                                 <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，活动预热说明，活动开始前十分钟进行预热,不能超过64个字</div>
                             </div>
@@ -94,7 +87,7 @@
                                     预热描述
                                 </div>
                                 <div class="am-u-md-9 am-text-left">
-                                    <textarea name="PreheatingDescribe" rows="7"></textarea>
+                                    <textarea name="PreheatingDescribe" rows="7" maxlength="2000"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +120,7 @@
                                     开始抽奖标题
                                 </div>
                                 <div class="am-u-md-5">
-                                    <input type="text" name="OngoingTitle" class="am-input-sm">
+                                    <input type="text" name="OngoingTitle" class="am-input-sm" maxlength="64">
                                 </div>
                                 <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过64个字</div>
                             </div>
@@ -147,7 +140,7 @@
                                     兑奖说明
                                 </div>
                                 <div class="am-u-md-9 am-text-left">
-                                    <textarea name="OngoingDescribe" rows="7"></textarea>
+                                    <textarea name="OngoingDescribe" rows="7" maxlength="2000"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +173,7 @@
                                     发放完毕通知主题
                                 </div>
                                 <div class="am-u-md-5">
-                                    <input type="text" name="OverTitle" class="am-input-sm">
+                                    <input type="text" name="OverTitle" class="am-input-sm" maxlength="64">
                                 </div>
                                 <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过64个字</div>
                             </div>
@@ -200,7 +193,7 @@
                                     发放完毕通知内容
                                 </div>
                                 <div class="am-u-md-9 am-text-left">
-                                    <textarea name="OverDescribe" rows="7"></textarea>
+                                    <textarea name="OverDescribe" rows="7" maxlength="2000"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +208,7 @@
                             一等奖奖品
                         </div>
                         <div class="am-u-md-3">
-                            <input type="text" name="OnePrize" class="am-input-sm">
+                            <input type="text" name="OnePrize" class="am-input-sm" maxlength="64">
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm"><strong class="am-text-danger am-text-sm">*</strong></strong>必填，不能超过50个字</div>
                     </div>
@@ -224,7 +217,7 @@
                             一等奖奖品数
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="OnePrizeCount" class="am-input-sm" />
+                            <input type="number" name="OnePrizeCount" class="am-input-sm" min="1"/>
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，首次设置后不能修改，数量必须是大于1且小于5000</div>
                     </div>
@@ -234,7 +227,7 @@
                             二等奖奖品
                         </div>
                         <div class="am-u-md-3">
-                            <input type="text" name="TwoPrize" class="am-input-sm">
+                            <input type="text" name="TwoPrize" class="am-input-sm" maxlength="64">
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过50个字</div>
                     </div>
@@ -243,7 +236,7 @@
                             二等奖奖品数量
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="TwoPrizeCount" class="am-input-sm" />
+                            <input type="number" name="TwoPrizeCount" class="am-input-sm" min="1"/>
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，首次设置后不能修改，数量必须是大于1且小于5000</div>
                     </div>
@@ -253,7 +246,7 @@
                             三等奖奖品
                         </div>
                         <div class="am-u-md-3">
-                            <input type="text" name="ThreePrize" class="am-input-sm">
+                            <input type="text" name="ThreePrize" class="am-input-sm" maxlength="64">
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，不能超过50个字</div>
                     </div>
@@ -262,7 +255,7 @@
                             三等奖奖品数量
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="ThreePrizeCount" class="am-input-sm" />
+                            <input type="number" name="ThreePrizeCount" class="am-input-sm" min="1"/>
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填，首次设置后不能修改，数量必须是大于1且小于5000</div>
                     </div>
@@ -272,7 +265,7 @@
                             预计参与人数量
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="ExpectedPeopleCount" class="am-input-sm" />
+                            <input type="number" name="ExpectedPeopleCount" class="am-input-sm" min="3"/>
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填 ，须大于奖品的总数.中奖概率为（奖品总数除预计参与人数）</div>
                     </div>
@@ -293,7 +286,7 @@
                             每天每人刮奖次数
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="DayLimt" class="am-input-sm" />
+                            <input type="number" name="DayLimt" class="am-input-sm" min="1"/>
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填 ，数量必须是大于1且小于100000</div>
                     </div>
@@ -302,7 +295,7 @@
                             每人总计次数限制
                         </div>
                         <div class="am-u-md-3">
-                            <input type="number" name="AllCountLimt" class="am-input-sm" />
+                            <input type="number" name="AllCountLimt" class="am-input-sm" min="1"/>
                         </div>
                         <div class="am-hide-sm-only am-u-md-6 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>必填 ，数量必须是大于1且不能大于每人可以参与刮奖的总次数</div>
                     </div>

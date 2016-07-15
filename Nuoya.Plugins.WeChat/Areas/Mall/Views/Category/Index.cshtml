@@ -84,12 +84,10 @@
                 rules: {
                     Name: {
                         required: true,
-                        maxlength: 50
-                    },
-                    Image: {
-                        required: true
+                        maxlength: 25
                     },
                     Sort: {
+                        min:1,
                         required: true,
                         digits: true
                     }
@@ -100,11 +98,9 @@
                         maxlength: "最多{0}个字符"
                     },
                     Sort: {
+                        min: "最小为1",
                         required: "不允许为空",
                         digits: "请输入数字"
-                    },
-                    Image: {
-                        required: "不允许为空"
                     }
                 }
             });
@@ -154,6 +150,10 @@
                 buttons: [{
                     label: "保存",
                     callback: function (e) {
+                        if (!document.forms[0].Image.value) {
+                            $.Nuoya.alert("请上传图片");
+                            return false;
+                        }
 
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/Mall/Category/Add",
@@ -206,7 +206,10 @@
                             buttons: [{
                                 label: "保存",
                                 callback: function (e) {
-
+                                    if (!document.forms[0].Image.value) {
+                                        $.Nuoya.alert("请上传图片");
+                                        return false;
+                                    }
                                     $.Nuoya.form("form").ajaxSubmit({
                                         ajaxUrl: "/Mall/Category/Update",
                                         params: {
