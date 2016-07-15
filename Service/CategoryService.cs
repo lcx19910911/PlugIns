@@ -48,7 +48,7 @@ namespace Service
 
                 var list = new List<Category>();
                 var count = query.Count();
-                query.OrderByDescending(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
+                query.OrderBy(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
                     {
@@ -242,7 +242,7 @@ namespace Service
             {
                 var query = entities.Category.AsQueryable().Where(x => x.PersonId.Equals(Client.LoginUser.UNID));
                 if (name.IsNotNullOrEmpty())
-                {
+                { 
                     query = query.Where(x => x.Name.Contains(name));
                 }
                 if (isRecommand)
@@ -252,7 +252,7 @@ namespace Service
                 }
                 var list = new List<Category>();
                 var count = query.Count();
-                query.OrderByDescending(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
+                query.OrderBy(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList().ForEach(x =>
                 {
                     if (x != null)
                     {

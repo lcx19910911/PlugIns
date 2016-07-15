@@ -198,6 +198,10 @@
                     label: "保存",
                     callback: function (e) {
 
+                        if (!document.forms[0].Image.value) {
+                            $.Nuoya.alert("请上传图片");
+                            return false;
+                        }
                         if (document.getElementById('chk_state').checked) {
                             document.forms[0].State.value = "1";
                         }
@@ -205,10 +209,6 @@
                             document.forms[0].State.value = "0";
                         }
 
-                        if (!document.forms[0].Image.value) {
-                            $.Nuoya.alert("请上传图片");
-                            return false;
-                        }
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/Dinner/Dish/Add",
                             callback: function (data) {
@@ -262,6 +262,10 @@
                                 label: "保存",
                                 callback: function (e) {
 
+                                    if (!document.forms[0].Image.value) {
+                                        $.Nuoya.alert("请上传图片");
+                                        return false;
+                                    }
                                     if (document.getElementById('chk_state').checked) {
                                         document.forms[0].State.value = "1";
                                     }
@@ -269,10 +273,6 @@
                                         document.forms[0].State.value = "0";
                                     }
 
-                                    if (!document.forms[0].Image.value) {
-                                        $.Nuoya.alert("请上传图片");
-                                        return false;
-                                    }
                                     $.Nuoya.form("form").ajaxSubmit({
                                         ajaxUrl: "/Dinner/Dish/Update",
                                         params: {

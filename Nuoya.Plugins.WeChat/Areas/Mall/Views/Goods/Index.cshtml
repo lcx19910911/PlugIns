@@ -67,6 +67,7 @@
 
         function ClearFilter() {
             $("#searchDomain input").val("");
+            $('#searchDomain select').find('option').eq(0).attr('selected', true);
         }
 
         //批量删除
@@ -261,7 +262,7 @@
                         var ongoingTime = document.forms[0].OngoingTime.value;
                         var overTime = document.forms[0].OverTime.value;
                         if (ongoingTime > overTime) {
-                            $.Nuoya.alert("开始时间必须小于结束时间");
+                            $.Nuoya.alert("活动开始时间必须小于结束时间");
                             return false;
                         }
                         if (!document.forms[0].Image.value) {
@@ -294,7 +295,7 @@
                             callback: function (data) {
                                 if (data.Result == "") {
                                     e.hide();
-                                    $("#searchDomain [name='CategoryId']").val("0");
+                                    $('#searchDomain select').find('option').eq(0).attr('selected', true);
                                     grid.reload();
                                 }
                                 else
@@ -343,10 +344,7 @@
                                 callback: function (e) {
 
 
-                                    if (!document.forms[0].Image.value) {
-                                        $.Nuoya.alert("请上传商品图片");
-                                        return false;
-                                    }
+
                                     if (!document.forms[0].OngoingTime.value) {
                                         $.Nuoya.alert("活动开始时间不能为空");
                                         return false;
@@ -358,10 +356,13 @@
                                     var ongoingTime = document.forms[0].OngoingTime.value;
                                     var overTime = document.forms[0].OverTime.value;
                                     if (ongoingTime > overTime) {
-                                        $.Nuoya.alert("开始时间必须小于结束时间");
+                                        $.Nuoya.alert("活动开始时间必须小于结束时间");
                                         return false;
                                     }
-
+                                    if (!document.forms[0].Image.value) {
+                                        $.Nuoya.alert("请上传商品图片");
+                                        return false;
+                                    }
 
                                     if (document.getElementById('chk_state').checked) {
                                         document.forms[0].State.value = "1";
@@ -391,7 +392,7 @@
                                         callback: function (data) {
                                             if (data.Result == "") {
                                                 e.hide();
-                                                $("#searchDomain [name='CategoryId']").val("");
+                                                $('#searchDomain select').find('option').eq(0).attr('selected', true);
                                                 grid.reload();
                                             }
                                             else

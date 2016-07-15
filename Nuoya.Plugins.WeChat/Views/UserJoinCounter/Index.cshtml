@@ -78,8 +78,7 @@
 
         function ClearFilter() {
             $("#searchDomain input").val("");
-            $("select[name='targetCode']").val("0");
-            $("select[name='prizeType']").val("0");
+            $('#searchDomain select').find('option').eq(0).attr('selected', true);
         }
 
         var grid = $.Nuoya.grid({

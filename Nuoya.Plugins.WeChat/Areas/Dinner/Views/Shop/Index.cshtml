@@ -228,10 +228,14 @@
                         var startTime = document.forms[0].StartShoptime.value;
                         var overTime = document.forms[0].EndShoptime.value;
                         if (startTime > overTime) {
-                            $.Nuoya.alert("开始时间必须小于结束时间");
+                            $.Nuoya.alert("营业开始时间必须小于结束时间");
                             return false;
                         }
 
+                        if (!document.forms[0].Image.value) {
+                            $.Nuoya.alert("请上传图片");
+                            return false;
+                        }
                         $.Nuoya.form("form").ajaxSubmit({
                             ajaxUrl: "/Dinner/Shop/Add",
                             callback: function (data) {
@@ -289,10 +293,14 @@
                                     var startTime = document.forms[0].StartShoptime.value;
                                     var overTime = document.forms[0].EndShoptime.value;
                                     if (startTime > overTime) {
-                                        $.Nuoya.alert("开始时间必须小于结束时间");
+                                        $.Nuoya.alert("营业开始时间必须小于结束时间");
                                         return false;
                                     }
 
+                                    if (!document.forms[0].Image.value) {
+                                        $.Nuoya.alert("请上传图片");
+                                        return false;
+                                    }
                                     $.Nuoya.form("form").ajaxSubmit({
                                         ajaxUrl: "/Dinner/Shop/Update",
                                         params: {
